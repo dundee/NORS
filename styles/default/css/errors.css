@@ -1,0 +1,65 @@
+@import "basics.css";
+
+body{
+   background: #000;
+   color: #FFF;
+   margin: 0px;
+   padding: 0px;
+   text-align: center;
+   font: normal 1em Verdana,'Trebuchet MS',sans-serif;
+   line-height: 1.6em;
+}
+
+h1{
+  text-align:center;
+  color: #EA2010;
+  margin:0px auto 0px auto;
+  font-size:1.5em;
+}
+
+#message{
+	width: 600px;
+	background: #000;
+	min-height: 300px;
+	margin: 100px auto;
+	padding: 20px 20px 30px 20px;
+	border: 1px solid #fff;
+	position: relative;
+}
+
+* html #message{
+	height: 300px;
+}
+
+#footer{
+	position: absolute;
+	bottom: 5px;
+	margin-top: 30px;
+	left: 20px;
+	color: #79C900;
+	font: normal 0.7em Verdana, Arial, sans-serif;
+}
+
+a{
+	color: #FA8700;
+}
+
+code{
+	display: block;
+	text-align: left;
+	padding: 10px;
+	font-size: 0.8em;
+	border: 1px dotted #fff;
+	white-space: pre;
+	overflow: auto;
+}
+
+.errline{
+	background: #00f;
+}
+
+.gray{
+	color: #999;
+	padding-right: 5px;
+	border-right: 1px solid #999;
+}

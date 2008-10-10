@@ -1,0 +1,208 @@
+/* formulare */
+
+fieldset{
+  border-color:#BBB;
+  border-style:double;
+  border-width:4px 1px 2px 1px;
+  padding:10px;
+  text-align:left;
+  width: 90%;
+  margin: auto;
+  font-size: 0.9em;
+}
+
+legend{
+  color: #a60000;
+  text-align:center;
+  font-weight:bold;
+  margin-bottom: 0.1em;
+  padding: 0px 5px;
+}
+
+fieldset input,fieldset select{
+  float:left;
+  border: 1px solid #BBB;
+  width: 260px;
+  height: 20px;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+fieldset button{
+	float: left;
+}
+
+input:active,input:focus{
+	background: #DDD;
+}
+
+fieldset label{
+  width:10em;
+  float:left;
+  clear:both;
+  text-align:right;
+  margin-right:1em;
+}
+
+fieldset a.help{
+  float:left;
+  text-decoration:none;
+  color:#f00;
+}
+
+fieldset .center{
+  text-align:center;
+  width:100%;
+  float:left;
+  clear:both;
+}
+
+fieldset textarea{
+  clear:left;
+  width:600px;
+  height:200px;
+  border: 1px solid #BBB;
+  margin:10px 30px;
+  text-align:left;
+}
+
+.div_text{
+  text-align:center;
+  width:700px;
+  margin:10px auto;
+  float:left;
+  clear:both;
+}
+
+.tag{
+  text-decoration:none;
+  color:#000;
+  background:#C0C0C0;
+  border: 1px solid #999;
+  padding:3px;
+  margin-right:5px;
+}
+
+.tag:hover{
+  background:#DFDFDF;
+}
+
+.tags{
+	clear: both;
+	padding-top: 10px;
+}
+
+fieldset input.submit{
+  margin-top:10px;
+  margin-left: 50px;
+  font-weight:bold;
+  float:left;
+  clear: both;
+}
+
+fieldset input.submit_file{
+	clear: both;
+	float: right;
+	position:relative;
+	top: 60px;
+	margin-right: 250px;
+	width: 100px;
+	height: 50px;
+}
+
+input.required, select.required{
+	background: #FFD0E0;
+}
+
+input.focused, select.focused{
+	background: #FFE060;
+}
+
+.submit:hover{
+  background:#DFDFDF;
+}
+
+.komentar .autor{
+  font:bold 0.8em Verdana,Arial,sans-serif;
+  background:rgb(203,226,243);
+}
+.autor a{
+  font-size:1.1em;
+  color: rgb(36,111,166);
+}
+
+.komentar{
+  padding:0px;
+  margin:0px;
+  margin-bottom:15px;
+  background:rgb(232,230,164);
+  width:690px;
+}
+
+* html .komentar{
+  width:685px;
+}
+
+.komentar div{
+  padding:5px;
+  color:#000;
+}
+
+.odpoved{
+  border-top:1px dotted rgb(194,194,192);
+  background:#fff;
+  margin:-5px;
+}
+
+.reakce{
+  /*float:left;
+  clear:left;*/
+  line-height:1.1em;
+}
+
+fieldset .thubnails{
+	clear: both;
+	/*margin: 0 0 0 100px;*/
+}
+
+.filemanager{
+	padding: 10px;
+	margin: 20px 50px 10px 50px;
+	border: 1px dotted #CCC;
+	clear: both;
+	float: left;
+	width: 900px;
+	font-size: 0.8em;
+}
+
+.filemanager .thubnails .file .delete_file{
+	color: #a60000;
+}
+
+.file{
+	width: 100px;
+	padding: 5px;
+	float: left;
+	text-align: center;
+	border: 1px solid #949494;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.label{
+	width: 100px;
+}
+
+.kategorie_foto{
+	width: 100px;
+}
+
+.delete_file{
+	color: #f00;
+	font-weight: bold;
+}
+
+#popup{
+	display: none;	
+}
+/* end formulare */

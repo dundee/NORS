@@ -1,0 +1,28 @@
+/*
+  Velma
+  -----------------------
+  Author: munio webdesign
+  URL: http://munio.cz/
+*/
+
+
+* 						{ color: #000; margin: 0; }
+
+#menu, #flag, .noprint 	{ display: none; }
+#header 				{ display: inline; background: none; margin-bottom: 10pt; font-size: 16pt; height: 20pt; line-height: 20pt; display: block; }
+
+h1 						{ font-size: 16pt; margin-bottom: 10pt; }
+h2 						{ font-size: 13pt; margin-bottom: 10pt; }
+h3 						{ font-size: 11pt; margin-bottom: 10pt; }
+p 						{ font-size: 11pt; margin-bottom: 10pt; line-height: 13pt; }
+ul 						{ margin: 0 0 10pt 20pt; }
+li 						{ font-size: 11pt; line-height: 13pt; }
+strong 					{ font-weight: bold; }
+a 						{ color: #00F; text-decoration: underline; font-weight: bold; }
+a img 					{ border: none; }
+
+table 					{ width: 100%; margin-bottom: 10pt; }
+tr 						{ font-size: 11pt; }
+th 						{ border-right: 1px solid #000; border-bottom: 1px solid #000; font-weight: bold; text-align:center; }
+td 						{ border-right: 1px solid #000; border-bottom: 1px solid #000; }
+hr 						{ margin: 10pt 0; }

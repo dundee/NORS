@@ -1,0 +1,65 @@
+body {
+	font: 70%/140% "Arial CE", Arial, Helvetica, sans-serif;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	color: #333333;
+	background: #EEEEEE;
+}
+h1 {
+	font-family: "Times CE", "Times New Roman CE", "Times New Roman", serif;
+	padding:0;
+	background:rgb(226,234,235) top right no-repeat; 
+	position: relative;
+	/*overflow: hidden;*/
+	text-align:center;
+	font-size:5em;
+}
+/*h1 a{
+  width: 612px;
+	height: 84px;
+	display:block;
+}
+h1 span {
+	display: none;
+	width: 190px;
+	height: 60px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}*/
+h2, h3 {
+	margin: 1.2em 0 0 0;
+	padding: 0;
+}
+h2 {
+	font: 180% "Times CE", "Times New Roman CE", "Times New Roman", serif;
+	color: #E20074;
+}
+h3 {
+	font: bold 110% "Arial CE", Arial, Helvetica, sans-serif;
+}
+hr {
+	display: block;
+	border: solid silver;
+	border-width: 1px 0 0 0;
+	height: 1px;
+	overflow: hidden;
+	margin: .6em 0;
+	padding: 0;
+}
+p {
+	margin: .6em 0 1.2em 0;
+	padding: 0;
+}
+span, img, a {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+a:link, a:visited {background-color: transparent; color: #3366CC}
+a:active, a:link:hover {background-color: transparent; color: #FF0000}
+
+#content {
+	margin-left: 35px;
+}

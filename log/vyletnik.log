@@ -1,0 +1,129 @@
+[2008-09-23 21:11:12] activeRecords_Town
+[2008-09-23 21:11:15] activeRecords_Town
+[2008-09-23 21:11:15] activeRecords_Town
+[2008-09-23 21:11:16] activeRecords_Town
+[2008-09-23 21:11:16] activeRecords_Town
+[2008-09-23 21:11:16] activeRecords_Town
+[2008-09-23 21:11:17] activeRecords_Town
+[2008-09-23 21:11:17] activeRecords_Town
+[2008-09-23 21:11:17] activeRecords_Town
+[2008-09-23 21:11:17] activeRecords_Town
+[2008-09-23 21:11:17] activeRecords_Town
+[2008-09-23 21:11:17] activeRecords_Town
+[2008-09-23 21:11:18] activeRecords_Town
+[2008-09-23 21:11:18] activeRecords_Town
+[2008-09-23 21:11:18] activeRecords_Town
+[2008-09-23 21:11:18] activeRecords_Town
+[2008-09-23 21:11:18] activeRecords_Town
+[2008-09-23 21:11:18] activeRecords_Town
+[2008-09-30 19:40:53] activeRecords_Town
+[2008-09-30 19:40:55] activeRecords_Town
+[2008-09-30 19:41:39] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 19:42:18] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 19:42:19] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 19:42:19] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 19:42:20] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:09:32] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:09:34] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:28] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:28] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:29] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:29] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:30] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:54] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:10:55] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:11:17] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:11:32] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:12:16] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:12:20] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:12:32] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:48:48] [WARNING]  session_start() [function.session-start]: Cannot send session cache limiter - headers already sent (output started at /home/dundee/workspace/nors4/Core/Debug.php:86) in /home/dundee/workspace/nors4/Core/Session.php at line 38.
+[2008-09-30 20:49:46] [WARNING]  session_start() [function.session-start]: Cannot send session cache limiter - headers already sent (output started at /home/dundee/workspace/nors4/Core/Debug.php:86) in /home/dundee/workspace/nors4/Core/Session.php at line 38.
+[2008-09-30 20:50:01] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:50:04] [NOTICE]  Undefined variable: x in /home/dundee/workspace/nors4/modules/Administration.php at line 63.
+[2008-09-30 20:52:43] [NOTICE]  Undefined variable: submenu in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:03:53] [NOTICE]  Undefined variable: submenu in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:03:55] [NOTICE]  Undefined variable: submenu in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:05:09] [NOTICE]  Undefined variable: submenu in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:08:15] [NOTICE]  Undefined variable: subselected in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:08:16] [NOTICE]  Undefined variable: subselected in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:08:16] [NOTICE]  Undefined variable: subselected in /home/dundee/workspace/nors4/tpl/admin_list.tpl.php at line 12.
+[2008-09-30 21:17:40] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:09] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:12] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:12] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:13] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:13] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:14] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:14] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:42] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:42] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:43] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:43] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:43] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:18:44] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			        FROM ``
+			        WHERE `id_` = '1' LIMIT 1 in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 253.
+[2008-09-30 21:25:33] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/tpl/layout/footer_admin.tpl.php:3) in /home/dundee/workspace/nors4/Core/Debug.php at line 203.
+[2008-09-30 21:25:45] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/tpl/layout/footer_admin.tpl.php:3) in /home/dundee/workspace/nors4/Core/Debug.php at line 203.
+[2008-09-30 21:25:49] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/tpl/layout/footer_admin.tpl.php:3) in /home/dundee/workspace/nors4/Core/Debug.php at line 203.
+[2008-09-30 21:26:02] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/tpl/layout/footer_admin.tpl.php:3) in /home/dundee/workspace/nors4/Core/Debug.php at line 203.
+[2008-09-30 21:26:58] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT count(*) AS count
+		        FROM ``
+		         in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 372.
+[2008-09-30 21:36:27] [NOTICE]  Use of undefined constant self - assumed 'self' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 65.
+[2008-09-30 21:38:17] [NOTICE]  Indirect modification of overloaded property ActiveRecord_User::$data has no effect in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 232.
+[2008-09-30 21:54:45] Core_activeRecords_User
+[2008-09-30 22:53:38] [NOTICE]  Undefined variable: doctype in /home/dundee/workspace/nors4/tpl/layout/header.tpl.php at line 12.
+[2008-09-30 22:54:28] [NOTICE]  Undefined variable: doctype in /home/dundee/workspace/nors4/tpl/layout/header.tpl.php at line 12.
+[2008-09-30 22:55:16] [NOTICE]  Undefined variable: doctype in /home/dundee/workspace/nors4/tpl/layout/header.tpl.php at line 12.
+[2008-09-30 22:55:55] [NOTICE]  Undefined variable: doctype in /home/dundee/workspace/nors4/tpl/layout/header.tpl.php at line 12.
+[2008-09-30 22:55:57] [NOTICE]  Undefined variable: doctype in /home/dundee/workspace/nors4/tpl/layout/header.tpl.php at line 12.
+[2008-09-30 22:56:49] [NOTICE]  Undefined variable: doctype in /home/dundee/workspace/nors4/tpl/layout/header.tpl.php at line 12.
+[2008-09-30 22:57:41] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/Core/ActiveRecord.php:270) in /home/dundee/workspace/nors4/components/Login.php at line 47.
+[2008-09-30 22:57:53] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/Core/ActiveRecord.php:270) in /home/dundee/workspace/nors4/components/Login.php at line 47.
+[2008-09-30 22:57:55] [WARNING]  Cannot modify header information - headers already sent by (output started at /home/dundee/workspace/nors4/Core/ActiveRecord.php:270) in /home/dundee/workspace/nors4/components/Login.php at line 47.
+[2008-09-30 22:58:09] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			                   FROM ``
+			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.
+[2008-09-30 22:58:10] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			                   FROM ``
+			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.
+[2008-09-30 22:58:16] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			                   FROM ``
+			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.
+[2008-09-30 22:58:19] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			                   FROM ``
+			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.
+[2008-09-30 22:58:21] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			                   FROM ``
+			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.
+[2008-09-30 22:58:23] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
+			                   FROM ``
+			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.

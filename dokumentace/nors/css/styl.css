@@ -1,0 +1,28 @@
+html, body 	{text-align:center}
+body 		{margin:0 auto 20px auto; background:#003D70; color:#000; font-size:80%; font-family:Calibri, Arial, Helvetica, sans-serif}
+
+#head		{height:140px; position:relative; background:url('../img/css/header.png') left top no-repeat}
+#page		{margin:0px auto; background:#fff; width:800px; text-align:left; position:relative; height:100%}
+#clear 		{clear:both;}
+#left		{float:left; width:540px; line-height:23px; font-size:1em;}
+#right		{float:right; width:220px; line-height:30px; background:url('../img/css/bg-menu.png') bottom right no-repeat;}
+
+#content	{padding:0 10px; overflow:hidden; position:relative; z-index:3}
+#foot		{position:relative; clear:both; line-height:30px; padding-left:5px; margin-top:20px}
+
+h1		 	{position:absolute; left:20px; top:10px; line-height:20px; margin:0; padding:0;}
+h1 a 		{text-decoration:none; color:#EED7B7; font-size:0.86em; font-family:Candara, Georgia, "Times New Roman", Times, serif; font-style:italic}
+#title 		{position:absolute; left:20px; top:50px;line-height:20px; margin:0; padding:0; width:280px; color:#fff; font-size:1.2em}
+
+#menu li	{width:220px; list-style:none;padding-left:20px; background:url(../img/css/libg.png) center left no-repeat; margin-left:-40px; line-height:23px; color:#0099FF}
+#menu li a, a	{color:#0099FF}
+h2			{margin:8px 0; color:#003D70; font-size:1.4em; line-height:25px; font-weight:normal; font-family:Candara, Arial, Helvetica, sans-serif;}
+h2 a		{text-decoration:underline; color:#003D70}
+h3			{padding-left:5px; color:#003D70; font-size:1.25em; line-height:20px; font-weight:normal}
+#podobne-clanky {width:100%; border:1px solid #FFCC00; background:#FCF8E9}
+p			{text-align:justify}
+small 		{display:block}
+#left img 	{float:left; border:1px solid #ccc; padding: 3px; margin: 20px 10px 10px 0}
+table 		{border:1px solid #CCCCCC; width:100%; text-align:center}
+tr td 		{border:1px solid #ccc}
+td:hover 	{background:#FCF8E9; border:1px solid #FFCC00}
