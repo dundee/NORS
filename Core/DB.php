@@ -41,9 +41,9 @@ abstract class Core_DB
 	* @var array $data
 	*/
 	protected $data = array('host'=>'',
-	                      'user'=>'',
-	                      'password'=>'',
-	                      'database'=>''
+	                        'user'=>'',
+	                        'password'=>'',
+	                        'database'=>''
 	                      );
 
 	/**

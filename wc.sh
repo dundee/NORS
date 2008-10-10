@@ -1,5 +1,4 @@
 #!/bin/bash
-
 find ./ \
         -not -name "jquery.markitup.js" \
         -not -name "jquery.thickbox.js" \
