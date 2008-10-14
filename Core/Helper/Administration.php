@@ -99,6 +99,9 @@ class Core_Helper_Administration extends Core_Helper
 				foreach ($row as $name=>$value) {
 					if (is_numeric($name)) continue;
 					if ($name == 'active') continue;
+					if (strlen($value) > 30) {
+						$value = substr($value, 0, 30) . '<dfn title="' . $value . '">&hellip;</dfn>';
+					}
 					if (!$j) {
 						$output .= TAB . '<td>' . ENDL;
 						$output .= TAB . TAB . '<input type="checkbox" name="ids" id="ids" value="' . $value . '" />' . ENDL;
