@@ -19,7 +19,7 @@
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
-abstract class Core_ActiveRecord //extends Core_Object
+abstract class Core_ActiveRecord
 {
 	/**
 	 * $fields
