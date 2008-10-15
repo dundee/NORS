@@ -10,11 +10,11 @@ localhost:
 	upload_dir: 'upload'
 	db:
 		connector    : 'mysql'
-		user         : 'norsphpc_norsphp'
-		password     : ''
+		user         : 'root'
+		password     : '1234'
 		host         : 'localhost'
-		database     : 'norsphpc_norsphp'
-		table_prefix : 'denik_'
+		database     : 'nors'
+		table_prefix : 'nors4_'
 	timezone: 'Europe/Prague'
 	debug:
 		enabled: 1
@@ -22,7 +22,7 @@ localhost:
 		display_errors: 1
 		time_management: 1
 		sql_queries: 0
-		included_files: 0
+		included_files: 1
 		die_on_error: 1
 	log:
 		enabled: 1

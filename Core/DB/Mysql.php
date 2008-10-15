@@ -18,8 +18,8 @@
  */
 class Core_DB_Mysql extends Core_DB
 {
-	
-	
+
+
 	protected function __construct(Core_Config $config){
 		$this->config = $config;
 		$this->data = $this->config->db;
@@ -46,7 +46,7 @@ class Core_DB_Mysql extends Core_DB
 	 * connect
 	 *
 	 * Creates a connection to DB. Can't be called directly.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	protected function connect(){
@@ -56,13 +56,13 @@ class Core_DB_Mysql extends Core_DB
 		                                   );
 		@mysql_select_db($this->data->database,$this->connection);
 		@mysql_query("SET CHARACTER SET ".$this->charset,$this->connection);
-		
+
 		//set connection encoding
 		$res = @mysql_query("SHOW VARIABLES LIKE 'version'");
 		$line = mysql_fetch_array($res);
 		$version = substr($line['Value'],0,3);
 		if ($version > '4.0') @mysql_query("SET NAMES '".$this->charset."'",$this->connection);
-		
+
 		if(!@mysql_error()) return TRUE;
 		else throw new RuntimeException($this->locale->DB_connection_failed." : ".@mysql_error(),@mysql_errno());
 		return false;
@@ -70,42 +70,44 @@ class Core_DB_Mysql extends Core_DB
 
 	/**
 	 * sql_query
-	 * 
-	 * Wrapper for mysql_query function with additional features.		
+	 *
+	 * Wrapper for mysql_query function with additional features.
 	 *
 	 * @param String $query SQL query
 	 * @return String MySQL result
 	 */
 	protected function sql_query($query){
 		$this->counter++;
-		
+
 		$this->query = $query;
 		if(!$this->connection) $this->connect();
-		
+
 		list($mili, $sec) = explode(" ",microtime());
 		$start_time = $sec + $mili;
-		
+
 		$this->result = @mysql_query($query,$this->connection);
-		
-		list($mili, $sec) = explode(" ",microtime());
-		$end_time = $sec + $mili;
-		
-		$this->queries[] = array('query'=>$query,
-		                         'time'=>round($end_time-$start_time,4),
-		                         'rows'=>@mysql_affected_rows()
-		                         );
-		
+
+		if (Core_Config::singleton()->debug->enabled) {
+			list($mili, $sec) = explode(" ",microtime());
+			$end_time = $sec + $mili;
+
+			$this->queries[] = array('query'=>$query,
+									 'time'=>round($end_time-$start_time,4),
+									 'rows'=>@mysql_affected_rows()
+									 );
+		}
+
 		if(@mysql_error()){
 			$msg = __('DB_query_failed')." : ".@mysql_error().' - '.$query;
 			throw new RuntimeException($msg,@mysql_errno());
 		}
 		return $this->result;
 	}
-	
+
 	/**
 	 * query
-	 * 
-	 * Basic function for executing a SQL query. Allows chaining $db->query(...)->query->();.		
+	 *
+	 * Basic function for executing a SQL query. Allows chaining $db->query(...)->query->();.
 	 *
 	 * @param String $query SQL query
 	 * @return Core_DB
@@ -117,7 +119,7 @@ class Core_DB_Mysql extends Core_DB
 
 	/**
 	 * getRow
-	 * 
+	 *
 	 * Executes query and returnes one asociative row of the result.
 	 *
 	 * @param String $query SQL query
@@ -134,8 +136,8 @@ class Core_DB_Mysql extends Core_DB
 
 	/**
 	 * getRows
-	 * 
-	 * Executes query and returnes all asociative rows of the result.	 	 
+	 *
+	 * Executes query and returnes all asociative rows of the result.
 	 *
 	 * @param String $query SQL query
 	 * @return String[][] result
@@ -156,8 +158,8 @@ class Core_DB_Mysql extends Core_DB
 	/**
 	 * num
 	 *
-	 * Executes query and returns number of rows. 
-	 *	 	 
+	 * Executes query and returns number of rows.
+	 *
 	 * @param String $query SQL query
 	 * @return int
 	 */
@@ -170,12 +172,12 @@ class Core_DB_Mysql extends Core_DB
 
 		return @mysql_num_rows($result_link);
 	}
-	
+
 	/**
 	 * id
 	 *
 	 * Executes query and returns last inserted ID.
-	 *	 	 
+	 *
 	 * @param String $query SQL query
 	 * @return int
 	 */

@@ -37,8 +37,7 @@ abstract class Core_Module_Auth extends Core_Module
 	*/
 	public function __construct(){
 		parent::__construct();
-		$this->session = Core_Session::singleton();
-		$userModel = new ActiveRecord_User();
+		$userModel = new Table_User();
 		$this->user = new Core_User($userModel);
 	}
 
@@ -50,7 +49,7 @@ abstract class Core_Module_Auth extends Core_Module
 	public function authenticate(){
 		return ($this->user->logged());
 	}
-	
+
 	/**
 	* checkRights
 	*

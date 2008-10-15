@@ -43,7 +43,7 @@ class Core_Helper_Administration extends Core_Helper
 
 	public function dump($table, $return = FALSE, $just_content = FALSE)
 	{
-		$class = 'ActiveRecord_' . ucfirst($table);
+		$class = 'Table_' . ucfirst($table);
 		$model = new $class;
 		$r = Core_Request::factory();
 

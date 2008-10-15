@@ -12,11 +12,11 @@
 
 /**
  * Core_Object
- * 
+ *
  * Base class for most of Core classes. Adds important functionality and access to some instances.
  * Implements Iterator, ArrayAccess, Countable and setters/getters, so data can be accessed via $obj->getData('key'), $obj['key'] and foreach.
  * Features: reflection, attributes setting from Array
- * Access to instances: Core_Request, Core_Config 
+ * Access to instances: Core_Request, Core_Config
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
@@ -26,18 +26,18 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 {
 	/**
 	 * $request
-	 * 
+	 *
 	 * @var Core_Request $request
-	 */				
+	 */
 	public $request;
-	
+
 	/**
 	 * $config
-	 * 
+	 *
 	 * @var Core_Config
 	 */
 	protected $config;
-	
+
 	/**
 	 * $me
 	 *
@@ -83,7 +83,7 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 	 *
 	 * @param string $key Name of variable
 	 * @param mixed $value Value of variable
-	 * @param boolean $allowHtml If false, <>& will be replaced by entities 	 
+	 * @param boolean $allowHtml If false, <>& will be replaced by entities
 	 * @return void
 	 */
 	public function setData($key,$value, $allowHtml = FALSE){
@@ -99,38 +99,38 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 	public function getData(){
 		return $this->data;
 	}
-	
+
 	public function delData(){
 		unset($this->data);
 	}
 
-	
+
 	/**
 	 * __toString
-	 * @return String	 
+	 * @return String
 	 */
 	public function __toString(){
 		return $this->me->getName();
 	}
-	
-	
+
+
 	//Iterator
 	public function current(){
 		return $this->data->current();
 	}
-	
+
 	public function next(){
 		return $this->data->next();
 	}
-	
+
 	public function key(){
 		return $this->data->key();
 	}
-	
+
 	public function valid(){
 		return $this->data->valid();
 	}
-	
+
 	public function rewind(){
 		return $this->data->rewind();
 	}
@@ -139,25 +139,25 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 	public function offsetExists($offset){
 		return isset($this->data[$offset]);
 	}
-	
+
 	public function offsetGet($offset){
 		if (!isset($this->data[$offset])) return FALSE;
 		return $this->data[$offset];
 	}
-	
+
 	public function offsetSet($offset,$value){
 		$this->data[$offset] = $value;
 	}
-	
+
 	public function offsetUnset($offset){
 		unset($this->data[$offset]);
 	}
-	
+
 	//Countable
 	public function count(){
 		return count($this->data);
 	}
-	
+
 	public function __destruct()
 	{
 	}

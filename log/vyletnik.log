@@ -127,3 +127,7 @@
 [2008-09-30 22:58:23] [ERROR]  Provedení SQL dotazu se nezdařilo : Incorrect table name '' - SELECT *
 			                   FROM ``
 			                   WHERE `id_` = '1' in /home/dundee/workspace/nors4/Core/ActiveRecord.php at line 119.
+[2008-10-15 20:34:51] db_activeRecords_Group
+[2008-10-15 20:35:08] [NOTICE]  Undefined variable: group in /home/dundee/workspace/nors4/Core/Module/Auth.php at line 62.
+[2008-10-15 20:38:24] [NOTICE]  Object of class Core_DB_Mysql could not be converted to int in /home/dundee/workspace/nors4/Core/Table.php at line 59.
+[2008-10-15 20:38:40] [NOTICE]  Object of class Core_DB_Mysql could not be converted to int in /home/dundee/workspace/nors4/Core/Table.php at line 59.

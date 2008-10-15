@@ -24,11 +24,7 @@ class Core_User extends Core_Object
 	protected $password;
 	protected $logged;
 
-	/**
-	* Constructor
-	* @access public
-	*/
-	public function __construct(Core_ActiveRecord $userModel)
+	public function __construct(Core_Table $userModel)
 	{
 		parent::__construct();
 		$id = $this->request->getSession('id_user');
@@ -42,7 +38,7 @@ class Core_User extends Core_Object
 		}
 	}
 
-	public function login(Core_ActiveRecord $userModel, $name, $password)
+	public function login(Core_Table $userModel, $name, $password)
 	{
 		$user = $userModel->findByName($name);
 		$text_obj = new Core_Text();

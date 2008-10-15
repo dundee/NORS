@@ -29,9 +29,9 @@ function core_version(){
 
 /**
  * set_url_path
- * 
+ *
  * Defines the URL pointing to index.php
- * 
+ *
  * @return void
  */
 function set_url_path()
@@ -54,12 +54,13 @@ if (!function_exists('__autoload')) {
 	 * @param string $class Class name
 	 * @return void
 	 */
-	function __autoload($class) 
+	function __autoload($class)
 	{
 		//rules
-		$class = str_replace('ActiveRecord_', 'activeRecords_', $class);
+		$class = str_replace('ActiveRecord_', 'db_activeRecords_', $class);
+		$class = str_replace('Table_', 'db_tables_', $class);
 		$class = str_replace('Component_', 'components_', $class);
-			
+
 		$file = str_replace('_', '/', $class) . '.php';
 		if (!file_exists(APP_PATH . '/' . $file)) {
 			$log = new Core_Log();
@@ -77,7 +78,7 @@ if (!function_exists('loadFile')) {
 	 * @param string $class Class name
 	 * @return boolean
 	 */
-	function loadFile($file) 
+	function loadFile($file)
 	{
 		global $includes;
 
@@ -85,12 +86,12 @@ if (!function_exists('loadFile')) {
 		$start_memory = memory_get_usage();
 
 		$result = require_once($file);
-		
+
 		if (!$result) throw new UnexpectedValueException("File $file not found");
-			
+
 		$end_time   = get_mtime();
 		$end_memory = memory_get_usage();
-			
+
 		$includes[] = array('name'   => $file,
 		                    'time'   => round($end_time-$start_time, 4),
 		                    'memory' => round(($end_memory-$start_memory) / 1024));
@@ -106,10 +107,10 @@ if (!function_exists('loadFile')) {
  * @param string $table Table name
  * @return string Table name with prefix
  */
-function table_name($table) 
+function table_name($table)
 {
 	global $db_prefix;
-	if (!isset($db_prefix)) $db_prefix = Core_Config::singleton()->db->table_prefix; 
+	if (!isset($db_prefix)) $db_prefix = Core_Config::singleton()->db->table_prefix;
 	return $db_prefix . $table;// .'s';
 }
 
@@ -172,7 +173,7 @@ function dump($var){
 
 function echor($string)
 {
-	echo '<br />-' . $string . '-<br />';	
+	echo '<br />-' . $string . '-<br />';
 }
 
 if (!function_exists('json_encode')) {
@@ -267,8 +268,8 @@ if (!function_exists('json_encode')) {
 function apply($obj, $function)
 {
 	if (is_array($obj)) {
-		foreach ($obj as $k=>$v) $obj[$k] = $function($v);	
+		foreach ($obj as $k=>$v) $obj[$k] = $function($v);
 	} else $obj = $function($obj);
-	
+
 	return $obj;
 }
