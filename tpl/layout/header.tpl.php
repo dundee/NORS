@@ -15,7 +15,7 @@ echo '<head>'."\n";
 echo '<meta http-equiv="Content-Type" content="text/html; charset='.Core_Config::singleton()->encoding.'" />'."\n";
 echo '<meta name="Description" content="'.$site['description'].'" />'."\n";
 echo '<meta name="Keywords" content="'.$site['keywords'].'" />'."\n";
-echo '<meta name="Generator" content="Core framework '.core_version().'" />'."\n";
+echo '<meta name="Generator" content="Core framework '.coreVersion().'" />'."\n";
 echo '<meta http-equiv="Pragma" content="no-cache" />'."\n";
 echo '<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />'."\n";
 echo '<meta http-equiv="Expires" content="" />'."\n";

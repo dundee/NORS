@@ -19,7 +19,7 @@
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
-abstract class Core_ActiveRecord extends Core_Object
+abstract class Core_ActiveRecord //extends Core_Object
 {
 	/**
 	 * $fields
@@ -27,14 +27,7 @@ abstract class Core_ActiveRecord extends Core_Object
 	 * Array of fields in table. Visibility and type affect administration.
 	 * @var string[][] $fields
 	 */
-	protected $fields = array(
-		'id_site' => array('visibility' => 0,
-		                   'type' => 'int',
-		                   'db' => 'int(11) unsigned'),
-		'name'    => array('visibility' => 1,
-		                   'type' => 'text',
-		                   'db' => 'varchar(100) NOT NULL')
-	);
+	protected $fields = array();
 
 	/**
 	 * $db
@@ -45,6 +38,13 @@ abstract class Core_ActiveRecord extends Core_Object
 	protected $db;
 
 	/**
+	 * $data
+	 *
+	 * @var array $data
+	 */
+	protected $data;
+
+	/**
 	 * $table
 	 *
 	 * Name of table
@@ -52,10 +52,8 @@ abstract class Core_ActiveRecord extends Core_Object
 	 */
 	protected $table;
 
-
 	public function __construct($table,$id = false)
 	{
-		parent::__construct();
 		$this->db    = Core_DB::singleton();
 		$this->table = $table;
 		if($id) $this->load($id);

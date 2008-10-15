@@ -38,7 +38,7 @@ abstract class Core_Module extends Core_Object
 	* @var string $headerTplFile
 	*/
 	public $headerTplFile = 'header.tpl.php';
-	
+
 	/**
 	* $footerTplFile
 	*
@@ -52,7 +52,7 @@ abstract class Core_Module extends Core_Object
 	* @var string $defaultView
 	*/
 	public $defaultView = 'Default';
-	
+
 	/**
 	* $views
 	*
@@ -64,20 +64,20 @@ abstract class Core_Module extends Core_Object
 	* $cache
 	*
 	* @var int $cache lifetime
-	* 0 = model will be not cached	
+	* 0 = model will be not cached
 	*
 	*/
 	public $cache = 0;
-	
+
 	/**
 	* $style
 	*
 	* @var int $style name of style
-	* 0 = model will be not cached	
+	* 0 = model will be not cached
 	*
 	*/
 	public $style = 'default';
-						
+
 	/**
 	* $rss
 	*
@@ -104,29 +104,27 @@ abstract class Core_Module extends Core_Object
 	* @var array $css
 	*/
 	public $css = array();
-	
+
 	/**
 	 * $helpers
-	 * 
+	 *
 	 * Array of view helpers used in template
-	 * @var String[] $helpers	 
-	 */	 	 	 	
+	 * @var String[] $helpers
+	 */
 	public $helpers = array();
-				
+
 	/**
 	* Constructor
 	* @access public
 	*/
 	public function __construct(){
 		parent::__construct();
-		$this->moduleName = $this->me->getName();
-		$this->tplFile = strtolower($this->moduleName).'.tpl.php';
 		$this->style = $this->config->style;
 		$this->setSiteData();
-		
+
 		if (!$this->request->view) $this->request->view = $this->defaultView;
 		else {
-			if (!in_array($this->request->view, $this->views)) 
+			if (!in_array($this->request->view, $this->views))
 				throw new UnexpectedValueException('View ' . $this->request->view . ' not allowed for ' . $this->moduleName . ' module', 415);
 		}
 	}
@@ -180,10 +178,5 @@ abstract class Core_Module extends Core_Object
 	*/
 	public function checkRights(){
 		return TRUE;
-	}
-	
-	public function __destruct()
-	{
-		parent::__destruct();
 	}
 }

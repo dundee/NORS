@@ -20,9 +20,7 @@
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
-abstract class Core_Object implements Iterator, //foreach iteration of data
-                                      ArrayAccess, //for offset access to data (object['key'])
-                                      Countable //for counting of data
+abstract class Core_Object
 {
 	/**
 	 * $request
@@ -30,13 +28,6 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 	 * @var Core_Request $request
 	 */
 	public $request;
-
-	/**
-	 * $config
-	 *
-	 * @var Core_Config
-	 */
-	protected $config;
 
 	/**
 	 * $me
@@ -59,23 +50,6 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 		$this->me       = new ReflectionClass($this);
 		$this->request  = Core_Request::factory();
 		$this->config   = Core_Config ::singleton();
-	}
-
-	/**
-	 * setFromArray
-	 *
-	 * @param array $data
-	 * @return void
-	 */
-	protected function setFromArray($data){
-		if (iterable($data)) {
-			$valid = get_class_vars(get_class($this));
-			foreach ($valid as $var => $val) {
-				if (isset($data[$var])) {
-					$this->$var = $data[$var];
-				}
-			}
-		}
 	}
 
 	/**
@@ -104,61 +78,11 @@ abstract class Core_Object implements Iterator, //foreach iteration of data
 		unset($this->data);
 	}
 
-
 	/**
 	 * __toString
 	 * @return String
 	 */
 	public function __toString(){
 		return $this->me->getName();
-	}
-
-
-	//Iterator
-	public function current(){
-		return $this->data->current();
-	}
-
-	public function next(){
-		return $this->data->next();
-	}
-
-	public function key(){
-		return $this->data->key();
-	}
-
-	public function valid(){
-		return $this->data->valid();
-	}
-
-	public function rewind(){
-		return $this->data->rewind();
-	}
-
-	//ArrayAccess
-	public function offsetExists($offset){
-		return isset($this->data[$offset]);
-	}
-
-	public function offsetGet($offset){
-		if (!isset($this->data[$offset])) return FALSE;
-		return $this->data[$offset];
-	}
-
-	public function offsetSet($offset,$value){
-		$this->data[$offset] = $value;
-	}
-
-	public function offsetUnset($offset){
-		unset($this->data[$offset]);
-	}
-
-	//Countable
-	public function count(){
-		return count($this->data);
-	}
-
-	public function __destruct()
-	{
 	}
 }

@@ -51,7 +51,7 @@ abstract class Core_View
     static public function factory($type, Core_Module $module, $event){
         $file = APP_PATH.'/Core/View/'.$type.'.php';
         if (loadFile($file)) {
-            $class = 'Core_View_'.$type;
+            $class = 'Core_View_' . $type;
             if (class_exists($class)) {
                 $view = new $class($module,$event);
                 if ($view instanceof Core_View) {
@@ -63,7 +63,7 @@ abstract class Core_View
         }
 		throw new UnexpectedValueException('View file not found: '.$type);
     }
-    
+
     abstract public function display();
 }
 ?>

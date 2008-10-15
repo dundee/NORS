@@ -19,11 +19,9 @@
 class Core_DB_Mysql extends Core_DB
 {
 
-
 	protected function __construct(Core_Config $config){
-		$this->config = $config;
-		$this->data = $this->config->db;
-		$encoding = strtolower($this->config->encoding);
+		$this->data = $config->db;
+		$encoding = strtolower($config->encoding);
 		switch($encoding){
 			case 'utf-8':
 				$this->charset = 'UTF8';
@@ -82,14 +80,12 @@ class Core_DB_Mysql extends Core_DB
 		$this->query = $query;
 		if(!$this->connection) $this->connect();
 
-		list($mili, $sec) = explode(" ",microtime());
-		$start_time = $sec + $mili;
+		$start_time = mtime();
 
 		$this->result = @mysql_query($query,$this->connection);
 
-		if (Core_Config::singleton()->debug->enabled) {
-			list($mili, $sec) = explode(" ",microtime());
-			$end_time = $sec + $mili;
+		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
+			$end_time = mtime();
 
 			$this->queries[] = array('query'=>$query,
 									 'time'=>round($end_time-$start_time,4),

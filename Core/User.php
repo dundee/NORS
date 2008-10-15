@@ -16,7 +16,7 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @package Core
 */
-class Core_User extends Core_Object
+class Core_User
 {
 	public $userName;
 	public $id_user;
@@ -26,8 +26,7 @@ class Core_User extends Core_Object
 
 	public function __construct(Core_Table $userModel)
 	{
-		parent::__construct();
-		$id = $this->request->getSession('id_user');
+		$id = Core_Request::factory()->getSession('id_user');
 		if ($id) {
 			$user = $userModel->findById($id);
 			if (!$user instanceof Core_ActiveRecord) return;
@@ -46,7 +45,7 @@ class Core_User extends Core_Object
 			if ($user->password == $text_obj->crypt($password,
 			                                        $name)) {
 			    if ($user->active == 1) {
-			    	$this->request->setSession('id_user', $user->id_user);
+			    	Core_Request::factory()->setSession('id_user', $user->id_user);
 					return TRUE;
 			    } else throw new RuntimeException( __('account_not_active') );
 			} else throw new RuntimeException( __('wrong_password') );
@@ -55,11 +54,11 @@ class Core_User extends Core_Object
 
 	public function logged()
 	{
-		return $this->request->getSession('id_user') ? TRUE : FALSE;
+		return Core_Request::factory()->getSession('id_user') ? TRUE : FALSE;
 	}
 
 	public function logout()
 	{
-		$this->request->setSession('id_user', 0);
+		Core_Request::factory()->setSession('id_user', 0);
 	}
 }

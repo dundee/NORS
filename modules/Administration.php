@@ -218,13 +218,4 @@ class Administration extends Core_Module_Auth
 
 		$this->dump($table);
 	}
-
-
-	/**
-	* Destructor
-	* @access public
-	*/
-	public function __destruct(){
-		parent::__destruct();
-	}
 }

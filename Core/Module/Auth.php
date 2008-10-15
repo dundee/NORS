@@ -25,13 +25,6 @@ abstract class Core_Module_Auth extends Core_Module
 	protected $user;
 
 	/**
-	* $session
-	*
-	* @var Core_Session $session
-	*/
-	protected $session;
-
-	/**
 	* Constructor
 	* @access public
 	*/
@@ -61,14 +54,5 @@ abstract class Core_Module_Auth extends Core_Module
 		if ($group->{$_GET['event'].'_list'} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
 		if (!isset($_GET['item'])) return TRUE;
 		if ($group->{$_GET['item'].'_'.$_GET['event']} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
-	}
-
-	/**
-	* Destructor
-	* @access public
-	*/
-	public function __destruct()
-	{
-		parent::__destruct();
 	}
 }

@@ -15,7 +15,7 @@ echo '<head>' . "\n";
 echo '<meta http-equiv="Content-Type" content="text/html; charset=' . Core_Config::singleton()->encoding . '" />' . "\n";
 echo '<meta name="Description" content="' . $site['description'] . '" />' . "\n";
 echo '<meta name="Keywords" content="' . $site['keywords'] . '" />' . "\n";
-echo '<meta name="Generator" content="Core framework' . core_version() . '" />' . "\n";
+echo '<meta name="Generator" content="Core framework' . coreVersion() . '" />' . "\n";
 echo '<meta http-equiv="Pragma" content="no-cache" />' . "\n";
 echo '<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />' . "\n";
 echo '<meta http-equiv="Expires" content="" />' . "\n";
@@ -47,7 +47,7 @@ if (isset($site['css'])) {
 echo '<title>' . $site['title'] . '</title>' . "\n";
 echo '</head>
 <body>
-<h1>SuperAdmin ' . nors_version() . '</h1>
+<h1>SuperAdmin ' . norsVersion() . '</h1>
 <div id="user_menu">';
 if($user){
 	echo __('logged_in') . ' ' . $user . '.<br />';

@@ -26,8 +26,6 @@ abstract class Core_DB
 	*/
 	protected static $instance;
 
-	protected $config;
-
 	/**
 	* $connection
 	*

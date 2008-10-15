@@ -63,24 +63,17 @@ class Core_Application
 		do {
 			$moduleFile = APP_PATH . '/modules/' . ucfirst($module) . '.php';
 			if (!file_exists($moduleFile)) {
-				throw new UnexpectedValueException('Could not find module '
-				                                   . $moduleFile
-				                                   . ', url: '
-				                                   . $this->request->getUrl(),
+				throw new UnexpectedValueException('Could not find module ' . $moduleFile . ', url: ' . $this->request->getUrl(),
 				                                   404);
 			} else {
 				loadFile($moduleFile);
 				if (!class_exists($module)) {
-					throw new RuntimeException('Module '
-					                           . $module
-					                           . ' includes no module class',
+					throw new RuntimeException('Module ' . $module . ' includes no module class',
 					                           500);
 				} else {
 					$instance = new $module();
 					if (!Core_Module::isValid($instance)) {
-						throw new RuntimeException('Module '
-						                           . $module
-						                           . ' is not a valid module',
+						throw new RuntimeException('Module ' . $module . ' is not a valid module',
 						                           500);
 					}
 					if (!$instance->authenticate()) {

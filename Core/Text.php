@@ -8,8 +8,8 @@
 *
 * @global string NOT_ALLOWED_ENTITIES Not allowed letters
 */
-define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´?@#$%^&*+/,()[]~");
-define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd---------------------");
+define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´?!@#$%^&*+/|,<>{}()[]~\"");
+define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd----------------------------");
 
 /**
 * Classes_Text
@@ -100,7 +100,7 @@ class Core_Text
     	}
     	return $text;
 	}
-	
+
 		/**
  	* urlEncode
  	*
@@ -109,7 +109,7 @@ class Core_Text
  	* @param string $text Non-formated text
  	* @return string Text formated for URL
  	*/
-	public function urlEncode($text = FALSE) 
+	public function urlEncode($text = FALSE)
 	{
 		$encoding = Core_Config::singleton()->encoding;
 		$text = $text ? $text : $this->text;
@@ -133,18 +133,18 @@ class Core_Text
 	    $link = str_replace("'", "", $link);
 	    return $link;
 	}
-	
+
 	public function crypt($text, $soil){
 		$pass = $soil.'+dfgyuI9'.$text;
 		return md5($pass);
 	}
 	/**
 	 * dateToTimeStamp
-	 * 
+	 *
 	 * Creates a timestamp from date string in format "yyyy-mm-dd hh:ii:ss" or "yyyy-mm-dd"
-	 * @param String $ymd_his Date string	 	 
+	 * @param String $ymd_his Date string
 	 * @return int Unix timestamp
-	 */	 	 	
+	 */
 	public function dateToTimeStamp($ymd_his = FALSE){
 		$ymd_his = $ymd_his ? $ymd_his : $this->text;
 		if ( eregi('[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', $ymd_his)) {

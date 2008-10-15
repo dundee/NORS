@@ -39,8 +39,7 @@ class Core_Debug
  	* @return
  	*/
 	public static function startTimer(){
-		list($mili, $sec) = explode(" ", microtime());
-		self::$start_time = $sec + $mili;
+		self::$start_time = mtime();;
 	}
 
 	/**
@@ -49,8 +48,7 @@ class Core_Debug
 	* @return
 	*/
 	public static function endTimer(){
-		list($mili, $sec) = explode(" ", microtime());
-		self::$end_time = $sec + $mili;
+		self::$end_time = mtime();;
 
 		$request = Core_Request::factory();
 		$cache = $request->getVar('cacheTime')
@@ -108,6 +106,7 @@ class Core_Debug
 	public static function includedFiles()
 	{
 		global $includes;
+		if (HIGH_PERFORMANCE) return;
 		echo '<table style="margin: 10px auto;">';
 		echo '<tr><th>' . __('file') . '</th><th>'
 		     . __('time') . '</th><th>' . __('memory') . '</th></tr>';

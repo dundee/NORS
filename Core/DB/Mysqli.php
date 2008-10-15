@@ -19,7 +19,7 @@
 */
 class Core_DB_Mysqli extends Core_DB
 {
-	
+
 	protected function __construct($locale){
 		if(!$locale instanceof Core_Locale) throw new Core_Exception('Invalid locale class: '.$locale);
 		$this->locale = $locale;
@@ -43,7 +43,7 @@ class Core_DB_Mysqli extends Core_DB
 				$this->charset = 'UTF8';
 		}
 	}
-		
+
 	/**
 	* connect
 	*
@@ -63,8 +63,8 @@ class Core_DB_Mysqli extends Core_DB
 
 	/**
 	* sql_query
-	* 
-	* Inner function - abstraction of mysql_query		
+	*
+	* Inner function - abstraction of mysql_query
 	*
 	* @param String $query
 	* @return String MySQL result
@@ -76,20 +76,18 @@ class Core_DB_Mysqli extends Core_DB
 		//echo $query;
 		$this->query = $query;
 		if(!$this->connection) $this->connect();
-		
-		list($mili, $sec) = explode(" ",microtime());
-		$start_time = $sec + $mili;
-		
+
+		$start_time = mtime();
+
 		$this->result = $this->connection->query($query);
-		
-		list($mili, $sec) = explode(" ",microtime());
-		$end_time = $sec + $mili;
-		
+
+		$end_time = mtime();
+
 		$this->queries[] = array('query'=>$query,
 		                         'time'=>round($end_time-$start_time,4),
 		                         'rows'=>$this->connection->affected_rows
 		                         );
-		
+
 		if($this->connection->error){
 			$msg = $this->locale->DB_query_failed." : ".$this->connection->error.' - '.$query;
 			$log = new Core_Log(LOG_FILE);
@@ -98,7 +96,7 @@ class Core_DB_Mysqli extends Core_DB
 		}
 		return $this->result;
 	}
-	
+
 	/**
 	* query
 	*
@@ -160,7 +158,7 @@ class Core_DB_Mysqli extends Core_DB
 
 		return $result_link->num_rows;
 	}
-	
+
 	/**
 	* id
 	*

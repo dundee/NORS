@@ -13,28 +13,24 @@ define('TAB',"\t");
  */
 
 /**
- * version
- *
  * Return the version of Core
  *
  * @return string
  */
-function nors_version() {
+function norsVersion() {
 	return "4.0";
 }
 
-function core_version(){
+function coreVersion(){
 	return "1.0";
 }
 
 /**
- * set_url_path
- *
  * Defines the URL pointing to index.php
  *
  * @return void
  */
-function set_url_path()
+function setUrlPath()
 {
 	//running HTTP server
 	if (isset($_SERVER['HTTP_HOST'])) {
@@ -82,46 +78,46 @@ if (!function_exists('loadFile')) {
 	{
 		global $includes;
 
-		$start_time   = get_mtime();
+		$start_time   = mtime();
 		$start_memory = memory_get_usage();
 
 		$result = require_once($file);
 
 		if (!$result) throw new UnexpectedValueException("File $file not found");
 
-		$end_time   = get_mtime();
+		$end_time   = mtime();
 		$end_memory = memory_get_usage();
 
-		$includes[] = array('name'   => $file,
-		                    'time'   => round($end_time-$start_time, 4),
-		                    'memory' => round(($end_memory-$start_memory) / 1024));
+		if (!HIGH_PERFORMANCE) {
+			$includes[] = array('name'   => $file,
+								'time'   => round($end_time-$start_time, 4),
+								'memory' => round(($end_memory-$start_memory) / 1024));
+		}
 		return TRUE;
 	}
 }
 
 /**
- * table_name
- *
  * Return the name of DB table including prefix
  *
  * @param string $table Table name
  * @return string Table name with prefix
  */
-function table_name($table)
+function tableName($table)
 {
-	global $db_prefix;
-	if (!isset($db_prefix)) $db_prefix = Core_Config::singleton()->db->table_prefix;
-	return $db_prefix . $table;// .'s';
+	$prefix = Core_Config::singleton()->db->table_prefix;
+	if (!defined('DB_PREFIX')) define('DB_PREFIX', $prefix);
+	return DB_PREFIX . $table;// .'s';
 }
 
 /**
- * get_mtime
+ * Returns UNIX timestamp with miliseconds
  *
  * @return float
  */
-function get_mtime()
+function mtime()
 {
-	list($mili, $sec) = explode(" ",microtime());
+	list($mili, $sec) = explode(" ", microtime());
 	return ($sec + $mili);
 }
 

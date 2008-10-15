@@ -18,11 +18,11 @@ localhost:
 	timezone: 'Europe/Prague'
 	debug:
 		enabled: 1
-		error_reporting: E_ALL # & ~E_NOTICE
+		error_reporting: E_ALL & ~E_NOTICE
 		display_errors: 1
 		time_management: 1
 		sql_queries: 0
-		included_files: 1
+		included_files: 0
 		die_on_error: 1
 	log:
 		enabled: 1

@@ -46,11 +46,11 @@ class Core_Request_ModRewrite extends Core_Request
 	}
 
 	public function isAjax()
-	{	
-		return ($_SERVER['REQUEST_METHOD'] == 'POST' &&  //have to be a POST request 
-		           ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+	{
+		return ($_SERVER['REQUEST_METHOD'] == 'POST' &&  //have to be a POST request
+		           ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
 				     $_SERVER['HTTP_X_REQUESTED_WITH']
-					 ) == 'XMLHttpRequest'  || //text data sent by ajax 
+					 ) == 'XMLHttpRequest'  || //text data sent by ajax
 			           (isset($_GET['command']) && isset($_FILES)) //or files sent by hidden textarea
 				    )
 			    );
@@ -64,7 +64,7 @@ class Core_Request_ModRewrite extends Core_Request
 	                       $in_header = FALSE)
 	{
 		if (is_array($routeName)) throw new Exception('Wrong usage');
-		
+
 		//init
 		$routeName = $routeName ? $routeName : $this->currentRoute;
 		$delimiter = $in_header ? '&' : '&amp;';
@@ -77,7 +77,7 @@ class Core_Request_ModRewrite extends Core_Request
 		$args = array_merge( $other_args, array('module' => $module,
 		                                        'event'  => $event) );
 		if ($inherit_params) $args = array_merge($_GET,$args);
-		
+
 		$route = $this->routes[$routeName];
 		$urlForm = $route['url']; //URL form of route...e.g.: ':module/:event'
 
@@ -85,7 +85,7 @@ class Core_Request_ModRewrite extends Core_Request
 		$url_parts = explode('/', $urlForm);
 		$url = APP_URL;
 		$url .= substr(APP_URL, strlen(APP_URL)-1, 1) == '/' ? '' : '/'; //slash on end
-		
+
 		foreach ($url_parts as $part) {
 			if (substr($part, 0, 1) == ':') { //variable part
 				$part = substr($part, 1); //remove colon
@@ -93,20 +93,20 @@ class Core_Request_ModRewrite extends Core_Request
 			} else { //static part
 				$part_value = $part;
 			}
-			
+
 			if ($part_value == '__default') continue;
 			if (!$part_value && //no value for this part
 			    isset($route['defaults']) &&
 			    isset($route['defaults']->{$part})
 			    ) $part_value = $route['defaults']->{$part}; //default values
-			
+
 			if ($part_value) $url .= $part_value . '/';
 			//echo $part . ' - ' . $args[$part] .' - '. $url.'<br />';
 			unset($args[$part]);
 		}
 
 		//after ?
-		$url2 = ''; 
+		$url2 = '';
 		foreach($args as $key=>$value){
 			if (
 			$key == 'browser' ||
