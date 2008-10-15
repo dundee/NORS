@@ -71,12 +71,9 @@ abstract class Core_ActiveRecord
 	{
 		if ($id < 1) return FALSE;
 		try {
-			$result = $this
-			          ->db
-			          ->getRow("SELECT *
-			                   FROM `" . table_name($this->table) . "`
-			                   WHERE `id_".$this->table . "` = '"
-			                   . clearInput($id,TRUE) . "'");
+			$result = $this->db->getRow("SELECT *
+			                            FROM `" . tableName($this->table) . "`
+			                            WHERE `id_".$this->table . "` = '" . clearInput($id,TRUE) . "'");
 		} catch(RuntimeException $ex) {
 			if ($ex->getCode() == 1146) {
 				$this->create();

@@ -119,6 +119,8 @@ abstract class Core_Module extends Core_Object
 	*/
 	public function __construct(){
 		parent::__construct();
+		$this->moduleName = $this->me->getName();
+-		$this->tplFile = strtolower($this->moduleName) . '.tpl.php';
 		$this->style = $this->config->style;
 		$this->setSiteData();
 

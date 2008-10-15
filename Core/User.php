@@ -42,12 +42,11 @@ class Core_User
 		$user = $userModel->findByName($name);
 		$text_obj = new Core_Text();
 		if (is_object($user)) {
-			if ($user->password == $text_obj->crypt($password,
-			                                        $name)) {
-			    if ($user->active == 1) {
-			    	Core_Request::factory()->setSession('id_user', $user->id_user);
+			if ($user->password == $text_obj->crypt($password, $name)) {
+				if ($user->active == 1) {
+					Core_Request::factory()->setSession('id_user', $user->id_user);
 					return TRUE;
-			    } else throw new RuntimeException( __('account_not_active') );
+				} else throw new RuntimeException( __('account_not_active') );
 			} else throw new RuntimeException( __('wrong_password') );
 		} else throw new RuntimeException( __('user_not_exists') );
 	}
