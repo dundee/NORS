@@ -12,7 +12,7 @@
 
 
 
-class Logout extends Core_Model_Auth
+class Logout extends Core_Module_Auth
 {
 	/**
 	* Constructor

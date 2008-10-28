@@ -31,7 +31,7 @@ class ActiveRecord_Group extends Core_ActiveRecord
 		'post_edit'     => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
 		'post_del'      => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
 		'text_list'     => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
-	    'text_edit'     => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
+		'text_edit'     => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
 		'text_del'      => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
 		'category_list' => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),
 		'category_edit' => array('visibility' => 1, 'type' => 'checkbox', 'db' => 'int(11) unsigned'),

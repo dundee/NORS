@@ -47,7 +47,7 @@ if (isset($site['css'])) {
 echo '<title>' . $site['title'] . '</title>' . "\n";
 echo '</head>
 <body>
-<h1>SuperAdmin ' . norsVersion() . '</h1>
+<h1>NORS ' . norsVersion() . '</h1>
 <div id="user_menu">';
 if($user){
 	echo __('logged_in') . ' ' . $user . '.<br />';

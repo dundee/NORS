@@ -26,13 +26,6 @@ abstract class Core_Module extends Core_Object
 	public $moduleName;
 
 	/**
-	* $tplFile
-	*
-	* @var string $tplFile
-	*/
-	public $tplFile;
-
-	/**
 	* $headerTplFile
 	*
 	* @var string $headerTplFile
@@ -151,6 +144,15 @@ abstract class Core_Module extends Core_Object
 	public function authenticate(){
 		return true;
 	}
+	
+	/**
+	* checkRights
+	*
+	* @return boolean
+	*/
+	public function checkRights(){
+		return TRUE;
+	}
 
 	public function setSiteData(){
 		$site_data['description'] = $this->config->description;
@@ -171,14 +173,5 @@ abstract class Core_Module extends Core_Object
 		}
 
 		$this->setData('site',$site_data);
-	}
-
-  	/**
-	* checkRights
-	*
-	* @return boolean
-	*/
-	public function checkRights(){
-		return TRUE;
 	}
 }

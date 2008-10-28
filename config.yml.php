@@ -3,7 +3,7 @@ localhost:
 	enabled : 1
 	encoding: 'utf-8'
 	locale  : 'Cs'
-	name: 'Výletník admin'
+	name: 'Blog'
 	description: ''
 	keywords: ''
 	style: 'default'
@@ -38,4 +38,6 @@ localhost:
 	administration:
 		items_per_page: 30
 		content:
-			default_subevent: 'towns'
+			default_subevent: 'post'
+		settings:
+			default_subevent: 'basic'

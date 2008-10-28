@@ -6,14 +6,14 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @copyright Daniel Milde <daniel@milde.cz>
 * @license http://www.opensource.org/licenses/gpl-license.php
-* @package Nors4
+* @package Core
 */
 
 /**
 * Component_Dump
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @package Nors4
+* @package Core
 */
 class Component_Dump extends Core_Component
 {
@@ -47,7 +47,7 @@ class Component_Dump extends Core_Component
 
 		$html   = $this->administration->dump($table, TRUE, TRUE);
 
-		$class = 'ActiveRecord_' . ucfirst($table);
+		$class = 'Table_' . ucfirst($table);
 		$model = new $class;
 
 		$count = $model->getCount($this->request->getPost('name'));

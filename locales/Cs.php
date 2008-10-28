@@ -84,7 +84,7 @@ class Locale_Cs extends Core_Locale
 		'action'                    => 'Akce',
 		'open'                      => 'Otevřít',
 		'edit'                      => 'Změnit',
-		'activate'                 => 'Zapnout',
+		'activate'                  => 'Zapnout',
 		'deactivate'                => 'Vypnout',
 		'delete'                    => 'Smazat',
 		'really_delete'             => 'Opravdu smazat',
@@ -155,14 +155,30 @@ class Locale_Cs extends Core_Locale
 		
 		
 		);
-	public function decodeDate($ymd_his){
+	public function decodeDate($ymd_his)
+	{
 		$text_obj = new Core_Text($ymd_his);
 		return date("d.m.Y",$text_obj->dateToTimeStamp());
 	}
 
-	public function decodeDatetime($ymd_his){
+	public function decodeDatetime($ymd_his)
+	{
 		$text = new Core_Text($ymd_his);
 		return date("d.m.Y v H:i:s",$text->dateToTimeStamp());
+	}
+	
+	public function encodeDatetime($dmy_his)
+	{
+		list($date, $soil, $time) = explode(' ', $dmy_his);
+		list($d,$m,$y) = explode('.', $date);
+		list($h,$i,$s) = explode(':', $time);
+		return "$y-$m-$d $h:$i:$s";
+	}
+	
+	public function encodeDate($dmy)
+	{
+		list($d,$m,$y) = explode('.', $dmy);
+		return "$y-$m-$d";
 	}
 }
 ?>

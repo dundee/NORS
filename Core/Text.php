@@ -158,6 +158,3 @@ class Core_Text
 		return mktime ($h, $i, $s, $m, $d, $y);
 	}
 }
-
-
-?>

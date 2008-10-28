@@ -6,14 +6,14 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @copyright Daniel Milde <daniel@milde.cz>
 * @license http://www.opensource.org/licenses/gpl-license.php
-* @package Nors4
+* @package Core
 */
 
 /**
 * Component_DumpFilter
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @package Nors4
+* @package Core
 */
 class Component_DumpFilter extends Core_Component
 {	
@@ -29,8 +29,3 @@ class Component_DumpFilter extends Core_Component
 		$this->setData('table', $params['table']);
 	}
 }
-
-
-
-
-?>

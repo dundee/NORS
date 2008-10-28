@@ -256,3 +256,20 @@ table a:hover{
 	background:rgb(255,204,204);
 }
 
+li.opened{
+	list-style-image: url('../images/minus.gif');
+	clear: left;
+}
+
+li.item{
+	list-style-type: none;
+	list-style-image: none;
+	clear: left;
+}
+
+li.item label{
+	width:8em;
+	margin: 0px 1em 5px 0px;
+	float: left;
+	clear: left;
+}
