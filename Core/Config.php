@@ -20,6 +20,10 @@ class Core_Config
 	protected $data;
 	protected static $instance;
 
+	protected function __construct()
+	{
+	}
+	
 	/**
 	 * singleton
 	 *
@@ -58,19 +62,16 @@ class Core_Config
 
 		$cacheFile = APP_PATH . '/cache/' . $file . '.cache.php';
 
-		if (file_exists()) {
+		if (file_exists($cacheFile)) {
 			include($cacheFile);
-			if ( $time == filemtime($cacheFile) ) { //cache valid
+			if (rand(0, 10) < 8 || $time >= filemtime(APP_PATH . '/' . $file)) { //cache valid
 				$this->data = $data;
 				$this->prepareData();
-				return;
+				return TRUE;
 			}
 		}
 
-		Core_Parser_YML::read($file, $cacheFile);
-
-		include($cacheFile);
-		$this->data = $data;
+		$this->data = Core_Parser_YML::read(APP_PATH . '/' . $file, $cacheFile);
 		$this->prepareData();
 		return TRUE;
 	}
@@ -96,22 +97,7 @@ class Core_Config
 		$array = $array[$host];
 		$array['host'] = $host;
 
-		$data = $this->convertArrayToObject($array);
+		$data = convertArrayToObject($array);
 		$this->data = $data;
 	}
-
-	/**
-	 * convertArrayToObject
-	 *
-	 * @param string[] $arr
-	 * @return StdObject
-	 */
-	private function convertArrayToObject($arr){
-		foreach($arr as $k => $v){
-			if (is_array($v)) $arr[$k] = $this->convertArrayToObject($v);
-		}
-		return (object) $arr;
-	}
-
 }
-?>

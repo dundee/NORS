@@ -38,7 +38,7 @@ class Core_Parser_YML
 
 		//parse config file
 		$content = '<?php' . ENDL;
-		$content .= '$time = ' . filemtime(APP_PATH . '/' . $file);
+		$content .= '$time = ' . filemtime($file);
 		$content .= ';' . ENDL;
 		$content .= '$data = array(' . ENDL;
 		$deep = 0;
@@ -91,7 +91,31 @@ class Core_Parser_YML
 		if (!$res)
 			throw new RuntimeException("Config cache could not be written.");
 
-		return $res;
+		include($cacheFile);
+		return $data;
+	}
+	
+	/**
+	 * Writes PHP array to YML file
+	 * @param mixed[] $data PHP array
+	 * @param string $file Path to YML file
+	 * @params string $indention How to indent YML file
+	 * @return bool
+	 */
+	public static function write($data, $file, $indention = TAB)
+	{
+		$indentionDeep = 0;
+		$content = '#<?php die(0); ?>';
+		
+		foreach ($data as $name => $value) {
+			if (is_array($value)) {
+				$content .= self::writeArray($value, $indentionDeep);
+			} else {
+				$content .= $name . ': ' . $value;
+			}
+		}
+		
+		dump($content);
 	}
 
 	/**
@@ -126,5 +150,10 @@ class Core_Parser_YML
 		}
 
 		return $indentionLength;
+	}
+	
+	public static writeArray($arr, $indentionDeep)
+	{
+		//for($i=0; $i < $deep; $i++) $content .= TAB;
 	}
 }
