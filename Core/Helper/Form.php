@@ -49,13 +49,13 @@ class Core_Helper_Form extends Core_Helper
 		$params['type']  = $type;
 		$params['value'] = $defaultValue;
 		
-		if ($type == 'text' || $type == 'password' || $type == 'file') { //text inputs - label before input
+		if ($type == 'text' || $type == 'password' || $type == 'file' || $type == 'checkbox') { //text inputs - label before input
 			$this->html->elem($div, 'label', array('for'=>$name))->setContent($label);
 			$input = $this->html->input($div, $name,  $params);
-		} elseif ($type == 'radio' || $type == 'checkboxs') { //radio, checkbox - text after input
+		/*} elseif ($type == 'radio' || $type == 'checkbox') { //radio, checkbox - text after input
 			$input = $this->html->input($div, $name,  $params);
 			$this->html->elem($div, 'label', array('for'=>$name))->setContent($label);
-		} else { //other (hidden, submit) - without label
+		*/} else { //other (hidden, submit) - without label
 			$input = $this->html->input($div, $name,  $params);
 		}
 		return $input;
