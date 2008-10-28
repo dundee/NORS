@@ -27,7 +27,7 @@ abstract class Core_ActiveRecord
 	 * Array of fields in table. Visibility and type affect administration.
 	 * @var string[][] $fields
 	 */
-	protected $fields = array();
+	public $fields = array();
 
 	/**
 	 * $db
@@ -56,6 +56,9 @@ abstract class Core_ActiveRecord
 	{
 		$this->db    = Core_DB::singleton();
 		$this->table = $table;
+		
+		$this->fields = Core_Table::getFields($table);
+		
 		if($id) $this->load($id);
 	}
 
@@ -76,7 +79,9 @@ abstract class Core_ActiveRecord
 			                            WHERE `id_".$this->table . "` = '" . clearInput($id,TRUE) . "'");
 		} catch(RuntimeException $ex) {
 			if ($ex->getCode() == 1146) {
-				$this->create();
+				$class = 'Table_' . ucfirst($this->table);
+				$table = new $class;
+				$table->create();
 				return FALSE;
 			} else {
 				throw new RuntimeException($ex->getMessage(),
@@ -113,9 +118,12 @@ abstract class Core_ActiveRecord
 			if ($name == 'id_user' && $this->table != 'user') {
 				$this->data[$name] = Core_Session::singleton()->id_user;
 			}
-			if ($field['type']=='checkbox') {
-				$this->data[$name] = $this->data[$name] ? 1 : 0;
-			}
+			if ($field['type'] == 'file') unset($this->fields[$name]);
+			
+			$type       = $field['type'];
+			$type_class = 'Core_Type_' . ucfirst($type);
+			$type_obj   = new $type_class;
+			$this->data[$name] = $type_obj->prepareForDB($this->data[$name]);
 		}
 
 		//save data
@@ -130,7 +138,7 @@ abstract class Core_ActiveRecord
 					                $field['type'] == 'int')
 					        . "'";
 				}
-				$sql = "UPDATE `" . table_name($this->table) . "`
+				$sql = "UPDATE `" . tableName($this->table) . "`
 				        SET " . $items . "
 				        WHERE `id_" . $this->table . "` = '"
 				        . clearInput($id, TRUE) . "'";
@@ -145,14 +153,16 @@ abstract class Core_ActiveRecord
 					                     $field['type'] == 'int') . "'";
 					$fields .= ($fields?', ':'') . "`" . $name . "`";
 				}
-				$sql = "INSERT INTO `" . table_name($this->table) . "`
+				$sql = "INSERT INTO `" . tableName($this->table) . "`
 				        (" . $fields . ")
 				        VALUES (" . $items . ")";
 				$this->db->query($sql);
 			}
 		} catch(RuntimeException $ex) {
 				if($ex->getCode()==1146) {
-					$this->create();
+					$class = 'Table_' . ucfirst($this->table);
+					$table = new $class;
+					$table->create();
 					return FALSE;
 				}
 				else throw new RuntimeException($ex->getMessage(), $ex->getCode());
@@ -197,13 +207,6 @@ abstract class Core_ActiveRecord
 	public function __set($key,$value)
 	{
 		return ($this->data[$key] = $value);
-	}
-
-	/**
-	 * activates/deactivates instance
-	 */
-	public function activate()
-	{
 	}
 
 	/**
