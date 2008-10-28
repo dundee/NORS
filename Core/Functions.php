@@ -59,9 +59,16 @@ if (!function_exists('__autoload')) {
 
 		$file = str_replace('_', '/', $class) . '.php';
 		if (!file_exists(APP_PATH . '/' . $file)) {
-			$log = new Core_Log();
-			$log->log($class);
-			throw new UnexpectedValueException("Class $class can not be found.");
+			do {
+				if (substr($class, 0, 3) == 'db_') {
+					$res = Core_ModelGenerator::generate($class);
+					if ($res) break;
+				}
+				
+				$log = new Core_Log();
+				$log->log($class);
+				throw new UnexpectedValueException("Class $class can not be found.");
+			} while (FALSE);
 		}
 		loadFile(APP_PATH . '/' . $file);
 	}
@@ -268,4 +275,17 @@ function apply($obj, $function)
 	} else $obj = $function($obj);
 
 	return $obj;
+}
+
+/**
+ * convertArrayToObject
+ *
+ * @param string[] $arr
+ * @return StdObject
+ */
+function convertArrayToObject($arr){
+	foreach($arr as $k => $v){
+		if (is_array($v)) $arr[$k] = convertArrayToObject($v);
+	}
+	return (object) $arr;
 }
