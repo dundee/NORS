@@ -6,7 +6,6 @@
 * @copyright Daniel Milde <daniel@milde.cz>
 * @license http://www.opensource.org/licenses/gpl-license.php
 * @package Core
-*
 */
 
 /**
@@ -96,7 +95,9 @@ abstract class Core_Component extends Core_Object
 			unset($data);
 			$this->delData();
 
-			$request = $this->request;
+			$request  = $this->request;
+			$response = $this->response;
+			$router   = $this->router;
 
 			ob_start();
 			include(APP_PATH . '/tpl/component/' . $this->tplFile);

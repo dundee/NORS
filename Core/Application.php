@@ -18,12 +18,20 @@
 class Core_Application
 {
 	/**
-	 * $request
-	 *
 	 * @var Core_Request $request
 	 */
 	protected $request;
-
+	
+	/**
+	 * @var Core_Response $response
+	 */
+	protected $response;
+	
+	/**
+	 * @var Core_Router $router
+	 */
+	protected $router;
+	
 	/**
 	 * run
 	 *
@@ -34,8 +42,11 @@ class Core_Application
 
 		Core_Debug::start();
 
-		$this->request = Core_Request::factory();
-		$this->request->decodeUrl();
+		$this->request  = Core_Request ::factory();
+		$this->response = Core_Response::factory();
+		$this->router   = Core_Router  ::factory();
+		
+		$this->router->decodeUrl($this->request);
 
 		if ( !Core_Config::singleton()->enabled ) {
 			throw new RuntimeException('Out of order', 503);
@@ -63,33 +74,24 @@ class Core_Application
 		do {
 			$moduleFile = APP_PATH . '/modules/' . ucfirst($module) . '.php';
 			if (!file_exists($moduleFile)) {
-				throw new UnexpectedValueException('Could not find module ' . $moduleFile . ', url: ' . $this->request->getUrl(),
-				                                   404);
+				throw new UnexpectedValueException('Could not find module ' . $moduleFile . ', url: ' . $this->request->getUrl(), 404);
 			} else {
 				loadFile($moduleFile);
 				if (!class_exists($module)) {
-					throw new RuntimeException('Module ' . $module . ' includes no module class',
-					                           500);
+					throw new RuntimeException('Module ' . $module . ' includes no module class', 500);
 				} else {
 					$instance = new $module();
 					if (!Core_Module::isValid($instance)) {
-						throw new RuntimeException('Module ' . $module . ' is not a valid module',
-						                           500);
+						throw new RuntimeException('Module ' . $module . ' is not a valid module', 500);
 					}
 					if (!$instance->authenticate()) {
-						$this->request->setSession('request',
-						                           $this->request->getUrl());
+						if ($module != 'login') $this->response->setSession('request', $this->request->getUrl());
 						$module = 'login';
 						$event  = '__default';
-						$this->request->redirect($module,
-						                         $event,
-						                         FALSE,
-						                         'default');
+						$this->router->redirect($module, $event, FALSE, 'default');
 					} else {
 						$instance->checkRights();
-						$view = Core_View::factory($this->request->view,
-						                           $instance,
-						                           $event);
+						$view = Core_View::factory($this->request->view, $instance, $event);
 						$view->display();
 					} //end if authenticated
 				} //end if class exists

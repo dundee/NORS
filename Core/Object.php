@@ -23,11 +23,19 @@
 abstract class Core_Object
 {
 	/**
-	 * $request
-	 *
 	 * @var Core_Request $request
 	 */
 	public $request;
+	
+	/**
+	 * @var Core_Response $response
+	 */
+	public $response;
+	
+	/**
+	 * @var Core_Router $router
+	 */
+	public $router;
 
 	/**
 	 * $me
@@ -47,9 +55,11 @@ abstract class Core_Object
 	 * Constructor
 	 */
 	public function __construct(){
-		$this->me       = new ReflectionClass($this);
-		$this->request  = Core_Request::factory();
-		$this->config   = Core_Config ::singleton();
+		$this->me        = new ReflectionClass($this);
+		$this->request   = Core_Request ::factory();
+		$this->response  = Core_Response::factory();
+		$this->router    = Core_Router  ::factory();
+		$this->config    = Core_Config ::singleton();
 	}
 
 	/**

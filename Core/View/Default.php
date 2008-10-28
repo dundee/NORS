@@ -31,7 +31,8 @@ class Core_View_Default extends Core_View
 	*/
 	public function display(){
 
-		$request = $this->module->request;
+		$request  = $this->module->request;
+		$response = $this->module->response;
 		$createCache = FALSE;  //should we create cache file?
 		$cacheLifeTime = $this->module->cache;
 
@@ -69,7 +70,7 @@ class Core_View_Default extends Core_View
 
 		$data = $this->module->getData();
 
-		$this->setDoctype($data,$request);
+		$this->setDoctype($data,$request, $response);
 
 		foreach($data as $k=>$v){
 			${$k} = $v;
@@ -91,15 +92,15 @@ class Core_View_Default extends Core_View
 		}
 	}
 
-	protected function setDoctype(&$data, $request){
+	protected function setDoctype(&$data, $request, $response){
 		if(!headers_sent()){
 			$config = Core_Config::singleton();
 			if($request->getVar('browser')=='Firefox') {
 				$data['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . ENDL;
-				$request->sendHeaders();
+				$response->sendHeaders();
 			} else {
 				$data['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . ENDL;
-				$request->sendHeaders();
+				$response->sendHeaders();
 			}
 		}
 	}

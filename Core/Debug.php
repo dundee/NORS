@@ -201,7 +201,7 @@ class Core_Debug
 
 		if (!headers_sent())
 			header('HTTP/1.1 '.$code.' '.$codes[$code], TRUE, $code);
-		Core_Request::factory()->sendHeaders();
+		Core_Response::factory()->sendHeaders();
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD'
 		     . 'XHTML 1.0 Strict//EN"'
 		     . '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
@@ -213,14 +213,14 @@ class Core_Debug
 		     . APP_URL . '/styles/default/css/errors.css" />'
 		     . '</head><body>';
 
-		if ( !$config->debug->enabled ) { //production mode
+		if ( !$config->debug->enabled || $code == 503) { //production mode
 
 			echo '<div id="message">';
 			echo '<h1>' . $code . ' - ' . $codes[$code]['name'] . '</h1>';
 			echo '<p>' . __($codes[$code]['text']) . '</p>';
 			echo '<div id="footer">'
 			     . 'Powered by <a href="http://core-php.com/">Core framework'
-			     . '</a> ' . core_version()
+			     . '</a> ' . coreVersion()
 			     . ' &copy; 2007-' . date("Y")
 			     . ' <a href="http://milde.cz">Daniel Milde</a> '
 			     . 'aka Dundee</div>';

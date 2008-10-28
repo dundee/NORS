@@ -1,21 +1,21 @@
 <?php
 
 /**
-* Core_User
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*
-*/
+ * Core_User
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @copyright Daniel Milde <daniel@milde.cz>
+ * @license http://www.opensource.org/licenses/gpl-license.php
+ * @package Core
+ *
+ */
 
 /**
-* Core_User
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Core_User
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_User
 {
 	public $userName;
@@ -44,7 +44,7 @@ class Core_User
 		if (is_object($user)) {
 			if ($user->password == $text_obj->crypt($password, $name)) {
 				if ($user->active == 1) {
-					Core_Request::factory()->setSession('id_user', $user->id_user);
+					Core_Response::factory()->setSession('id_user', $user->id_user);
 					return TRUE;
 				} else throw new RuntimeException( __('account_not_active') );
 			} else throw new RuntimeException( __('wrong_password') );
@@ -58,6 +58,6 @@ class Core_User
 
 	public function logout()
 	{
-		Core_Request::factory()->setSession('id_user', 0);
+		Core_Response::factory()->setSession('id_user', 0);
 	}
 }

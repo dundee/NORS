@@ -15,7 +15,7 @@
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
-abstract class Core_Request
+class Core_Request
 {
 	/**
 	 * $instance
@@ -63,24 +63,17 @@ abstract class Core_Request
 			return self::$instance;
 		}
 		
-		$config = Core_Config::singleton();
-		if (!$class) {
-			if (!$config->request_class) {
-				if (isset($_SERVER['HTTP_HOST'])) {
-					$class = 'ModRewrite';	
-				} elseif(isset($_SERVER['argc'])) {
-					$class = 'Cli';
-				} else {
-					throw new RuntimeException("Not a valid Request");
-				}
-			} else {
-				$class = $config->request_class; 
-			}
-		}
-		
-		$class = 'Core_Request_' . $class;
+		$class = 'Core_Request';
 		self::$instance = new $class;
 		return self::$instance;
+	}
+	
+	/**
+	 * Constructor
+	 */
+	protected function __construct(){
+		$this->setLocale();
+		$this->setView();
 	}
 
 	/**
@@ -90,40 +83,8 @@ abstract class Core_Request
 	 */
 	public function __toString()
 	{
-		$arr = array_merge( $this->get(), array($this->locale, $this->getVar('browser')) );
+		$arr = array_merge( $this->getGet(), array($this->locale, $this->getVar('browser')) );
 		return implode('-',$arr);
-	}
-
-	/**
-	 * get
-	 * 
-	 * Returns $_GET array
-	 * 
-	 * @return mixed $_GET
-	 */
-	public function get()
-	{
-		return $_GET;
-	}
-	
-	/**
-	 * Returns $_POST array
-	 * 
-	 * @return mixed $_POST
-	 */
-	public function post()
-	{
-		return $_POST;
-	}
-	
-	/**
-	 * Returns $_POST array
-	 * 
-	 * @return mixed $_POST
-	 */
-	public function files()
-	{
-		return $_FILES;
 	}
 
 	/**
@@ -134,7 +95,7 @@ abstract class Core_Request
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 * @return mixed
 	 */
-	public function getFrom($key, &$source, $acceptHTML = FALSE)
+	protected function getFrom($key, $source /*, $acceptHTML = FALSE*/)
 	{
 		if(!isset($source[$key])) return FALSE;
 		
@@ -143,24 +104,14 @@ abstract class Core_Request
 			$output = apply($source[$key], 'stripslashes');
 		} else $output = $source[$key];
 		
+		/*
 		//clear HTML
 		if ($acceptHTML == FALSE) {
 			$output = apply($output, 'htmlspecialchars');
 		}
+		*/
 			
-		return apply($output, 'trim');		
-	}
-	
-	/**
-	 * setTo
-	 * 
-	 * @param string $key Wrapper for writing $_...[$key]
-	 * @param mixed $value
-	 * @param mixed $destination GET | POST | COOKIE | SESSION
-	 */
-	public function setTo($key, $value, &$destination)
-	{
-		$destination[$key] = $value;
+		return apply($output, 'trim');
 	}
 	
 	/**
@@ -169,9 +120,10 @@ abstract class Core_Request
 	 * @param string $key Wrapper for $_GET[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
-	public function getGet($key,$acceptHTML = FALSE)
+	public function getGet($key = FALSE /*,$acceptHTML = FALSE*/)
 	{
-		return $this->getFrom($key, $_GET, $acceptHTML);
+		if ($key !== FALSE) return $this->getFrom($key, $_GET /*, $acceptHTML*/);
+		return $_GET;
 	}
 
 	/**
@@ -180,9 +132,10 @@ abstract class Core_Request
 	 * @param string $key Wrapper for $_POST[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
-	public function getPost($key, $acceptHTML = FALSE)
+	public function getPost($key = FALSE /*, $acceptHTML = FALSE*/)
 	{
-		return $this->getFrom($key, $_POST, $acceptHTML);
+		if ($key !== FALSE) return $this->getFrom($key, $_POST /*, $acceptHTML*/);
+		return $_POST;
 	}
 
 	/**
@@ -191,10 +144,11 @@ abstract class Core_Request
 	 * @param string $key Wrapper for $_SESSION[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
-	public function getSession($key, $acceptHTML = FALSE)
+	public function getSession($key = FALSE /*, $acceptHTML = FALSE*/)
 	{
 		if (!$this->session) $this->session = Core_Session::singleton();
-		return $this->getFrom($key, $_SESSION, $acceptHTML);
+		if ($key !== FALSE) return $this->getFrom($key, $_SESSION /*, $acceptHTML*/);
+		return $_SESSION;
 	}
 
 	/**
@@ -203,9 +157,10 @@ abstract class Core_Request
 	 * @param string $key Wrapper for $_SERVER[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
-	public function getServer($key, $acceptHTML = FALSE)
+	public function getServer($key = FALSE /*, $acceptHTML = FALSE*/)
 	{
-		return $this->getFrom($key, $_SERVER, $acceptHTML);
+		if ($key !== FALSE) return $this->getFrom($key, $_SERVER /*, $acceptHTML*/);
+		return $_SERVER;
 	}
 
 	/**
@@ -214,9 +169,10 @@ abstract class Core_Request
 	 * @param string $key Wrapper for $_COOKIE[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
-	public function getCookie($key, $acceptHTML = FALSE)
+	public function getCookie($key /*, $acceptHTML = FALSE*/)
 	{
-		return $this->getFrom($key, $_COOKIE, $acceptHTML);
+		if ($key !== FALSE) return $this->getFrom($key, $_COOKIE /*, $acceptHTML*/);
+		return $_COOKIE;
 	}
 
 	/**
@@ -227,63 +183,28 @@ abstract class Core_Request
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 * @return mixed
 	 */
-	public function getVar($key, $acceptHTML = FALSE)
+	public function getVar($key /*, $acceptHTML = FALSE*/)
 	{
-		return $this->getFrom($key, $this->vars, $acceptHTML);
+		if ($key !== FALSE) return $this->getFrom($key, $this->vars /*, $acceptHTML*/);
+		return $this->vars;
 	}
 	
-	/**
-	 * setGet
-	 * 
-	 * @param string $key Wrapper for writing $_...[$key]
-	 * @param mixed $value
-	 * @return void
-	 */
-	public function setGet($key, $value)
+	public function getUrl()
 	{
-		$this->setTo($key, $value, $_GET);
+		return 'http://' . $this->getServer('SERVER_NAME') . $this->getServer('REQUEST_URI', TRUE);
 	}
-
-	/**
-	 * setPost
-	 *  
-	 * @param string $key Wrapper for writing $_...[$key]
-	 * @param mixed $value
-	 * @return void
-	 */
-	public function setPost($key, $value)
+	
+	public function isAjax()
 	{
-		$this->setTo($key, $value, $_POST);
+		return ($_SERVER['REQUEST_METHOD'] == 'POST' &&  //have to be a POST request
+		           ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+				     $_SERVER['HTTP_X_REQUESTED_WITH']
+					 ) == 'XMLHttpRequest'  || //text data sent by ajax
+			           (isset($_GET['command']) && isset($_FILES)) //or files sent by hidden textarea
+				    )
+			    );
 	}
-
-	/**
-	 * setSession
-	 * 
-	 * @param string $key Wrapper for writing $_...[$key]
-	 * @param mixed $value
-	 * @return void
-	 */
-	public function setSession($key, $value)
-	{
-		if (!$this->session) $this->session = Core_Session::singleton();
-		$this->setTo($key, $value, $_SESSION);
-	}
-
-	/**
-	 * setCookie
-	 * 
-	 * @param string $key Wrapper for writing $_...[$key]
-	 * @param mixed $value
-	 * @param int $time
-	 * @param string $directory
-	 * @return void
-	 */
-	public function setCookie($key, $value, $time = FALSE, $directory = '/')
-	{
-		if ($time === FALSE) $time = time() + Core_Config::singleton()->cookie->expiration;
-		setcookie($key,$value,$time,$directory);
-	}
-
+	
 	/**
 	 * setVar
 	 * 
@@ -292,130 +213,40 @@ abstract class Core_Request
 	 * @return void
 	 */
 	public function setVar($key, $value){
-		$this->setTo($key, $value, $this->vars);
-	}
-
-	/**
-	 * setGetFromArray
-	 * 
-	 * Loads $_GET from array.
-	 * 
-	 * @param mixed[] $array
-	 */
-	public function setGetFromArray($array){
-		$_GET = $array;
+		$this->vars[$key] = $value;
 	}
 	
-	/**
-	 * sendHeaders
-	 * 
-	 * Sends HTTP headers
-	 *
-	 * @param string $content_type
-	 * @param int $expires_in Number of seconds page should be cached
-	 * @return void
-	 */
-	public function sendHeaders($content_type = 'text/html', $expires_in = 0)
-	{
-		if (headers_sent()) return;
-		
-		if ($expires_in == 0) {
-			$expires = 0;
-			$modified = time();
+	protected function setLocale(){
+		if ($this->getGet('lang')){ //GET - nejvyssi priorita
+			$lang = $this->getGet('lang');
+			$this->setCookie('lang',$lang);
+			unset($_GET['lang']);
+		} elseif ($this->getCookie('lang')) {
+			$lang = $this->getCookie('lang'); //COOKIE - stredni priorita
+		} elseif ($this->getServer('HTTP_ACCEPT_LANGUAGE')) { //HTTP - nejnizsi priorita
+			$arr = explode(';',$this->getServer('HTTP_ACCEPT_LANGUAGE'));
+			$languages = $arr[0];
+			$arr = explode(',',$languages);
+			foreach($arr as $item){
+				$lang = $item;
+				if (file_exists(APP_PATH.'/locales/'.ucfirst($lang).'.php')) break;
+			}
+		} else {
+			$config = Core_Config::singleton();
+			$lang = $config->locale;
 		}
-		else {
-			$expires = time() + $expires_in;
-			$modified = time() - $expires_in;
-		}
-		
-		header('Expires: ' . date("r", $expires));
-		header("Cache-Control: no-cache, must-revalidate, max-age=" . $expires_in);
-		header ("Last-Modified: " . date("r", $modified));
-		if ($expires_in == 0) header ("Pragma: no-cache");
-		header("Content-type: " . $content_type . "; charset=" . Core_Config::singleton()->encoding);
-		header("X-Powered-By: Core Framework");
+		$this->locale = ucfirst($lang);
+		Core_Locale::factory($this->locale); //creates static instance
 	}
 
-	/*----------------- ABSTRACT ------------------*/
-	
-	/**
-	 * getUrl
-	 * 
-	 * @return string actual URL
-	 */ 
-	abstract public function getUrl();
+	protected function setView(){
+		if ($this->getGet('ajax')    !== FALSE) $this->view = 'Ajax';
+		elseif ($this->getGet('rss') !== FALSE) $this->view = 'Rss';
+		elseif ($this->getGet('csv') !== FALSE) $this->view = 'Csv';
 
-	/**
-	 * forward
-	 * 
-	 * Creates URL from new GET request extended from actual request. Previous GET params will be used.
-	 * 
-	 * @param string[] $params GET parameters
-	 * @param string $event Controller event
-	 * @return string URL
-	 */
-	abstract public function forward($params, $event = FALSE);
-
-	/**
-	 * redirect
-	 * 
-	 * Creates URL from new GET request. Previous GET params won't be used.
-	 * 
-	 * @param string $module Name of controller class
-	 * @param string $event Name of controller event
-	 * @param string $route Name of route which should be used
-	 * @param string[] $params Other GET params
-	 * @param boolean $inherit_params Should we used previous GET params?
-	 * @param boolean $moved Should we redirect via 301 HTTP header?
-	 * @return string
-	 */
-	abstract public function redirect($module, $event, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE);
-	
-	/**
-	 * isAjax
-	 * 
-	 * Is this AJAX request? 
-	 * 
-	 * @return boolean
-	 */
-	abstract public function isAjax();
-	
-	/**
-	 * genUrl
-	 * 
-	 * Creates URL from new GET request. 
-	 * 
-	 * @param string $module Name of controller class
-	 * @param string $event Name of controller event
-	 * @param string $routeName Name of route which should be used
-	 * @param string[] $params Other GET params
-	 * @param boolean $inherit_params Should we used previous GET params?
-	 * @return string
-	 */
-	abstract public function genURL($module = FALSE, $event = FALSE, $routeName = FALSE, $other_args = FALSE, $inherit_params = FALSE, $in_header = FALSE);
-	
-	/**
-	 * decodeUrl
-	 * 
-	 * Converts URL to inner request (module+event+params)
-	 * @return void 
-	 */
-	abstract public function decodeUrl();
-	
-	/**
-	 * setLocale
-	 * 
-	 * Detects which localization should be used in this session.
-	 * 
-	 * @return void
-	 */
-	abstract protected function setLocale();
-	
-	/**
-	 * setView
-	 * 
-	 * Detects which view wants user to be displayed
-	 * @return void
-	 */
-	abstract protected function setView();
+		$agent = $this->getServer('HTTP_USER_AGENT');
+		if (strpos($agent, 'Opera') !== FALSE) $this->setVar('browser', 'Opera');
+		if (strpos($agent, 'Gecko') !== FALSE) $this->setVar('browser', 'Firefox');
+		if (strpos($agent, 'MSIE')  !== FALSE) $this->setVar('browser', 'IE');
+	}
 }

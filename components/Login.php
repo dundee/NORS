@@ -36,13 +36,11 @@ class Component_Login extends Core_Component
 			$userModel = new Table_User();
 			$user = new Core_User($userModel);
 			try {
-				$user->login($userModel,
-			                 $this->request->getPost('username'),
-			                 $this->request->getPost('password'));
+				$user->login($userModel, $this->request->getPost('username'), $this->request->getPost('password'));
 				if ($this->request->getSession('request')) {
 					$url = $this->request->getSession('request', TRUE);
 				} else {
-					$url = $this->request->genUrl('administration','__default','default', FALSE);
+					$url = $this->request->genUrl('administration', '__default', 'default', FALSE);
 				}
 				header('Location: ' . $url);
 			} catch (RuntimeException $ex) {

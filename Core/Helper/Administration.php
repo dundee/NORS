@@ -32,6 +32,8 @@ class Core_Helper_Administration extends Core_Helper
 
 	public function actions($items)
 	{
+		if (!iterable($items)) return;
+		
 		echo ENDL . '<div id="actions">' . ENDL;
 		$i = 0;
 		foreach ($items as $name => $url) {
@@ -45,15 +47,16 @@ class Core_Helper_Administration extends Core_Helper
 	{
 		$class = 'Table_' . ucfirst($table);
 		$model = new $class;
-		$r = Core_Request::factory();
+		$r = Core_Router::factory();
+		$request = Core_Request::factory();
 
 		$max = Core_Config::singleton()->administration->items_per_page;
-		$limit = ($r->getPost('page') * $max) . ',' . $max;
+		$limit = ($request->getPost('page') * $max) . ',' . $max;
 
-		$rows = $model->getList($r->getPost('order'),
-		                        $r->getPost('a'),
+		$rows = $model->getList($request->getPost('order'),
+		                        $request->getPost('a'),
 		                        $limit,
-		                        $r->getPost('name'));
+		                        $request->getPost('name'));
 		$output = '';
 
 		if (!$just_content) {
@@ -141,34 +144,27 @@ class Core_Helper_Administration extends Core_Helper
 		$next_file_c = 1;
 		foreach ($model->fields as $name=>$field) {
 			if ($field['visibility'] == 0) continue;
-			$type = $field['type'];
-			$value = '';
-			switch ($type) {
-				case 'datetime':
-					$value = date('Y-m-d H:i:s');
-					break;
-				case 'date':
-					$value = date('Y-m-d');
-					break;
-				case 'expiration':
-					$value = date('Y-m-d', time() + 3600 * 24 * 365);
-					break;
-			}
+			$type       = $field['type'];
+			$type_class = 'Core_Type_' . ucfirst($type);
+			$type_obj   = new $type_class;
+			
+			if ($model->$name) $value = $model->$name;
+			else $value = $type_obj->getDefaultValue();
 
 			switch ($type) {
 				case 'datetime':
-				case 'expiration':
 				case 'date':
-				case 'name':
 				case 'int':
-				case 'text':
-					if ($model->$name) $value = $model->$name;
+				case 'string':
 					$i = $this->form->input(FALSE, $name, __($name), 'text', $value);
+					break;
+				case 'bool':
+					$i = $this->form->input(FALSE, $name, __($name), 'checkbox', 1);
 					break;
 				case 'password':
 					$i = $this->form->input(FALSE, $name, __($name), 'password', '');
 					break;
-				case 'textarea':
+				case 'html':
 					$i = $this->form->textarea(FALSE, $name, __($name), $model->$name);
 					break;
 				case 'file':
@@ -246,7 +242,7 @@ class Core_Helper_Administration extends Core_Helper
 
 					if (is_array($model->$name)) {
 						$arr = $model->$name;
-                    } else {
+					} else {
 						$arr = explode('|', $model->$name);
 					}
 
