@@ -33,12 +33,19 @@ class Core_Helper_Administration extends Core_Helper
 	public function actions($items)
 	{
 		if (!iterable($items)) return;
+		$r = Core_Request::factory();
 		
 		echo ENDL . '<div id="actions">' . ENDL;
 		$i = 0;
 		foreach ($items as $name => $url) {
 			if ($i) echo ' | ';
-			echo '<a href="' . $url . '">' . __($name) . '</a>';
+			
+			if ($r->getGet('action') == $name) $selected = 'class="selected" ';
+			else $selected = '';
+			
+			echo '<a ' . $selected . 'href="' . $url . '">' . __($name) . '</a>';
+			
+			$i++;
 		}
  		echo '</div>' . ENDL;
 	}
@@ -207,67 +214,59 @@ class Core_Helper_Administration extends Core_Helper
 					$content .= '</p></div>';
 
 					$div->setContent($content);
-			}
-
-			if (substr($type,0,2) == '->') { //selectbox
-				$tbl = substr($type,2);
-				$town = FALSE;
-
-				switch ($tbl) {
-					default:
-						$id = 'id_' . $tbl;
-						$rowname = 'name';
-				}
-
-				$i = $this->form->select(FALSE, $name, __($name));
-
-				$class = 'ActiveRecord_' . ucfirst($tbl);
-				$model2 = new $class;
-
-				if ($town) {
-					$items = $model2->getByRegion($model->region_id, 'nazev_nazvu', 'asc');
-					for ($j=0; $j<count($items) && is_array($items);$j++) {
-						$items[$j]['nazev_nazvu'] = $items[$j]['nazev_nazvu'] . ' (' . $items[$j]['kategorie'] . ')';
+				
+				case 'table':
+					$tbl = $name;
+	
+					switch ($tbl) {
+						default:
+							$id = 'id_' . $tbl;
+							$rowname = 'name';
 					}
-				} else {
+	
+					$i = $this->form->select(FALSE, $name, __($name));
+	
+					$class = 'Table_' . ucfirst($tbl);
+					$model2 = new $class;
+	
 					$items = $model2->getAll($rowname, 'asc');
-				}
-
-				$options = '<option value=""></option>';
-
-				if (strpos($name, '[]')) {
-
-					$i->setParam('multiple', 'multiple');
-					$i->setParam('style', 'height: 100px;');
-
-					if (is_array($model->$name)) {
-						$arr = $model->$name;
+	
+					$options = '<option value=""></option>';
+	
+					if (strpos($name, '[]')) {
+	
+						$i->setParam('multiple', 'multiple');
+						$i->setParam('style', 'height: 100px;');
+	
+						if (is_array($model->$name)) {
+							$arr = $model->$name;
+						} else {
+							$arr = explode('|', $model->$name);
+						}
+	
+						if (iterable($items)) {
+							foreach ($items as $item) {
+								if (in_array($item[$id], $arr)) $selected = ' selected ';
+								else $selected = '';
+								$options .= '<option ' . $selected . 'value="' . $item[$id] . '">';
+								$options .= $item[$rowname] . '</option>';
+							}
+						}
+	
 					} else {
-						$arr = explode('|', $model->$name);
-					}
-
-					if (iterable($items)) {
-						foreach ($items as $item) {
-							if (in_array($item[$id], $arr)) $selected = ' selected ';
-							else $selected = '';
-							$options .= '<option ' . $selected . 'value="' . $item[$id] . '">';
-							$options .= $item[$rowname] . '</option>';
+	
+						if (iterable($items)) {
+							foreach ($items as $item) {
+								if ($item->getID() == $model->$name) $selected = ' selected ';
+								else $selected = '';
+								$options .= '<option ' . $selected . 'value="' . $item->getID() . '">';
+								$options .= $item->$rowname . '</option>';
+							}
 						}
+	
 					}
-
-				} else {
-
-					if (iterable($items)) {
-						foreach ($items as $item) {
-							if ($item[$id] == $model->$name) $selected = ' selected ';
-							else $selected = '';
-							$options .= '<option ' . $selected . 'value="' . $item[$id] . '">';
-							$options .= $item[$rowname] . '</option>';
-						}
-					}
-
-				}
-				$i->setContent($options);
+					$i->setContent($options);
+					break;
 			}
 
 			//all inputs
@@ -281,5 +280,33 @@ class Core_Helper_Administration extends Core_Helper
 
 		if ($return) return $output;
 		echo $output;
+	}
+
+	/**
+	 * Generates tree
+	 *
+	 * @param string $table Name of table
+	 * @param string $parent Name of column which acts like parent pointer
+	 */
+	public function tree($table, $parent)
+	{
+		$class = 'Table_' . ucfirst($table);
+		$instance = new $class;
+		$all = $instance->getAll('name', 'asc');
+		
+		$this->renderChilds(0, $all, $parent);
+	}
+	
+	protected function renderChilds($id, $all, $parent)
+	{
+		echo '<ul>';
+		foreach ($all as $key => $value) {
+			if ($value->$parent == $id) {
+				echo '<li>' . $value->name . '</li>';
+				unset($all[$key]);
+				$this->renderChilds($value->getID(), $all, $parent); 
+			}
+		}
+		echo '</ul>';
 	}
 }
