@@ -29,11 +29,9 @@ class Logout extends Core_Module_Auth
 	* @return void
 	*/
 	public function __default(){
-		$_GET['request'] = isset($_GET['request']) ? output($_GET['request'],TRUE) : DEFAULT_MODEL;
-
 		$this->session->destroy();
 
-		header("Location: ".gen_url(array("model"=>$_GET['request']),TRUE));
+		$this->router->redirect('administration', 'login');
 	}
 
 	/**

@@ -17,7 +17,7 @@
 */
 class Login extends Core_Module
 {
-	public $css = array('src' => 'default.css');
+	public $css     = array('src' => 'default.css');
 	public $helpers = array('Form');
 	
 	public $cache = 0;

@@ -118,10 +118,10 @@ class Core_Application
 		$data = $instance->getData();
 
 		if ($instance->responseType == 'json') {
-			$this->request->sendHeaders('text/x-json');
+			$this->response->sendHeaders('text/x-json');
 			echo json_encode($data);
 		} elseif ($instance->responseType == 'html') {
-			$this->request->sendHeaders();
+			$this->response->sendHeaders();
 			echo $data['html'];
 		}
 	}

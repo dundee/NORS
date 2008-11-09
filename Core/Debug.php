@@ -247,7 +247,7 @@ class Core_Debug
 			echo '<div id="footer">';
 			self::endTimer();
 			echo '<br />Powered by <a href="http://core-php.com/">'
-			     . 'Core framework</a> ' . core_version()
+			     . 'Core framework</a> ' . coreVersion()
 			     . ' &copy; 2007-' .
 			     date("Y")
 			     . ' <a href="http://milde.cz">Daniel Milde</a>'
