@@ -34,8 +34,6 @@ class Locale_Cs extends Core_Locale
 		'log_in'                    => 'Přihlásit',
 		'log_out'                   => 'Odhlásit se',
 		
-		'new_post'                  => 'Nový článek',
-		'source'                    => 'url',
 		'title'                     => 'titulek',
 		'saved'                     => 'uloženo',
 		
@@ -57,7 +55,11 @@ class Locale_Cs extends Core_Locale
 		'homepage'                  => 'Úvod',
 		'content'                   => 'Obsah',
 		'posts'                     => 'Články',
-		'texts'                     => 'Texty',
+		'pages'                     => 'Stránky',
+		'cathegories'               => 'Rubriky',
+		'galleries'                 => 'Galerie',
+		'anquettes'                 => 'Ankety',
+		'citates'                   => 'Citáty',
 		'users'                     => 'Uživatelé',
 		'groups'                    => 'Role',
 		'settings'                  => 'Nastavení',
@@ -66,7 +68,8 @@ class Locale_Cs extends Core_Locale
 		'service'                   => 'služby',
 		
 		//                Vypisy     
-		'add'                       => 'Přidat',               
+		'add'                       => 'Přidat',
+		'tree'                      => 'Strom',
 		'add_category'              => 'Přidat kategorii',
 		'add_next_category'         => 'Přidat další kategorii',
 		'add_post'                  => 'Přidat článek',
@@ -169,6 +172,8 @@ class Locale_Cs extends Core_Locale
 	
 	public function encodeDatetime($dmy_his)
 	{
+		if (!$dmy_his) return "0000-00-00 00:00:00";
+		
 		list($date, $soil, $time) = explode(' ', $dmy_his);
 		list($d,$m,$y) = explode('.', $date);
 		list($h,$i,$s) = explode(':', $time);
@@ -177,6 +182,8 @@ class Locale_Cs extends Core_Locale
 	
 	public function encodeDate($dmy)
 	{
+		if (!$dmy) return "0000-00-00";
+		
 		list($d,$m,$y) = explode('.', $dmy);
 		return "$y-$m-$d";
 	}

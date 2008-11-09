@@ -17,10 +17,15 @@ $(function() {
 		tb_remove();
 	});
 	
-	if ($("textarea"))      $("textarea").markItUp(mySettings);
-	if ($(".next_file"))    $(".next_file").click(new_file);
-	if ($(".delete_file"))  $(".delete_file").click(delete_file);
-	if ($(".update_label")) $(".update_label").click(update_label);
+	if ($("textarea").length      > 0)  $("textarea").markItUp(mySettings);
+	if ($(".next_file").length    > 0)  $(".next_file").click(new_file);
+	if ($(".delete_file").length  > 0)  $(".delete_file").click(delete_file);
+	if ($(".update_label").length > 0)  $(".update_label").click(update_label);
+	
+	if ($("#date").length > 0)        $("#date").datetimepicker();
+	else {
+		$("#datetimepicker_div").hide();
+	}
 });
 
 function new_file()

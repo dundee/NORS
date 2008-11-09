@@ -156,6 +156,10 @@ img{
   text-align: left;
 }
 
+#actions a.selected{
+	font-weight: bold;
+}
+
 #paging{
 	margin-top: 10px;
 	text-align: center;

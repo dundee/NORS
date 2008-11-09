@@ -9,12 +9,14 @@
 * @package Core
 */
 
-$administration->submenu($submenu, $subselected);
+if (isset($submenu)) $administration->submenu($submenu, $subselected);
 
-$administration->actions($actions);
+if (isset($actions)) $administration->actions($actions);
 
-echo $dump_filter;
+if (isset($dump_filter)) echo $dump_filter;
     
-echo '<div id="dump">';
-echo $dump;
-echo '</div>';
+if (isset($dump)) {
+	echo '<div id="dump">';
+	echo $dump;
+	echo '</div>';
+}

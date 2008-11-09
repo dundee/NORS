@@ -205,4 +205,49 @@ fieldset .thubnails{
 #popup{
 	display: none;	
 }
+
+#datetimepicker_div{
+	background: #fff;
+	border: 1px solid #000;
+	font: normal 0.7em sans-serif;
+	width: 200px !important;
+	padding: 5px;
+}
+
+#datetimepicker_div td{
+	border: 1px solid #bbb;
+	padding: 2px;
+}
+
+#datetimepicker_div table{
+	border-collapse: collapse;
+	margin: 10px auto;
+}
+
+.datetimepicker_links{
+	/*width: 400px !important;*/
+}
+
+.datetimepicker_next, .datetimepicker_prev, .datetimepicker_current{
+	float: left;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.datetimepicker_prev{
+	clear: left;
+}
+
+.datetimepicker_close, .datetimepicker_clear{
+	float: left;
+	margin-right: 10px;
+}
+
+.datetimepicker_oneMonth{
+	clear: left;
+}
+
+.datetimepicker_newMonth, .datetimepicker_newYear{
+	font-size: 1em;
+}
 /* end formulare */

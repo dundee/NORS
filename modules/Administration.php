@@ -28,6 +28,7 @@ class Administration extends Core_Module_Auth
 	                   'set.js',
 	                   'jquery.thickbox.js',
 	                   'jquery.blockUI.js',
+	                   'ui.datetimepicker.js',
 	                   'jquery.admin_form.js',
 	                   'jquery.clicker.js',
 	                  );
@@ -44,9 +45,18 @@ class Administration extends Core_Module_Auth
 	public function beforeEvent()
 	{
 		$r = $this->router;
-		$menu = array('content'      => $r->genUrl('administration','content', FALSE),
-		              'users'        => $r->genUrl('administration','users',   FALSE),
-		              'settings'     => $r->genUrl('administration','settings',FALSE)
+		$menu = array('content'      => $r->genUrl('administration',
+		                                           'content', 
+		                                            FALSE,
+		                                            array('subevent' => $this->config->administration->content->default_subevent)),
+		              'users'        => $r->genUrl('administration',
+		                                           'users',
+		                                            FALSE,
+		                                            array('subevent' => $this->config->administration->users->default_subevent)),
+		              'settings'     => $r->genUrl('administration',
+		                                           'settings',
+		                                            FALSE,
+		                                            array('subevent' => $this->config->administration->settings->default_subevent)),
 		              );
 
 		$this->setData('selected', $this->request->getGet('event'));
@@ -67,57 +77,84 @@ class Administration extends Core_Module_Auth
 
 	public function content()
 	{
-		if ($this->request->getPost('table')) $this->save();
-
 		$r = $this->router;
 		$submenu = array(
-			'post'    => array('label' => 'post',
+			'cathegory'    => array('label' => 'cathegories',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' =>
-			                                                'post'))),
-			'services' => array('label' => 'service',
+			                                          array('subevent' => 'cathegory'))),
+			'post'    => array('label' => 'posts',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' =>
-			                                                'services'))),
-			'turinfo'  => array('label' => 'turinfo',
+			                                          array('subevent' => 'post'))),
+			'gallery'    => array('label' => 'galleries',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' =>
-			                                                'turinfo'))),
+			                                          array('subevent' => 'gallery'))),
+			'page'    => array('label' => 'pages',
+			                    'link'  => $r->genUrl('administration',
+			                                          'content',
+			                                          FALSE,
+			                                          array('subevent' => 'page'))),
+			'anquette'    => array('label' => 'anquettes',
+			                    'link'  => $r->genUrl('administration',
+			                                          'content',
+			                                          FALSE,
+			                                          array('subevent' => 'anquette'))),
+			'citate'    => array('label' => 'citates',
+			                    'link'  => $r->genUrl('administration',
+			                                          'content',
+			                                          FALSE,
+			                                          array('subevent' => 'citate'))),
 		);
-		if (!($subselected = $this->request->getGet('subevent')))
-			$subselected = $this
-			               ->config
-			               ->administration
-			               ->content
-			               ->default_subevent;
-
-		$this->setData('subselected', $subselected);
-		$this->setData('submenu', $submenu);
-
-		$this->{$subselected}();
+		$this->rozcestnik('content', $submenu);	
+	}
+	
+	public function cathegory()
+	{
+		$r = $this->router;
+		$actions = array('add'  => $r->forward(array('action'=>'add')),
+		                 'tree' => $r->forward(array('action'=>'tree')),
+		                 );
+		$this->basic_page('cathegory', $actions);
 	}
 	
 	public function post()
 	{
 		$r = $this->router;
-		$this->tplFile = 'admin_list.tpl.php';
-
-		$this->response->setGet('subevent', 'post');
-
 		$actions = array('add' => $r->forward(array('action'=>'add')));
-		$this->setData('actions', $actions, TRUE);
-
-		$this->setData('submenu', array());
-		$this->setData('subselected', FALSE);
-
-		if (!($action = $this->request->getGet('action'))) $action = 'dump';
-		$this->{$action}('post');
+		$this->basic_page('post', $actions);
+	}
+	
+	public function gallery()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('gallery', $actions);
+	}
+	
+	public function page()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('page', $actions);
+	}
+	
+	public function anquette()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('anquette', $actions);
+	}
+	
+	public function citate()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('citate', $actions);
 	}
 
 	public function users()
@@ -168,7 +205,7 @@ class Administration extends Core_Module_Auth
 	}
 	
 	public function advanced()
-	{
+	{	
 		$this->tplFile = 'admin_advanced_settings.tpl.php';
 		
 		include(APP_PATH . '/cache/config.yml.php.cache.php');
@@ -181,13 +218,16 @@ class Administration extends Core_Module_Auth
 			foreach ($post as $name => $value) {
 				$p = $config;
 				$arr = explode('__', $name);
-				for ($i=0; $i < count($arr)-1; $i++) {
+				for ($i=0; $i < count($arr) - 1; $i++) {
 					$next = $arr[$i];
 					$p = $p->{$next};
 				}
-				$p->$arr[count($arr)-1] = $value;
+				$p->$arr[count($arr) - 1] = $value;
 			}
 			
+			$config = convertObjectToArray($config);
+			
+			Core_Parser_YML::write($config, APP_PATH . '/config/config.yml.php');
 		}
 		
 		$this->setData('settings', $data);
@@ -197,9 +237,39 @@ class Administration extends Core_Module_Auth
 	public function logout()
 	{
 		$this->user->logout();
-
+		$this->router->redirect('administration', '__default');
 	}
 
+	
+
+	/**************************************************************************/
+	
+	
+	protected function rozcestnik($name, $submenu = FALSE)
+	{
+		if ($this->request->getPost('table')) $this->save();
+
+		if (!($subselected = $this->request->getGet('subevent')))
+			$subselected = $this->config->administration->$name->default_subevent;
+
+		$this->setData('subselected', $subselected);
+		$this->setData('submenu', $submenu);
+
+		$this->{$subselected}();
+	}
+	
+	protected function basic_page($subevent, $actions = FALSE)
+	{
+		$this->tplFile = 'admin_list.tpl.php';
+
+		$this->response->setGet('subevent', $subevent);
+
+		$this->setData('actions', $actions, TRUE);
+
+		if (!($action = $this->request->getGet('action'))) $action = 'dump';
+		$this->{$action}($subevent);
+	}
+	
 	protected function dump($table)
 	{
 		new Component_DumpFilter($this,
@@ -216,15 +286,11 @@ class Administration extends Core_Module_Auth
 			$this,
 			'form',
 			array('table'  => $table,
-			      'action' => $this
-			                  ->request
-			                  ->genURL('administration',
-			                           'content',
-			                           FALSE,
-			                           array('subevent'=> $this
-			                                              ->request
-			                                              ->getGet('subevent'))
-			                  )
+			      'action' => $this->router->genURL('administration',
+						                            'content',
+						                            FALSE,
+						                            array('subevent'=> $this->request->getGet('subevent'))
+			      )
 			)
 		);
 	}
@@ -246,12 +312,12 @@ class Administration extends Core_Module_Auth
 		);
 	}
 
-	public function save()
+	protected function save()
 	{
 		$class = 'ActiveRecord_' . ucfirst($this->request->getPost('table'));
 		$id = $this->request->getPost('id');
 		$model = new $class($id);
-		$arr = $this->request->post();
+		$arr = $this->request->getPost();
 		$html = FALSE;
 		foreach ($arr as $key=>$val) {
 			$model->{$key} = $val;
@@ -266,9 +332,9 @@ class Administration extends Core_Module_Auth
 			$this->setData('errors', $ex->getMessage());
 		}
 		
-		$this->request->setPost('name', '');
+		$this->response->setPost('name', '');
 		
-		$this->request->redirect('administration',
+		$this->router->redirect('administration',
 		                         $this->request->getGet('event'),
 		                         FALSE,
 		                         FALSE,
@@ -276,6 +342,19 @@ class Administration extends Core_Module_Auth
 		                         );
 	}
 
+	protected function tree($table)
+	{
+		$this->tplFile = 'admin_tree.tpl.php';
+		
+		switch ($table) {
+			default:
+				$parent = $table;
+		}
+		
+		$this->setData('table', $table);
+		$this->setData('parent', $parent);
+	}
+	
 	protected function activate($table)
 	{
 		$class = 'ActiveRecord_' . ucfirst($table);
