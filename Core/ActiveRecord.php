@@ -120,6 +120,8 @@ abstract class Core_ActiveRecord
 			}
 			if ($field['type'] == 'file') unset($this->fields[$name]);
 			
+			if (!isset($this->data[$name])) continue;
+			
 			$type       = $field['type'];
 			$type_class = 'Core_Type_' . ucfirst($type);
 			$type_obj   = new $type_class;
@@ -183,6 +185,16 @@ abstract class Core_ActiveRecord
 	}
 
 	/**
+	 * Sets data from array
+	 *
+	 * @param string[] $array
+	 */
+	public function setFromArray($array)
+	{
+		$this->data = $array;
+	}
+	
+	/**
 	 * __get($var)
 	 *
 	 * Returns the requested attribute.
@@ -219,11 +231,10 @@ abstract class Core_ActiveRecord
 	public function delete()
 	{
 		$sql = "DELETE
-		        FROM `" . table_name($this->table) . "`
+		        FROM `" . tableName($this->table) . "`
 		        WHERE `id_" . $this->table . "` = '"
 		        . clearInput($this->data['id_' . $this->table], 1)
 		        . "' LIMIT 1";
 		$this->db->query($sql);
-		$this->__destruct();
 	}
 }
