@@ -283,9 +283,27 @@ function apply($obj, $function)
  * @param string[] $arr
  * @return StdObject
  */
-function convertArrayToObject($arr){
+function convertArrayToObject($arr)
+{
 	foreach($arr as $k => $v){
 		if (is_array($v)) $arr[$k] = convertArrayToObject($v);
 	}
 	return (object) $arr;
+}
+
+function convertObjectToArray($object)
+{
+	$array = array();
+	$class = new ReflectionObject($object);
+	$properties = $class->getProperties();
+
+	foreach ($properties as $property) {
+		if ($object->{$property->name} instanceof StdClass) {
+			$array[$property->name] = convertObjectToArray($object->{$property->name});
+		} else {
+			$array[$property->name] = $object->{$property->name};
+		}
+	}
+	
+	return $array;
 }

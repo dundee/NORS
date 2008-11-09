@@ -44,14 +44,22 @@ class Core_Parser_YML
 		$deep = 0;
 
 		$prev_deep = 0;
-		$prev_key = false;
-		$is_array = false;
+		$prev_key = FALSE;
+		$is_array = FALSE;
+		$empty = FALSE;
 		foreach (self::$lines as $line) {
 			$arr = explode('#', $line); //strip comments
 			$line = $arr[0];
 
 			if (!strlen(trim($line))) continue;
 			$deep = (strlen($line) - strlen(ltrim($line))) / $indentionLength;
+			
+			if ($empty) { //previous value was empty. array?
+				if ($deep > $prev_deep) $content .= '"' . $key . '" => array(';
+				else $content .= '"' . $key . '" => "",';
+				$content .= ENDL;
+				$empty = FALSE;
+			}
 
 			//closing arrays
 			if ($deep < $prev_deep) {
@@ -68,10 +76,11 @@ class Core_Parser_YML
 
 			for($i=0; $i < $deep; $i++) $content .= TAB;
 
-			if ( $value !== '' )
-				$content .= '"' . $key . '" => ' . $value . ',';
-			else $content .= '"' . $key . '" => array(';
-			$content .= ENDL;
+			if ($value) {
+				$content .= '"' . $key . '" => "' . $value . '",';
+				$content .= ENDL;
+			} else $empty = TRUE;
+		
 			$prev_deep = $deep;
 		}
 
@@ -105,17 +114,19 @@ class Core_Parser_YML
 	public static function write($data, $file, $indention = TAB)
 	{
 		$indentionDeep = 0;
-		$content = '#<?php die(0); ?>';
+		$content = '#<?php die(0); ?>' . ENDL;
 		
 		foreach ($data as $name => $value) {
 			if (is_array($value)) {
-				$content .= self::writeArray($value, $indentionDeep);
+				$content .= $name . ': ' . ENDL;
+				$content .= self::writeArray($value, $indentionDeep + 1, $indention);
 			} else {
 				$content .= $name . ': ' . $value;
 			}
 		}
 		
-		dump($content);
+		file_put_contents($file, $content);
+		return TRUE;
 	}
 
 	/**
@@ -152,8 +163,19 @@ class Core_Parser_YML
 		return $indentionLength;
 	}
 	
-	public static writeArray($arr, $indentionDeep)
+	
+	public static function writeArray($arr, $indentionDeep, $indention = TAB)
 	{
-		//for($i=0; $i < $deep; $i++) $content .= TAB;
+		$content = '';
+		foreach ($arr as $name => $value) {
+			for ($i=0; $i < $indentionDeep; $i++) $content .= TAB;
+			if (is_array($value)) {
+				$content .= $name . ': ' . ENDL;
+				$content .= self::writeArray($value, $indentionDeep + 1, $indention);
+			} else {
+				$content .= $name . ': ' . $value. ENDL;
+			}
+		}
+		return $content;
 	}
 }

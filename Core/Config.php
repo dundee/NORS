@@ -60,18 +60,20 @@ class Core_Config
 
 		if ($this->data) return TRUE;
 
-		$cacheFile = APP_PATH . '/cache/' . $file . '.cache.php';
+		$arr = explode('/', $file);
+		$name = $arr[count($arr) - 1]; 
+		$cacheFile = APP_PATH . '/cache/' . $name . '.cache.php';
 
 		if (file_exists($cacheFile)) {
 			include($cacheFile);
-			if (rand(0, 10) < 8 || $time >= filemtime(APP_PATH . '/' . $file)) { //cache valid
+			if (rand(0, 10) < 8 || $time >= filemtime($file)) { //cache valid
 				$this->data = $data;
 				$this->prepareData();
 				return TRUE;
 			}
 		}
 
-		$this->data = Core_Parser_YML::read(APP_PATH . '/' . $file, $cacheFile);
+		$this->data = Core_Parser_YML::read($file, $cacheFile);
 		$this->prepareData();
 		return TRUE;
 	}

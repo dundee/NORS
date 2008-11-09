@@ -23,7 +23,7 @@ require_once('./Core/Functions.php');
 
 setUrlPath();
 
-Core_Config::singleton()->read('config.yml.php');
+Core_Config::singleton()->read(APP_PATH . '/config/config.yml.php');
 
 define('STYLE_URL', APP_URL . '/styles/' . Core_Config::singleton()->style);
 
