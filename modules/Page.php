@@ -19,19 +19,19 @@ class Page extends Core_Module
 {
 	public $css = array('default.css');
 	public $helpers = array('Menu');
-	
+
 	public $cache = 0;
-	
+
 	public function beforeEvent()
 	{
 		$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
-		
+
 		$menu_helper = new Core_Helper_Menu();
 		$menu = $menu_helper->prepare($pages);
 		$this->setData('menu_items', $menu);
 	}
-	
+
 	/**
 	* __default
 	*
@@ -40,8 +40,8 @@ class Page extends Core_Module
 	public function __default(){
 		$table = new Table_Page();
 		$page = $table->findById(intval($this->request->getGet('page')));
-		
-		if ($page) $this->setData('text', $page->text);
-		else $this->setData('text', '');
+
+		if ($page) $this->setData('text', $page->text, TRUE);
+		else $this->setData('text', '', TRUE);
 	}
 }

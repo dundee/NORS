@@ -34,7 +34,13 @@ function setUrlPath()
 {
 	//running HTTP server
 	if (isset($_SERVER['HTTP_HOST'])) {
-		$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+		$url = 'http://' . $_SERVER['HTTP_HOST'];
+
+		//index redirected to subdirectory
+		if (strpos($_SERVER['REQUEST_URI'], dirname($_SERVER['PHP_SELF'])) !== FALSE) {
+			$url .= dirname($_SERVER['PHP_SELF']);
+		}
+
 	} else { //running CLI
 		$url = 'http://localhost';
 	}
@@ -64,7 +70,7 @@ if (!function_exists('__autoload')) {
 					$res = Core_ModelGenerator::generate($class);
 					if ($res) break;
 				}
-				
+
 				$log = new Core_Log();
 				$log->log($class);
 				throw new UnexpectedValueException("Class $class can not be found.");
@@ -304,6 +310,6 @@ function convertObjectToArray($object)
 			$array[$property->name] = $object->{$property->name};
 		}
 	}
-	
+
 	return $array;
 }

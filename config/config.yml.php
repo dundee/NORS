@@ -4,8 +4,8 @@ localhost:
 	encoding: utf-8
 	locale  : Cs
 	name: Nors
-	description: 
-	keywords: 
+	description:
+	keywords:
 	style: default
 	upload_dir: upload
 	db:
@@ -30,6 +30,11 @@ localhost:
 	cookie:
 		expiration: 2592000 #one month
 	routes:
+		home:
+			format:
+			defaults:
+				module: home
+				event: __default
 		page:
 			format: page/:page
 			defaults:

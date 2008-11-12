@@ -162,8 +162,8 @@ class Core_Router_ModRewrite extends Core_Router
 		$url = $request->getUrl();
 		$url = str_replace('&','&amp;',$url);
 		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url){
-			echo $this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url;
-			//$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
+			//echo $this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url;
+			$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
 		}
 	}
 }

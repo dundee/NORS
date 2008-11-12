@@ -56,9 +56,9 @@ abstract class Core_ActiveRecord
 	{
 		$this->db    = Core_DB::singleton();
 		$this->table = $table;
-		
+
 		$this->fields = Core_Table::getFields($table);
-		
+
 		if($id) $this->load($id);
 	}
 
@@ -115,9 +115,9 @@ abstract class Core_ActiveRecord
 				$this->data[$name] = Core_Session::singleton()->id_user;
 			}
 			if ($field['type'] == 'file') unset($this->fields[$name]);
-			
+
 			if (!isset($this->data[$name])) continue;
-			
+
 			$type       = $field['type'];
 			$type_class = 'Core_Type_' . ucfirst($type);
 			$type_obj   = new $type_class;
@@ -141,33 +141,28 @@ abstract class Core_ActiveRecord
 				else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
 	}
-	
+
 	public function update($id)
 	{
 		$items = '';
 		foreach ($this->fields as $name=>$field) {
 			if (!isset($this->data[$name])) continue;
 			$items .= ($items?', ':'') . "`" . $name
-				. "` = '"
-				. clearInput($this->data[$name],
-					$field['type'] == 'int')
-				. "'";
+				. "` = '" . $this->data[$name] . "'";
 		}
 		$sql = "UPDATE `" . tableName($this->table) . "`
 			SET " . $items . "
 			WHERE `id_" . $this->table . "` = '" . clearInput($id, TRUE) . "'";
 		$this->db->query($sql);
 	}
-	
+
 	public function insert()
 	{
 		$items = '';
 		$fields = '';
 		foreach ($this->fields as $name=>$field) {
 			if (!isset($this->data[$name])) continue;
-			$items .= ($items?', ':'') . "'"
-				. clearInput($this->data[$name],
-					     $field['type'] == 'int') . "'";
+			$items  .= ($items?', ':'') . "'" . $this->data[$name] . "'";
 			$fields .= ($fields?', ':'') . "`" . $name . "`";
 		}
 		$sql = "INSERT INTO `" . tableName($this->table) . "`
@@ -198,7 +193,7 @@ abstract class Core_ActiveRecord
 	{
 		$this->data = $array;
 	}
-	
+
 	/**
 	 * __get($var)
 	 *
