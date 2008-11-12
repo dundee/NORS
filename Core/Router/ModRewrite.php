@@ -25,7 +25,7 @@ class Core_Router_ModRewrite extends Core_Router
 	 * Constructor
 	 */
 	protected function __construct(){
-	}	
+	}
 
 	public function forward($params, $event = FALSE){
 		return $this->genUrl(FALSE, $event, FALSE, $params, TRUE);
@@ -72,6 +72,7 @@ class Core_Router_ModRewrite extends Core_Router
 			if (substr($part, 0, 1) == ':') { //variable part
 				$part = substr($part, 1); //remove colon
 				$part_value = $args[$part];
+				unset($args[$part]);
 			} else { //static part
 				$part_value = $part;
 			}
@@ -84,7 +85,6 @@ class Core_Router_ModRewrite extends Core_Router
 
 			if ($part_value) $url .= $part_value . '/';
 			//echo $part . ' - ' . $args[$part] .' - '. $url.'<br />';
-			unset($args[$part]);
 		}
 
 		//after ?
@@ -162,8 +162,8 @@ class Core_Router_ModRewrite extends Core_Router
 		$url = $request->getUrl();
 		$url = str_replace('&','&amp;',$url);
 		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url){
-			//echo $this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url;
-			$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
+			echo $this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url;
+			//$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
 		}
 	}
 }

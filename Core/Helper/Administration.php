@@ -163,6 +163,7 @@ class Core_Helper_Administration extends Core_Helper
 				case 'date':
 				case 'int':
 				case 'string':
+				case 'url':
 					$i = $this->form->input(FALSE, $name, __($name), 'text', $value);
 					break;
 				case 'bool':

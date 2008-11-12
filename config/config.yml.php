@@ -3,7 +3,7 @@ localhost:
 	enabled : 1
 	encoding: utf-8
 	locale  : Cs
-	name: Blog
+	name: Nors
 	description: 
 	keywords: 
 	style: default
@@ -30,10 +30,15 @@ localhost:
 	cookie:
 		expiration: 2592000 #one month
 	routes:
+		page:
+			format: page/:page
+			defaults:
+				module: page
+				event: __default
 		default:
 			format: :module/:event
 			defaults:
-				module: administration
+				module: home
 				event: __default
 	administration:
 		items_per_page: 30

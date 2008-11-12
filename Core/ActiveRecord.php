@@ -107,10 +107,6 @@ abstract class Core_ActiveRecord
 
 		//prepare data
 		foreach ($this->fields as $name=>$field) {
-			if ($field['type'] == 'url') {
-				$text_obj = new Core_Text();
-				$this->data[$name] = $text_obj->urlEncode($this->data['name']);
-			}
 			if ($field['type'] == 'password') {
 				$text_obj = new Core_Text();
 				$this->data[$name] = $text_obj->crypt($this->data[$name], $this->data['name']);
@@ -131,34 +127,9 @@ abstract class Core_ActiveRecord
 		//save data
 		try {
 			if (isset($id) && $id > 0) 	{
-				$items = '';
-				foreach ($this->fields as $name=>$field) {
-					if (!isset($this->data[$name])) continue;
-					$items .= ($items?', ':'') . "`" . $name
-					        . "` = '"
-					        . clearInput($this->data[$name],
-					                $field['type'] == 'int')
-					        . "'";
-				}
-				$sql = "UPDATE `" . tableName($this->table) . "`
-				        SET " . $items . "
-				        WHERE `id_" . $this->table . "` = '"
-				        . clearInput($id, TRUE) . "'";
-				$this->db->query($sql);
+				$this->update($id);
 			} else {
-				$items = '';
-				$fields = '';
-				foreach ($this->fields as $name=>$field) {
-					if (!isset($this->data[$name])) continue;
-					$items .= ($items?', ':'') . "'"
-					        . clearInput($this->data[$name],
-					                     $field['type'] == 'int') . "'";
-					$fields .= ($fields?', ':'') . "`" . $name . "`";
-				}
-				$sql = "INSERT INTO `" . tableName($this->table) . "`
-				        (" . $fields . ")
-				        VALUES (" . $items . ")";
-				$this->db->query($sql);
+				$this->insert();
 			}
 		} catch(RuntimeException $ex) {
 				if($ex->getCode()==1146) {
@@ -169,6 +140,40 @@ abstract class Core_ActiveRecord
 				}
 				else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
+	}
+	
+	public function update($id)
+	{
+		$items = '';
+		foreach ($this->fields as $name=>$field) {
+			if (!isset($this->data[$name])) continue;
+			$items .= ($items?', ':'') . "`" . $name
+				. "` = '"
+				. clearInput($this->data[$name],
+					$field['type'] == 'int')
+				. "'";
+		}
+		$sql = "UPDATE `" . tableName($this->table) . "`
+			SET " . $items . "
+			WHERE `id_" . $this->table . "` = '" . clearInput($id, TRUE) . "'";
+		$this->db->query($sql);
+	}
+	
+	public function insert()
+	{
+		$items = '';
+		$fields = '';
+		foreach ($this->fields as $name=>$field) {
+			if (!isset($this->data[$name])) continue;
+			$items .= ($items?', ':'') . "'"
+				. clearInput($this->data[$name],
+					     $field['type'] == 'int') . "'";
+			$fields .= ($fields?', ':'') . "`" . $name . "`";
+		}
+		$sql = "INSERT INTO `" . tableName($this->table) . "`
+			(" . $fields . ")
+			VALUES (" . $items . ")";
+		$id = $this->db->id($sql);
 	}
 
 	/**

@@ -3,7 +3,6 @@ table: post
 fields:
 	-id_post: int
 	+name: string
-	url: url
 	cathegory: table
 	text: html
 	date: datetime

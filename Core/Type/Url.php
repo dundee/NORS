@@ -9,7 +9,6 @@
  */
 
 /**
- * Url
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -18,14 +17,13 @@ class Core_Type_Url extends Core_Type
 {
 	public function prepareForDB($value)
 	{
-		$text = new Core_Text();
-		$value = $text->urlEncode();
+		if (strpos($value, 'http://') !== 0) $value = 'http://' . $value;
 		return addslashes($value);
 	}
 	
-	public function prepareForWeb($value)
+	public function getDefaultValue()
 	{
-		return htmlspecialchars($value);
+		return 'http://';
 	}
 	
 	public function getDefinition()

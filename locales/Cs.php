@@ -18,7 +18,7 @@
 class Locale_Cs extends Core_Locale
 {
 	public $data = array(
-	
+
 		//              Odpovedi systemu
 		'DB_connection_failed'      => 'Připojení k databázi se nezdařilo',
 		'DB_query_failed'           => 'Provedení SQL dotazu se nezdařilo',
@@ -26,22 +26,22 @@ class Locale_Cs extends Core_Locale
 		'user_not_exists'           => 'Zadaný uživatel neexistuje',
 		'we_are_very_sorry'         => 'Omlouváme se. Vámi požadovaná stránka není k dispozici.',
 		'out_of_order'              => 'Omlouváme se. Aplikace je z důvodu údržby pozastavena.',
-		
+
 		//              Prihlaseni
 		'username'                  => 'Uživatelské jméno',
 		'password'                  => 'Heslo',
 		'login'                     => 'Přihlášení',
 		'log_in'                    => 'Přihlásit',
 		'log_out'                   => 'Odhlásit se',
-		
+
 		'title'                     => 'titulek',
 		'saved'                     => 'uloženo',
-		
+
 		//              Panel uzivatele
 		'logged_in'                 => 'Přihlášen',
 		'backup_db'                 => 'Zálohovat databázi',
 		'show_web'                  => 'Zobrazit web',
-		
+
 		//              Zapati
 		'gen_time'                  => 'Vygenerováno za',
 		'seconds'                   => 'sekund',
@@ -49,8 +49,8 @@ class Locale_Cs extends Core_Locale
 		'no'                        => 'ne',
 		'sql_queries'               => 'dotazů na databázi',
 		'stop_ie'                   => 'Používáte nevyhovující prohlížeč. Doporučujeme <a href="http://www.opera.com/download/">Operu</a> nebo <a href="http://www.mozilla-europe.org/cs/products/firefox/">Firefox</a>',
-		
-		
+
+
 		//             Navigace administrace
 		'homepage'                  => 'Úvod',
 		'content'                   => 'Obsah',
@@ -63,11 +63,11 @@ class Locale_Cs extends Core_Locale
 		'users'                     => 'Uživatelé',
 		'groups'                    => 'Role',
 		'settings'                  => 'Nastavení',
-	
+
 		'municipality'              => 'města a obce',
 		'service'                   => 'služby',
-		
-		//                Vypisy     
+
+		//                Vypisy
 		'add'                       => 'Přidat',
 		'tree'                      => 'Strom',
 		'add_category'              => 'Přidat kategorii',
@@ -96,9 +96,9 @@ class Locale_Cs extends Core_Locale
 		'num_of_comments'           => 'Počet komentářů',
 		'num_of_visits'             => 'Počet shlédnutí',
 		'karma'                     => 'Karma',
-		
-		
-		//                Formulare                
+
+
+		//                Formulare
 		'name'                      => 'Název',
 		'send_form'                 => 'Odeslat',
 		'post'                      => 'Článek',
@@ -129,7 +129,7 @@ class Locale_Cs extends Core_Locale
 		'group'                     => 'Role',
 		'services'                  => 'Nabízené služby',
 		'exp_date'                  => 'Konec platnosti',
-		
+
 		//             Prava
 		'post_list'                 => 'Výpis článků',
 		'post_edit'                 => 'Editace článků',
@@ -149,14 +149,14 @@ class Locale_Cs extends Core_Locale
 		'settings_list'             => 'Výpis nastavení',
 		'settings_edit'             => 'Editace nastavení',
 		'settings_del'              => 'Mazání nastavení',
-	
+
 		//             VyletnikAdmin
 		'town'                      => 'Město',
 		'nazev_regionu'             => 'Region',
 		'nazev_kategorie_mista_cz'  => 'Kategorie',
 		'nazev_nazvu'               => 'Název',
-		
-		
+
+
 		);
 	public function decodeDate($ymd_his)
 	{
@@ -169,21 +169,22 @@ class Locale_Cs extends Core_Locale
 		$text = new Core_Text($ymd_his);
 		return date("d.m.Y v H:i:s",$text->dateToTimeStamp());
 	}
-	
+
 	public function encodeDatetime($dmy_his)
 	{
 		if (!$dmy_his) return "0000-00-00 00:00:00";
-		
-		list($date, $soil, $time) = explode(' ', $dmy_his);
+		return $dmy_his;
+
+		list($date, $time) = explode(' ', $dmy_his);
 		list($d,$m,$y) = explode('.', $date);
 		list($h,$i,$s) = explode(':', $time);
 		return "$y-$m-$d $h:$i:$s";
 	}
-	
+
 	public function encodeDate($dmy)
 	{
 		if (!$dmy) return "0000-00-00";
-		
+
 		list($d,$m,$y) = explode('.', $dmy);
 		return "$y-$m-$d";
 	}

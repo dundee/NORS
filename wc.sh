@@ -1,6 +1,7 @@
 #!/bin/bash
 find ./ \
         -not -name "jquery.markitup.js" \
+        -not -name "ui.datetimepicker.js" \
         -not -name "jquery.thickbox.js" \
         -not -name "jquery.jtageditor.js" \
         -not -name "jquery.facebox.js" \
