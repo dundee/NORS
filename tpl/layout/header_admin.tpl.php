@@ -39,9 +39,28 @@ if (isset($site['rss'])) {
 	echo '<link rel="alternate" type="application/rss+xml" title="' . $rss['title'] . '" href="' . $rss['src'] . '" />' . "\n";
 }
 
-if (isset($site['css'])) {
-	foreach($site['css'] as $css)
-	echo '<link rel="Stylesheet" type="text/css" href="' . $css['src'] . '" />' . "\n";
+if (isset($site['css']['normal'])) {
+	foreach($site['css']['normal'] as $css)
+	echo '<link rel="Stylesheet" media="screen,projection" type="text/css" href="'.$css['src'].'" />'.ENDL;
+}
+
+if (isset($site['css']['print'])) {
+	foreach($site['css']['print'] as $css)
+	echo '<link rel="Stylesheet" media="print" type="text/css" href="'.$css['src'].'" />'.ENDL;
+}
+
+if (isset($site['css']['ie6'])) {
+	echo '<!--[if lte IE 6]>'.ENDL;
+	foreach($site['css']['ie6'] as $css)
+		echo '<link rel="Stylesheet" media="screen,projection" type="text/css" href="'.$css['src'].'" />'.ENDL;
+	echo '<![endif]-->'.ENDL;
+}
+
+if (isset($site['css']['ie7'])) {
+	echo '<!--[if lte IE 7]>'.ENDL;
+	foreach($site['css']['ie7'] as $css)
+		echo '<link rel="Stylesheet" media="screen,projection" type="text/css" href="'.$css['src'].'" />'.ENDL;
+	echo '<![endif]-->'.ENDL;
 }
 
 echo '<title>' . $site['title'] . '</title>' . "\n";

@@ -96,7 +96,12 @@ abstract class Core_Module extends Core_Object
 	*
 	* @var array $css
 	*/
-	public $css = array();
+	public $css = array(
+		'normal' => array(),
+		'ie6'    => array(),
+		'ie7'    => array(),
+		'print'  => array(),
+	);
 
 	/**
 	 * $helpers
@@ -144,7 +149,7 @@ abstract class Core_Module extends Core_Object
 	public function authenticate(){
 		return true;
 	}
-	
+
 	/**
 	* checkRights
 	*
@@ -168,8 +173,10 @@ abstract class Core_Module extends Core_Object
 			$site_data['rss'][] = array('src' => gen_url(array('model'=>$rss)));
 		}
 
-		foreach($this->css as $css){
-			$site_data['css'][] = array('src' => APP_URL.'/styles/'.$this->style.'/css/'.$css);
+		foreach($this->css as $key => $arr){
+			foreach($arr as $css) {
+				$site_data['css'][$key][] = array('src' => APP_URL.'/styles/'.$this->style.'/css/'.$css);
+			}
 		}
 
 		$this->setData('site',$site_data);

@@ -14,6 +14,12 @@
 
 class Logout extends Core_Module_Auth
 {
+	public $css = array(
+		'normal' => array('layout.css'),
+		'ie6'    => array('ie6.css'),
+		'ie7'    => array('ie7.css'),
+		'print'  => array('print.css'),
+	);
 	/**
 	* Constructor
 	* @access public

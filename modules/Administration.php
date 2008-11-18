@@ -18,9 +18,9 @@
 class Administration extends Core_Module_Auth
 {
 
-	public $css = array('admin.css',
-	                    'markitup.css',
-	                    'thickbox.css'
+	public $css = array('normal' => array('admin.css',
+	                                      'markitup.css',
+	                                      'thickbox.css'),
 	                   );
 	public $js = array('jquery-1.2.2.min.js',
 	                   'jquery.dump_filter.js',
@@ -46,7 +46,7 @@ class Administration extends Core_Module_Auth
 	{
 		$r = $this->router;
 		$menu = array('content'      => $r->genUrl('administration',
-		                                           'content', 
+		                                           'content',
 		                                            FALSE,
 		                                            array('subevent' => $this->config->administration->content->default_subevent)),
 		              'users'        => $r->genUrl('administration',
@@ -109,10 +109,15 @@ class Administration extends Core_Module_Auth
 			                                          'content',
 			                                          FALSE,
 			                                          array('subevent' => 'citate'))),
+			'language'  => array('label' => 'languages',
+			                    'link'  => $r->genUrl('administration',
+			                                          'content',
+			                                          FALSE,
+			                                          array('subevent' => 'language'))),
 		);
-		$this->rozcestnik('content', $submenu);	
+		$this->rozcestnik('content', $submenu);
 	}
-	
+
 	public function cathegory()
 	{
 		$r = $this->router;
@@ -121,40 +126,47 @@ class Administration extends Core_Module_Auth
 		                 );
 		$this->basic_page('cathegory', $actions);
 	}
-	
+
 	public function post()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('post', $actions);
 	}
-	
+
 	public function gallery()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('gallery', $actions);
 	}
-	
+
 	public function page()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('page', $actions);
 	}
-	
+
 	public function anquette()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('anquette', $actions);
 	}
-	
+
 	public function citate()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('citate', $actions);
+	}
+
+	public function language()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('language', $actions);
 	}
 
 	public function users()
@@ -173,7 +185,7 @@ class Administration extends Core_Module_Auth
 		if (!($action = $this->request->getGet('action'))) $action = 'dump';
 		$this->{$action}('user');
 	}
-	
+
 	public function settings()
 	{
 		$r = $this->router;
@@ -197,24 +209,24 @@ class Administration extends Core_Module_Auth
 
 		$this->{$subselected}();
 	}
-	
+
 	public function basic()
 	{
 		$r = $this->router;
 		$this->tplFile = 'admin_list.tpl.php';
 	}
-	
+
 	public function advanced()
-	{	
+	{
 		$this->tplFile = 'admin_advanced_settings.tpl.php';
-		
+
 		include(APP_PATH . '/cache/config.yml.php.cache.php');
-		
+
 		if ($this->request->getPost('send')) {
 			$config = convertArrayToObject($data);
 			$post = $this->request->getPost();
 			unset($post['send']);
-			
+
 			foreach ($post as $name => $value) {
 				$p = $config;
 				$arr = explode('__', $name);
@@ -224,12 +236,12 @@ class Administration extends Core_Module_Auth
 				}
 				$p->$arr[count($arr) - 1] = $value;
 			}
-			
+
 			$config = convertObjectToArray($config);
-			
+
 			Core_Parser_YML::write($config, APP_PATH . '/config/config.yml.php');
 		}
-		
+
 		$this->setData('settings', $data);
 		$this->setData('clicker', new Core_Helper_Clicker());
 	}
@@ -240,11 +252,11 @@ class Administration extends Core_Module_Auth
 		$this->router->redirect('administration', '__default');
 	}
 
-	
+
 
 	/**************************************************************************/
-	
-	
+
+
 	protected function rozcestnik($name, $submenu = FALSE)
 	{
 		if ($this->request->getPost('table')) $this->save();
@@ -257,7 +269,7 @@ class Administration extends Core_Module_Auth
 
 		$this->{$subselected}();
 	}
-	
+
 	protected function basic_page($subevent, $actions = FALSE)
 	{
 		$this->tplFile = 'admin_list.tpl.php';
@@ -269,7 +281,7 @@ class Administration extends Core_Module_Auth
 		if (!($action = $this->request->getGet('action'))) $action = 'dump';
 		$this->{$action}($subevent);
 	}
-	
+
 	protected function dump($table)
 	{
 		new Component_DumpFilter($this,
@@ -331,9 +343,9 @@ class Administration extends Core_Module_Auth
 			echo $ex->getMessage();
 			$this->setData('errors', $ex->getMessage());
 		}
-		
+
 		$this->response->setPost('name', '');
-		
+
 		$this->router->redirect('administration',
 		                         $this->request->getGet('event'),
 		                         FALSE,
@@ -345,16 +357,16 @@ class Administration extends Core_Module_Auth
 	protected function tree($table)
 	{
 		$this->tplFile = 'admin_tree.tpl.php';
-		
+
 		switch ($table) {
 			default:
 				$parent = $table;
 		}
-		
+
 		$this->setData('table', $table);
 		$this->setData('parent', $parent);
 	}
-	
+
 	protected function activate($table)
 	{
 		$class = 'ActiveRecord_' . ucfirst($table);
