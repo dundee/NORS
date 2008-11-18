@@ -1,4 +1,5 @@
 <?php
-$menu->render($menu_items);
 
 echo $text;
+
+include(APP_PATH.'/tpl/layout/menu.tpl.php');

@@ -1,0 +1,16 @@
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* Filename: print.css
+* Version: 1.0.1 (2008-11-18) YYYY-MM-DD
+* Website: http://norsphp.com/
+* Author: Petr Sobotka
+* Description: Layout's modification for print
+*/
+
+/* common
+=============================================================================*/
+
+#breadcrumbs-bar,
+#header {
+	display: none;
+}

@@ -77,6 +77,10 @@ class Core_View_Default extends Core_View
 		}
 		unset($data);
 
+		/* basics */
+		$lang = $this->module->request->locale;
+
+
 		if ($this->module->headerTplFile){
 			include(APP_PATH.'/tpl/layout/'.$this->module->headerTplFile);
 		}

@@ -1,0 +1,15 @@
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* Filename: ie7.css
+* Version: 1.0.1 (2008-11-18) YYYY-MM-DD
+* Website: http://norsphp.com/
+* Author: Petr Sobotka
+* Description: Layout's modification for Internet Explorer 7
+*/
+
+/* common
+=============================================================================*/
+
+.clearfix {
+	display: inline-block;
+}

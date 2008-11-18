@@ -19,35 +19,35 @@ class Core_Request
 {
 	/**
 	 * $instance
-	 * 
+	 *
 	 * @var Core_Request $instance
 	 */
 	static private $instance;
 
 	/**
 	 * $session
-	 * 
+	 *
 	 * @var Core_Session $session
 	 */
 	private $session;
 
 	/**
 	 * $locale
-	 * 
+	 *
 	 * @var Core_Locale $locale
 	 */
 	public $locale;
 
 	/**
 	 * $view
-	 * 
+	 *
 	 * @var Core_View $view
 	 */
 	public $view;
 
 	/**
 	 * $vars
-	 * 
+	 *
 	 * @var string[] $var
 	 */
 	protected $vars;
@@ -62,12 +62,12 @@ class Core_Request
 		if (isset(self::$instance)) {
 			return self::$instance;
 		}
-		
+
 		$class = 'Core_Request';
 		self::$instance = new $class;
 		return self::$instance;
 	}
-	
+
 	/**
 	 * Constructor
 	 */
@@ -78,7 +78,7 @@ class Core_Request
 
 	/**
 	 * __toString
-	 * 
+	 *
 	 * @return string serialized object which is unique identification of request
 	 */
 	public function __toString()
@@ -89,7 +89,7 @@ class Core_Request
 
 	/**
 	 * getFrom
-	 * 
+	 *
 	 * @param string $key Wrapper for reading $_...[$key]
 	 * @param mixed $source GET | POST | COOKIE | SESSION
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
@@ -98,25 +98,25 @@ class Core_Request
 	protected function getFrom($key, $source /*, $acceptHTML = FALSE*/)
 	{
 		if(!isset($source[$key])) return FALSE;
-		
+
 		//remove slashes
 		if (get_magic_quotes_gpc()) {
 			$output = apply($source[$key], 'stripslashes');
 		} else $output = $source[$key];
-		
+
 		/*
 		//clear HTML
 		if ($acceptHTML == FALSE) {
 			$output = apply($output, 'htmlspecialchars');
 		}
 		*/
-			
+
 		return apply($output, 'trim');
 	}
-	
+
 	/**
-	 * getGet 
-	 * 
+	 * getGet
+	 *
 	 * @param string $key Wrapper for $_GET[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
@@ -128,7 +128,7 @@ class Core_Request
 
 	/**
 	 * getPost
-	 * 
+	 *
 	 * @param string $key Wrapper for $_POST[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
@@ -139,8 +139,8 @@ class Core_Request
 	}
 
 	/**
-	 * getSession 
-	 * 
+	 * getSession
+	 *
 	 * @param string $key Wrapper for $_SESSION[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
@@ -152,8 +152,8 @@ class Core_Request
 	}
 
 	/**
-	 * getServer 
-	 * 
+	 * getServer
+	 *
 	 * @param string $key Wrapper for $_SERVER[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
@@ -165,7 +165,7 @@ class Core_Request
 
 	/**
 	 * getCookie
-	 * 
+	 *
 	 * @param string $key Wrapper for $_COOKIE[$key]
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
 	 */
@@ -177,7 +177,7 @@ class Core_Request
 
 	/**
 	 * getVar
-	 * 
+	 *
 	 * Returns variable stored in request object
 	 * @param string $key
 	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
@@ -188,12 +188,12 @@ class Core_Request
 		if ($key !== FALSE) return $this->getFrom($key, $this->vars /*, $acceptHTML*/);
 		return $this->vars;
 	}
-	
+
 	public function getUrl()
 	{
 		return 'http://' . $this->getServer('SERVER_NAME') . $this->getServer('REQUEST_URI', TRUE);
 	}
-	
+
 	public function isAjax()
 	{
 		return ($_SERVER['REQUEST_METHOD'] == 'POST' &&  //have to be a POST request
@@ -204,10 +204,10 @@ class Core_Request
 				    )
 			    );
 	}
-	
+
 	/**
 	 * setVar
-	 * 
+	 *
 	 * @param string $key Wrapper for writing $_...[$key]
 	 * @param mixed $value
 	 * @return void
@@ -215,11 +215,11 @@ class Core_Request
 	public function setVar($key, $value){
 		$this->vars[$key] = $value;
 	}
-	
+
 	protected function setLocale(){
 		if ($this->getGet('lang')){ //GET - nejvyssi priorita
 			$lang = $this->getGet('lang');
-			$this->setCookie('lang',$lang);
+			Core_Response::factory()->setCookie('lang',$lang);
 			unset($_GET['lang']);
 		} elseif ($this->getCookie('lang')) {
 			$lang = $this->getCookie('lang'); //COOKIE - stredni priorita
