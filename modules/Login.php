@@ -18,10 +18,10 @@
 class Login extends Core_Module
 {
 	public $css = array(
-		'normal' => array('layout.css', 'forms.css'),
-		'ie6'    => array('ie6.css'),
-		'ie7'    => array('ie7.css'),
-		'print'  => array('print.css'),
+		'normal' => array('default.css', 'forms.css'),
+		'ie6'    => array(),
+		'ie7'    => array(),
+		'print'  => array(),
 	);
 	public $helpers = array('Form', 'Menu');
 

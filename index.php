@@ -29,3 +29,4 @@ define('STYLE_URL', APP_URL . '/styles/' . Core_Config::singleton()->style);
 
 $app = new Core_Application();
 $app->run();
+

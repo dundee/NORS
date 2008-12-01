@@ -48,6 +48,7 @@ abstract class Core_Table
 		$this->table = $table;
 		
 		$this->fields = self::getFields($table);
+		
 	}
 
 	/**

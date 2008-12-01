@@ -77,7 +77,7 @@ abstract class Core_ActiveRecord
 			$result = $this->db->getRow("SELECT *
 			                            FROM `" . tableName($this->table) . "`
 			                            WHERE `id_".$this->table . "` = '" . clearInput($id,TRUE) . "'");
-		} catch(RuntimeException $ex) {
+		} catch (RuntimeException $ex) {
 			if ($ex->getCode() == 1146) {
 				$class = 'Table_' . ucfirst($this->table);
 				$table = new $class;

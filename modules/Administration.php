@@ -172,18 +172,8 @@ class Administration extends Core_Module_Auth
 	public function users()
 	{
 		$r = $this->router;
-		$this->tplFile = 'admin_list.tpl.php';
-
-		$this->response->setGet('subevent', 'users');
-
 		$actions = array('add' => $r->forward(array('action'=>'add')));
-		$this->setData('actions', $actions, TRUE);
-
-		$this->setData('submenu', array());
-		$this->setData('subselected', FALSE);
-
-		if (!($action = $this->request->getGet('action'))) $action = 'dump';
-		$this->{$action}('user');
+		$this->basic_page('user', $actions);
 	}
 
 	public function settings()

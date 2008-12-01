@@ -34,17 +34,17 @@ class Core_Helper_Administration extends Core_Helper
 	{
 		if (!iterable($items)) return;
 		$r = Core_Request::factory();
-		
+
 		echo ENDL . '<div id="actions">' . ENDL;
 		$i = 0;
 		foreach ($items as $name => $url) {
 			if ($i) echo ' | ';
-			
+
 			if ($r->getGet('action') == $name) $selected = 'class="selected" ';
 			else $selected = '';
-			
+
 			echo '<a ' . $selected . 'href="' . $url . '">' . __($name) . '</a>';
-			
+
 			$i++;
 		}
  		echo '</div>' . ENDL;
@@ -154,7 +154,7 @@ class Core_Helper_Administration extends Core_Helper
 			$type       = $field['type'];
 			$type_class = 'Core_Type_' . ucfirst($type);
 			$type_obj   = new $type_class;
-			
+
 			if ($model->$name) $value = $model->$name;
 			else $value = $type_obj->getDefaultValue();
 
@@ -173,7 +173,7 @@ class Core_Helper_Administration extends Core_Helper
 					$i = $this->form->input(FALSE, $name, __($name), 'password', '');
 					break;
 				case 'html':
-					$i = $this->form->textarea(FALSE, $name, __($name), $model->$name);
+					$i = $this->form->textarea(FALSE, $name, __($name), htmlspecialchars($model->$name));
 					break;
 				case 'file':
 					$params = array('class' => 'file_upload', 'id' => $name . '_div');
@@ -215,36 +215,36 @@ class Core_Helper_Administration extends Core_Helper
 					$content .= '</p></div>';
 
 					$div->setContent($content);
-				
+
 				case 'table':
 					$tbl = $name;
-	
+
 					switch ($tbl) {
 						default:
 							$id = 'id_' . $tbl;
 							$rowname = 'name';
 					}
-	
+
 					$i = $this->form->select(FALSE, $name, __($name));
-	
+
 					$class = 'Table_' . ucfirst($tbl);
 					$model2 = new $class;
-	
+
 					$items = $model2->getAll($rowname, 'asc');
-	
+
 					$options = '<option value=""></option>';
-	
+
 					if (strpos($name, '[]')) {
-	
+
 						$i->setParam('multiple', 'multiple');
 						$i->setParam('style', 'height: 100px;');
-	
+
 						if (is_array($model->$name)) {
 							$arr = $model->$name;
 						} else {
 							$arr = explode('|', $model->$name);
 						}
-	
+
 						if (iterable($items)) {
 							foreach ($items as $item) {
 								if (in_array($item[$id], $arr)) $selected = ' selected ';
@@ -253,9 +253,9 @@ class Core_Helper_Administration extends Core_Helper
 								$options .= $item[$rowname] . '</option>';
 							}
 						}
-	
+
 					} else {
-	
+
 						if (iterable($items)) {
 							foreach ($items as $item) {
 								if ($item->getID() == $model->$name) $selected = ' selected ';
@@ -264,7 +264,7 @@ class Core_Helper_Administration extends Core_Helper
 								$options .= $item->$rowname . '</option>';
 							}
 						}
-	
+
 					}
 					$i->setContent($options);
 					break;
@@ -294,10 +294,10 @@ class Core_Helper_Administration extends Core_Helper
 		$class = 'Table_' . ucfirst($table);
 		$instance = new $class;
 		$all = $instance->getAll('name', 'asc');
-		
+
 		$this->renderChilds(0, $all, $parent);
 	}
-	
+
 	protected function renderChilds($id, $all, $parent)
 	{
 		echo '<ul>';
@@ -305,7 +305,7 @@ class Core_Helper_Administration extends Core_Helper
 			if ($value->$parent == $id) {
 				echo '<li>' . $value->name . '</li>';
 				unset($all[$key]);
-				$this->renderChilds($value->getID(), $all, $parent); 
+				$this->renderChilds($value->getID(), $all, $parent);
 			}
 		}
 		echo '</ul>';

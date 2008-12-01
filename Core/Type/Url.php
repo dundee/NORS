@@ -17,7 +17,7 @@ class Core_Type_Url extends Core_Type
 {
 	public function prepareForDB($value)
 	{
-		if (strpos($value, 'http://') !== 0) $value = 'http://' . $value;
+		if (strpos($value, 'http') !== 0) $value = 'http://' . $value;
 		return addslashes($value);
 	}
 	

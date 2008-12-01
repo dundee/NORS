@@ -40,7 +40,7 @@ class Component_Login extends Core_Component
 				if ($this->request->getSession('request')) {
 					$url = $this->request->getSession('request', TRUE);
 				} else {
-					$url = $this->request->genUrl('administration', '__default', 'default', FALSE);
+					$url = $this->router->genUrl('administration', '__default', 'default', FALSE);
 				}
 				header('Location: ' . $url);
 			} catch (RuntimeException $ex) {
