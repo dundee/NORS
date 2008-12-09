@@ -38,10 +38,13 @@ class Core_Text
 		$text = $text ? $text : $this->text;
 		$length = strlen($text);
 		$begin = 0;
+
+		if (strpos($text," ") === FALSE) return $text;
+
 		for($i=$words;$i>0;$i--){
 			$position = strpos($text," ",++$begin);
 			$begin = $position;
-			//echo $begin.'-'.$i."<br />";
+			//echor($begin.'-'.$i);
 			if(!$begin){
 				$position = $length;
 				break;
