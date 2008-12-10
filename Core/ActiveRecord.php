@@ -192,6 +192,12 @@ abstract class Core_ActiveRecord
 	public function setFromArray($array)
 	{
 		$this->data = $array;
+		return $this;
+	}
+
+	public function getData()
+	{
+		return $this->data;
 	}
 
 	/**

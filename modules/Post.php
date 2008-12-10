@@ -37,6 +37,8 @@ class Post extends Core_Module
 		$this->setData('menu_items', $menu);
 
 		$this->setData('images_dir', APP_URL.'/styles/'.$this->style.'/images');
+
+		$this->setData('administration', $this->router->genUrl('administration', FALSE, 'default'));
 	}
 
 	public function __default()
@@ -60,7 +62,7 @@ class Post extends Core_Module
 			$posts[$i]->text = $text->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
 		}
 
-		$this->setData('posts', $posts);
+		$this->setData('posts', $posts, TRUE);
 	}
 
 	/**
@@ -70,10 +72,10 @@ class Post extends Core_Module
 	*/
 	public function view_post()
 	{
-		$table = new Table_Page();
-		$page = $table->findById(intval($this->request->getGet('page')));
+		$table = new Table_Post();
+		$post = $table->findById(intval($this->request->getGet('post')));
 
-		if ($page) $this->setData('text', $page->text, TRUE);
-		else $this->setData('text', '', TRUE);
+		if ($post) $this->setData('post', $post, TRUE);
+		else $this->setData('post', '', TRUE);
 	}
 }

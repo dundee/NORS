@@ -1,8 +1,11 @@
-<h1 class="hlavni">Novinky<span>&nbsp;</span></h1>
 <?php
+echo '<a href="' . $administration . '">administrace (jméno: test, heslo: test)</a>
+
+<h1 class="hlavni">Články<span>&nbsp;</span></h1>';
+
 if (iterable($posts)) {
 	foreach ($posts as $post) {
-		echo '<h3>'.$post->name.'</h3>';
-		echo $post->url;
+		echo '<h2><a href="' . $post->url . '">'.$post->name.'</a></h2>';
+		echo '<p>' . strip_tags($post->text) . '</p>';
 	}
 }

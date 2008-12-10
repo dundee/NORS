@@ -155,6 +155,8 @@ function clearOutput($val, $allowHtml = FALSE)
 		$val = stripslashes($val);
 		if (!$allowHtml) return htmlspecialchars($val);
 		return $val;
+	} elseif ($val instanceof Core_ActiveRecord) {
+		return $val->setFromArray(clearOutput($val->getData(), $allowHtml));
 	} else {
 		return $val;
 	}
