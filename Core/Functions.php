@@ -36,7 +36,7 @@ function setUrlPath()
 	if (isset($_SERVER['HTTP_HOST'])) {
 		$url = 'http://' . $_SERVER['HTTP_HOST'];
 
-		//index redirected to subdirectory
+		//index not redirected to subdirectory
 		if (strpos($_SERVER['REQUEST_URI'], dirname($_SERVER['PHP_SELF'])) !== FALSE) {
 			$url .= dirname($_SERVER['PHP_SELF']);
 		}

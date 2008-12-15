@@ -46,6 +46,7 @@ class Core_Router_ModRewrite extends Core_Router
 	                       $in_header = FALSE)
 	{
 		if (is_array($routeName)) throw new Exception('Wrong usage');
+		if (!count($this->routes)) throw new Exception('Router not ready, run decodeUrl first');
 
 		//init
 		$routeName = $routeName ? $routeName : $this->currentRoute;
@@ -102,7 +103,7 @@ class Core_Router_ModRewrite extends Core_Router
 		return $url;
 	}
 
-	public function decodeUrl(Core_Request $request){
+	public function decodeUrl(Core_Request $request, $redirect = TRUE){
 		//prepare routes
 		$config = Core_Config::singleton();
 		foreach($config->routes as $name=>$route){
@@ -161,7 +162,7 @@ class Core_Router_ModRewrite extends Core_Router
 		//canonical URL? Redirect if not
 		$url = $request->getUrl();
 		$url = str_replace('&','&amp;',$url);
-		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url){
+		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url && $redirect){
 			//echo $this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url;
 			$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
 		}

@@ -23,6 +23,8 @@ class Core_Parser_YML
 	 * @var string[] $lines
 	 */
 	private static $lines;
+	
+	private static $file;
 
 	/**
 	 * Reads the YML file and transforms it into PHP array
@@ -33,6 +35,7 @@ class Core_Parser_YML
 	public static function read($file, $cacheFile)
 	{
 		self::$lines = file($file);
+		self::$file = $file;
 
 		$indentionLength = self::getIndentionLength();
 
@@ -98,7 +101,7 @@ class Core_Parser_YML
 		//write data to cache file
 		$res = file_put_contents($cacheFile, $content);
 		if (!$res)
-			throw new RuntimeException("Config cache could not be written.");
+			throw new RuntimeException("Config cache could not be writtent to file " . $cacheFile);
 
 		include($cacheFile);
 		return $data;
@@ -157,7 +160,7 @@ class Core_Parser_YML
 		} while ($i < 10);
 
 		if (!isset($indentionLength)) {
-			throw new UnexpectedValueException("Wrong indention in config file.");
+			throw new UnexpectedValueException("Wrong indention in config file " . self::$file);
 		}
 
 		return $indentionLength;

@@ -24,9 +24,9 @@ class Core_Helper_Administration extends Core_Helper
 		echo ENDL . '<ul id="submenu">' . ENDL;
 		foreach ($items as $name => $item) {
 			$class = $selected == $name ? ' class="selected"' : '';
-			echo '<li><a href="'.$item['link'].'"' . $class . '>' . __($item['label']) . '</a></li>';
+			echo '<li><a href="'.$item['link'].'"' . $class . '>' . __($item['label']) . '</a></li>' . ENDL;
 		}
-		echo '<li class="cleaner"></li>';
+		echo '<li class="cleaner"></li>' . ENDL;
  		echo '</ul>' . ENDL;
 	}
 
@@ -47,7 +47,7 @@ class Core_Helper_Administration extends Core_Helper
 
 			$i++;
 		}
- 		echo '</div>' . ENDL;
+ 		echo ENDL . '</div>' . ENDL;
 	}
 
 	public function dump($table, $return = FALSE, $just_content = FALSE)

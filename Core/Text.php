@@ -8,8 +8,8 @@
 *
 * @global string NOT_ALLOWED_ENTITIES Not allowed letters
 */
-define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´?!@#$%^&*+/|,<>{}()[]~\"");
-define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd----------------------------");
+define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´?!@#$%^&*+/|,<>{}()[]~\"¨§");
+define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd------------------------------");
 
 /**
 * Classes_Text
