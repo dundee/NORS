@@ -151,6 +151,16 @@ abstract class Core_DB
 	public abstract function id($query = false);
 
 	/**
+	 * Sets other instance (for unit tests only)
+	 * @param Core_DB $instance
+	 * @return Core_DB
+	 */
+	public function _setInstance($instance)
+	{
+		self::$instance = $instance;
+	}
+
+	/**
 	* Destructor
 	* @access public
 	*/

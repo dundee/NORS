@@ -10,6 +10,7 @@ find ./ \
         -not -name "jquery.js" \
         -not -name "jquery-1.2.2.js" \
         -not -name "jquery-1.3.1.js" \
+        -not -name "test.*" \
         -regextype posix-egrep \
         -type f \
         -regex ".*(\.(php|html?|css|js))$" \

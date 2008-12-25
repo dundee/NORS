@@ -25,6 +25,37 @@ $router->decodeUrl($request, FALSE);
 
 /* ************* TEST ************** */
 
+class Core_DB_Test extends Core_DB
+{
+	protected function connect(){}
+	protected function sql_query($query){}
+	public function query($query){}
+	public function getRow($query = false){}
+	public function num($query = false){}
+	public function id($query = false){}
+	public function __destruct(){}
+	public function getRows($query = false)
+	{
+		if (strpos($query, 'user')) {
+			return array(
+				array('id_user' => 1,
+				      'name' => 'dundee'),
+				array('id_user' => 2,
+				      'name' => 'test'),
+			);
+		} else {
+			return array(
+				array('id_cathegory' => 1,
+				      'name' => 'test',
+				      'cathegory' => 0)
+			);
+		}
+	}
+}
+
+Core_DB::singleton();
+Core_DB::_setInstance(new Core_DB_Test);
+
 $admin = new Core_Helper_Administration();
 
 $r = $router;
