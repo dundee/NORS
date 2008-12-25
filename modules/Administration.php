@@ -332,6 +332,15 @@ class Administration extends Core_Module_Auth
 
 	protected function save()
 	{
+		//XSRF protection
+		$key = $this->request->getPost('random_key');
+		$user_model = new Table_User();
+		$user = new Core_User($user_model);
+		$hash = md5($user->password . $key);
+
+		if ($hash != $this->request->getPost('hashed_key'))
+			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
+
 		$class = 'ActiveRecord_' . ucfirst($this->request->getPost('table'));
 		$id = $this->request->getPost('id');
 		$model = new $class($id);

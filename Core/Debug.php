@@ -213,7 +213,7 @@ class Core_Debug
 		     . APP_URL . '/styles/default/css/errors.css" />'
 		     . '</head><body>';
 
-		if ( !$config->debug->enabled || $code == 503 || $code == 401) { //production mode
+		if ( !$config->debug->enabled || $code == 503) { //production mode
 
 			echo '<div id="message">';
 			echo '<h1>' . $code . ' - ' . $codes[$code]['name'] . '</h1>';
@@ -227,7 +227,7 @@ class Core_Debug
 			echo '</div>';
 			echo '</body></html>';
 
-		} else { //development mode
+		} elseif ($code != 401) { //development mode
 
 			echo '<div id="message">';
 			echo '<h1>Error occured</h1>';
@@ -252,6 +252,21 @@ class Core_Debug
 			     date("Y")
 			     . ' <a href="http://milde.cz">Daniel Milde</a>'
 			     .' aka Dundee</div>';
+			echo '</div>';
+			echo '</body></html>';
+
+		} else {  //unathorized
+
+			echo '<div id="message">';
+			echo '<h1>' . $code . ' - ' . $codes[$code]['name'] . '</h1>';
+			echo '<p>' . __($codes[$code]['text']) . '</p>';
+			echo '<p>Message: ' . $errstr . '</p>';
+			echo '<div id="footer">'
+			     . 'Powered by <a href="http://core-php.com/">Core framework'
+			     . '</a> ' . coreVersion()
+			     . ' &copy; 2007-' . date("Y")
+			     . ' <a href="http://milde.cz">Daniel Milde</a> '
+			     . 'aka Dundee</div>';
 			echo '</div>';
 			echo '</body></html>';
 		}

@@ -114,6 +114,6 @@ class Core_View_Default extends Core_View
 	* @access public
 	*/
 	public function __destruct(){
-		if($this->module->footerTplFile) require_once(APP_PATH.'/tpl/layout/'.$this->module->footerTplFile);
+		if($this->module->footerTplFile && headers_sent()) require_once(APP_PATH.'/tpl/layout/'.$this->module->footerTplFile);
 	}
 }

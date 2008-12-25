@@ -148,6 +148,15 @@ class Core_Helper_Administration extends Core_Helper
 
 		$f = $this->form->form(NULL, $action, __($table), __('save'), array('enctype' => 'multipart/form-data'));
 		if ($id) $this->form->input(FALSE, 'id', FALSE, 'hidden', $id);
+
+		//XSRF protection
+		$key = rand(0, 100);
+		$user_model = new Table_User();
+		$user = new Core_User($user_model);
+		$hash = md5($user->password . $key);
+		$this->form->input(FALSE, 'random_key', FALSE, 'hidden', $key);
+		$this->form->input(FALSE, 'hashed_key', FALSE, 'hidden', $hash);
+
 		$next_file_c = 1;
 		foreach ($model->fields as $name=>$field) {
 			if ($field['visibility'] == 0) continue;
