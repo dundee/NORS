@@ -59,9 +59,11 @@ class Core_Router_ModRewrite extends Core_Router
 
 		//csrf
 		if ($csrf) {
-			$key = rand(0, 100);
+			$request = Core_Request::factory();
+			if ($request->getServer('REMOTE_ADDR') == 'unit') $key = 1; //unit tests
+			else $key = rand(0, 100);
 			$other_args['random_key'] = $key;
-			$other_args['hashed_key'] = md5(Core_Request::factory()->getSession('password') . $key);
+			$other_args['hashed_key'] = md5($request->getSession('password') . $key);
 		}
 
 		//prepare args
