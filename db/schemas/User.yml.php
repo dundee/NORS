@@ -4,7 +4,7 @@ fields:
 	-id_user: int
 	+name: string
 	+group: table
-	+password: password
+	password: password
 	fullname: string
 	email: string
 	active: bool

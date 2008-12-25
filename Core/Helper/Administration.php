@@ -168,6 +168,7 @@ class Core_Helper_Administration extends Core_Helper
 					break;
 				case 'bool':
 					$i = $this->form->input(FALSE, $name, __($name), 'checkbox', 1);
+					if ($value) $i->setParam('checked', 'checked');
 					break;
 				case 'password':
 					$i = $this->form->input(FALSE, $name, __($name), 'password', '');

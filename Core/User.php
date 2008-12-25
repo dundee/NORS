@@ -20,7 +20,7 @@ class Core_User
 {
 	public $userName;
 	public $id_user;
-	public $id_group;
+	public $group;
 	protected $password;
 	protected $logged;
 
@@ -31,7 +31,7 @@ class Core_User
 			$user = $userModel->findById($id);
 			if (!$user instanceof Core_ActiveRecord) return;
 			$this->id_user  = $user->id_user;
-			$this->id_group = $user->id_group;
+			$this->group = $user->group;
 			$this->userName = $user->name;
 			$this->password = $user->password;
 		}

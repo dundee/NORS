@@ -150,39 +150,39 @@ class Core_Debug
 			return FALSE; //errno which should not be reported (NOTICE)
 
 		switch ($errno) {
-		case E_PARSE:
-			$text = '<p><strong>[PARSE ERROR]</strong> ';
-			break;
-		case E_COMPILE_ERROR:
-			$text = '<p><strong>[COMPILE ERROR]</strong> ';
-			break;
-		case E_RECOVERABLE_ERROR:
-			$text = '<p><strong>[RECOVERABLE ERROR]</strong> ';
-			break;
-		case E_ERROR:
-		case E_USER_ERROR:
-			$text = '<p><strong>[ERROR]</strong> ';
-			break;
-		case E_WARNING:
-		case E_USER_WARNING:
-			$text = '<p><strong>[WARNING]</strong> ';
-			break;
-		case E_NOTICE:
-		case E_USER_NOTICE:
-			$text = '<p><strong>[NOTICE]</strong> ';
-			break;
-		case E_STRICT:
-			$text = '<p><strong>[STRICT NOTICE]</strong> ';
-			break;
-		default:
-			$text = '<p><strong>[UNKNOWN - ' . $errno . ']</strong> ';
-			break;
+			case E_PARSE:
+				$text = '<p><strong>[PARSE ERROR]</strong> ';
+				break;
+			case E_COMPILE_ERROR:
+				$text = '<p><strong>[COMPILE ERROR]</strong> ';
+				break;
+			case E_RECOVERABLE_ERROR:
+				$text = '<p><strong>[RECOVERABLE ERROR]</strong> ';
+				break;
+			case E_ERROR:
+			case E_USER_ERROR:
+				$text = '<p><strong>[ERROR]</strong> ';
+				break;
+			case E_WARNING:
+			case E_USER_WARNING:
+				$text = '<p><strong>[WARNING]</strong> ';
+				break;
+			case E_NOTICE:
+			case E_USER_NOTICE:
+				$text = '<p><strong>[NOTICE]</strong> ';
+				break;
+			case E_STRICT:
+				$text = '<p><strong>[STRICT NOTICE]</strong> ';
+				break;
+			default:
+				$text = '<p><strong>[UNKNOWN - ' . $errno . ']</strong> ';
+				break;
 		}
 
 		$codes = array(400 => array('name'=>'Bad Request',
 		                            'text' => 'we_are_very_sorry'),
 		               401 => array('name'=>'Unathorized',
-		                            'text' => 'we_are_very_sorry'),
+		                            'text' => 'not_enough_rights'),
 		               403 => array('name'=>'Forbidden',
 		                            'text' => 'we_are_very_sorry'),
 		               404 => array('name'=>'Not Found',
@@ -213,7 +213,7 @@ class Core_Debug
 		     . APP_URL . '/styles/default/css/errors.css" />'
 		     . '</head><body>';
 
-		if ( !$config->debug->enabled || $code == 503) { //production mode
+		if ( !$config->debug->enabled || $code == 503 || $code == 401) { //production mode
 
 			echo '<div id="message">';
 			echo '<h1>' . $code . ' - ' . $codes[$code]['name'] . '</h1>';

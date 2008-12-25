@@ -88,7 +88,10 @@ abstract class Core_ActiveRecord
 				                           $ex->getCode());
 			}
 		}
-		$this->data = $result;
+
+		foreach($this->fields as $key => $val) {
+			$this->data[$key] = $result[$key];
+		}
 		return TRUE;
 	}
 
@@ -108,6 +111,13 @@ abstract class Core_ActiveRecord
 		//prepare data
 		foreach ($this->fields as $name=>$field) {
 			if ($field['type'] == 'password') {
+
+				//password not filled
+				if (!$this->data[$name]) {
+					unset($this->fields[$name]);
+					continue;
+				}
+
 				$text_obj = new Core_Text();
 				$this->data[$name] = $text_obj->crypt($this->data[$name], $this->data['name']);
 			}
@@ -151,8 +161,8 @@ abstract class Core_ActiveRecord
 				. "` = '" . $this->data[$name] . "'";
 		}
 		$sql = "UPDATE `" . tableName($this->table) . "`
-			SET " . $items . "
-			WHERE `id_" . $this->table . "` = '" . clearInput($id, TRUE) . "'";
+		        SET " . $items . "
+		        WHERE `id_" . $this->table . "` = '" . clearInput($id, TRUE) . "'";
 		$this->db->query($sql);
 	}
 

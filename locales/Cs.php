@@ -26,6 +26,7 @@ class Locale_Cs extends Core_Locale
 		'user_not_exists'           => 'Zadaný uživatel neexistuje',
 		'we_are_very_sorry'         => 'Omlouváme se. Vámi požadovaná stránka není k dispozici.',
 		'out_of_order'              => 'Omlouváme se. Aplikace je z důvodu údržby pozastavena.',
+		'not_enough_rights'         => 'Pro tuto akci nemáte oprávnění.',
 
 		//              Prihlaseni
 		'username'                  => 'Uživatelské jméno',

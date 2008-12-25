@@ -20,12 +20,12 @@ class Core_Type_Bool extends Core_Type
 	{
 		return intval($value);
 	}
-	
+
 	public function prepareForWeb($value)
 	{
 		return intval($value);
 	}
-	
+
 	public function getDefinition()
 	{
 		return 'tinyint(1) NOT NULL DEFAULT 0';

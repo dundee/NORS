@@ -160,7 +160,7 @@ class Administration extends Core_Module_Auth
 	public function users()
 	{
 		$r = $this->router;
-		
+
 		$submenu = array(
 			'user'   => array('label' => 'users',
 			                   'link'  => $r->genUrl('administration',
@@ -173,18 +173,18 @@ class Administration extends Core_Module_Auth
 			                                         FALSE,
 			                                         array('subevent' => 'group'))),
 		);
-		
+
 		$this->setData('submenu', $submenu);
 		$this->guidepost('users', $submenu);
 	}
-	
+
 	public function user()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('user', $actions);
 	}
-	
+
 	public function group()
 	{
 		$r = $this->router;
@@ -305,9 +305,9 @@ class Administration extends Core_Module_Auth
 			'form',
 			array('table'  => $table,
 			      'action' => $this->router->genURL('administration',
-						                            'content',
-						                            FALSE,
-						                            array('subevent'=> $this->request->getGet('subevent'))
+			                                        $this->request->getGet('event'),
+			                                        FALSE,
+			                                        array('subevent'=> $this->request->getGet('subevent'))
 			      )
 			)
 		);
@@ -322,7 +322,7 @@ class Administration extends Core_Module_Auth
 			array('table' => $table,
 			      'id'     => $this->request->getGet('id'),
 			      'action' => $this->router->genURL('administration',
-			                                        'content',
+			                                        $this->request->getGet('event'),
 			                                        FALSE,
 			                                        array('subevent'=> $this->request->getGet('subevent'))
 			                  )
@@ -335,10 +335,11 @@ class Administration extends Core_Module_Auth
 		$class = 'ActiveRecord_' . ucfirst($this->request->getPost('table'));
 		$id = $this->request->getPost('id');
 		$model = new $class($id);
-		$arr = $this->request->getPost();
+		$post = $this->request->getPost();
 		$html = FALSE;
-		foreach ($arr as $key=>$val) {
-			$model->{$key} = $val;
+		foreach ($model->fields as $key=>$val) {
+			if ($val['type'] == 'bool') $model->{$key} = isset($post[$key]) ? $post[$key] : FALSE;
+			elseif (isset($post[$key])) $model->{$key} = $post[$key];
 		}
 
 		try{
