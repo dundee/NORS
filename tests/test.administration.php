@@ -4,6 +4,7 @@ $_SERVER['PHP_SELF'] = '/nors4/index.php';
 $_SERVER['REQUEST_URI'] = '/nors4/post/';
 $_SERVER['SCRIPT_NAME'] = '/nors4/index.php';
 $_SERVER['HTTP_HOST'] = 'localhost';
+$_SERVER['REMOTE_ADDR'] = 'unit';
 $_GET['module'] = 'post';
 
 

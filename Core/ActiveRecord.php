@@ -90,6 +90,7 @@ abstract class Core_ActiveRecord
 		}
 
 		foreach($this->fields as $key => $val) {
+			if (!isset($result[$key])) continue;
 			$this->data[$key] = $result[$key];
 		}
 		return TRUE;

@@ -27,13 +27,13 @@ class Core_Router_ModRewrite extends Core_Router
 	protected function __construct(){
 	}
 
-	public function forward($params, $event = FALSE){
-		return $this->genUrl(FALSE, $event, FALSE, $params, TRUE);
+	public function forward($params, $event = FALSE, $csrf = FALSE){
+		return $this->genUrl(FALSE, $event, FALSE, $params, TRUE, FALSE, $csrf);
 	}
 
-	public function redirect($module, $event, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE){
+	public function redirect($module, $event, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE){
 		if($moved) header("HTTP/1.1 301 Moved Permanently");
-		header("Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE));
+		header("Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE, $csrf));
 		header("Connection: close");
 		exit(0);
 	}
@@ -43,7 +43,8 @@ class Core_Router_ModRewrite extends Core_Router
 	                       $routeName = FALSE,
 	                       $other_args = FALSE,
 	                       $inherit_params = FALSE,
-	                       $in_header = FALSE)
+	                       $in_header = FALSE,
+	                       $csrf = FALSE)
 	{
 		if (is_array($routeName)) throw new Exception('Wrong usage');
 		if (!count($this->routes)) throw new Exception('Router not ready, run decodeUrl first');
@@ -55,6 +56,13 @@ class Core_Router_ModRewrite extends Core_Router
 		$other_args = is_array($other_args) ? $other_args : array();
 		$module = $module ? $module : $_GET['module'];
 		$event  = $event  ? $event  : $_GET['event'];
+
+		//csrf
+		if ($csrf) {
+			$key = rand(0, 100);
+			$other_args['random_key'] = $key;
+			$other_args['hashed_key'] = md5(Core_Request::factory()->getSession('password') . $key);
+		}
 
 		//prepare args
 		$args = array_merge( $other_args, array('module' => $module,

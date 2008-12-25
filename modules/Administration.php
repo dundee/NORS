@@ -334,10 +334,7 @@ class Administration extends Core_Module_Auth
 	{
 		//XSRF protection
 		$key = $this->request->getPost('random_key');
-		$user_model = new Table_User();
-		$user = new Core_User($user_model);
-		$hash = md5($user->password . $key);
-
+		$hash = md5($this->request->getSession('password') . $key);
 		if ($hash != $this->request->getPost('hashed_key'))
 			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
 
@@ -385,6 +382,8 @@ class Administration extends Core_Module_Auth
 
 	protected function activate($table)
 	{
+		$this->request->checkCSRF();
+
 		$class = 'ActiveRecord_' . ucfirst($table);
 		$model = new $class($this->request->getGet('id'));
 		$model->activate();
@@ -401,6 +400,8 @@ class Administration extends Core_Module_Auth
 
 	protected function del($table)
 	{
+		$this->request->checkCSRF();
+
 		$class = 'ActiveRecord_' . ucfirst($table);
 		$model = new $class($this->request->getGet('id'));
 		$model->delete();

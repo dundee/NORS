@@ -69,14 +69,6 @@ class Core_Request
 	}
 
 	/**
-	 * Constructor
-	 */
-	protected function __construct(){
-		$this->setLocale();
-		$this->setView();
-	}
-
-	/**
 	 * __toString
 	 *
 	 * @return string serialized object which is unique identification of request
@@ -85,33 +77,6 @@ class Core_Request
 	{
 		$arr = array_merge( $this->getGet(), array($this->locale, $this->getVar('browser')) );
 		return implode('-',$arr);
-	}
-
-	/**
-	 * getFrom
-	 *
-	 * @param string $key Wrapper for reading $_...[$key]
-	 * @param mixed $source GET | POST | COOKIE | SESSION
-	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
-	 * @return mixed
-	 */
-	protected function getFrom($key, $source /*, $acceptHTML = FALSE*/)
-	{
-		if(!isset($source[$key])) return FALSE;
-
-		//remove slashes
-		if (get_magic_quotes_gpc()) {
-			$output = apply($source[$key], 'stripslashes');
-		} else $output = $source[$key];
-
-		/*
-		//clear HTML
-		if ($acceptHTML == FALSE) {
-			$output = apply($output, 'htmlspecialchars');
-		}
-		*/
-
-		return apply($output, 'trim');
 	}
 
 	/**
@@ -214,6 +179,50 @@ class Core_Request
 	 */
 	public function setVar($key, $value){
 		$this->vars[$key] = $value;
+	}
+
+	public function checkCSRF()
+	{
+		$key = $_GET['random_key'];
+		$hash = md5($_SESSION['password'] . $key);
+		if ($hash !== $_GET['hashed_key']) {
+			throw new Exception('Cross site request forgery attact from IP: ' . $_SERVER['REMOTE_ADDR'], 401);
+		}
+	}
+
+	/**
+	 * Constructor
+	 */
+	protected function __construct(){
+		$this->setLocale();
+		$this->setView();
+	}
+
+	/**
+	 * getFrom
+	 *
+	 * @param string $key Wrapper for reading $_...[$key]
+	 * @param mixed $source GET | POST | COOKIE | SESSION
+	 * @param boolean $acceptHTML Should we accept HTML (or clear it)?
+	 * @return mixed
+	 */
+	protected function getFrom($key, $source /*, $acceptHTML = FALSE*/)
+	{
+		if(!isset($source[$key])) return FALSE;
+
+		//remove slashes
+		if (get_magic_quotes_gpc()) {
+			$output = apply($source[$key], 'stripslashes');
+		} else $output = $source[$key];
+
+		/*
+		//clear HTML
+		if ($acceptHTML == FALSE) {
+			$output = apply($output, 'htmlspecialchars');
+		}
+		*/
+
+		return apply($output, 'trim');
 	}
 
 	protected function setLocale(){

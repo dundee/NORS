@@ -89,8 +89,8 @@ class Core_Helper_Administration extends Core_Helper
 			$i = 0;
 			foreach ($rows as $row) {
 				$edit_url      = $r->forward(array('id'=>$row[0], 'action'=>'edit'));
-				$del_url       = $r->forward(array('id'=>$row[0], 'action'=>'del'));
-				$activate_url  = $r->forward(array('id'=>$row[0], 'action'=>'activate'));
+				$del_url       = $r->forward(array('id'=>$row[0], 'action'=>'del'), FALSE, TRUE);
+				$activate_url  = $r->forward(array('id'=>$row[0], 'action'=>'activate'), FALSE, TRUE);
 				$rowname       = isset($row['name']) ? $row['name'] : '';
 
 				$output .= '<tr';
@@ -150,10 +150,10 @@ class Core_Helper_Administration extends Core_Helper
 		if ($id) $this->form->input(FALSE, 'id', FALSE, 'hidden', $id);
 
 		//XSRF protection
-		$key = rand(0, 100);
-		$user_model = new Table_User();
-		$user = new Core_User($user_model);
-		$hash = md5($user->password . $key);
+		if ($r->getServer('REMOTE_ADDR') == 'unit') $key = 1; //unit tests
+		else $key = rand(0, 100);
+
+		$hash = md5($r->getSession('password') . $key);
 		$this->form->input(FALSE, 'random_key', FALSE, 'hidden', $key);
 		$this->form->input(FALSE, 'hashed_key', FALSE, 'hidden', $hash);
 

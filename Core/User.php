@@ -43,7 +43,9 @@ class Core_User
 		if (is_object($user)) {
 			if ($user->password == $text_obj->crypt($password, $name)) {
 				if ($user->active == 1) {
-					Core_Response::factory()->setSession('id_user', $user->id_user);
+					$response = Core_Response::factory();
+					$response->setSession('id_user', $user->id_user);
+					$response->setSession('password', $user->password);
 					return TRUE;
 				} else throw new RuntimeException( __('account_not_active') );
 			} else throw new RuntimeException( __('wrong_password') );
