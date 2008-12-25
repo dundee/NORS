@@ -31,10 +31,13 @@ class Post extends Core_Module
 	{
 		$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
-
 		$menu_helper = new Core_Helper_Menu();
 		$menu = $menu_helper->prepare($pages);
 		$this->setData('menu_items', $menu);
+		
+		$cathegory = new Table_Cathegory();
+		$cathegories = $cathegory->getAll('name', 'asc');
+		$this->setData('cathegories', $cathegories);
 
 		$this->setData('images_dir', APP_URL.'/styles/'.$this->style.'/images');
 

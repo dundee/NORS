@@ -47,6 +47,6 @@ localhost:
 		content:
 			default_subevent: post
 		users:
-			default_subevent: users
+			default_subevent: user
 		settings:
 			default_subevent: basic

@@ -109,13 +109,8 @@ class Administration extends Core_Module_Auth
 			                                          'content',
 			                                          FALSE,
 			                                          array('subevent' => 'citate'))),
-			'language'  => array('label' => 'languages',
-			                    'link'  => $r->genUrl('administration',
-			                                          'content',
-			                                          FALSE,
-			                                          array('subevent' => 'language'))),
 		);
-		$this->rozcestnik('content', $submenu);
+		$this->guidepost('content', $submenu);
 	}
 
 	public function cathegory()
@@ -162,18 +157,39 @@ class Administration extends Core_Module_Auth
 		$this->basic_page('citate', $actions);
 	}
 
-	public function language()
+	public function users()
 	{
 		$r = $this->router;
-		$actions = array('add' => $r->forward(array('action'=>'add')));
-		$this->basic_page('language', $actions);
+		
+		$submenu = array(
+			'user'   => array('label' => 'users',
+			                   'link'  => $r->genUrl('administration',
+			                                         'users',
+			                                         FALSE,
+			                                         array('subevent' => 'user'))),
+			'group'  => array('label' => 'groups',
+			                   'link'  => $r->genUrl('administration',
+			                                         'users',
+			                                         FALSE,
+			                                         array('subevent' => 'group'))),
+		);
+		
+		$this->setData('submenu', $submenu);
+		$this->guidepost('users', $submenu);
 	}
-
-	public function users()
+	
+	public function user()
 	{
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('user', $actions);
+	}
+	
+	public function group()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('group', $actions);
 	}
 
 	public function settings()
@@ -247,7 +263,7 @@ class Administration extends Core_Module_Auth
 	/**************************************************************************/
 
 
-	protected function rozcestnik($name, $submenu = FALSE)
+	protected function guidepost($name, $submenu = FALSE)
 	{
 		if ($this->request->getPost('table')) $this->save();
 
