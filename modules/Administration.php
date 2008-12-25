@@ -290,9 +290,17 @@ class Administration extends Core_Module_Auth
 
 	protected function dump($table)
 	{
-		new Component_DumpFilter($this,
-		                         'dump_filter',
-		                         array('table' => $table));
+		//load saved settings
+		$resp = $this->response;
+		$req  = $this->request;
+		if ($req->getCookie('table') == $table) {
+			$resp->setPost('name', $req->getCookie('name'));
+			$resp->setPost('page', $req->getCookie('page'));
+			$resp->setPost('order', $req->getCookie('order'));
+			$resp->setPost('a', $req->getCookie('a'));
+		}
+
+		new Component_DumpFilter($this, 'dump_filter', array('table' => $table));
 		new Component_Dump($this, 'dump', array('table' => $table));
 
 	}

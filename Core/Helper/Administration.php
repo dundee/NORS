@@ -68,16 +68,22 @@ class Core_Helper_Administration extends Core_Helper
 
 		if (!$just_content) {
 			$output .= '<h2>' . __($table) . '</h2>';
+			$order = $request->getPost('order');
+			$a     = $request->getPost('a');
 
 			if (iterable($rows)) {
 				$output .= ENDL . '<table border="1" class="dump">' . ENDL;
 				$output .= '<thead><tr>';
 
 				foreach ($rows[0] as $th => $v) {
+					$class = '';
 					if (is_numeric($th)) continue;
 					if ($th == 'active') continue;
+					if ($th == $order) {
+						$class = 'class="'.$a.'" ';
+					}
 					$output .= '<th>';
-					$output .= '<a href="#" title="' . $th . '">' . $th . '</a></th>';
+					$output .= '<a href="#" ' . $class . 'title="' . $th . '">' . $th . '</a></th>';
 				}
 
 				$output .= '<th>' . __('actions') . '</th></tr></thead>';

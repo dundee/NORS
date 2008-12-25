@@ -44,6 +44,17 @@ class Component_Dump extends Core_Component_Auth
 	public function filter()
 	{
 		$table = $this->request->getPost('table');
+		$name  = $this->request->getPost('name');
+		$page  = $this->request->getPost('page');
+		$order = $this->request->getPost('order');
+		$a     = $this->request->getPost('a');
+
+		//save
+		$this->response->setCookie('table', $table, 0);
+		$this->response->setCookie('name', $name, 0);
+		$this->response->setCookie('page', $page, 0);
+		$this->response->setCookie('order', $order, 0);
+		$this->response->setCookie('a', $a, 0);
 
 		$html   = $this->administration->dump($table, TRUE, TRUE);
 
