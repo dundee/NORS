@@ -22,7 +22,6 @@ class Core_User
 	public $id_user;
 	public $group;
 	protected $password;
-	protected $logged;
 
 	public function __construct(Core_Table $userModel)
 	{

@@ -11,12 +11,9 @@
  */
 
 /**
- * Core_Object
- *
- * Base class for most of Core classes. Adds important functionality and access to some instances.
- * Implements Iterator, ArrayAccess, Countable and setters/getters, so data can be accessed via $obj->getData('key'), $obj['key'] and foreach.
- * Features: reflection, attributes setting from Array
- * Access to instances: Core_Request, Core_Config
+ * Base class for Module and Component classes. Adds important functionality and access to some instances.
+ * Features: reflection, array for data
+ * Access to instances: Core_Request, Core_Response, Core_Router, Core_Config
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
@@ -26,12 +23,12 @@ abstract class Core_Object
 	 * @var Core_Request $request
 	 */
 	public $request;
-	
+
 	/**
 	 * @var Core_Response $response
 	 */
 	public $response;
-	
+
 	/**
 	 * @var Core_Router $router
 	 */

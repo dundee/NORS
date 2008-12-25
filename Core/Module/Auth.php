@@ -1,33 +1,27 @@
 <?php
 
 /**
-* Core_Module_Auth
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
+ * Core_Module_Auth
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @copyright Daniel Milde <daniel@milde.cz>
+ * @license http://www.opensource.org/licenses/gpl-license.php
+ * @package Core
+ */
 
 /**
-* Core_Module_Auth
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Adds authentication and authorization to Module class
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 abstract class Core_Module_Auth extends Core_Module
 {
 	/**
-	* $user
-	*
+	* Current user
 	* @var Core_User $user
 	*/
 	protected $user;
 
-	/**
-	* Constructor
-	* @access public
-	*/
 	public function __construct(){
 		parent::__construct();
 		$userModel = new Table_User();
@@ -35,7 +29,7 @@ abstract class Core_Module_Auth extends Core_Module
 	}
 
 	/**
-	* authenticate
+	* authenticate the user
 	*
 	* @return boolean
 	*/
@@ -44,11 +38,11 @@ abstract class Core_Module_Auth extends Core_Module
 	}
 
 	/**
-	* checkRights
+	* authorize the user
 	*
 	* @return boolean
 	*/
-	public function checkRights(){
+	public function authorize(){
 		$group = new ActiveRecord_Group($this->user->group);
 
 		if (!isset($_GET['subevent'])) {

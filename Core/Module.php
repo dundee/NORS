@@ -147,7 +147,7 @@ abstract class Core_Module extends Core_Object
 	* @return boolean
 	*/
 	public function authenticate(){
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -155,7 +155,7 @@ abstract class Core_Module extends Core_Object
 	*
 	* @return boolean
 	*/
-	public function checkRights(){
+	public function authorize(){
 		return TRUE;
 	}
 

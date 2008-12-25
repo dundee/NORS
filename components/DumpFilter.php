@@ -15,10 +15,10 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @package Core
 */
-class Component_DumpFilter extends Core_Component
-{	
+class Component_DumpFilter extends Core_Component_Auth
+{
 	public $helpers = array('Form');
-	
+
 	/**
 	* init
 	*

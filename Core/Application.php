@@ -21,17 +21,17 @@ class Core_Application
 	 * @var Core_Request $request
 	 */
 	protected $request;
-	
+
 	/**
 	 * @var Core_Response $response
 	 */
 	protected $response;
-	
+
 	/**
 	 * @var Core_Router $router
 	 */
 	protected $router;
-	
+
 	/**
 	 * run
 	 *
@@ -45,7 +45,7 @@ class Core_Application
 		$this->request  = Core_Request ::factory();
 		$this->response = Core_Response::factory();
 		$this->router   = Core_Router  ::factory();
-		
+
 		$this->router->decodeUrl($this->request);
 
 		if ( !Core_Config::singleton()->enabled ) {
@@ -90,7 +90,7 @@ class Core_Application
 						$event  = '__default';
 						$this->router->redirect($module, $event, FALSE, 'default');
 					} else {
-						$instance->checkRights();
+						$instance->authorize();
 						$view = Core_View::factory($this->request->view, $instance, $event);
 						$view->display();
 					} //end if authenticated
@@ -112,10 +112,16 @@ class Core_Application
 		list($component,$event) = explode('-', $command);
 		$class = 'Component_' . ucwords($component);
 		$instance = new $class();
-		$instance->loadHelpers();
-		if (method_exists($instance, 'beforeEvent')) $instance->beforeEvent();
-		$instance->$event();
-		$data = $instance->getData();
+
+		//auth
+		if (!$instance->auth()) {
+			$data = array('errors' => 'Not signed in or not enough rights.');
+		} else {
+			$instance->loadHelpers();
+			if (method_exists($instance, 'beforeEvent')) $instance->beforeEvent();
+			$instance->$event();
+			$data = $instance->getData();
+		}
 
 		if ($instance->responseType == 'json') {
 			$this->response->sendHeaders('text/x-json');

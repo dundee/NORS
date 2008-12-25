@@ -24,17 +24,32 @@ abstract class Core_Component extends Core_Object
 
 	public $responseType = 'json';
 
-	public final function __construct(Core_Module $module = NULL,
-	                                  $name = FALSE,
-	                                  $params = FALSE)
+	public function __construct(Core_Module $module = NULL,
+	                            $name = FALSE,
+	                            $params = FALSE)
 	{
 		parent::__construct();
-		if (!$module || !$name) return;
-		$module->setData($name, $this->render( $params ), TRUE);
+		if ($module && $name) $module->setData($name, $this->render( $params ), TRUE);
 	}
 
+	/**
+	 * authenticate and authorize current user
+	 */
+	public function auth()
+	{
+		return TRUE;
+	}
+
+	/**
+	 * initialize the component
+	 * @param mixed[] $params
+	 */
 	public abstract function init($params = FALSE);
 
+	/**
+	 * render the component to page
+	 * @param mixed[] $params
+	 */
 	public final function render($params = FALSE)
 	{
 		if (method_exists($this, 'beforeInit')) $this->beforeInit();
@@ -107,6 +122,9 @@ abstract class Core_Component extends Core_Object
 		}
 	}
 
+	/**
+	 * load view helpers
+	 */
 	public function loadHelpers()
 	{
 		if (iterable($this->helpers)) {
