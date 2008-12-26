@@ -102,7 +102,7 @@ abstract class Core_ActiveRecord
 	 * Saves object attributes to DB. (UPDATE or INSERT).
 	 * If object has valid ID, UPDATE will be performed, else INSERT.
 	 *
-	 * @return void
+	 * @return int ID
 	 */
 	public function save($id = 0)
 	{
@@ -140,7 +140,7 @@ abstract class Core_ActiveRecord
 			if (isset($id) && $id > 0) 	{
 				$this->update($id);
 			} else {
-				$this->insert();
+				$id = $this->insert();
 			}
 		} catch(RuntimeException $ex) {
 				if($ex->getCode()==1146) {
@@ -151,6 +151,7 @@ abstract class Core_ActiveRecord
 				}
 				else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
+		return $id;
 	}
 
 	public function update($id)
@@ -179,7 +180,8 @@ abstract class Core_ActiveRecord
 		$sql = "INSERT INTO `" . tableName($this->table) . "`
 			(" . $fields . ")
 			VALUES (" . $items . ")";
-		$id = $this->db->id($sql);
+		$this->data['id_' . $this->table] = $this->db->id($sql);
+		return $this->data['id_' . $this->table];
 	}
 
 	/**

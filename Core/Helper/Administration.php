@@ -293,6 +293,9 @@ class Core_Helper_Administration extends Core_Helper
 
 		}
 		$this->form->input(FALSE, 'table', FALSE, 'hidden', $table);
+		$this->form->input(FALSE, 'send_continue', FALSE, 'submit')
+			->setParam('value', __('save_and_continue'))
+			->setParam('class', 'submit');
 		$output = $this->form->render(0, TRUE);
 
 		if ($return) return $output;

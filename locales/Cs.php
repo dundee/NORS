@@ -113,6 +113,7 @@ class Locale_Cs extends Core_Locale
 		'root_category'             => 'Kořenová kategorie',
 		'no_items'                  => 'Žádné položky',
 		'save'                      => 'Uložit',
+		'save_and_continue'         => 'Uložit a pokračovat',
 		'save_file'                 => 'Uložit soubor',
 		'photo'                     => 'Obrázek',
 		'label'                     => 'Popisek',

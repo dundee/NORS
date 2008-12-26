@@ -388,9 +388,8 @@ class Administration extends Core_Module_Auth
 		}
 
 		try{
-			$model->save($id);
+			$id = $model->save($id);
 			if (count($_FILES) > 0) $model->saveFiles();
-
 		} catch (Exception $ex) {
 			echo $ex->getMessage();
 			$this->setData('errors', $ex->getMessage());
@@ -398,6 +397,16 @@ class Administration extends Core_Module_Auth
 
 		$this->response->setPost('name', '');
 
+		if ($this->request->getPost('send_continue')) {
+			$this->router->redirect('administration',
+			                         $this->request->getGet('event'),
+			                         FALSE,
+			                         array('action' => 'edit',
+			                               'id' => $id),
+			                         TRUE);
+		}
+
+		//disable F5 to cause resending
 		$this->router->redirect('administration',
 		                         $this->request->getGet('event'),
 		                         FALSE,
@@ -452,7 +461,7 @@ class Administration extends Core_Module_Auth
 	{
 		$key = $this->request->getPost('random_key');
 		$hash = md5($this->request->getSession('password') . $key . $this->request->sessionID());
-		if ($hash != $this->request->getPost('hashed_key'))
+		if ($hash !== $this->request->getPost('hashed_key'))
 			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
 	}
 }
