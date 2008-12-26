@@ -179,6 +179,6 @@ abstract class Core_Module extends Core_Object
 			}
 		}
 
-		$this->setData('site',$site_data);
+		$this->setData('site', $site_data);
 	}
 }

@@ -4,7 +4,7 @@ localhost:
 	encoding: utf-8
 	locale: Cs
 	name: Nors
-	description: desc
+	description: Kompatibilní s Vaší myslí
 	keywords: keyo
 	style: default
 	upload_dir: upload

@@ -65,5 +65,21 @@ if (isset($site['css']['ie7'])) {
 echo '<title>'.$site['title'].'</title>'.ENDL;
 echo '</head>'.ENDL.'
 <body>'.ENDL.'
-  <div id="main" class="clearfix">
+	<div id="main" class="clearfix">
+
+	<div id="sidebar">
+		<div id="menu">
+			<ul>
+				<li><a href="#">neco</a></li>
+				<li><a href="#">neco</a></li>
+			</ul>
+
+			<ul>
+				<li><a href="#">neco</a></li>
+				<li><a href="#">neco</a></li>
+			</ul>
+		</div>
+	</div>
+
+
 	<div id="content">'.ENDL;

@@ -1,5 +1,9 @@
 <?php
-if (iterable($errors)) foreach ($errors as $error) echo '<span class="important">' . $error . '</span><br />';
+if (iterable($errors)) {
+	foreach ($errors as $error) {
+		if ($error) echo '<span class="important">' . $error . '</span><br />';
+	}
+}
 
 $action = $request->getUrl();
 
