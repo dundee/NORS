@@ -17,13 +17,14 @@
 */
 class Core_Config
 {
+	public $host;
 	protected $data;
 	protected static $instance;
 
 	protected function __construct()
 	{
 	}
-	
+
 	/**
 	 * singleton
 	 *
@@ -54,17 +55,17 @@ class Core_Config
 	 * Reads configuration from a file.
 	 *
 	 * @param string $file
+	 * @param boolean $force_renew Force to reload the cache
 	 * @return void
 	 */
-	public function read($file){
-
-		if ($this->data) return TRUE;
+	public function read($file, $force_renew = FALSE){
+		if ($this->data && !$force_renew) return TRUE;
 
 		$arr = explode('/', $file);
-		$name = $arr[count($arr) - 1]; 
+		$name = $arr[count($arr) - 1];
 		$cacheFile = APP_PATH . '/cache/' . $name . '.cache.php';
 
-		if (file_exists($cacheFile)) {
+		if (!$force_renew && file_exists($cacheFile)) {
 			include($cacheFile);
 			if (rand(0, 10) < 8 || $time >= filemtime($file)) { //cache valid
 				$this->data = $data;
@@ -92,6 +93,8 @@ class Core_Config
 		        ? $_SERVER['HTTP_HOST']
 		        : 'localhost';
 		$host = str_replace('www.', '', $host);
+
+		$this->host = $host;
 
 		if (!isset($array[$host]))
 			throw new RuntimeException('No configuration for "' . $host . '"');

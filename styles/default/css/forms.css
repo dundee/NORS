@@ -202,8 +202,14 @@ fieldset .thubnails{
 	font-weight: bold;
 }
 
+.saved{
+	text-align: center;
+	font: bold 1.5em sans-serif;
+	color: #205C17;
+}
+
 #popup{
-	display: none;	
+	display: none;
 }
 
 #datetimepicker_div{

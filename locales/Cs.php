@@ -130,6 +130,10 @@ class Locale_Cs extends Core_Locale
 		'group'                     => 'Role',
 		'services'                  => 'Nabízené služby',
 		'exp_date'                  => 'Konec platnosti',
+		'basic_settings'            => 'Základní nastavení',
+		'name_of_web'               => 'Název webu',
+		'description'               => 'Popis',
+		'keywords'                  => 'Klíčová slova',
 
 		//             Prava
 		'post_list'                 => 'Výpis článků',
@@ -150,13 +154,6 @@ class Locale_Cs extends Core_Locale
 		'settings_list'             => 'Výpis nastavení',
 		'settings_edit'             => 'Editace nastavení',
 		'settings_del'              => 'Mazání nastavení',
-
-		//             VyletnikAdmin
-		'town'                      => 'Město',
-		'nazev_regionu'             => 'Region',
-		'nazev_kategorie_mista_cz'  => 'Kategorie',
-		'nazev_nazvu'               => 'Název',
-
 
 		);
 	public function decodeDate($ymd_his)

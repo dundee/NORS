@@ -218,8 +218,43 @@ class Administration extends Core_Module_Auth
 
 	public function basic()
 	{
-		$r = $this->router;
-		$this->tplFile = 'admin_list.tpl.php';
+		$r = $this->request;
+		$c = $this->config;
+		$host = $c->host;
+
+		$this->tplFile = 'admin_basic.tpl.php';
+
+		if ($r->getPost('send')) {
+			$this->checkCSRF();
+
+			include(APP_PATH . '/cache/config.yml.php.cache.php');
+			$config = $data;
+
+			$config[$host]['name']        = $r->getPost('name');
+			$config[$host]['description'] = $r->getPost('description');
+			$config[$host]['keywords']    = $r->getPost('keywords');
+
+			Core_Parser_YML::write($config, APP_PATH . '/config/config.yml.php');
+			$c->read(APP_PATH . '/config/config.yml.php', TRUE);
+		}
+
+		$form = new Core_Helper_Form();
+		$form->form(NULL, '', __('basic_settings'), __('save'));
+		$form->input(NULL, 'name', __('name_of_web'))        ->setParam('value', $c->name);
+		$form->input(NULL, 'description', __('description')) ->setParam('value', $c->description);
+		$form->input(NULL, 'keywords', __('keywords'))       ->setParam('value', $c->keywords);
+
+		//XSRF protection
+		if ($r->getServer('REMOTE_ADDR') == 'unit') $key = 1; //unit tests
+		else $key = rand(0, 100);
+		$hash = md5($r->getSession('password') . $key);
+		$form->input(FALSE, 'random_key', FALSE, 'hidden', $key);
+		$form->input(FALSE, 'hashed_key', FALSE, 'hidden', $hash);
+
+		$this->setData('form', $form);
+
+
+
 	}
 
 	public function advanced()
@@ -340,11 +375,7 @@ class Administration extends Core_Module_Auth
 
 	protected function save()
 	{
-		//XSRF protection
-		$key = $this->request->getPost('random_key');
-		$hash = md5($this->request->getSession('password') . $key);
-		if ($hash != $this->request->getPost('hashed_key'))
-			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
+		$this->checkCSRF();
 
 		$class = 'ActiveRecord_' . ucfirst($this->request->getPost('table'));
 		$id = $this->request->getPost('id');
@@ -415,5 +446,13 @@ class Administration extends Core_Module_Auth
 		$model->delete();
 
 		$this->dump($table);
+	}
+
+	protected function checkCSRF()
+	{
+		$key = $this->request->getPost('random_key');
+		$hash = md5($this->request->getSession('password') . $key);
+		if ($hash != $this->request->getPost('hashed_key'))
+			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
 	}
 }

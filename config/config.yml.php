@@ -1,14 +1,14 @@
 #<?php die(0); ?>
-localhost:
+localhost: 
 	enabled: 1
 	encoding: utf-8
 	locale: Cs
 	name: Nors
-	description:
-	keywords:
+	description: desc
+	keywords: keyo
 	style: default
 	upload_dir: upload
-	db:
+	db: 
 		connector: mysql
 		user: root
 		password: 1234
@@ -16,37 +16,37 @@ localhost:
 		database: nors
 		table_prefix: nors4_
 	timezone: Europe/Prague
-	debug:
+	debug: 
 		enabled: 1
 		error_reporting: 6143
 		display_errors: 1
 		time_management: 1
-		sql_queries:
-		included_files:
+		sql_queries: 
+		included_files: 
 		die_on_error: 1
-	log:
+	log: 
 		enabled: 1
 		file: nors.log
-	cookie:
+	cookie: 
 		expiration: 2592000
-	routes:
-		post:
+	routes: 
+		post: 
 			format: post/:post
-			defaults:
+			defaults: 
 				module: post
 				event: __default
-		default:
+		default: 
 			format: :module/:event
-			defaults:
+			defaults: 
 				module: post
 				event: __default
-	front_end:
+	front_end: 
 		perex_length: 30
-	administration:
+	administration: 
 		items_per_page: 5
-		content:
+		content: 
 			default_subevent: post
-		users:
+		users: 
 			default_subevent: user
-		settings:
+		settings: 
 			default_subevent: basic
