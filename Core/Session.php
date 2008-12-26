@@ -1,33 +1,29 @@
 <?php
 
 /**
-* Core_Session
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
+ * Core_Session
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @copyright Daniel Milde <daniel@milde.cz>
+ * @license http://www.opensource.org/licenses/gpl-license.php
+ * @package Core
+ */
 
 /**
-* Core_Session
-*
-* Singleton
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Core_Session
+ *
+ * Singleton
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Session
 {
     /**
-     * $instance
-     *
      * @var Core_Session $instance
      */
     private static $instance;
 
     /**
-     * $sessionID
-     *
      * @var string $sessionID
      */
     public $sessionID = '';

@@ -159,7 +159,7 @@ class Core_Helper_Administration extends Core_Helper
 		if ($r->getServer('REMOTE_ADDR') == 'unit') $key = 1; //unit tests
 		else $key = rand(0, 100);
 
-		$hash = md5($r->getSession('password') . $key);
+		$hash = md5($r->getSession('password') . $key . $r->sessionID());
 		$this->form->input(FALSE, 'random_key', FALSE, 'hidden', $key);
 		$this->form->input(FALSE, 'hashed_key', FALSE, 'hidden', $hash);
 

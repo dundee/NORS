@@ -247,7 +247,7 @@ class Administration extends Core_Module_Auth
 		//XSRF protection
 		if ($r->getServer('REMOTE_ADDR') == 'unit') $key = 1; //unit tests
 		else $key = rand(0, 100);
-		$hash = md5($r->getSession('password') . $key);
+		$hash = md5($r->getSession('password') . $key . $r->sessionID());
 		$form->input(FALSE, 'random_key', FALSE, 'hidden', $key);
 		$form->input(FALSE, 'hashed_key', FALSE, 'hidden', $hash);
 
@@ -451,7 +451,7 @@ class Administration extends Core_Module_Auth
 	protected function checkCSRF()
 	{
 		$key = $this->request->getPost('random_key');
-		$hash = md5($this->request->getSession('password') . $key);
+		$hash = md5($this->request->getSession('password') . $key . $this->request->sessionID());
 		if ($hash != $this->request->getPost('hashed_key'))
 			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
 	}

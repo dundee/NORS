@@ -184,10 +184,16 @@ class Core_Request
 	public function checkCSRF()
 	{
 		$key = $_GET['random_key'];
-		$hash = md5($_SESSION['password'] . $key);
+		$hash = md5($_SESSION['password'] . $key . $this->sessionID());
 		if ($hash !== $_GET['hashed_key']) {
 			throw new Exception('Cross site request forgery attact from IP: ' . $_SERVER['REMOTE_ADDR'], 401);
 		}
+	}
+
+	public function sessionID()
+	{
+		if (!$this->session) $this->session = Core_Session::singleton();
+		return $this->session->sessionID;
 	}
 
 	/**
