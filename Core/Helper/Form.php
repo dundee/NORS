@@ -1,26 +1,30 @@
 <?php
 
 /**
-* Core_Helper_Form
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
+ * Core_Helper_Form
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @copyright Daniel Milde <daniel@milde.cz>
+ * @license http://www.opensource.org/licenses/gpl-license.php
+ * @package Core
+ */
 
 /**
-* Core_Helper_Form
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Core_Helper_Form
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Helper_Form extends Core_Helper
 {
 	public $helpers = array('Html');
 
 	protected $form;
 
+	/**
+	 *
+	 * @var Core_Html_Element
+	 */
 	public $root;
 
 	protected $submitValue;
@@ -40,6 +44,16 @@ class Core_Helper_Form extends Core_Helper
 		return $this->form;
 	}
 
+	/**
+	 *
+	 * @param Core_Html_Element $parent
+	 * @param string $name
+	 * @param string $label
+	 * @param string $type
+	 * @param string $defaultValue
+	 * @param mixed[] $params
+	 * @return Core_Html_Input
+	 */
 	public function input($parent = NULL, $name, $label = FALSE, $type = 'text', $defaultValue = FALSE, $params = array())
 	{
 		if (!$parent) $parent = $this->root;
@@ -58,6 +72,12 @@ class Core_Helper_Form extends Core_Helper
 		*/} else { //other (hidden, submit) - without label
 			$input = $this->html->input($div, $name,  $params);
 		}
+
+		//help
+		if (isset($params['title']) && $params['title']) {
+			$this->html->a($div, '#', array('class'=>'help', 'title'=>$params['title']))->setContent('?');
+		}
+		
 		return $input;
 	}
 
@@ -82,19 +102,38 @@ class Core_Helper_Form extends Core_Helper
 		return $input;
 	}
 
+	/**
+	 *
+	 * @param Core_Html_Element $parent
+	 * @param string $name
+	 * @param string $label
+	 * @param string $value
+	 * @param mixed[] $params
+	 * @return Core_Html_Element
+	 */
 	public function textarea($parent = NULL, $name, $label = FALSE, $value = FALSE, $params = array())
 	{
 		if (!$parent) $parent = $this->root;
 
 		$div = $this->html->div($parent);
 
+		if (!isset($params['rows'])) $params['rows'] = 20;
+		if (!isset($params['cols'])) $params['cols'] = 20;
+
 		if ($label) $this->html->elem($div, 'label', array('for'=>$name))->setContent($label);
 		$ta = $this->html->textarea($div, $name, $value, $params);
-		$p  = $this->html->elem($div, 'p')->setContent('<small>ctrl + enter = &lt;br /&gt; shift + enter = &lt;p&gt;&lt;p/&gt;</small>');
+		//$p  = $this->html->elem($div, 'p')->setContent('<small>shift + enter = &lt;br /&gt;, ctrl + enter = &lt;p&gt;&lt;p/&gt;</small>');
 
 		return $div;
 	}
 
+	/**
+	 *
+	 * @param int $indention
+	 * @param boolean $return Return HTML
+	 * @param boolean $not_validate No javascript validation
+	 * @return string
+	 */
 	public function render($indention = 0, $return = FALSE, $not_validate = FALSE)
 	{
 		if ($this->submitValue) {

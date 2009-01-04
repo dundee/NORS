@@ -25,12 +25,19 @@ class Core_Html_Input extends Core_Html_Element
 		$params['id'] = isset($params['id']) ? $params['id'] : $name; 
 		parent::__construct($parent, 'input', $params);
 	}
-	
+
+	/**
+	 *
+	 * @param string $cond
+	 * @param string $message
+	 * @return Core_Html_Input
+	 */
 	public function setValidation($cond = FALSE, $message = FALSE)
 	{
 		if (!$cond) $this->params['class'] = isset($this->params['class']) ? $this->params['class'] . ' required' : 'required';   
 		
 		$this->validations[] = new Core_Html_Validation($this->params['id'],$cond, $message);
+		return $this;
 	}
 	
 	public function renderValidation($indention = 0, $return = NULL)

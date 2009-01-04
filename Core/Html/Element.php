@@ -1,20 +1,20 @@
 <?php
 
 /**
-* Core_Html_Element
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
+ * Core_Html_Element
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @copyright Daniel Milde <daniel@milde.cz>
+ * @license http://www.opensource.org/licenses/gpl-license.php
+ * @package Core
+ */
 
 /**
-* Core_Html_Element
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Core_Html_Element
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Html_Element
 {
 	protected $childs = array();
@@ -36,36 +36,65 @@ class Core_Html_Element
 		$this->tag = $tag;
 		$this->params = $params;
 	}
-	
+
+	/**
+	 *
+	 * @return Core_Html_Element
+	 */
 	public function setEmpty()
 	{
 		$this->empty = TRUE;
+		return $this;
 	}
-	
+
+	/**
+	 *
+	 * @param string $content
+	 * @return Core_Html_Element
+	 */
 	public function setContent($content)
 	{
 		new Core_Html_Text($this, $content);
 		$this->mixedContent = TRUE;
 		return $this;
 	}
-	
+
+	/**
+	 *
+	 * @param string $key
+	 * @param string $value
+	 * @return Core_Html_Element
+	 */
 	public function setParam($key, $value)
 	{
 		$this->params[$key] = $value;
 		return $this;
 	}
-	
+
+	/**
+	 *
+	 * @param Core_Html_Element $child
+	 * @return Core_Html_Element
+	 */
 	public function addChild(Core_Html_Element $child)
 	{
 		$this->childs[] = $child;
 		return $this;
 	}
-	
+
+	/**
+	 *
+	 * @return Core_Html_Element[]
+	 */
 	public function getChilds()
 	{
 		return $this->childs;
 	}
-	
+
+	/**
+	 *
+	 * @return Core_Html_Element
+	 */
 	public function getParent()
 	{
 		return $this->parent;

@@ -17,11 +17,25 @@
 */
 class Core_Helper_Html extends Core_Helper
 {
+    /**
+     *
+     * @param Core_Html_Element $parent
+     * @param string $tag
+     * @param mixed[] $params
+     * @return Core_Html_Element
+     */
 	public function elem($parent, $tag, $params = NULL)
 	{
 		return new Core_Html_Element($parent, $tag, $params);
 	}
-	
+
+	/**
+	 *
+	 * @param Core_Html_Element $parent
+	 * @param string $href
+	 * @param mixed[] $params
+	 * @return Core_Html_Element
+	 */
 	public function a($parent, $href, $params = NULL)
 	{
 		$params['href'] = $href;
