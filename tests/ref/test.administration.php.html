@@ -12,7 +12,7 @@
 
 <br /><h2>Uživatel</h2>
 <table border="1" class="dump">
-<thead><tr><th><a href="#" title="id_user">id_user</a></th><th><a href="#" title="name">name</a></th><th>actions</th></tr></thead><tbody><tr>
+<thead><tr><th><a href="#" title="id_user">id user</a></th><th><a href="#" title="name">Název</a></th><th>Akce</th></tr></thead><tbody><tr>
 	<td>
 		<input type="checkbox" name="ids" id="ids" value="1" />
 		<a href="http://localhost/nors4/post/?id=&amp;action=edit">1</a>
@@ -20,7 +20,7 @@
 	<td>dundee</td>
 	<td>
 		<a href="http://localhost/nors4/post/?id=&amp;action=edit" title="Změnit dundee" ><img src="STYLE_URL/images/edit.gif" alt="Změnit"/>&nbsp;Změnit</a>
-		<a href="http://localhost/nors4/post/?id=&amp;action=del&amp;random_key=1&amp;hashed_key=3b805b916e21882ad9cde6d1f4e177e7" onclick="javascript:return confirm('Opravdu smazat dundee?');" title="Smazat dundee">
+		<a href="http://localhost/nors4/post/?id=&amp;action=del&amp;random_key=1&amp;hashed_key=5ef08dfb058053f8ab41c497d6ff94ea" onclick="javascript:return confirm('Opravdu smazat dundee?');" title="Smazat dundee">
 			<img src="STYLE_URL/images/delete.gif" alt="Smazat"/>&nbsp;Smazat
 		</a>
 	</td>
@@ -33,7 +33,7 @@
 	<td>test</td>
 	<td>
 		<a href="http://localhost/nors4/post/?id=&amp;action=edit" title="Změnit test" ><img src="STYLE_URL/images/edit.gif" alt="Změnit"/>&nbsp;Změnit</a>
-		<a href="http://localhost/nors4/post/?id=&amp;action=del&amp;random_key=1&amp;hashed_key=3b805b916e21882ad9cde6d1f4e177e7" onclick="javascript:return confirm('Opravdu smazat test?');" title="Smazat test">
+		<a href="http://localhost/nors4/post/?id=&amp;action=del&amp;random_key=1&amp;hashed_key=5ef08dfb058053f8ab41c497d6ff94ea" onclick="javascript:return confirm('Opravdu smazat test?');" title="Smazat test">
 			<img src="STYLE_URL/images/delete.gif" alt="Smazat"/>&nbsp;Smazat
 		</a>
 	</td>
@@ -58,19 +58,19 @@ function validate(form){
 </script>
 <form enctype="multipart/form-data" action="#" method="post" onsubmit="return validate(this);">
 	<fieldset>
-		<legend>cathegory</legend>
+		<legend>Rubrika</legend>
 		<div>
 			<input type="hidden" value="1" name="random_key" id="random_key" />
 		</div>
 		<div>
-			<input type="hidden" value="3b805b916e21882ad9cde6d1f4e177e7" name="hashed_key" id="hashed_key" />
+			<input type="hidden" value="5ef08dfb058053f8ab41c497d6ff94ea" name="hashed_key" id="hashed_key" />
 		</div>
 		<div>
 			<label for="name">Název</label>
 			<input type="text" value="" name="name" id="name" class="required" />
 		</div>
 		<div>
-			<label for="cathegory">cathegory</label>
+			<label for="cathegory">Rubrika</label>
 			<select name="cathegory" id="cathegory"><option value=""></option><option value="1">test</option></select>
 		</div>
 		<div>

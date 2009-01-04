@@ -1,4 +1,6 @@
 <?php
+session_start();
+session_id('c1e9187c23aa854024fa2147741f6a38');
 $_SERVER = array();
 $_SERVER['PHP_SELF'] = '/nors4/index.php';
 $_SERVER['REQUEST_URI'] = '/nors4/post/';

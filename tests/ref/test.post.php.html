@@ -15,9 +15,12 @@
 <meta name="googlebot" content="index,follow,snippet,archive" />
 <meta name="author" content="design and code: Petr Sobotka, www.czechline.cz" />
 <link rel="shortcut icon" href="http://localhost/nors4/styles/default/images/favicon.ico" />
-<script type="text/javascript" src="http://localhost/nors4/js/jquery-1.2.2.min.js"></script>
-<script type="text/javascript" src="http://localhost/nors4/js/jquery.my.js"></script>
+<script type="text/javascript" src="http://localhost/nors4/js/jquery.js"></script>
+<script type="text/javascript" src="http://localhost/nors4/js/jquery.thickbox.js"></script>
+<script type="text/javascript" src="http://localhost/nors4/js/comment.js"></script>
 <link rel="Stylesheet" media="screen,projection" type="text/css" href="http://localhost/nors4/styles/default/css/layout.css" />
+<link rel="Stylesheet" media="screen,projection" type="text/css" href="http://localhost/nors4/styles/default/css/forms.css" />
+<link rel="Stylesheet" media="screen,projection" type="text/css" href="http://localhost/nors4/styles/default/css/thickbox.css" />
 <link rel="Stylesheet" media="print" type="text/css" href="http://localhost/nors4/styles/default/css/print.css" />
 <!--[if lte IE 6]>
 <link rel="Stylesheet" media="screen,projection" type="text/css" href="http://localhost/nors4/styles/default/css/ie6.css" />
@@ -27,32 +30,61 @@
 <![endif]-->
 <title>Nors</title>
 </head>
-
 <body>
-
-  <div id="main" class="clearfix">
-	<div id="content">
-<a href="http://localhost/nors4/administration/">administrace (jméno: test, heslo: test)</a>
-
-<h1 class="hlavni">Články<span>&nbsp;</span></h1><h2><a href="http://localhost/nors4/post/2-jhfsd/">jhfsd</a></h2><p>dfd
+	<div id="main" class="clearfix">
+		<a href="#menu" class="hidden">přeskočit na navigaci</a>
+		<div id="content">
+<h1><a href="http://localhost/nors4/post/2-jhfsd/">jhfsd</a></h1><p>dfd
 df
 sdf "dfdsf
 
-? & 5645</p><h2><a href="http://localhost/nors4/post/1-nazev--dsdsd-sffs/">název " dsdsd ' sffs</a></h2><p>fsjdfh "f sdf '
+? & 5645</p><h1><a href="http://localhost/nors4/post/1-nazev--dsdsd-sffs/">název " dsdsd ' sffs</a></h1><p>fsjdfh "f sdf '
 d
 
 df
-sdfsdf " '' sdsd</p><div id="footer" class="cleared">
-	<div id="footer-main">
-		<p>Powered by <a href="http://core-php.com/">Core framework 1.0</a> &copy;2007-2008 <a href="http://milde.cz">Daniel Milde</a> aka Dundee</p>
+sdfsdf " '' sdsd</p>
+		</div><!-- /content -->
+		
+		<hr />
+		
+		<div id="sidebar">
+			<div id="menu">
+				<h2>Rubriky</h2>
+				<ul>
+					<li><a class="selected" href="http://localhost/nors4/cathegory/-jhfsd/">Jhfsd</a></li>
+					<li><a class="selected" href="http://localhost/nors4/cathegory/-nazev--dsdsd-sffs/">Název " Dsdsd ' Sffs</a></li>
+				</ul>
+				<h2>Stránky</h2>
+				<ul>
+					<li><a class="selected" href="http://localhost/nors4/page/-jhfsd/">Jhfsd</a></li>
+					<li><a class="selected" href="http://localhost/nors4/page/-nazev--dsdsd-sffs/">Název " Dsdsd ' Sffs</a></li>
+				</ul>
+				<h2>other</h2>
+				<ul>
+					<li><a href="http://localhost/nors4/administration/">Administrace</a></li>
+				</ul>
+			</div>
+		</div><!-- /sidebar -->
+	</div><!-- /main -->
+	
+	<hr />
 
-	</div><!-- footer-main -->
-	<div id="footer-side">
-		<p><a href="">Podmínky použití</a> | <a href="">Nápověda</a> | <a href=""><strong>O projektu</strong></a> | <a href="">Napište nám</a></p>
+	<div id="header">
+		<div id="logobar" class="clearfix">
+			<div id="header-right"></div>
+			<a id="logo" href="http://localhost/nors4">Nors</a>
+			<div id="description"></div>
+		</div>
+	</div><!-- /header -->
 
-	</div><!-- footer-side -->
-</div><!-- footer -->
+	<hr />
 
+	<div id="footer" class="cleared">
+		<div id="footer-main">
+						<p>Powered by <a href="http://norsphp.com/">NORS 4.0</a> &copy;2007-2009 <a href="http://milde.cz">Daniel Milde</a> aka Dundee</p>
+
+		</div><!-- /footer-main -->
+	</div><!-- /footer -->
 
 </body>
 </html>
