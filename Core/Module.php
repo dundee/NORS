@@ -78,7 +78,7 @@ abstract class Core_Module extends Core_Object
 	*
 	* @var array $rss
 	*/
-	public $rss = array();
+	public $rss = array(); //array( array('title' => '', 'src'=> '') )
 
 	/**
 	* $js
@@ -170,15 +170,29 @@ abstract class Core_Module extends Core_Object
 		}
 
 		foreach($this->rss as $rss){
-			$site_data['rss'][] = array('src' => gen_url(array('model'=>$rss)));
+			$site_data['rss'][] = array('src'   => $this->router->genURL($rss['src'], FALSE),
+			                            'title' => $rss['title']);
 		}
 
-		foreach($this->css as $key => $arr){
+		if (in_array('Rss', $this->views)) {
+			$site_data['rss'][] = array('src'   => '?rss',
+										'title' => $this->me->getName() . 's');
+		}
+
+		foreach($this->css as $type => $arr){
 			foreach($arr as $css) {
-				$site_data['css'][$key][] = array('src' => APP_URL.'/styles/'.$this->style.'/css/'.$css);
+				$site_data['css'][$type][] = array('src' => APP_URL.'/styles/'.$this->style.'/css/'.$css);
 			}
 		}
 
 		$this->setData('site', $site_data);
 	}
+	
+/* ==================== Module methods ===================== */
+
+	public abstract function __default();
+	
+	public function beforeEvent(){}
+	public function afterEvent(){}
+	public function beforeFooter(){}
 }

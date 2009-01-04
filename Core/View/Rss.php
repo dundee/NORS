@@ -31,28 +31,29 @@ class Core_View_Rss extends Core_View
 	*/
 	public function display(){
 		
-		$request = $this->module->request;
+		$request  = $this->module->request;
+		$response = $this->module->response;
 		$createCache = FALSE;  //should we create cache file?
 		$cacheLifeTime = $this->module->cache;
-		
-		if ($cacheLifeTime > 0){ //caching allowed 
-			$cacheFileName = $request . "";
+
+		if ($cacheLifeTime > 0){ //caching allowed
+			$cacheFileName = $request . ".cache.php";
 			$cacheFilePath = APP_PATH.'/tpl/cache/'.$cacheFileName;
 			if (file_exists($cacheFilePath)){
 				$time = filemtime($cacheFilePath); //unix timestamp
 				$request->setVar('cacheTime', $time);
-				$age = time() - $time; 
+				$age = time() - $time;
 				if($age < $cacheLifeTime){ //cache not expired
-					headers();
+					$this->setDoctype($data,$request, $response);
 					include($cacheFilePath); //display cache
-					return TRUE;					
+					return TRUE;
 				} else $createCache = TRUE; //cache expired
 			} else $createCache = TRUE; //cache not exists
 		}
-		
+
 		$request->setVar('caching', $createCache);
 		if ($createCache) ob_start(); //start output buffer
-		
+
 		//load helpers
 		if (iterable($this->module->helpers)) {
 			foreach ($this->module->helpers as $helper) {
@@ -60,16 +61,16 @@ class Core_View_Rss extends Core_View
 				$this->module->setData(strtolower($helper), new $class);
 			}
 		}
-		
+
 		//execute event
 		if (method_exists($this->module,'beforeEvent')) $this->module->beforeEvent();
 		$event = $this->moduleEvent;
 		$this->module->$event();
 		if (method_exists($this->module,'afterEvent')) $this->module->afterEvent();
-		
+
 		$data = $this->module->getData();
 		
-		$request->sendHeaders('application/xml');
+		$response->sendHeaders('application/xml');
 		
 		foreach($data as $k=>$v){
 			${$k} = $v;

@@ -44,7 +44,7 @@ class Core_View_Default extends Core_View
 				$request->setVar('cacheTime', $time);
 				$age = time() - $time;
 				if($age < $cacheLifeTime){ //cache not expired
-					headers();
+					$this->setDoctype($data,$request, $response);
 					include($cacheFilePath); //display cache
 					return TRUE;
 				} else $createCache = TRUE; //cache expired
@@ -76,10 +76,6 @@ class Core_View_Default extends Core_View
 			${$k} = $v;
 		}
 		unset($data);
-
-		/* basics */
-		$lang = $this->module->request->locale;
-
 
 		if ($this->module->headerTplFile){
 			include(APP_PATH.'/tpl/layout/'.$this->module->headerTplFile);
@@ -114,6 +110,14 @@ class Core_View_Default extends Core_View
 	* @access public
 	*/
 	public function __destruct(){
+		$this->module->delData();
+		if (method_exists($this->module,'beforeFooter')) $this->module->beforeFooter();
+		$data = $this->module->getData();
+		foreach($data as $k=>$v){
+			${$k} = $v;
+		}
+		unset($data);
+		
 		if($this->module->footerTplFile && headers_sent()) require_once(APP_PATH.'/tpl/layout/'.$this->module->footerTplFile);
 	}
 }
