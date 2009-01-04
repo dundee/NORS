@@ -83,7 +83,7 @@ class Core_Helper_Administration extends Core_Helper
 						$class = 'class="'.$a.'" ';
 					}
 					$output .= '<th>';
-					$output .= '<a href="#" ' . $class . 'title="' . $th . '">' . $th . '</a></th>';
+					$output .= '<a href="#" ' . $class . 'title="' . $th . '">' . __($th) . '</a></th>';
 				}
 
 				$output .= '<th>' . __('actions') . '</th></tr></thead>';
@@ -121,9 +121,9 @@ class Core_Helper_Administration extends Core_Helper
 					if (!$j) {
 						$output .= TAB . '<td>' . ENDL;
 						$output .= TAB . TAB . '<input type="checkbox" name="ids" id="ids" value="' . $value . '" />' . ENDL;
-						$output .= TAB . TAB . '<a href="' . $edit_url . '">' . $value . '</a>' . ENDL;
+						$output .= TAB . TAB . '<a href="' . $edit_url . '">' . clearOutput($value) . '</a>' . ENDL;
 						$output .= TAB . '</td>' . ENDL;
-					} else $output .= TAB . '<td>' . $value . '</td>' . ENDL;
+					} else $output .= TAB . '<td>' . clearOutput($value) . '</td>' . ENDL;
 					$j++;
 				}
 				$output .= TAB . '<td>' . ENDL;

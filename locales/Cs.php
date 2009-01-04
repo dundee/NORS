@@ -19,6 +19,8 @@ class Locale_Cs extends Core_Locale
 {
 	public $data = array(
 
+		/* ============ administrace ============ */
+
 		//              Odpovedi systemu
 		'DB_connection_failed'      => 'Připojení k databázi se nezdařilo',
 		'DB_query_failed'           => 'Provedení SQL dotazu se nezdařilo',
@@ -48,9 +50,10 @@ class Locale_Cs extends Core_Locale
 		'seconds'                   => 'sekund',
 		'yes'                       => 'ano',
 		'no'                        => 'ne',
+		'memory'                    => 'paměť',
+		'included_files'            => 'vložených souborů',
 		'sql_queries'               => 'dotazů na databázi',
 		'stop_ie'                   => 'Používáte nevyhovující prohlížeč. Doporučujeme <a href="http://www.opera.com/download/">Operu</a> nebo <a href="http://www.mozilla-europe.org/cs/products/firefox/">Firefox</a>',
-
 
 		//             Navigace administrace
 		'homepage'                  => 'Úvod',
@@ -61,30 +64,16 @@ class Locale_Cs extends Core_Locale
 		'galleries'                 => 'Galerie',
 		'anquettes'                 => 'Ankety',
 		'citates'                   => 'Citáty',
+		'comments'                  => 'Komentáře',
 		'users'                     => 'Uživatelé',
 		'groups'                    => 'Role',
 		'settings'                  => 'Nastavení',
 
-		'municipality'              => 'města a obce',
-		'service'                   => 'služby',
-
 		//                Vypisy
+		'filter'                    => 'Filtrovat',
 		'add'                       => 'Přidat',
 		'tree'                      => 'Strom',
-		'add_category'              => 'Přidat kategorii',
-		'add_next_category'         => 'Přidat další kategorii',
-		'add_post'                  => 'Přidat článek',
-		'add_next_post'             => 'Přidat další článek',
-		'add_text'                  => 'Přidat text',
-		'add_next_text'             => 'Přidat další text',
-		'add_user'                  => 'Přidat uživatele',
-		'add_next_user'             => 'Přidat dalšího uživatele',
-		'add_product'               => 'Přidat produkt',
-		'add_next_product'          => 'Přidat další produkt',
-		'add_group'                 => 'Přidat roli',
-		'add_next_group'            => 'Přidat další roli',
 		'dump'                      => 'Export',
-		'category_tree'             => 'Strom kategorií',
 		'action'                    => 'Akce',
 		'open'                      => 'Otevřít',
 		'edit'                      => 'Změnit',
@@ -97,20 +86,21 @@ class Locale_Cs extends Core_Locale
 		'num_of_comments'           => 'Počet komentářů',
 		'num_of_visits'             => 'Počet shlédnutí',
 		'karma'                     => 'Karma',
+		'actions'                   => 'Akce',
 
 
 		//                Formulare
 		'name'                      => 'Název',
 		'send_form'                 => 'Odeslat',
 		'post'                      => 'Článek',
-		'categories'                => 'Kategorie',
+		'page'                      => 'Stránka',
 		'pub_date'                  => 'Publikováno dne',
-		'category'                  => 'Kategorie',
+		'cathegory'                 => 'Rubrika',
 		'perex'                     => 'Perex',
 		'date'                      => 'Datum',
 		'active'                    => 'Aktivní',
+		'name_of_web'               => 'Název webu',
 		'sucessfully_saved'         => 'Ukládání dat proběhlo v pořádku...',
-		'root_category'             => 'Kořenová kategorie',
 		'no_items'                  => 'Žádné položky',
 		'save'                      => 'Uložit',
 		'save_and_continue'         => 'Uložit a pokračovat',
@@ -120,7 +110,6 @@ class Locale_Cs extends Core_Locale
 		'logging'                   => 'Přihlášení',
 		'password'                  => 'Heslo',
 		'password_again'            => 'Heslo znovu',
-		'search'                    => 'hledání',
 		'text'                      => 'Text',
 		'user'                      => 'Uživatel',
 		'group'                     => 'Skupina',
@@ -129,32 +118,60 @@ class Locale_Cs extends Core_Locale
 		'email'                     => 'E-mail',
 		'created'                   => 'Vytvořen',
 		'group'                     => 'Role',
-		'services'                  => 'Nabízené služby',
 		'exp_date'                  => 'Konec platnosti',
 		'basic_settings'            => 'Základní nastavení',
-		'name_of_web'               => 'Název webu',
 		'description'               => 'Popis',
 		'keywords'                  => 'Klíčová slova',
+		'link'                      => 'Odkaz',
+		'position'                  => 'Pozice',
+		'basic'                     => 'Základní',
+		'advanced'                  => 'Pokročilé',
+		'comment'                   => 'Komentář',
 
 		//             Prava
+		'cathegory_list'            => 'Výpis rubrik',
+		'cathegory_edit'            => 'Editace rubrik',
+		'cathegory_del'             => 'Mazání rubrik',
 		'post_list'                 => 'Výpis článků',
 		'post_edit'                 => 'Editace článků',
 		'post_del'                  => 'Mazání článků',
-		'text_list'                 => 'Výpis texů',
-		'text_edit'                 => 'Editace textů',
-		'text_del'                  => 'Mazání textů',
-		'category_list'             => 'Výpis kategorií',
-		'category_edit'             => 'Editace kategorií',
-		'category_del'              => 'Mazání kategorií',
+		'page_list'                 => 'Výpis stránek',
+		'page_edit'                 => 'Editace stránek',
+		'page_del'                  => 'Mazání stránek',
 		'user_list'                 => 'Výpis uživatelů',
 		'user_edit'                 => 'Editace uživatelů',
 		'user_del'                  => 'Mazání uživatelů',
 		'group_list'                => 'Výpis rolí',
 		'group_edit'                => 'Editace rolí',
 		'group_del'                 => 'Mazání rolí',
-		'settings_list'             => 'Výpis nastavení',
-		'settings_edit'             => 'Editace nastavení',
-		'settings_del'              => 'Mazání nastavení',
+		'basic_list'                => 'Základní nastavení',
+		'advanced_list'             => 'Pokročilé nastavení',
+		
+		/* ============ front-end ============ */
+		
+		//instalace
+		'installation'              => 'Instalace',
+		'database'                  => 'Databáze',
+		'new_user'                  => 'Nový uživatel',
+		'host'                      => 'Server',
+		'table_prefix'              => 'Prefix tabulek',
+		'adress_of_database_server' => 'Adresa databázového serveru',
+		'name_of_database_user'     => 'Jméno uživatele databáze',
+		'password_of_database_user' => 'Heslo uživatele databáze',
+		'name_of_database'          => 'Název databáze',
+		'prefix_of_nors_tables'     => 'Prefix tabulek NORSu',
+		'name_of_new_nors_user'     => 'Jméno nového uživatele',
+		'password_of_new_nors_user' => 'Heslo nového uživatele',
+		'wrong_db_user'             => 'Špatný název uživatele nebo heslo',
+		'wrong_db_name'             => 'Špatný název databáze',
+		
+		'jump_to_navigation'        => 'přeskočit na navigaci',
+		'replied_by'                => 'Na tento komentář odpověděl',
+		'reply'                     => 'Odpovědět',
+		'other'                     => 'Ostatní',
+		'seen'                      => 'zobrazen',
+		'source'                    => 'zdroj',
+		'administration'            => 'Administrace',
 
 		);
 	public function decodeDate($ymd_his)
