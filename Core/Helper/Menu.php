@@ -19,26 +19,26 @@ class Core_Helper_Menu extends Core_Helper
 {
 	public $helpers = array();
 
-	public function prepare($pages)
+	public function prepare($items, $name = 'page')
 	{
 		$menu = array();
 
 		$request = Core_Request::factory();
 		$r       = Core_Router::factory();
 
-		if (iterable($pages)) {
+		if (iterable($items)) {
 			$text_obj = new Core_Text();
-			foreach ($pages as $page) {
-				$selected = intval($request->getGet('page')) == $page->getID();
-				$url = ($page->link && $page->link != 'http://')
-				       ? $page->link
-				       : $r->genUrl('page',
+			foreach ($items as $item) {
+				$selected = intval($request->getGet($name)) == $item->getID();
+				$url = ($item->link && $item->link != 'http://')
+				       ? $item->link
+				       : $r->genUrl($name,
 				                    FALSE,
-				                    'page',
-				                    array('page' => $page->getID() . '-' . $text_obj->urlEncode($page->name)
+				                    $name,
+				                    array($name => $item->getID() . '-' . $text_obj->urlEncode($item->name)
 				                         )
 				                    );
-				$menu[] = array('label'    => __($page->name),
+				$menu[] = array('label'    => __($item->name),
 				                'url'      => $url,
 				                'selected' => $selected,
 				                );
@@ -47,16 +47,19 @@ class Core_Helper_Menu extends Core_Helper
 		return $menu;
 	}
 
-	public function render($menu)
+	public function render($menu, $indention = 0)
 	{
-		echo '<div id="menu">';
-		echo ENDL . '<ul class="clearfix">' . ENDL;
-		foreach ($menu as $item) {
-			echo TAB . '<li>' . ENDL;
-			echo TAB. TAB . '<a ' . ($item['selected'] ? 'class="selected" ' : '') . 'href="' . $item['url'] . '">' . ucwords($item['label']) . '</a>' . ENDL;
-			echo TAB . '</li>' . ENDL;
+		$in = '';
+		for($i=0; $i < $indention; $i++) $in .= TAB;
+		
+		$output = '';
+		if (iterable($menu)) {
+			$output .= $in . '<ul>' . ENDL;
+			foreach ($menu as $item) {
+				$output .= $in . TAB . '<li><a ' . ($item['selected'] ? 'class="selected" ' : '') . 'href="' . $item['url'] . '">' . ucwords($item['label']) . '</a></li>' . ENDL;
+			}
+			$output .= $in . '</ul>' . ENDL;
 		}
-		echo '</ul>' . ENDL;
-		echo '</div>';
+		return $output;
 	}
 }
