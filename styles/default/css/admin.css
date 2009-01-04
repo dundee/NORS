@@ -260,6 +260,11 @@ table a:hover{
 	background:rgb(255,204,204);
 }
 
+.important {
+	font: bold 1em Tahoma, Verdana,"Geneva CE",sans-serif;
+	color: #9E0000;
+}
+
 li.opened{
 	list-style-image: url('../images/minus.gif');
 	clear: left;

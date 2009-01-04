@@ -17,8 +17,11 @@
 */
 class Login extends Core_Module
 {
+	public $headerTplFile = 'header_admin.tpl.php';
+	public $footerTplFile = 'footer_admin.tpl.php';
+	
 	public $css = array(
-		'normal' => array('default.css', 'forms.css'),
+		'normal' => array('admin.css', 'forms.css'),
 		'ie6'    => array(),
 		'ie7'    => array(),
 		'print'  => array(),
@@ -29,14 +32,16 @@ class Login extends Core_Module
 
 	public function beforeEvent()
 	{
-		$table = new Table_Page();
+		$this->setData('user', '');
+		
+		/*$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
 
 		$menu_helper = new Core_Helper_Menu();
 		$menu = $menu_helper->prepare($pages);
-		$this->setData('menu_items', $menu);
+		$this->setData('menu_items', $menu);*/
 
-		$this->setData('images_dir', APP_URL.'/styles/'.$this->style.'/images');
+		//$this->setData('images_dir', APP_URL.'/styles/'.$this->style.'/images');
 	}
 
 	/**

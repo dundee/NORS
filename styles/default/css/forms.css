@@ -7,7 +7,7 @@ fieldset{
   padding:10px;
   text-align:left;
   width: 90%;
-  margin: auto;
+  margin: 10px auto;
   font-size: 0.9em;
 }
 
@@ -46,6 +46,7 @@ fieldset label{
 
 fieldset a.help{
   float:left;
+  margin-left: 5px;
   text-decoration:none;
   color:#f00;
 }
@@ -59,7 +60,7 @@ fieldset .center{
 
 fieldset textarea{
   clear:left;
-  width:600px;
+  width: 90%;
   height:200px;
   border: 1px solid #BBB;
   margin:10px 30px;

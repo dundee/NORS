@@ -22,15 +22,15 @@ class Administration extends Core_Module_Auth
 	                                      'markitup.css',
 	                                      'thickbox.css'),
 	                   );
-	public $js = array('jquery-1.2.2.min.js',
-	                   'jquery.dump_filter.js',
+	public $js = array('jquery.js',
+	                   'dump_filter.js',
 	                   'jquery.markitup.js',
 	                   'set.js',
 	                   'jquery.thickbox.js',
 	                   'jquery.blockUI.js',
-	                   'ui.datetimepicker.js',
-	                   'jquery.admin_form.js',
-	                   'jquery.clicker.js',
+	                   'jquery.datetimepicker.js',
+	                   'admin_form.js',
+	                   'clicker.js',
 	                  );
 	public $headerTplFile = 'header_admin.tpl.php';
 	public $footerTplFile = 'footer_admin.tpl.php';
@@ -89,17 +89,22 @@ class Administration extends Core_Module_Auth
 			                                          'content',
 			                                          FALSE,
 			                                          array('subevent' => 'post'))),
-			'gallery'    => array('label' => 'galleries',
+			/*'gallery'    => array('label' => 'galleries',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' => 'gallery'))),
+			                                          array('subevent' => 'gallery'))),*/
 			'page'    => array('label' => 'pages',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
 			                                          array('subevent' => 'page'))),
-			'anquette'    => array('label' => 'anquettes',
+			'comment' => array('label' => 'comments',
+			                   'link'  => $r->genUrl('administration',
+			                                          'content',
+			                                          FALSE,
+			                                          array('subevent' => 'comment'))),
+			/*'anquette'    => array('label' => 'anquettes',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
@@ -108,7 +113,7 @@ class Administration extends Core_Module_Auth
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' => 'citate'))),
+			                                          array('subevent' => 'citate'))),*/
 		);
 		$this->guidepost('content', $submenu);
 	}
@@ -141,6 +146,13 @@ class Administration extends Core_Module_Auth
 		$r = $this->router;
 		$actions = array('add' => $r->forward(array('action'=>'add')));
 		$this->basic_page('page', $actions);
+	}
+
+	public function comment()
+	{
+		$r = $this->router;
+		$actions = array('add' => $r->forward(array('action'=>'add')));
+		$this->basic_page('comment', $actions);
 	}
 
 	public function anquette()

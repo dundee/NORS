@@ -77,13 +77,12 @@ echo '</div>';
 
 
 
-echo '
-<ul id="menu">';
 if (iterable($menu)) {
+	echo '<ul id="menu">';
 	foreach($menu as $name=>$url){
 		$class = $name == $selected ? ' class="selected"' : '';
 		echo '<li' . $class . '><a href="' . $url . '">' . __($name) . '</a></li>';
 	}
+	echo '</ul>';
 }
-echo '</ul>
-<div id="main">';
+echo '<div id="main">';
