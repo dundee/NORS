@@ -27,7 +27,7 @@ class Core_User
 	{
 		$id = Core_Request::factory()->getSession('id_user');
 		if ($id) {
-			$user = $userModel->findById($id);
+			list($user) = $userModel->findById($id);
 			if (!$user instanceof Core_ActiveRecord) return;
 			$this->id_user  = $user->id_user;
 			$this->group = $user->group;
@@ -38,7 +38,7 @@ class Core_User
 
 	public function login(Core_Table $userModel, $name, $password)
 	{
-		$user = $userModel->findByName($name);
+		list($user) = $userModel->findByName($name);
 		$text_obj = new Core_Text();
 		if (is_object($user)) {
 			if ($user->password == $text_obj->crypt($password, $name)) {

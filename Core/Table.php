@@ -66,7 +66,7 @@ abstract class Core_Table
 			$obj = new $class;
 			$definition = $obj->getDefinition();
 			if (!$definition) continue;
-			if ($name=='id_' . $this->table) {
+			if ($name == 'id_' . $this->table) {
 				$sql .= "`" . $name
 				      . "` int(11) unsigned NOT NULL AUTO_INCREMENT, ";
 			} else {
@@ -85,7 +85,7 @@ abstract class Core_Table
 	 * __call
 	 *
 	 * Allows methods like findById, findByName, etc. to be easily called.
-	 * @return ActiveRecord
+	 * @return Core_ActiveRecord[]
 	 */
 	public function __call($function, $arguments)
 	{
@@ -98,9 +98,9 @@ abstract class Core_Table
 			$sql = "SELECT *
 			        FROM `" . tableName($this->table) . "`
 			        WHERE `" . $name . "` = '" . clearInput($value)
-			        . "' LIMIT 1";
+			        . "'";
 			try {
-				$line = $this->db->getRow($sql);
+				$lines = $this->db->getRows($sql);
 			} catch(RuntimeException $ex) {
 				if ($ex->getCode() == 1146) {
 					self::create();
@@ -109,16 +109,22 @@ abstract class Core_Table
 				else throw new RuntimeException($ex->getMessage(),
 				                                $ex->getCode());
 			}
-			if ($line['id_' . $this->table] > 0) {
-				$class = 'ActiveRecord_' . ucfirst($this->table);
-				$instance = new $class($line['id_' . $this->table]);
-				//$instance->data = $line;
-				return $instance;
-			} else return FALSE;
+			$instances = array();
+			if (iterable($lines)) {
+				foreach ($lines as $line) {
+					if ($line['id_' . $this->table] > 0) {
+						$class = 'ActiveRecord_' . ucfirst($this->table);
+						$instances[] = new $class($line['id_' . $this->table]);
+						//$instance->data = $line;
+					}
+				}
+			}
+
+			if (count($instances) >= 1) return $instances;
+			else return array();
 		}
 
-		throw new BadMethodCallException('Method ' . $function
-		                                 . ' not exists.');
+		throw new BadMethodCallException('Method ' . $function . ' not exists.');
 	}
 
 	/**
