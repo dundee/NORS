@@ -19,6 +19,8 @@ _bread  : Breadcrumbs & language switch
 _menu   : Main menu placed in header
 _footer : Footer box
 _news   : News box @ homepage
+_comm   : Comments
+_photo  : Photos
 ===============================================================================
 
 */
@@ -41,6 +43,10 @@ a, a:link, a:visited {
 }
 
 hr {
+	display: none;
+}
+
+.hidden {
 	display: none;
 }
 
@@ -86,7 +92,7 @@ a.popup {
 form, fieldset {
 	padding: 0;
 	margin: 0;
-	border-style: none;
+	/* border-style: none; */
 }
 
 /* boxovani */
@@ -115,6 +121,7 @@ h1.alert {
 h1 {
 	font-size: 1.5em;
 	font-weight: normal;
+	margin: 0.7em 0;
 }
 
 h2 {
@@ -126,6 +133,7 @@ h3 {
 	color: #7fae3f;
 	font-size: 1em;
 	margin-left: 0.8125em;
+	clear: left;
 }
 
 p {
@@ -141,15 +149,15 @@ p {
 	width: 56em;
 	text-align: left;
 	margin-top: 5.5em;
-	padding: 4em 2em 1em 2em;
+	padding: 2em 2em 1em 2em;
 	position: relative;
- 	/*border: 1px solid #f60;*/
+ 	/* border: 1px solid #f60; */
 }
 
 #content {
 	float: left;
 	width: 32em;
-/* 	border: 1px solid #f60; */
+	/* border: 1px solid #f60; */
 
 }
 
@@ -166,6 +174,31 @@ p {
 	font-size: 0.8125em;
 }
 
+#post {
+	margin-bottom: 1em;
+}
+
+.post {
+	border-bottom: 1px dotted #ccc;
+	padding-bottom: 10px;
+}
+
+.post h1 {
+	margin-bottom: 5px;
+}
+
+.post h1 a {
+	text-decoration: none;
+	font-family: Georgia, serif;
+}
+
+.post p {
+	margin-top: 10px;
+}
+
+.post small {
+	font-size: 0.7em;
+}
 
 /* _header
 =============================================================================*/
@@ -214,6 +247,8 @@ p {
 	clear: right;
 	float: right;
 	padding: 1em 2em;
+	display: block;
+	height: 1.2em;
 	color: #000;
 	font: bold 1em Georgia, serif;
 }
@@ -226,10 +261,14 @@ p {
 	/*padding-right: 2em;*/
 }
 
+#menu h2 {
+	margin: 10px 0 0 0;
+}
+
 #menu ul {
 	list-style-type: none;
 	margin: 0;
-	padding: 1.1em 0 0 0;
+	padding: 0.5em 0 0 0;
 }
 
 #menu ul li {
@@ -239,17 +278,23 @@ p {
 #menu ul li a {
 	display: block;
 	/* color: #bbb; */
-	padding: 0.3em 0.5em;
+	padding: 0.3em 0.9em;
 	text-decoration: none;
 	font-family: Georgia;
 	font-weight: bold;
 	/* border: 1px solid #c52d2d; */
 }
 
-#menu ul li a:hover {
-	border: 1px solid #d87272;
+#menu ul li a:hover,
+#menu ul li a.selected:hover  {
+	padding-left: 0.3em;
+	border-left: 0.6em solid #d87272;
 }
 
+#menu ul li a.selected {
+	color: #333;
+	border: 1px dotted #333;
+}
 
 /* _footer
 =============================================================================*/
@@ -257,7 +302,7 @@ p {
 #footer {
 	width: 60em;
 	margin: 0 auto;
-	background: #e1f3ff;
+	background: #e1f3ff /* #91B7D3 */;
 	clear: both;
 	text-align: left;
 	padding-top: 0.3em;
@@ -279,32 +324,87 @@ p {
 	font-size: 0.75em;
 }
 
-/* _news
+#lang img{
+	vertical-align: middle;
+}
+
+/* _comm
 =============================================================================*/
-
-#news {
-	border-bottom: 1px solid #acacac;
+.comment {
+	margin-top: 1em;
+	clear: left;
+	border-top: 1px solid #bbb;
+	border-bottom: 1px dotted #bbb;
+	padding-bottom: 0.3em;
+	background: #f9f9f9;
 }
 
-div.news-message {
-	border-top: 1px solid #acacac;
-	padding-top: 1em;
+#content .comment p {
+	font-size: 1em;
 }
 
-div.news-message p.date {
+.comment .author {
+	margin-right: 0.2em;
 	float: left;
-	width: 2.5em;
-	font-size: 2em !important;
-	line-height: 1.3em;
-/* 	border: 1px solid #f60; */
+	padding-left: 0.4em;
 }
 
-div.news-message p.date span{
-	font-size: 0.5em;
+.comment .author:after {
+	content: " - ";
+	display: inline;
+	color: #666;
 }
 
-div.news-message p.text {
-	float: right;
-	width: 20em;
-	padding-bottom: 1em;
+.comment .date {
+	background: #eee;
+}
+
+.comment .date,
+.comment .inspiration {
+	font-size: 0.8125em;
+	color: #666;
+}
+
+.comment .text {
+	clear: left;
+	margin-top: 0.5em;
+	padding: 0.5em;
+}
+
+.comment .reply {
+	padding-left: 0.5em;
+}
+
+.comment .reaction {
+	padding-left: 6px;
+	background: url('../images/reaction.gif') left center no-repeat;
+}
+
+.comment .inspiration a {
+	padding-left: 6px;
+	background: url('../images/inspiration.gif') left center no-repeat;
+}
+
+/* _comm
+=============================================================================*/
+.thumbnail {
+	padding: 7px;
+	border: 1px solid #ddd;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
+.caption {
+	font-size: 0.9em;
+	padding-top: 0.2em ;
+}
+
+.caption a {
+	text-decoration: none;
+	font-size: 1em;
+	font-weight: bold;
+	color: #8ab459;
+	display: block;
+	text-align: center;
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ActiveRecord_Post
+ * Table_File
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @copyright Daniel Milde <daniel@milde.cz>
@@ -10,15 +10,15 @@
  */
 
 /**
- * ActiveRecord_Post
+ * Table_File
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
-class ActiveRecord_Post extends Core_ActiveRecord
+class Table_File extends Core_Table
 {
-	public function __construct($id_user=false)
+	public function __construct()
 	{
-		parent::__construct('post',$id_user);
+		parent::__construct('file');
 	}
 }

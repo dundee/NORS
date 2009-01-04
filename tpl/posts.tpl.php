@@ -1,11 +1,18 @@
 <?php
-echo '<a href="' . $administration . '">administrace (jméno: test, heslo: test)</a>
-
-<h1 class="hlavni">Články<span>&nbsp;</span></h1>';
-
 if (iterable($posts)) {
 	foreach ($posts as $post) {
-		echo '<h2><a href="' . $post->url . '">'.$post->name.'</a></h2>';
-		echo '<p>' . strip_tags($post->text) . '</p>';
+?>
+<div class="post">
+	<h1><a href="<?php echo $post->url ?>"><?php echo $post->name ?></a></h1>
+	<small>
+	<?php echo $post->date?> |
+	<a href="<?php echo $post->cathegory_url?>"><?php echo $post->cathegory_name?></a> |
+	<a href="<?php echo $post->url?>#comments"><?php echo __('comments') . ': ' . $post->num_of_comments ?></a> |
+	<?php echo $post->seen . 'x ' . __('seen')?>
+	</small>
+	<p><?php echo strip_tags($post->text)?></p>
+</div>
+<?php
 	}
 }
+?>

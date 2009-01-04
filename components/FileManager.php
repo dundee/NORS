@@ -67,12 +67,8 @@ class Component_FileManager extends Core_Component_Auth
 		$model = new $class($params['id']);
 
 		$model->deleteFile($name, $file);
-
-		$files = $model->getFiles($name);
-		if ($model instanceof ActiveRecord_Town) {
-			$cat = new ActiveRecord_KategorieMist();
-			$kategorie = $cat->getAll('nazev_kategorie_mista_cz', 'asc');
-		}
+		
+		$files = $model->getFiles();
 		include(APP_PATH . '/tpl/component/filemanager.tpl.php');
 
 		//$this->setData('html', $html);

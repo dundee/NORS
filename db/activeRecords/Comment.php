@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ActiveRecord_Post
+ * ActiveRecord_Comment
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @copyright Daniel Milde <daniel@milde.cz>
@@ -10,15 +10,16 @@
  */
 
 /**
- * ActiveRecord_Post
+ * ActiveRecord_Comment
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
-class ActiveRecord_Post extends Core_ActiveRecord
+class ActiveRecord_Comment extends Core_ActiveRecord
 {
 	public function __construct($id_user=false)
 	{
-		parent::__construct('post',$id_user);
+		parent::__construct('comment',$id_user);
 	}
+	
 }

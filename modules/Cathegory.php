@@ -1,21 +1,21 @@
 <?php
 
 /**
-* Page
+* Cathegory
 *
 * @author Daniel Milde <daniel@milde.cz>
 * @copyright Daniel Milde <daniel@milde.cz>
 * @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
+* @package Nors
 */
 
 /**
-* Page
+* Cathegory
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @package Core
+* @package Nors
 */
-class Page extends Core_Module
+class Cathegory extends Core_Module
 {
 	public $css = array(
 		'normal' => array('layout.css'),
@@ -47,17 +47,25 @@ class Page extends Core_Module
 		$this->setData('description', $this->config->description);
 	}
 
-	/**
-	* __default
-	*
-	* @return void
-	*/
 	public function __default()
 	{
-		$table = new Table_Page();
-		list($page) = $table->findById(intval($this->request->getGet('page')));
+		$this->tplFile = 'posts.tpl.php';
 
-		if ($page) $this->setData('text', $page->text, TRUE);
-		else $this->setData('text', '', TRUE);
+		$table = new Table_Post();
+		$posts = $table->getByCathegory(intval($this->request->getGet('cathegory')));
+
+		$text = new Core_Text();
+
+		if (iterable($posts)) {
+			foreach ($posts as $i=>$post) {
+				$url = $text->urlEncode($post->name);
+				$curl = $text->urlEncode($post->cathegory_name);
+				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
+				$posts[$i]->text = $text->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
+				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->cathegory . '-' . $curl));
+			}
+		}
+
+		$this->setData('posts', $posts, TRUE);
 	}
 }
