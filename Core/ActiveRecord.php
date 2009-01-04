@@ -106,8 +106,7 @@ abstract class Core_ActiveRecord
 	 */
 	public function save($id = 0)
 	{
-		isset($this->data['id_' . $this->table])
-		&& $id = $this->data['id_' . $this->table];
+		isset($this->data['id_' . $this->table]) && $id = $this->data['id_' . $this->table];
 
 		//prepare data
 		foreach ($this->fields as $name=>$field) {
@@ -125,7 +124,7 @@ abstract class Core_ActiveRecord
 			if ($name == 'id_user' && $this->table != 'user') {
 				$this->data[$name] = Core_Session::singleton()->id_user;
 			}
-			if ($field['type'] == 'file') unset($this->fields[$name]);
+			//if ($field['type'] == 'file') unset($this->fields[$name]);
 
 			if (!isset($this->data[$name])) continue;
 
@@ -255,5 +254,70 @@ abstract class Core_ActiveRecord
 		        . clearInput($this->data['id_' . $this->table], 1)
 		        . "' LIMIT 1";
 		$this->db->query($sql);
+	}
+
+	public function getFiles()
+	{
+		$request = Core_Request::factory();
+		$id = $this->getID() ? $this->getID() : $request->getGet('id');
+
+		$table = new Table_File();
+		$method = 'findBy' . $this->table;
+		$files = $table->$method($id);
+		$path  = APP_URL . '/' . Core_Config::singleton()->upload_dir . '/';
+
+		for ($i=0; $i < count($files) && is_array($files); $i++) {
+			$file = new Core_File($files[$i]->name);
+			$files[$i]->thub = $path . $file->thubnail();
+			$files[$i]->src  = $path . $files[$i]->name;
+		}
+		return $files;
+	}
+
+	/**
+	 * Saves files from $_FILES
+	 */
+	public function saveFiles()
+	{
+		$file = new Core_File();
+		$request = Core_Request::factory();
+
+		foreach($this->fields as $name => $field) {
+			if ($field['type'] == 'file') {
+				$name = str_replace('[]', '', $name);
+
+				$items = $file->upload($name);
+				if (!$items) continue;
+				if (!is_array($items)) $items = array($items);
+
+				foreach ($items as $i => $item) {
+					$arr = $request->getPost($name . '_title');
+					$label = $arr[$i];
+					$instance = new ActiveRecord_File();
+					$instance->{$this->table} = $request->getPost('id');
+					$instance->name           = $item->fileName;
+					$instance->label          = $label;
+					$instance->type           = $item->getType();
+					$instance->save();
+				}
+			}
+		}
+	}
+
+	public function updateFile($name, $file, $params)
+	{
+		$label     = $params['label'];
+
+		$table = new Table_File();
+		list($instance) = $table->findByName($file);
+		$instance->label = $label;
+		$instance->save();
+	}
+
+	public function deleteFile($name, $file)
+	{
+		$table = new Table_File();
+		list($instance) = $table->findByName($file);
+		$instance->delete();
 	}
 }

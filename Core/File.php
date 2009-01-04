@@ -93,10 +93,62 @@ class Core_File
 	public function thubnail($x = 100, $y = 0){
 		if (!$this->fileName || strpos($this->fileName, '.') <= 0) return FALSE;
 		
-		$picture = new Core_Picture($this->dir . $this->fileName);
-    	list($name,$type) = explode(".",$this->fileName);
+		$picture = new Core_Picture($this->dir . '/' .  $this->fileName);
+    	list($name,$type) = explode(".", $this->fileName);
     	$thubnailName = $name . '_' . $x . 'x' . $y . '.' . $type;
-    	$picture->thubnail($this->dir . $thubnailName,$x,$y);
+    	$picture->thubnail($this->dir . '/' . $thubnailName, $x, $y);
     	return $name . '_' . $x . 'x' . $y . '.' . $type;
     }
+
+	/**
+	* getSufix
+	*
+	* @return String sufix of the file name (jpg, pdf, exe, etc.)
+	*/
+	public function getSufix($name = FALSE){
+		if (!$name) $name = $this->name;
+		$arr = explode(".",$name);
+		return $arr[count($arr)-1];
+	}
+
+	/**
+	* getType
+	*
+	* @return String type of file
+	*/
+	public function getType($name = FALSE){
+		if (!$name) $name = $this->fileName;
+		
+		$sufix = $this->getSufix($name);
+		$sufix = strtolower($sufix);
+		switch($sufix){
+			case 'jpg':
+			case 'jpeg':
+			case 'png':
+			case 'gif':
+			case 'bmp':
+				$type = 'image';
+				break;
+			case 'doc':
+			case 'pdf':
+			case 'xls':
+			case 'csv':
+			case 'ppt':
+			case 'odt':
+			case 'txt':
+			case 'htm':
+			case 'html':
+			case 'xml':
+				$type = 'document';
+				break;
+			case 'exe':
+			case 'com':
+				$type = 'executable';
+				break;
+			default:
+				$type = 'unknown';
+				break;
+		}
+		return $type;
+	}
 }
