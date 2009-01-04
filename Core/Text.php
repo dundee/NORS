@@ -62,56 +62,36 @@ class Core_Text
 	* @param boolean $br Makes line breaks
 	* @return string Text Forrmated html
 	*/
-	function format_text($text = FALSE, $br = FALSE) {
+	public function format_comment($text = FALSE) {
     	$text = $text ? $text : $this->text;
-		if (eregi("<code>", $text)) $code = eregi_replace(".*<code>(.+)</code>.*", "\\1", $text); //zachovani podoby
-    	// by rADo
-    	$text = trim($text);
-    	$text = str_replace("\r", '', $text);
-    	$text = preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text);
-    	if ($text == "") return "";
-    	$text = $text . "\n"; // just to make things a little easier, pad the end
-    	$text = preg_replace('|<br/>\s*<br/>|', "\n\n", $text);
-    	$text = preg_replace('!(<(?:table|ul|ol|li|pre|form|blockquote|h[1-6])[^>]*>)!', "\n$1", $text); // Space things out a little
-    	$text = preg_replace('!(</(?:table|ul|ol|li|pre|form|blockquote|h[1-6])>)!', "$1\n", $text); // Space things out a little
-    	$text = preg_replace("/(\r\n|\r)/", "\n", $text); // cross-platform newlines
-    	$text = preg_replace("/\n\n+/", "\n\n", $text); // take care of duplicates
-    	$text = preg_replace('/\n?(.+?)(?:\n\s*\n|\z)/s', "\t<p>$1</p>\n", $text); // make paragraphs, including one at the end
-    	$text = preg_replace('|<p>\s*?</p>|', '', $text); // under certain strange conditions it could create a P of entirely whitespace
-    	$text = preg_replace("|<p>(<li.+?)</p>|", "$1", $text); // problem with nested lists
-    	// blockquote
-    	$text = preg_replace('|<p><blockquote([^>]*)>|i', "<blockquote$1><p>", $text);
-    	$text = str_replace('</blockquote></p>', '</p></blockquote>', $text);
-    	// now the hard work
-    	$text = preg_replace('!<p>\s*(</?(?:table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
-    	$text = preg_replace('!(</?(?:table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*</p>|</div>"!', "$1", $text);
-    	if ($br) {
-        	// optionally make line breaks
-        	$text = preg_replace('/>\s+</', '><', $text); // remove spaces between list items
-        	$text = preg_replace('|(?<!<br />)\s*\n|', "<br />\n", $text);
-    	}
-    	$text = preg_replace('!(</?(?:table|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*<br/>!', "$1", $text);
-    	$text = preg_replace('!<br/>(\s*</?(?:p|li|div|th|pre|td|ul|ol)>)!', '$1', $text);
-    	// some cleanup
-    	$text = str_replace('</p><br />', '</p>', $text);
-    	$text = str_replace('<br /></p>', '</p>', $text);
-    	$text = str_replace("<br />\n</p>", '</p>', $text);
+		$text = htmlspecialchars($text);
+		$text = str_replace("\r", '', $text);
 
-    	if (eregi("<code>", $text)) {
-        	$text = eregi_replace("<code>(.+)</code>", "CODE", $text); //nahrazeni puvodnim obsahem
-        	$text = str_replace("CODE", "<code>" . $code . "</code>", $text); // -||-
-    	}
+		$text = preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text); //replace & by &amp; but ommit entities
+		$text = preg_replace('/(.+?)(?:\n\n|\z)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
+		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
+		
     	return $text;
 	}
 
-		/**
- 	* urlEncode
- 	*
- 	* Generates text prepared to be displayed as URL.
- 	*
- 	* @param string $text Non-formated text
- 	* @return string Text formated for URL
- 	*/
+	public function hideMail($text = FALSE) {
+		$text = $text ? $text : $this->text;
+		$return = '';
+		for($i=0; $i < strlen($text); $i++){
+			$x = substr($text, $i, 1);
+			$return .= "&#" . ord($x) . ";";
+		}
+		return $return;
+	}
+	
+	/**
+ 	 * urlEncode
+ 	 *
+ 	 * Generates text prepared to be displayed as URL.
+ 	 *
+ 	 * @param string $text Non-formated text
+ 	 * @return string Text formated for URL
+ 	 */
 	public function urlEncode($text = FALSE)
 	{
 		$encoding = Core_Config::singleton()->encoding;
