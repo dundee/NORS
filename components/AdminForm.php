@@ -15,7 +15,7 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @package Nors4
 */
-class Component_AdminForm extends Core_Component
+class Component_AdminForm extends Core_Component_Auth
 {	
 	public $helpers = array('Administration');
 	
@@ -60,12 +60,10 @@ class Component_AdminForm extends Core_Component
 			$this->setData('html', $ex->getMessage());
 		}
 		$this->setData('html', $html);
+	}
+	
+	public function ping()
+	{
+		$this->setData('html', date('Y-m-d G:i:s'));
 	} 
-	
-	
 }
-
-
-
-
-?>
