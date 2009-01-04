@@ -67,7 +67,7 @@ abstract class Core_Object
 	 * @param boolean $allowHtml If false, <>& will be replaced by entities
 	 * @return void
 	 */
-	public function setData($key,$value, $allowHtml = FALSE){
+	public final function setData($key,$value, $allowHtml = FALSE){
 		$this->data[$key] = clearOutput($value, $allowHtml);
 		return TRUE;
 	}
@@ -77,19 +77,20 @@ abstract class Core_Object
 	 *
 	 * @return String[]
 	 */
-	public function getData(){
+	public final function getData(){
 		return $this->data;
 	}
 
-	public function delData(){
+	public final function delData(){
 		unset($this->data);
+		$this->data = array();
 	}
 
 	/**
 	 * __toString
 	 * @return String
 	 */
-	public function __toString(){
+	public final function __toString(){
 		return $this->me->getName();
 	}
 }

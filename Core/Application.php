@@ -51,6 +51,11 @@ class Core_Application
 		if ( !Core_Config::singleton()->enabled ) {
 			throw new RuntimeException('Out of order', 503);
 		}
+		
+		if ( !Core_Config::singleton()->db->user 
+		     && $this->request->module != 'installation') {
+			$this->router->redirect('installation', '__default', 'default');
+		}
 
 		if ( $this->request->isAjax() ) {
 			$this->dispatchAjaxRequest();
@@ -86,9 +91,7 @@ class Core_Application
 					}
 					if (!$instance->authenticate()) {
 						if ($module != 'login') $this->response->setSession('request', $this->request->getUrl());
-						$module = 'login';
-						$event  = '__default';
-						$this->router->redirect($module, $event, FALSE, 'default');
+						$this->router->redirect('login', '__default', FALSE, 'default');
 					} else {
 						$instance->authorize();
 						$view = Core_View::factory($this->request->view, $instance, $event);

@@ -68,7 +68,7 @@ abstract class Core_Router
 	/**
 	 * Creates URL from new GET request. Previous GET params won't be used.
 	 *
-	 * @param string $module Name of controller class
+	 * @param string $module Name of controller class or some outside URL
 	 * @param string $event Name of controller event
 	 * @param string $route Name of route which should be used
 	 * @param string[] $params Other GET params
@@ -77,7 +77,7 @@ abstract class Core_Router
 	 * @param boolean $csrf Adds CSRF protection
 	 * @return string
 	 */
-	abstract public function redirect($module, $event, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE);
+	abstract public function redirect($module, $event = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE);
 
 	/**
 	 * Creates URL from new GET request.

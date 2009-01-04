@@ -68,6 +68,11 @@ class Core_Request
 		return self::$instance;
 	}
 
+	public function __get($key)
+	{
+		return $this->getFrom($key, $_GET);
+	}
+
 	/**
 	 * __toString
 	 *

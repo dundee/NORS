@@ -53,7 +53,7 @@ class Core_Debug
 		$request = Core_Request::factory();
 		$cache = $request->getVar('cacheTime')
 		         ? __('yes')
-		           . '('
+		           . ' ('
 		           . date("d.m.Y H:i:s", $request->getVar('cacheTime'))
 		           . ')'
 		         : __('no');
@@ -146,6 +146,7 @@ class Core_Debug
 	                                 $code = FALSE)
 	{
 		$config = Core_Config::singleton();
+		
 		if (!($config->debug->error_reporting & $errno))
 			return FALSE; //errno which should not be reported (NOTICE)
 
@@ -199,19 +200,15 @@ class Core_Debug
 		                            'text' => 'out_of_order'));
 		if ( !$code || !array_key_exists($code, $codes) ) $code = 500;
 
-		if (!headers_sent())
+		if (!headers_sent()) {
 			header('HTTP/1.1 '.$code.' '.$codes[$code], TRUE, $code);
-		Core_Response::factory()->sendHeaders();
-		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD'
-		     . 'XHTML 1.0 Strict//EN"'
-		     . '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
-		     . ENDL;
-		echo '<head>'
-		     . '<title>' . $codes[$code]['name']
-		     . ' - '.$config->name.'</title>'
-		     . '<link rel="Stylesheet" type="text/css" href="'
-		     . APP_URL . '/styles/default/css/errors.css" />'
-		     . '</head><body>';
+			Core_Response::factory()->sendHeaders();
+		}
+		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . ENDL;
+		echo '<head><title>' . $codes[$code]['name'] . ' - ' . $config->name . '</title>';
+		echo '<link rel="Stylesheet" type="text/css" href="' . APP_URL . '/styles/default/css/errors.css" />';
+		echo '</head><body>';
+		
 
 		if ( !$config->debug->enabled || $code == 503) { //production mode
 

@@ -188,6 +188,10 @@ function echor($string)
 	echo '<br />-' . $string . '-<br />';
 }
 
+if (!function_exists('memory_get_usage')) {
+	throw new Exception('PHP version at least 5.2 needed');
+}
+
 if (!function_exists('json_encode')) {
 
 	function json_encode_string($in_str)
