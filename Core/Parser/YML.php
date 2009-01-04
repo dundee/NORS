@@ -100,6 +100,7 @@ class Core_Parser_YML
 
 		//write data to cache file
 		$res = file_put_contents($cacheFile, $content);
+		chmod($cacheFile, 0777);
 		if (!$res)
 			throw new RuntimeException("Config cache could not be writtent to file " . $cacheFile);
 
