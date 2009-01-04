@@ -31,9 +31,12 @@ class Core_Router_ModRewrite extends Core_Router
 		return $this->genUrl(FALSE, $event, FALSE, $params, TRUE, FALSE, $csrf);
 	}
 
-	public function redirect($module, $event, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE){
-		if($moved) header("HTTP/1.1 301 Moved Permanently");
-		header("Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE, $csrf));
+	public function redirect($module, $event = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE){
+		if ($moved) header("HTTP/1.1 301 Moved Permanently");
+
+		if (strpos($module, 'http') === 0) header("Location: " . $module);
+		else header("Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE, $csrf));
+
 		header("Connection: close");
 		exit(0);
 	}
@@ -71,6 +74,8 @@ class Core_Router_ModRewrite extends Core_Router
 		                                        'event'  => $event) );
 		if ($inherit_params) $args = array_merge($_GET,$args);
 
+		if (!isset($this->routes[$routeName])) throw new Exception('Route "' .$routeName . '" is not defined.');
+		
 		$route = $this->routes[$routeName];
 		$urlForm = $route['url']; //URL form of route...e.g.: ':module/:event'
 
