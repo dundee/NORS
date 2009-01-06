@@ -52,14 +52,14 @@ class Core_DB_Mysql extends Core_DB
 		                                   $this->data->user,
 		                                   $this->data->password
 		                                   );
-		@mysql_select_db($this->data->database,$this->connection);
-		@mysql_query("SET CHARACTER SET ".$this->charset,$this->connection);
+		@mysql_select_db($this->data->database, $this->connection);
+		@mysql_query("SET CHARACTER SET ".$this->charset, $this->connection);
 
 		//set connection encoding
-		$res = @mysql_query("SHOW VARIABLES LIKE 'version'");
+		$res = @mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
 		$line = mysql_fetch_array($res);
 		$version = substr($line['Value'],0,3);
-		if ($version > '4.0') @mysql_query("SET NAMES '".$this->charset."'",$this->connection);
+		if ($version > '4.0') @mysql_query("SET NAMES '".$this->charset."'", $this->connection);
 
 		if(!@mysql_error()) return TRUE;
 		else throw new RuntimeException($this->locale->DB_connection_failed." : ".@mysql_error(),@mysql_errno());
@@ -82,7 +82,7 @@ class Core_DB_Mysql extends Core_DB
 
 		$start_time = mtime();
 
-		$this->result = @mysql_query($query,$this->connection);
+		$this->result = @mysql_query($query, $this->connection);
 
 		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
 			$end_time = mtime();
