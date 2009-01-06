@@ -94,11 +94,16 @@ class Installation extends Core_Module
 				$config[$host]['db']['table_prefix'] = $prefix;
 				
 				Core_Parser_YML::write($config, APP_PATH . '/config/config.yml.php');
+				//chmod(APP_PATH . '/config/config.yml.php', 0777);
 				$this->config->read(APP_PATH . '/config/config.yml.php', TRUE);
 
-				//create new user
-				$user = new Table_User();
-				$user->getAll(); //call something to force the table to be created
+				//create tables
+				$tables = array('User', 'Group', 'Cathegory', 'Post', 'Comment', 'Page');
+				foreach ($tables as $table) {
+					$class = 'Table_' . $table;
+					$user = new $class();
+					$user->create();
+				}
 				
 				$user = new ActiveRecord_User();
 				$user->name = $user_name;
