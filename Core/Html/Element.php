@@ -128,7 +128,7 @@ class Core_Html_Element
 	{
 		if (!iterable($this->params)) return FALSE;
 		$output = '';
-		foreach ($this->params as $k=>$v) $output .= ' ' . htmlspecialchars($k) . '="' . htmlspecialchars($v) . '"'; 
+		foreach ($this->params as $k=>$v) if($v) $output .= ' ' . htmlspecialchars($k) . '="' . htmlspecialchars($v) . '"';
 		return $output;
 	}
 	
