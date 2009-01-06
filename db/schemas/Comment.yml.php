@@ -2,10 +2,11 @@
 table: comment
 fields:
 	-id_comment: int
-	+post: table
+	+id_post: table
 	+user: string
 	email: string
 	www: string
+	ip: string
 	text: html
 	date: datetime
 	karma: double

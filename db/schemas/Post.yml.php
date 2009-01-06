@@ -3,7 +3,8 @@ table: post
 fields:
 	-id_post: int
 	+name: string
-	cathegory: table
+	-id_user: table
+	id_cathegory: table
 	text: html
 	date: datetime
 	active: bool

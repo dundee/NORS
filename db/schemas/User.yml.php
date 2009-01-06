@@ -3,7 +3,7 @@ table: user
 fields:
 	-id_user: int
 	+name: string
-	+group: table
+	+id_group: table
 	password: password
 	fullname: string
 	email: string

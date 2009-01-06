@@ -37,9 +37,9 @@ class Table_Post extends Core_Table
 		               c.`name` AS cathegory_name,
 		               count(*) AS num_of_comments
 		        FROM `" . tableName($this->table) . "` AS p
-				LEFT JOIN `" . tableName('cathegory') . "` AS c ON (c.`id_cathegory`=p.`cathegory`)
-		        LEFT JOIN `" . tableName('comment') . "` AS co ON (co.`post`=p.`id_post`)
-		        WHERE p.`cathegory` = '" . intval($cathegory) . "'
+				LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
+		        WHERE p.`id_cathegory` = '" . intval($cathegory) . "'
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order);
 		try{
@@ -77,10 +77,10 @@ class Table_Post extends Core_Table
 
 		$sql = "SELECT p.`id_" . $this->table . "`,
 		               p.`name`,
-		               COUNT(*) AS num_of_comments,
+		               COUNT(`id_comment`) AS num_of_comments,
 		               p.`seen` AS num_of_visits
 		        FROM `" . tableName($this->table) . "` AS p
-				LEFT JOIN `" . tableName('comment') . "` AS c ON (c.`post`=p.`id_post`)
+				LEFT JOIN `" . tableName('comment') . "` AS c USING (`id_post`)
 		        " . ($name ? "WHERE `user` LIKE '"
 		        . clearInput($name) . "%'" : '') . "
 				GROUP BY p.`id_post`
@@ -90,7 +90,10 @@ class Table_Post extends Core_Table
 			$lines = $this->db->getRows($sql);
 		} catch (RuntimeException $ex) {
 			if ($ex->getCode() == 1146) {
-				$this->create();
+				if (strpos($ex->getMessage(), "comment' doesn't exist") !== FALSE) {
+					$comment = new Table_Comment();
+					$comment->create();
+				} else $this->create();
 				return FALSE;
 			}
 			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
@@ -113,8 +116,8 @@ class Table_Post extends Core_Table
 		               c.`name` AS cathegory_name,
 		               count(`id_comment`) AS num_of_comments
 		        FROM `" . tableName($this->table) . "` AS p
-		        LEFT JOIN `" . tableName('cathegory') . "` AS c ON (c.`id_cathegory`=p.`cathegory`)
-		        LEFT JOIN `" . tableName('comment') . "` AS co ON (co.`post`=p.`id_post`)
+		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order);
 		try{

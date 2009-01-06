@@ -262,7 +262,7 @@ abstract class Core_ActiveRecord
 		$id = $this->getID() ? $this->getID() : $request->getGet('id');
 
 		$table = new Table_File();
-		$method = 'findBy' . $this->table;
+		$method = 'findById_' . $this->table;
 		$files = $table->$method($id);
 		$path  = APP_URL . '/' . Core_Config::singleton()->upload_dir . '/';
 
@@ -294,7 +294,7 @@ abstract class Core_ActiveRecord
 					$arr = $request->getPost($name . '_title');
 					$label = $arr[$i];
 					$instance = new ActiveRecord_File();
-					$instance->{$this->table} = $request->getPost('id');
+					$instance->{'id_' . $this->table} = $request->getPost('id');
 					$instance->name           = $item->fileName;
 					$instance->label          = $label;
 					$instance->type           = $item->getType();

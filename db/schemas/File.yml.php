@@ -2,7 +2,7 @@
 table: file
 fields:
 	-id_file: int
-	+post: table
+	+id_post: table
 	+name: string
 	label: string
 	type: string

@@ -101,7 +101,8 @@ class Post extends Core_Module
 			$comment->www   = $this->request->getPost('www');
 			$comment->email = $this->request->getPost('email');
 			$comment->text  = $this->request->getPost('text');
-			$comment->post  = $id_post;
+			$comment->ip    = $this->request->getServer('REMOTE_ADDR');
+			$comment->id_post  = $id_post;
 			$comment->date  = date('Y-m-d H:i:s');
 			$comment->save();
 
@@ -119,7 +120,7 @@ class Post extends Core_Module
 		$this->setData('photos', $files);
 
 		$table = new Table_Comment();
-		$comments = $table->findByPost($post->getID());
+		$comments = $table->findById_Post($post->getID());
 		$text = new Core_Text();
 
 		$coms = array();

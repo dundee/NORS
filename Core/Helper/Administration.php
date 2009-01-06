@@ -233,7 +233,7 @@ class Core_Helper_Administration extends Core_Helper
 					$div->setContent($content);
 
 				case 'table':
-					$tbl = $name;
+					$tbl = ltrim($name, 'id_');
 
 					switch ($tbl) {
 						default:
