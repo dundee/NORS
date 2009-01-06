@@ -59,7 +59,7 @@ abstract class Core_Table
 	 */
 	public function create()
 	{
-		$sql = "CREATE TABLE `".tableName($this->table)."` (";
+		$sql = "CREATE TABLE IF NOT EXISTS `".tableName($this->table)."` (";
 
 		foreach ($this->fields as $name=>$type) {
 			$class = 'Core_Type_' . ucfirst($type['type']);
