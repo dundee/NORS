@@ -96,8 +96,11 @@ class Core_Config
 
 		$this->host = $host;
 
-		if (!isset($array[$host]))
-			throw new RuntimeException('No configuration for "' . $host . '"');
+		//no configuration for this host, copy default
+		if (!isset($array[$host])) {
+			$array[$host] = $array['localhost'];
+			Core_Parser_YML::write($array, APP_PATH . '/config/config.yml.php');
+		}
 
 		$array = $array[$host];
 		$array['host'] = $host;
