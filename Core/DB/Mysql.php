@@ -48,22 +48,26 @@ class Core_DB_Mysql extends Core_DB
 	 * @return boolean
 	 */
 	protected function connect(){
-		$this->connection = @mysql_connect($this->data->host,
+		$this->connection = mysql_connect($this->data->host,
 		                                   $this->data->user,
 		                                   $this->data->password
 		                                   );
-		@mysql_select_db($this->data->database, $this->connection);
-		@mysql_query("SET CHARACTER SET ".$this->charset, $this->connection);
+		mysql_select_db($this->data->database, $this->connection);
+		mysql_query("SET CHARACTER SET ".$this->charset, $this->connection);
 
 		//set connection encoding
-		$res = @mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
+		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
 		$line = mysql_fetch_array($res);
 		$version = substr($line['Value'],0,3);
-		if ($version > '4.0') @mysql_query("SET NAMES '".$this->charset."'", $this->connection);
+		if ($version > '4.0') mysql_query("SET NAMES '".$this->charset."'", $this->connection);
 
-		if(!@mysql_error()) return TRUE;
-		else throw new RuntimeException($this->locale->DB_connection_failed." : ".@mysql_error(),@mysql_errno());
-		return false;
+		if(mysql_error()) throw new RuntimeException(__('DB_connection_failed') . " : " . mysql_error(), mysql_errno());
+
+		//time zone
+		$sql = "SET time_zone = '" . Core_Config::singleton()->timezone . "'";
+		mysql_query($sql);
+
+		return TRUE;
 	}
 
 	/**
@@ -82,20 +86,20 @@ class Core_DB_Mysql extends Core_DB
 
 		$start_time = mtime();
 
-		$this->result = @mysql_query($query, $this->connection);
+		$this->result = mysql_query($query, $this->connection);
 
 		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
 			$end_time = mtime();
 
 			$this->queries[] = array('query'=>$query,
 									 'time'=>round($end_time-$start_time,4),
-									 'rows'=>@mysql_affected_rows()
+									 'rows'=>mysql_affected_rows()
 									 );
 		}
 
 		if(@mysql_error()){
-			$msg = __('DB_query_failed')." : ".@mysql_error().' - '.$query;
-			throw new RuntimeException($msg,@mysql_errno());
+			$msg = __('DB_query_failed')." : ". mysql_error() . ' - '.$query;
+			throw new RuntimeException($msg, mysql_errno());
 		}
 		return $this->result;
 	}
