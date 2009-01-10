@@ -75,7 +75,7 @@ class Core_Router_ModRewrite extends Core_Router
 		if ($inherit_params) $args = array_merge($_GET,$args);
 
 		if (!isset($this->routes[$routeName])) throw new Exception('Route "' .$routeName . '" is not defined.');
-		
+
 		$route = $this->routes[$routeName];
 		$urlForm = $route['url']; //URL form of route...e.g.: ':module/:event'
 

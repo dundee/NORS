@@ -57,6 +57,7 @@ localhost:
 				event: __default
 	front_end:
 		perex_length: 30
+		posts_per_page: 5
 	administration:
 		items_per_page: 5
 		content:

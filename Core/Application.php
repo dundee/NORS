@@ -51,8 +51,8 @@ class Core_Application
 		if ( !Core_Config::singleton()->enabled ) {
 			throw new RuntimeException('Out of order', 503);
 		}
-		
-		if ( !Core_Config::singleton()->db->user 
+
+		if ( !Core_Config::singleton()->db->user
 		     && $this->request->module != 'installation') {
 			$this->router->redirect('installation', '__default', 'default');
 		}
@@ -131,7 +131,7 @@ class Core_Application
 			echo json_encode($data);
 		} elseif ($instance->responseType == 'html') {
 			$this->response->sendHeaders();
-			echo $data['html'];
+			if (isset($data['html'])) echo $data['html'];
 		}
 	}
 }
