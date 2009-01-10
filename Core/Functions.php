@@ -44,6 +44,7 @@ function setUrlPath()
 	} else { //running CLI
 		$url = 'http://localhost';
 	}
+	$url = rtrim($url, '/');
 	define('APP_URL', $url);
 }
 
