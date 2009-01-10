@@ -67,7 +67,7 @@ class Core_Config
 
 		if (!$force_renew && file_exists($cacheFile)) {
 			include($cacheFile);
-			if (rand(0, 10) < 8 || $time >= filemtime($file)) { //cache valid
+			if (/*rand(0, 10) < 8 ||*/ $time >= filemtime($file)) { //cache valid
 				$this->data = $data;
 				$this->prepareData();
 				return TRUE;

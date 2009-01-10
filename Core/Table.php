@@ -38,7 +38,7 @@ abstract class Core_Table
 	 * @var string $table
 	 */
 	protected $table;
-	
+
 	protected $engine;
 
 
@@ -46,9 +46,9 @@ abstract class Core_Table
 	{
 		$this->db    = Core_DB::singleton();
 		$this->table = $table;
-		
+
 		$this->fields = self::getFields($table);
-		
+
 	}
 
 	/**
@@ -134,7 +134,7 @@ abstract class Core_Table
 	 *
 	 * @return Core_ActiveRecord[]
 	 */
-	public function getAll($orderBy=FALSE, $order=FALSE)
+	public function getAll($orderBy=FALSE, $order=FALSE, $limit = FALSE)
 	{
 		if ($orderBy==FALSE) {
 			$orderBy = 'id_' . $this->table;
@@ -147,7 +147,8 @@ abstract class Core_Table
 
 		$sql = "SELECT *
 		        FROM `" . tableName($this->table) . "`
-		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order);
+		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
+		        . ($limit ? " LIMIT " . clearInput($limit) : '');
 		try{
 			$lines = $this->db->getRows($sql);
 		} catch(RuntimeException $ex) {
@@ -229,7 +230,7 @@ abstract class Core_Table
 		}
 		return $line['count'];
 	}
-	
+
 	/**
 	 * Returns array of fields
 	 * @param string $table
@@ -242,14 +243,14 @@ abstract class Core_Table
 		while ($i < 2) {
 			if (file_exists($cacheFile)) {
 				include($cacheFile);
-				if (rand(0, 10) < 8 || $time >= filemtime(APP_PATH . '/db/schemas/' . ucfirst($table) . '.yml.php')) { //cache valid
+				if (/*rand(0, 10) < 8 ||*/ $time >= filemtime(APP_PATH . '/db/schemas/' . ucfirst($table) . '.yml.php')) { //cache valid
 					break;
 				}
 			}
 			Core_ModelGenerator::generate('tables_' . ucfirst($table));
 			++$i;
 		}
-		
+
 		//prepare data
 		$fields = array();
 		foreach ($data['fields'] as $name => $value) {
@@ -266,7 +267,7 @@ abstract class Core_Table
 			                       'visibility' => $visibility,
 			                       'required'   => $required);
 		}
-		
+
 		return $fields;
 	}
 }
