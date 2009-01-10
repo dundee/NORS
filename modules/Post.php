@@ -30,7 +30,8 @@ class Post extends Core_Module
 
 	public $js = array('jquery.js',
 	                   'jquery.thickbox.js',
-	                   'comment.js');
+	                   'comment.js',
+	                   'paging.js');
 
 	public $cache = 0;
 
@@ -39,19 +40,19 @@ class Post extends Core_Module
 	public function beforeFooter()
 	{
 		$menu_helper = new Core_Helper_Menu();
-		
+
 		$cathegory = new Table_Cathegory();
 		$cathegories = $cathegory->getAll('name', 'asc');
 		$cathegories = $menu_helper->prepare($cathegories, 'cathegory');
 		$this->setData('cathegories', $menu_helper->render($cathegories, 4), TRUE);
-		
+
 		$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
 		$pages = $menu_helper->prepare($pages, 'page');
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
-		
+
 		$this->setData('administration', $this->router->genUrl('administration', FALSE, 'default'));
-		
+
 		$this->setData('name',        $this->config->name);
 		$this->setData('description', $this->config->description);
 	}
@@ -66,8 +67,12 @@ class Post extends Core_Module
 	{
 		$this->tplFile = 'posts.tpl.php';
 
+		$max = $this->config->front_end->posts_per_page;
+		$limit = ($this->request->getPost('page') * $max) . ',' . $max;
+
 		$table = new Table_Post();
-		$posts = $table->getAll('date', 'desc');
+		$posts = $table->getAll('date', 'desc', $limit);
+		$count = $table->getCount();
 
 		$text = new Core_Text();
 
@@ -82,6 +87,10 @@ class Post extends Core_Module
 		}
 
 		$this->setData('posts', $posts, TRUE);
+
+		$helper = new Core_Helper_AjaxPaging();
+		$paging = $helper->paging($count, $max, TRUE);
+		$this->setData('paging', $paging, TRUE);
 	}
 
 	/**
@@ -144,7 +153,7 @@ class Post extends Core_Module
 					$coms[$i]['text'] = eregi_replace("\[($j)\]","#$j#",$coms[$i]['text']);
 				}
 			}
-			
+
 			//bind reaction and inspiration
 			foreach ($coms as $i => $com) {
 				if (isset($reaction[$i]) && iterable($reaction[$i])) {

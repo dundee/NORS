@@ -21,7 +21,7 @@ class Table_Post extends Core_Table
 	{
 		parent::__construct('post');
 	}
-	
+
 	public function getByCathegory($cathegory, $orderBy = FALSE, $order = FALSE)
 	{
 		if ($orderBy === FALSE) {
@@ -101,7 +101,7 @@ class Table_Post extends Core_Table
 		return $lines;
 	}
 
-	public function getAll($orderBy=FALSE, $order=FALSE)
+	public function getAll($orderBy=FALSE, $order=FALSE, $limit = FALSE)
 	{
 		if ($orderBy==FALSE) {
 			$orderBy = 'id_' . $this->table;
@@ -119,7 +119,8 @@ class Table_Post extends Core_Table
 		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
 		        GROUP BY `id_post`
-		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order);
+		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
+		        . ($limit ? " LIMIT " . clearInput($limit) : '');
 		try{
 			$lines = $this->db->getRows($sql);
 		} catch(RuntimeException $ex) {

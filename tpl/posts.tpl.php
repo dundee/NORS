@@ -16,3 +16,6 @@ if (iterable($posts)) {
 	}
 }
 ?>
+<div id="paging"><?php echo $paging?></div>
+
+
