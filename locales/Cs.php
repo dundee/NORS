@@ -147,9 +147,9 @@ class Locale_Cs extends Core_Locale
 		'group_del'                 => 'Mazání rolí',
 		'basic_list'                => 'Základní nastavení',
 		'advanced_list'             => 'Pokročilé nastavení',
-		
+
 		/* ============ front-end ============ */
-		
+
 		//instalation
 		'installation'              => 'Instalace',
 		'database'                  => 'Databáze',
@@ -165,6 +165,10 @@ class Locale_Cs extends Core_Locale
 		'password_of_new_nors_user' => 'Heslo nového uživatele',
 		'wrong_db_user'             => 'Špatný název uživatele nebo heslo',
 		'wrong_db_name'             => 'Špatný název databáze',
+		'environment check'         => 'Kontrola prostředí',
+		'directory'                 => 'Složka',
+		'needs to be writable by anyone' => 'potřebuje právo zápisu pro všechny',
+		'Pleae repair errors and refresh the page' => 'Prosím opravte chyby a načtěte stránku znovu',
 
 		//import
 		'File db.php from "library" directory in NORS 3' => 'Soubor db.php ze složky "library" v NORS 3',

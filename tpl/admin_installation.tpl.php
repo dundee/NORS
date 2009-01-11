@@ -2,6 +2,13 @@
 $html = new Core_Helper_Html();
 $form = new Core_Helper_Form();
 
+if (iterable($fatal)) {
+	echo '<h2>' . __('environment check') . '</h2>';
+	foreach($fatal as $f) echo '<p><span class="important">' . $f . '</span></p>';
+	echo '<p>' . __('Pleae repair errors and refresh the page') . '.</p>';
+	die();
+}
+
 if ($errors) echo '<span class="important">' . $errors . '</span>';
 
 $form->form(NULL, '#', __('database'));

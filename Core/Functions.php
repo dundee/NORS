@@ -327,3 +327,8 @@ function testEnvironment()
 {
 	if (substr(phpversion(), 0, 3) < 5.2) die('Required PHP version at least 5.2');
 }
+
+function getFilePerms($file)
+{
+	return substr(sprintf('%o', fileperms($file)), -3);
+}

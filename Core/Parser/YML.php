@@ -23,7 +23,7 @@ class Core_Parser_YML
 	 * @var string[] $lines
 	 */
 	private static $lines;
-	
+
 	private static $file;
 
 	/**
@@ -56,7 +56,7 @@ class Core_Parser_YML
 
 			if (!strlen(trim($line))) continue;
 			$deep = (strlen($line) - strlen(ltrim($line))) / $indentionLength;
-			
+
 			if ($empty) { //previous value was empty. array?
 				if ($deep > $prev_deep) $content .= '"' . $key . '" => array(';
 				else $content .= '"' . $key . '" => "",';
@@ -83,7 +83,7 @@ class Core_Parser_YML
 				$content .= '"' . $key . '" => "' . $value . '",';
 				$content .= ENDL;
 			} else $empty = TRUE;
-		
+
 			$prev_deep = $deep;
 		}
 
@@ -101,13 +101,15 @@ class Core_Parser_YML
 		//write data to cache file
 		$res = file_put_contents($cacheFile, $content);
 		chmod($cacheFile, 0777);
-		if (!$res)
-			throw new RuntimeException("Config cache could not be writtent to file " . $cacheFile);
+		if (!$res) {
+			echo 'Directory "cache" needs to be writable by anyone (777).';
+			die();
+		}
 
 		include($cacheFile);
 		return $data;
 	}
-	
+
 	/**
 	 * Writes PHP array to YML file
 	 * @param mixed[] $data PHP array
@@ -119,7 +121,7 @@ class Core_Parser_YML
 	{
 		$indentionDeep = 0;
 		$content = '#<?php die(0); ?>' . ENDL;
-		
+
 		foreach ($data as $name => $value) {
 			if (is_array($value)) {
 				$content .= $name . ': ' . ENDL;
@@ -128,7 +130,7 @@ class Core_Parser_YML
 				$content .= $name . ': ' . $value;
 			}
 		}
-		
+
 		file_put_contents($file, $content);
 		return TRUE;
 	}
@@ -166,8 +168,8 @@ class Core_Parser_YML
 
 		return $indentionLength;
 	}
-	
-	
+
+
 	public static function writeArray($arr, $indentionDeep, $indention = TAB)
 	{
 		$content = '';

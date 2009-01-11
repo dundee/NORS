@@ -54,6 +54,19 @@ class Installation extends Core_Module
 		$prefix = 'nors4_';
 
 		$errors = '';
+		$fatal  = array();
+
+		//check permissions
+		if (getFilePerms(APP_PATH . '/config') != '777') $fatal[] = __('directory') . ' "config" '. __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/config/config.yml.php') != '777') $fatal[] = __('file') . ' "config/config.yml.php" ' . __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/cache') != '777') $fatal[] = __('directory') . ' "cache" ' . __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/upload') != '777') $fatal[] = __('directory') . ' "upload" '. __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/tpl/cache') != '777') $fatal[] = __('directory') . ' "tpl/cache" '. __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/log') != '777') $fatal[] = __('directory') . ' "log" '. __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/db/tables') != '777') $fatal[] = __('directory') . ' "db/tables" '. __('needs to be writable by anyone') . ' (777).';
+		if (getFilePerms(APP_PATH . '/db/activeRecords') != '777') $fatal[] = __('directory') . ' "db/activeRecords" '. __('needs to be writable by anyone') . ' (777).';
+
+
 		if ($this->request->getPost('send')) {
 			do {
 				$this->config->debug->error_reporting = E_ERROR;
@@ -125,6 +138,7 @@ class Installation extends Core_Module
 
 		if ($errors) $this->response->setPost('send', FALSE);
 
+		$this->setData('fatal', $fatal);
 		$this->setData('errors', $errors);
 
 		$this->setData('dbhost', $host);
