@@ -93,17 +93,19 @@ if (!function_exists('loadFile')) {
 	{
 		global $includes;
 
-		$start_time   = mtime();
-		$start_memory = memory_get_usage();
+		if (!HIGH_PERFORMANCE) {
+			$start_time   = mtime();
+			$start_memory = memory_get_usage();
+		}
 
 		$result = require_once($file);
 
 		if (!$result) throw new UnexpectedValueException("File $file not found");
 
-		$end_time   = mtime();
-		$end_memory = memory_get_usage();
-
 		if (!HIGH_PERFORMANCE) {
+			$end_time   = mtime();
+			$end_memory = memory_get_usage();
+
 			$includes[] = array('name'   => $file,
 								'time'   => round($end_time-$start_time, 4),
 								'memory' => round(($end_memory-$start_memory) / 1024)
