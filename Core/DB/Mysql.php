@@ -19,7 +19,8 @@
 class Core_DB_Mysql extends Core_DB
 {
 
-	protected function __construct(Core_Config $config){
+	protected function __construct(Core_Config $config)
+	{
 		$this->data = $config->db;
 		$encoding = strtolower($config->encoding);
 		switch($encoding){
@@ -41,44 +42,38 @@ class Core_DB_Mysql extends Core_DB
 	}
 
 	/**
-	 * connect
-	 *
 	 * Creates a connection to DB. Can't be called directly.
 	 *
 	 * @return boolean
 	 */
-	protected function connect(){
+	protected function connect()
+	{
 		$this->connection = mysql_connect($this->data->host,
-		                                   $this->data->user,
-		                                   $this->data->password
-		                                   );
+		                                  $this->data->user,
+		                                  $this->data->password
+		                                  );
 		mysql_select_db($this->data->database, $this->connection);
-		mysql_query("SET CHARACTER SET ".$this->charset, $this->connection);
+		mysql_query("SET CHARACTER SET " . $this->charset, $this->connection);
 
 		//set connection encoding
 		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
 		$line = mysql_fetch_array($res);
-		$version = substr($line['Value'],0,3);
-		if ($version > '4.0') mysql_query("SET NAMES '".$this->charset."'", $this->connection);
+		$version = substr($line['Value'], 0, 3);
+		if ($version > '4.0') @mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
 
-		if(mysql_error()) throw new RuntimeException(__('DB_connection_failed') . " : " . mysql_error(), mysql_errno());
-
-		//time zone
-		$sql = "SET time_zone = '" . Core_Config::singleton()->timezone . "'";
-		mysql_query($sql);
-
-		return TRUE;
+		if (!mysql_error()) return TRUE;
+		else throw new RuntimeException($this->locale->DB_connection_failed . " : " . mysql_error(), mysql_errno());
+		return false;
 	}
 
 	/**
-	 * sql_query
-	 *
 	 * Wrapper for mysql_query function with additional features.
 	 *
-	 * @param String $query SQL query
-	 * @return String MySQL result
+	 * @param string $query SQL query
+	 * @return string MySQL result
 	 */
-	protected function sql_query($query){
+	protected function sql_query($query)
+	{
 		$this->counter++;
 
 		$this->query = $query;
@@ -91,104 +86,100 @@ class Core_DB_Mysql extends Core_DB
 		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
 			$end_time = mtime();
 
-			$this->queries[] = array('query'=>$query,
-									 'time'=>round($end_time-$start_time,4),
-									 'rows'=>mysql_affected_rows()
+			$this->queries[] = array('query' => $query,
+									 'time'  => round($end_time-$start_time, 4),
+									 'rows'  => mysql_affected_rows()
 									 );
 		}
 
-		if(@mysql_error()){
-			$msg = __('DB_query_failed')." : ". mysql_error() . ' - '.$query;
+		if (mysql_error()) {
+			$msg = __('DB_query_failed') . " : " . mysql_error() . ' - ' . $query;
 			throw new RuntimeException($msg, mysql_errno());
 		}
 		return $this->result;
 	}
 
 	/**
-	 * query
-	 *
 	 * Basic function for executing a SQL query. Allows chaining $db->query(...)->query->();.
 	 *
-	 * @param String $query SQL query
+	 * @param string $query SQL query
 	 * @return Core_DB
 	 */
-	public function query($query){
+	public function query($query)
+	{
 		$this->result = $this->sql_query($query);
 		return $this;
 	}
 
 	/**
-	 * getRow
-	 *
 	 * Executes query and returnes one asociative row of the result.
 	 *
-	 * @param String $query SQL query
-	 * @return String[] result
+	 * @param string $query SQL query
+	 * @return string[] result
 	 */
-	public function getRow($query = false){
+	public function getRow($query = false)
+	{
 		if ($query) {
 			$result_link = $this->sql_query($query);
 		} else {
 			$result_link = $this->result;
 		}
-		return @mysql_fetch_array($result_link);
+		return mysql_fetch_array($result_link);
 	}
 
 	/**
-	 * getRows
-	 *
 	 * Executes query and returnes all asociative rows of the result.
 	 *
-	 * @param String $query SQL query
-	 * @return String[][] result
+	 * @param string $query SQL query
+	 * @return string[][] result
 	 */
-	public function getRows($query = false){
+	public function getRows($query = false)
+	{
 		if ($query) {
 			$result_link = $this->sql_query($query);
 		} else {
 			$result_link = $this->result;
 		}
 
-		while($row = @mysql_fetch_array($result_link)){
+		while ($row = mysql_fetch_array($result_link)) {
 			$return[] = $row;
 		}
 		return isset($return) ? $return : FALSE;
 	}
 
 	/**
-	 * num
-	 *
 	 * Executes query and returns number of rows.
 	 *
-	 * @param String $query SQL query
+	 * @param string $query SQL query
 	 * @return int
 	 */
-	public function num($query = false){
+	public function num($query = false)
+	{
 		if ($query) {
 			$result_link = $this->sql_query($query);
 		} else {
 			$result_link = $this->result;
 		}
 
-		return @mysql_num_rows($result_link);
+		return mysql_num_rows($result_link);
 	}
 
 	/**
-	 * id
-	 *
 	 * Executes query and returns last inserted ID.
 	 *
-	 * @param String $query SQL query
+	 * @param string $query SQL query
 	 * @return int
 	 */
-	public function id($query = false){
+	public function id($query = false)
+	{
 		if ($query) {
 			$this->sql_query($query);
 		}
-		return @mysql_insert_id($this->connection);
+		return mysql_insert_id($this->connection);
 	}
 
-	public function __destruct(){
-		if($this->connection) @mysql_close($this->connection);
+	public function __destruct()
+	{
+		if($this->connection) mysql_close($this->connection);
 	}
 }
