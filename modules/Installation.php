@@ -80,13 +80,13 @@ class Installation extends Core_Module
 				$user_password = $this->request->getPost('user_password');
 
 				mysql_connect($host, $user, $pass);
-				if (mysql_errno() == 1045) {
+				if (mysql_error()) {
 					$errors .= __('wrong_db_user') . ': ' . mysql_error();
 					break;
 				}
 
 				mysql_select_db($db);
-				if (mysql_errno() == 1049) {
+				if (mysql_error()) {
 					$errors .= __('wrong_db_name') . ': ' . mysql_error();
 					break;
 				}

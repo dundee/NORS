@@ -27,6 +27,8 @@ class Core_Helper_AjaxPaging extends Core_Helper
 	 */
 	public function paging($count, $itemsPerPage, $return = FALSE)
 	{
+		if ($count < $itemsPerPage) return '';
+
 		$output = '';
 		$r = Core_Request::factory();
 

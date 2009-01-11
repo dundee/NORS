@@ -93,6 +93,7 @@ class Core_Config
 		        ? $_SERVER['HTTP_HOST']
 		        : 'localhost';
 		$host = str_replace('www.', '', $host);
+		$host = str_replace('.', '_', $host); //needed for advanced settings
 
 		$this->host = $host;
 

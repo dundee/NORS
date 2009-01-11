@@ -23,6 +23,10 @@ class Cathegory extends Core_Module
 		'ie7'    => array('ie7.css'),
 		'print'  => array('print.css'),
 	);
+
+	public $js = array('jquery.js',
+	                   'cat-paging.js');
+
 	public $helpers = array('Menu');
 
 	public $cache = 0;
@@ -30,19 +34,19 @@ class Cathegory extends Core_Module
 	public function beforeFooter()
 	{
 		$menu_helper = new Core_Helper_Menu();
-		
+
 		$cathegory = new Table_Cathegory();
 		$cathegories = $cathegory->getAll('name', 'asc');
 		$cathegories = $menu_helper->prepare($cathegories, 'cathegory');
 		$this->setData('cathegories', $menu_helper->render($cathegories, 4), TRUE);
-		
+
 		$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
 		$pages = $menu_helper->prepare($pages, 'page');
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
-		
+
 		$this->setData('administration', $this->router->genUrl('administration', FALSE, 'default'));
-		
+
 		$this->setData('name',        $this->config->name);
 		$this->setData('description', $this->config->description);
 	}
@@ -51,8 +55,13 @@ class Cathegory extends Core_Module
 	{
 		$this->tplFile = 'posts.tpl.php';
 
+		$max = $this->config->front_end->posts_per_page;
+		$offset = $this->request->getPost('page') * $max;
+
 		$table = new Table_Post();
 		$posts = $table->getByCathegory(intval($this->request->getGet('cathegory')));
+		$count = count($posts);
+		if (iterable($posts)) $posts = array_slice($posts , $offset, $max);
 
 		$text = new Core_Text();
 
@@ -67,5 +76,9 @@ class Cathegory extends Core_Module
 		}
 
 		$this->setData('posts', $posts, TRUE);
+
+		$helper = new Core_Helper_AjaxPaging();
+		$paging = $helper->paging($count, $max, TRUE);
+		$this->setData('paging', $paging, TRUE);
 	}
 }

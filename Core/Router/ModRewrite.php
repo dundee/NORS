@@ -34,9 +34,10 @@ class Core_Router_ModRewrite extends Core_Router
 	public function redirect($module, $event = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE){
 		if ($moved) header("HTTP/1.1 301 Moved Permanently");
 
-		if (strpos($module, 'http') === 0) header("Location: " . $module);
-		else header("Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE, $csrf));
+		if (strpos($module, 'http') === 0) $l = "Location: " . $module;
+		else $l = "Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE, $csrf);
 
+		header($l);
 		header("Connection: close");
 		exit(0);
 	}
