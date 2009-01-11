@@ -106,7 +106,8 @@ if (!function_exists('loadFile')) {
 		if (!HIGH_PERFORMANCE) {
 			$includes[] = array('name'   => $file,
 								'time'   => round($end_time-$start_time, 4),
-								'memory' => round(($end_memory-$start_memory) / 1024));
+								'memory' => round(($end_memory-$start_memory) / 1024)
+								);
 		}
 		return TRUE;
 	}
@@ -320,4 +321,9 @@ function convertObjectToArray($object)
 	}
 
 	return $array;
+}
+
+function testEnvironment()
+{
+	if (substr(phpversion(), 0, 3) < 5.2) die('Required PHP version at least 5.2');
 }

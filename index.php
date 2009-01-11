@@ -21,6 +21,8 @@ ini_set('display_errors', 1);
 define('APP_PATH', dirname(__FILE__));
 require_once('./Core/Functions.php');
 
+testEnvironment();
+
 setUrlPath();
 
 Core_Config::singleton()->read(APP_PATH . '/config/config.yml.php');
