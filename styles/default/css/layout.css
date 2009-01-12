@@ -200,6 +200,18 @@ p {
 	font-size: 0.7em;
 }
 
+code {
+  white-space: pre;
+  font-family: monospace;
+  display: block;
+  border: 1px dotted #000;
+  font-size: 1.1em;
+  padding: 5px;
+  margin: 2px;
+  overflow: auto;
+  width: 100%;
+}
+
 /* _header
 =============================================================================*/
 

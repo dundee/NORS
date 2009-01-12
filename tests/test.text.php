@@ -35,6 +35,21 @@ echo $obj->getWords(10, $text). ENDL . "<br />";
 echo $obj->urlEncode($name). ENDL . "<br />";
 echo $obj->crypt('pass', 'soil'). ENDL . "<br />";
 echo $obj->dateToTimeStamp("2008-12-13 21:32:55"). ENDL . "<br />";
+echo $obj->clearAmpersand("&  &amp; &copy;"). ENDL . "<br />";
+echo $obj->hideMail("mailto:info@milde.cz"). ENDL . "<br />";
+echo ENDL . "<br />";
+$text = <<<END
+<a href="#">kotva</a>aaa
+bbb
+
+dalsi odstavec
+
+treti odstavec
+s radkem
+END;
+echo $obj->format_comment($text). ENDL . "<br />";
+echo $obj->format_html($text). ENDL . "<br />";
+
 
 echo ENDL;
 ?>

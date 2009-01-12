@@ -54,16 +54,13 @@ class Core_Text
 	}
 
 	/**
-	* format_text
+	* Formats plain text into valid html.
 	*
-	* Formats plain text with html tags into valid html.
-	*
-	* @param string $text Text
-	* @param boolean $br Makes line breaks
-	* @return string Text Forrmated html
+	* @param string $text
+	* @return string forrmated html
 	*/
 	public function format_comment($text = FALSE) {
-    	$text = $text ? $text : $this->text;
+		$text = $text ? $text : $this->text;
 		$text = htmlspecialchars($text);
 		$text = str_replace("\r", '', $text);
 
@@ -71,7 +68,42 @@ class Core_Text
 		$text = preg_replace('/(.+?)(?:\n\n|\z)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
-    	return $text;
+		return $text;
+	}
+
+	/**
+	* Formats html into valid html.
+	*
+	* @param string $text
+	* @return string forrmated html
+	*/
+	public function format_html($text = FALSE) {
+		$text = $text ? $text : $this->text;
+		$text = str_replace("\r", '', $text);
+
+		$text = $this->clearAmpersand($text);
+
+		$text .= ENDL;
+
+		//make space around some tags (due to paragraphs)
+		$text = preg_replace('!(<(?:code|table|ul|ol|li|pre|form|blockquote|h[1-6])[^>]*>)!', ENDL . '$1', $text);
+		$text = preg_replace('!(</(?:code|table|ul|ol|li|pre|form|blockquote|h[1-6])>)!', '$1' . ENDL . ENDL, $text);
+
+		$text = preg_replace('/(.+?)(?:\n\n\s*|\z\s*)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
+		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
+
+		//remove <p> around tags
+		$text = preg_replace('!<p>\s*(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
+		$text = preg_replace('!(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*</p>|</div>"!', "$1", $text);
+
+		//source code
+		//$text = str_ireplace('<code>', '<pre>', $text);
+		//$text = str_ireplace('</code>', '</pre>', $text);
+		while (preg_match('/<code>(.*)<br \/>(.*)<\/code>/s', $text)) {
+			$text = preg_replace('/<code>(.*)<br \/>(.*)<\/code>/s', '<code>$1$2</code>', $text);
+		}
+
+		return $text;
 	}
 
 	public function hideMail($text = FALSE) {

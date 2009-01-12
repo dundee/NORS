@@ -104,6 +104,7 @@ class Post extends Core_Module
 	public function view_post()
 	{
 		$id_post = intval($this->request->getGet('post'));
+		$text_obj = new Core_Text();
 
 		if ($this->request->getPost('send')) {
 			if ($this->request->getPost('check') != 3) $this->router->redirect('http://www.prdel.cz');
@@ -124,6 +125,7 @@ class Post extends Core_Module
 
 		$table = new Table_Post();
 		list($post) = $table->findById($id_post);
+		$post->text = $text_obj->format_html($post->text);
 
 		if ($post) $this->setData('post', $post, TRUE);
 		else $this->setData('post', '', TRUE);
