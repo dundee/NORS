@@ -2,20 +2,23 @@
 <div id="post"><?php echo $post->text?></div>
 
 <?php
-foreach ($photos as $i => $photo) {
+if (iterable($photos)) {
+	foreach ($photos as $i => $photo) {
 ?>
 <div class="thumbnail">
 	<a href="<?php echo $photo->src?>" class="thickbox" title="<?php echo $photo->label?>"><img src="<?php echo $photo->thub?>" alt="<?php echo $photo->label?>" /></a>
 	<div class="caption"><a href="<?php echo $photo->src?>"><?php echo $photo->label?></a></div>
 </div>
 <?php
+	}
 }
 ?>
 
 <h3 id="comments"><?php echo __('comments')?></h3>
 
 <?php
-foreach ($comments as $i => $comment) {
+if (iterable($comments)) {
+	foreach ($comments as $i => $comment) {
 ?>
 <div class="comment" id="post<?php echo $comment['id']?>">
 	<div class="author">
@@ -31,6 +34,7 @@ foreach ($comments as $i => $comment) {
 	<div class="reply"><a href="#" title="<?php echo $i?>"><?php echo __('reply')?></a></div>
 </div>
 <?php
+	}
 }
 
 echo $comment_form
