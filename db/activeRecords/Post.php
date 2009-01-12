@@ -21,4 +21,10 @@ class ActiveRecord_Post extends Core_ActiveRecord
 	{
 		parent::__construct('post',$id_user);
 	}
+
+	public function activate()
+	{
+		$this->active = $this->active ? 0 : 1;
+		$this->save();
+	}
 }

@@ -71,7 +71,7 @@ class Post extends Core_Module
 		$limit = ($this->request->getPost('page') * $max) . ',' . $max;
 
 		$table = new Table_Post();
-		$posts = $table->getAll('date', 'desc', $limit);
+		$posts = $table->getPosts('date', 'desc', $limit);
 		$count = $table->getCount();
 
 		$text_obj = new Core_Text();

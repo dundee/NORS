@@ -100,16 +100,28 @@ class Core_Helper_Administration extends Core_Helper
 				$rowname       = isset($row['name']) ? $row['name'] : '';
 
 				$output .= '<tr';
+				$class = FALSE;
 
+				//active
 				if (isset($row['active']) &&
-				   ($row['active'] == 'no')
+				   (!$row['active'])
 				    ) {
-					$output .= ' class="pink"';
+					$class = 'pink';
 					$msg = 'activate';
 				} else {
 					$msg = 'deactivate';
 				}
 
+				//date
+				if (isset($row['date'])) {
+					$text_obj = new Core_Text();
+					$date = $text_obj->dateToTimeStamp($row['date']);
+					if ($date > time() || !$date ) { //future post
+						$class = $class ? $class . ' green' : 'green';
+					}
+				}
+
+				$output .= $class ? ' class="' . $class . '"' : '';
 				$output .= '>' . ENDL;
 				$j = 0;
 				foreach ($row as $name=>$value) {
@@ -128,7 +140,7 @@ class Core_Helper_Administration extends Core_Helper
 				}
 				$output .= TAB . '<td>' . ENDL;
 				$output .= TAB . TAB . '<a href="' . $edit_url . '" title="' . __('edit') . ' ' . $rowname . '" ><img src="' . STYLE_URL . '/images/edit.gif" alt="' . __('edit') . '"/>&nbsp;' . __('edit') . '</a>' . ENDL;
-				if (isset($row['active']) && $row['active'])
+				if (isset($row['active']))
 					$output .= TAB . TAB . '<a href="' . $activate_url . '" title="' . __($msg) . ' ' . $rowname . '" ><img src="' . STYLE_URL . '/images/' . $msg . '.gif" alt="' . __($msg) . '"/>&nbsp;' . __($msg) . '</a>' . ENDL;
 				$output .= TAB . TAB . '<a href="' . $del_url . '" onclick="javascript:return confirm(\'' . __('really_delete') . ' ' . clearOutput($rowname,1) . '?\');" title="' . __('delete') . ' ' . $rowname . '">' . ENDL;
 				$output .= TAB . TAB . TAB . '<img src="' . STYLE_URL . '/images/delete.gif" alt="' . __('delete') . '"/>&nbsp;' . __('delete') . ENDL;

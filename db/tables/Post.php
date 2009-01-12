@@ -39,7 +39,49 @@ class Table_Post extends Core_Table
 		        FROM `" . tableName($this->table) . "` AS p
 				LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
-		        WHERE p.`id_cathegory` = '" . intval($cathegory) . "'
+		        WHERE p.`active` = 1 AND
+		              p.`date` <= NOW() AND
+		              p.`id_cathegory` = '" . intval($cathegory) . "'
+		        GROUP BY `id_post`
+		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
+		        . ($limit ? " LIMIT " . clearInput($limit) : '');
+		try{
+			$lines = $this->db->getRows($sql);
+		} catch(RuntimeException $ex) {
+			if ($ex->getCode() == 1146) {
+				$this->create();
+				return FALSE;
+			}
+			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
+		}
+		$class = 'ActiveRecord_' . ucfirst($this->table);
+		if ( !iterable($lines) ) return NULL;
+		foreach ($lines as $line) {
+			$current = new $class();
+			$current->setFromArray($line);
+			$instances[] = $current;
+		}
+		return $instances;
+	}
+
+	public function getPosts($orderBy=FALSE, $order=FALSE, $limit = FALSE)
+	{
+		if ($orderBy==FALSE) {
+			$orderBy = 'id_' . $this->table;
+		}
+		if ($order===FALSE) {
+			$order = 'desc';
+		}
+
+		$order = ( $order=='asc' ? 'asc' : 'desc' );
+
+		$sql = "SELECT p.*,
+		               c.`name` AS cathegory_name,
+		               count(`id_comment`) AS num_of_comments
+		        FROM `" . tableName($this->table) . "` AS p
+		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
+		        WHERE p.`active` = 1 AND p.`date` <= NOW()
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
 		        . ($limit ? " LIMIT " . clearInput($limit) : '');
@@ -66,7 +108,9 @@ class Table_Post extends Core_Table
 	{
 		$sql = "SELECT count(*) AS count
 		        FROM `" . tableName($this->table) . "`
-		        WHERE `id_cathegory` = '" . intval($cathegory) . "'";
+		        WHERE `active` = 1 AND
+		              `date` <= NOW() AND
+		              `id_cathegory` = '" . intval($cathegory) . "'";
 		try{
 			$line = $this->db->getRow($sql);
 		} catch (RuntimeException $ex) {
@@ -96,7 +140,9 @@ class Table_Post extends Core_Table
 		$sql = "SELECT p.`id_" . $this->table . "`,
 		               p.`name`,
 		               COUNT(`id_comment`) AS num_of_comments,
-		               p.`seen` AS num_of_visits
+		               p.`seen` AS num_of_visits,
+		               p.`date`,
+		               p.`active`
 		        FROM `" . tableName($this->table) . "` AS p
 				LEFT JOIN `" . tableName('comment') . "` AS c USING (`id_post`)
 		        " . ($name ? "WHERE `user` LIKE '"

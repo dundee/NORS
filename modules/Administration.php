@@ -448,14 +448,11 @@ class Administration extends Core_Module_Auth
 		$model = new $class($this->request->getGet('id'));
 		$model->activate();
 
-		$this->request->setGet('action', FALSE);
-		$this->request->setGet('id', FALSE);
-		$this->request->redirect('administration',
-		                         'content',
-		                         FALSE,
-		                         FALSE,
-		                         TRUE);
-		die();
+		$this->router->redirect('administration',
+		                        $this->request->getGet('event'),
+		                        FALSE,
+		                        array('subevent' => $this->request->getGet('subevent'))
+		                        );
 	}
 
 	protected function del($table)
