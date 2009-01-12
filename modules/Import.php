@@ -19,17 +19,17 @@ class Import extends Core_Module
 {
 	public $headerTplFile = 'header_admin.tpl.php';
 	public $footerTplFile = 'footer_admin.tpl.php';
-	
+
 	public $css = array(
 		'normal' => array('admin.css', 'forms.css'),
 		'ie6'    => array(),
 		'ie7'    => array(),
 		'print'  => array(),
 	);
-	
+
 	public $js = array('jquery.js',
 	                   'help.js');
-	
+
 	public $helpers = array('Form', 'Menu');
 
 	public $cache = 0;
@@ -47,7 +47,7 @@ class Import extends Core_Module
 	public function __default()
 	{
 		$this->tplFile = 'admin_import.tpl.php';
-		
+
 		$errors = '';
 		if ($this->request->getPost('send')) {
 			do {
@@ -67,14 +67,14 @@ class Import extends Core_Module
 				$pass = $DB['pass'];
 				$db   = $DB['db'];
 				$prefix = $DB['prefix'];
-				
+
 				$c = mysql_connect($host, $user, $pass, $db);
 
 				if (mysql_errno() == 1045) {
 					$errors .= __('wrong_db_user') . ': ' . mysql_error();
 					break;
 				}
-				
+
 				mysql_select_db($db, $c);
 				if (mysql_errno() == 1049) {
 					$errors .= __('wrong_db_name') . ': ' . mysql_error();
@@ -122,6 +122,7 @@ class Import extends Core_Module
 					$post->text         = $line['text'];
 					$post->date         = $line['date'];
 					$post->seen         = $line['counter'];
+					$post->active       = 1;
 					$post->insert();
 				}
 
@@ -159,6 +160,7 @@ class Import extends Core_Module
 					$page->id_page      = $line['id_sablona'];
 					$page->name         = $line['name'];
 					$page->text         = $line['text'];
+					$page->active       = 1;
 					$page->insert();
 				}
 
@@ -166,14 +168,14 @@ class Import extends Core_Module
 					$errors .= mysql_error();
 					break;
 				}
-				
+
 				$this->router->redirect('post', '__default', 'default');
 			} while (FALSE);
-			
+
 		}
-		
+
 		if ($errors) $this->response->setPost('send', FALSE);
-		
+
 		$this->setData('errors', $errors);
 	}
 }
