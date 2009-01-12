@@ -60,10 +60,10 @@ class Post extends Core_Module
 	public function __default()
 	{
 		if (intval($this->request->getGet('post')) > 0) $this->view_post();
-		else $this->list_posts();
+		else $this->list_items();
 	}
 
-	public function list_posts()
+	public function list_items()
 	{
 		$this->tplFile = 'posts.tpl.php';
 
@@ -74,27 +74,30 @@ class Post extends Core_Module
 		$posts = $table->getAll('date', 'desc', $limit);
 		$count = $table->getCount();
 
-		$text = new Core_Text();
+		$text_obj = new Core_Text();
 
 		if (iterable($posts)) {
 			foreach ($posts as $i=>$post) {
-				$url = $text->urlEncode($post->name);
-				$curl = $text->urlEncode($post->cathegory_name);
+				$url = $text_obj->urlEncode($post->name);
+				$curl = $text_obj->urlEncode($post->cathegory_name);
+				$text = $text_obj->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
+				$text = strip_tags($text);
+				$text = $text_obj->clearAmpersand($text);
+
 				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
-				$posts[$i]->text = $text->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
+				$posts[$i]->text = $text;
 				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->cathegory . '-' . $curl));
 			}
 		}
 
 		$this->setData('posts', $posts, TRUE);
 
-		$helper = new Core_Helper_AjaxPaging();
+		$helper = new Core_Helper_AjaxPaging('post');
 		$paging = $helper->paging($count, $max, TRUE);
 		$this->setData('paging', $paging, TRUE);
 	}
 
 	/**
-	* __default
 	*
 	* @return void
 	*/

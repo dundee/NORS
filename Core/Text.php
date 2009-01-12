@@ -67,7 +67,7 @@ class Core_Text
 		$text = htmlspecialchars($text);
 		$text = str_replace("\r", '', $text);
 
-		$text = preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text); //replace & by &amp; but ommit entities
+		$text = $this->clearAmpersand($text);
 		$text = preg_replace('/(.+?)(?:\n\n|\z)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
@@ -139,5 +139,15 @@ class Core_Text
 			$h = $i = $s = 0;
 		}
 		return mktime ($h, $i, $s, $m, $d, $y);
+	}
+
+	/**
+	 * Replaces & by &amp; but ommit entities
+	 * @param string $text
+	 * @return string
+	 */
+	public function clearAmpersand($text)
+	{
+		return preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text);
 	}
 }

@@ -10,7 +10,7 @@ if (iterable($posts)) {
 	<a href="<?php echo $post->url?>#comments"><?php echo __('comments') . ': ' . $post->num_of_comments ?></a> |
 	<?php echo $post->seen . 'x ' . __('seen')?>
 	</small>
-	<p><?php echo strip_tags($post->text)?></p>
+	<p><?php echo $post->text?></p>
 </div>
 <?php
 	}
