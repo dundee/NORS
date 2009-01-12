@@ -320,4 +320,10 @@ abstract class Core_ActiveRecord
 		list($instance) = $table->findByName($file);
 		$instance->delete();
 	}
+
+	public function activate()
+	{
+		$this->active = isset($this->active) && $this->active ? 0 : 1;
+		$this->save();
+	}
 }

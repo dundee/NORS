@@ -47,7 +47,7 @@ class Post extends Core_Module
 		$this->setData('cathegories', $menu_helper->render($cathegories, 4), TRUE);
 
 		$table = new Table_Page();
-		$pages = $table->getAll('position', 'asc');
+		$pages = $table->getPages('position', 'asc');
 		$pages = $menu_helper->prepare($pages, 'page');
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
 
