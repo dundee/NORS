@@ -18,6 +18,12 @@
 class Core_Helper_AjaxPaging extends Core_Helper
 {
 	//public $helpers = array('Form');
+	protected $module;
+
+	public function  __construct($module = FALSE) {
+		parent::__construct();
+		$this->module = $module;
+	}
 
 	/**
 	 * @param int $count Number of items
@@ -30,6 +36,9 @@ class Core_Helper_AjaxPaging extends Core_Helper
 		if ($count < $itemsPerPage) return '';
 
 		$output = '';
+
+		if ($this->module) $output .= '<div id="paging-module" class="hidden" title="' . $this->module . '"></div>';
+
 		$r = Core_Request::factory();
 
 		$page = $r->getPost('page');

@@ -22,7 +22,7 @@ class Table_Post extends Core_Table
 		parent::__construct('post');
 	}
 
-	public function getByCathegory($cathegory, $orderBy = FALSE, $order = FALSE)
+	public function getByCathegory($cathegory, $orderBy = FALSE, $order = FALSE, $limit = FALSE)
 	{
 		if ($orderBy === FALSE) {
 			$orderBy = 'id_' . $this->table;
@@ -41,7 +41,8 @@ class Table_Post extends Core_Table
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
 		        WHERE p.`id_cathegory` = '" . intval($cathegory) . "'
 		        GROUP BY `id_post`
-		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order);
+		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
+		        . ($limit ? " LIMIT " . clearInput($limit) : '');
 		try{
 			$lines = $this->db->getRows($sql);
 		} catch(RuntimeException $ex) {
@@ -59,6 +60,23 @@ class Table_Post extends Core_Table
 			$instances[] = $current;
 		}
 		return $instances;
+	}
+
+	public function getCountByCathegory($cathegory)
+	{
+		$sql = "SELECT count(*) AS count
+		        FROM `" . tableName($this->table) . "`
+		        WHERE `id_cathegory` = '" . intval($cathegory) . "'";
+		try{
+			$line = $this->db->getRow($sql);
+		} catch (RuntimeException $ex) {
+			if ($ex->getCode() == 1146) {
+				$this->create();
+				return FALSE;
+			}
+			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
+		}
+		return $line['count'];
 	}
 
 	public function getList($orderBy = FALSE,

@@ -3,6 +3,7 @@ $(function()
 	var dump = new Object();
 	dump.action = $('#filter_form').attr('action');
 	dump.paging = 0;
+	dump.module = $('#paging-module').attr('title');
 
 	dump.setPaging = function(page)
 	{
@@ -16,9 +17,9 @@ $(function()
 			type: "POST",
 			cache: false,
 			async: true,
-			data: "page="+this.paging,
+			data: "page="+this.paging+"&module="+this.module,
 			dataType: "html",
-			url: '?command=posts-paging',
+			url: '?command=items-paging',
 			success: function(html){
 				$('#content').html(html);
 				$("#paging a").click(function()

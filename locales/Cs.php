@@ -87,6 +87,8 @@ class Locale_Cs extends Core_Locale
 		'num_of_visits'             => 'Počet shlédnutí',
 		'karma'                     => 'Karma',
 		'actions'                   => 'Akce',
+		'next'                      => 'další',
+		'previous'                  => 'předchozí',
 
 
 		//                Formulare
