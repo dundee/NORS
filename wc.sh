@@ -1,4 +1,6 @@
 #!/bin/bash
+echo 'content-type: text/plain'
+echo ''
 find ./ \
         -not -name "jquery.markitup.js" \
         -not -name "ui.datetimepicker.js" \

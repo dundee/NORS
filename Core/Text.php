@@ -8,8 +8,8 @@
 *
 * @global string NOT_ALLOWED_ENTITIES Not allowed letters
 */
-define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´?!@#$%^&*+/|,<>{}()[]~\"¨§");
-define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd------------------------------");
+define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´;:=?!@#$%^&*+/|,<>{}()[]~\"¨§");
+define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd----------------------------------");
 
 /**
 * Classes_Text
@@ -70,7 +70,7 @@ class Core_Text
 		$text = preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text); //replace & by &amp; but ommit entities
 		$text = preg_replace('/(.+?)(?:\n\n|\z)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
-		
+
     	return $text;
 	}
 
@@ -83,7 +83,7 @@ class Core_Text
 		}
 		return $return;
 	}
-	
+
 	/**
  	 * urlEncode
  	 *

@@ -249,12 +249,16 @@ class Core_Request
 			$arr = explode(',',$languages);
 			foreach($arr as $item){
 				$lang = $item;
-				if (file_exists(APP_PATH.'/locales/'.ucfirst($lang).'.php')) break;
+				if (file_exists(APP_PATH . '/locales/' . ucfirst($lang).'.php')) break;
 			}
-		} else {
+		}
+
+		if (!file_exists(APP_PATH . '/locales/' . ucfirst($lang) . '.php')) {
 			$config = Core_Config::singleton();
 			$lang = $config->locale;
+			Core_Response::factory()->setCookie('lang', $lang);
 		}
+
 		$this->locale = ucfirst($lang);
 		Core_Locale::factory($this->locale); //creates static instance
 	}
