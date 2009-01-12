@@ -114,6 +114,11 @@ h1.alert {
 	padding: 0.4em ;
 }
 
+dfn, acronym {
+	border-bottom: 1px dotted #666;
+	cursor: help;
+}
+
 
 /* _text
 =============================================================================*/
@@ -156,7 +161,7 @@ p {
 
 #content {
 	float: left;
-	width: 32em;
+	width: 40em;
 	/* border: 1px solid #f60; */
 
 }
@@ -201,15 +206,16 @@ p {
 }
 
 code {
-  white-space: pre;
-  font-family: monospace;
-  display: block;
-  border: 1px dotted #000;
-  font-size: 1.1em;
-  padding: 5px;
-  margin: 2px;
-  overflow: auto;
-  width: 100%;
+	white-space: pre;
+	font-family: monospace;
+	display: block;
+	border: 1px dotted #000;
+	font-size: 1.1em;
+	padding: 5px;
+	line-height: 120%;
+	margin: 10px 5px;
+	overflow: auto;
+	width: 100%;
 }
 
 /* _header

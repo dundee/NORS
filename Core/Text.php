@@ -83,6 +83,26 @@ class Core_Text
 
 		$text = $this->clearAmpersand($text);
 
+		//tables
+		$start = strpos($text, '||');
+  		while (!($start === false)) {
+			$length = strpos( substr($text, $start + 1, strlen($text) - ($start+1)) , '||');
+			$length += 3;
+			$table = trim(substr($text, $start, $length));
+
+			$output = '<table rules="all" border="1">';
+			$rows = explode(ENDL, $table);
+			for ($i = 1; $i < (count($rows) - 1); $i++) {
+				$rows[$i] = str_replace('|', '</td><td>', $rows[$i]);
+				$output .= ENDL . '<tr><td>' . $rows[$i] . '</td></tr>';
+			}
+			$output .= ENDL . '</table>';
+			$text = str_replace($table, $output, $text);
+
+			$start = FALSE;
+			$start = strpos($text, '||');
+		}
+
 		$text .= ENDL;
 
 		//make space around some tags (due to paragraphs)
@@ -90,18 +110,16 @@ class Core_Text
 		$text = preg_replace('!(</(?:code|table|ul|ol|li|pre|form|blockquote|h[1-6])>)!', '$1' . ENDL . ENDL, $text);
 
 		$text = preg_replace('/(.+?)(?:\n\n\s*|\z\s*)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
-		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
+		//$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
 		//remove <p> around tags
 		$text = preg_replace('!<p>\s*(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
 		$text = preg_replace('!(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*</p>|</div>"!', "$1", $text);
 
-		//source code
-		//$text = str_ireplace('<code>', '<pre>', $text);
-		//$text = str_ireplace('</code>', '</pre>', $text);
+		/*//source code
 		while (preg_match('/<code>(.*)<br \/>(.*)<\/code>/s', $text)) {
 			$text = preg_replace('/<code>(.*)<br \/>(.*)<\/code>/s', '<code>$1$2</code>', $text);
-		}
+		}*/
 
 		return $text;
 	}
