@@ -35,7 +35,7 @@ class Table_Post extends Core_Table
 
 		$sql = "SELECT p.*,
 		               c.`name` AS cathegory_name,
-		               count(*) AS num_of_comments
+		               count(`id_comment`) AS num_of_comments
 		        FROM `" . tableName($this->table) . "` AS p
 				LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
