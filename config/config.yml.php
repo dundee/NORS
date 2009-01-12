@@ -59,7 +59,7 @@ localhost:
 		perex_length: 30
 		posts_per_page: 5
 	administration:
-		items_per_page: 5
+		items_per_page: 10
 		content:
 			default_subevent: post
 		users:

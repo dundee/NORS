@@ -23,49 +23,51 @@ class Core_File
 	* @var string $fileName
 	*/
 	public $fileName;
-	
+
 	/**
 	 * $dir
-	 * 
+	 *
 	 * @var string $dir
 	 */
-	 public $dir;	  	    	 	 	 	
-	
+	 public $dir;
+
 	/**
 	* Constructor
 	*/
 	public function __construct($name = FALSE, $dir = FALSE)
 	{
 		if (!$name) return;
-		
+
 		if (!$dir) $dir = Core_Config::singleton()->upload_dir;
 		$path = APP_PATH . '/' . $dir . '/' . $name;
-        if(!file_exists($path)) throw new UnexpectedValueException('File "' . $name . '" does not exist.');
-        $this->fileName = $name;
-        $this->dir = $dir;
-    }
-    
-    /**
-     * upload function
-     * 
-     * @param string $name Index of $_FILES array
-     * @param string $fileName Name of target file
-     * @param string $dir Name of target dir
-     * @return Core_File[]     
-     */	 	  	 	 	     
-    public function upload($name, $fileName = FALSE, $dir = FALSE)
+
+		if (!file_exists($path)) return FALSE; //throw new UnexpectedValueException('File "' . $name . '" does not exist.');
+
+		$this->fileName = $name;
+		$this->dir = $dir;
+	}
+
+	/**
+	 * upload function
+	 *
+	 * @param string $name Index of $_FILES array
+	 * @param string $fileName Name of target file
+	 * @param string $dir Name of target dir
+	 * @return Core_File[]
+	 */
+	public function upload($name, $fileName = FALSE, $dir = FALSE)
 	{
 		if (!$dir)      $dir      = Core_Config::singleton()->upload_dir;
-        if (!$fileName) $fileName = date("YmdHis").sprintf("%02d",rand(0,99));
-        
+		if (!$fileName) $fileName = date("YmdHis").sprintf("%02d",rand(0,99));
+
 		$ret = FALSE;
-		
+
 		if (!isset($_FILES[$name]["name"]) ||
 		    !$_FILES[$name]["name"] ||
 		    (is_array($_FILES[$name]["name"]) && !$_FILES[$name]["name"][0])) return FALSE;
 		/*$log = new Core_Log();
 		$log->log("dump:" . print_r($_FILES, TRUE));*/
-		
+
 		if (is_array($_FILES[$name]["name"])) {
 			for ($i=0; $i < count($_FILES[$name]["name"]); $i++) {
 				$fileName = date("YmdHis").sprintf("%02d",rand(0,99));
@@ -88,11 +90,11 @@ class Core_File
 		}
 
         return $ret;
-  }	
+  }
 
 	public function thubnail($x = 100, $y = 0){
 		if (!$this->fileName || strpos($this->fileName, '.') <= 0) return FALSE;
-		
+
 		$picture = new Core_Picture($this->dir . '/' .  $this->fileName);
     	list($name,$type) = explode(".", $this->fileName);
     	$thubnailName = $name . '_' . $x . 'x' . $y . '.' . $type;
@@ -118,7 +120,7 @@ class Core_File
 	*/
 	public function getType($name = FALSE){
 		if (!$name) $name = $this->fileName;
-		
+
 		$sufix = $this->getSufix($name);
 		$sufix = strtolower($sufix);
 		switch($sufix){

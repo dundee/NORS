@@ -87,7 +87,7 @@ abstract class Core_Module extends Core_Object
 	*
 	* @var array $js
 	*/
-	public $js = array('jquery-1.2.2.min.js','jquery.my.js');
+	public $js = array();
 
 	/**
 	* $css
@@ -187,11 +187,11 @@ abstract class Core_Module extends Core_Object
 
 		$this->setData('site', $site_data);
 	}
-	
+
 /* ==================== Module methods ===================== */
 
 	public abstract function __default();
-	
+
 	public function beforeEvent(){}
 	public function afterEvent(){}
 	public function beforeFooter(){}

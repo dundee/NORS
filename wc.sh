@@ -2,16 +2,7 @@
 echo 'content-type: text/plain'
 echo ''
 find ./ \
-        -not -name "jquery.markitup.js" \
-        -not -name "ui.datetimepicker.js" \
-        -not -name "jquery.thickbox.js" \
-        -not -name "jquery.jtageditor.js" \
-        -not -name "jquery.facebox.js" \
-        -not -name "jquery.blockUI.js" \
-        -not -name "jquery.form.js" \
-        -not -name "jquery.js" \
-        -not -name "jquery-1.2.2.js" \
-        -not -name "jquery-1.3.1.js" \
+        -not -name "jquery.*" \
         -not -name "test.*" \
         -regextype posix-egrep \
         -type f \
