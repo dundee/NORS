@@ -1,8 +1,8 @@
 
 		</div><!-- /content -->
-		
+
 		<hr />
-		
+
 		<div id="sidebar">
 			<div id="menu">
 				<h2><?php echo __('cathegories') ?></h2>
@@ -16,7 +16,7 @@
 			</div>
 		</div><!-- /sidebar -->
 	</div><!-- /main -->
-	
+
 	<hr />
 
 	<div id="header">
@@ -33,9 +33,13 @@
 		<div id="footer-main">
 			<?php Core_Debug::showInfo(); ?>
 			<p>Powered by <a href="http://norsphp.com/">NORS <?php echo norsVersion() ?></a> &copy;2007-<?php echo date("Y") ?> <a href="http://milde.cz">Daniel Milde</a> aka Dundee |
-			<?php 
-			$lang = Core_Request::factory()->locale == 'Cs' ? 'en' : 'cs';
-			echo '<a id="lang" href="?lang=' . $lang . '" title="' . $lang . '"><img src="' . STYLE_URL . '/images/' . $lang . '.gif" alt="' . $lang . '" /></a>';
+			<?php
+			$langs = array('En', 'Cs', 'Sk');
+			foreach ($langs as $lang) {
+				if ($lang == Core_Request::factory()->locale) continue;
+				$lang = strtolower($lang);
+				echo '<a class="lang" href="?lang=' . $lang . '" title="' . $lang . '"><img src="' . STYLE_URL . '/images/' . $lang . '.gif" alt="' . $lang . '" /></a> |';
+			}
 			?></p>
 		</div><!-- /footer-main -->
 	</div><!-- /footer -->

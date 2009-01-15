@@ -23,7 +23,7 @@ abstract class Core_Locale
     * @var array $data Array of texts
     */
 	protected $data = array();
-	
+
 	private static $instance;
 
 	/**
@@ -36,7 +36,7 @@ abstract class Core_Locale
     */
     static public function factory($locale = FALSE){
         if (isset(self::$instance)) return self::$instance;
-		
+
 		if(!$locale) $locale = Core_Config::singleton()->locale;
 		$file = APP_PATH.'/locales/'.$locale.'.php';
 		if (loadFile($file)) {
@@ -62,10 +62,10 @@ abstract class Core_Locale
 		if(!isset($this->data[$key])) return str_replace('_', ' ', $key);
 		return $this->data[$key];
 	}
-	
+
 	public function __toString(){
 		$me = new ReflectionClass($this);
-		return $me->getName(); 
+		return $me->getName();
 	}
 
 	public function opera_date($datetime){
@@ -75,9 +75,9 @@ abstract class Core_Locale
 		list($g,$i,$s) = explode(":",$time);
 		return $y."-".$m."-".$d."T".$g.":".$i."Z";
 	}
-	
+
 	public abstract function decodeDate($ymd_his);
 	public abstract function decodeDatetime($ymd_his);
-	
-	
+
+
 }
