@@ -93,8 +93,11 @@ class Core_Text
 			$output = '<table rules="all" border="1">';
 			$rows = explode(ENDL, $table);
 			for ($i = 1; $i < (count($rows) - 1); $i++) {
-				$rows[$i] = str_replace('|', '</td><td>', $rows[$i]);
-				$output .= ENDL . '<tr><td>' . $rows[$i] . '</td></tr>';
+				if ($i == 1) $tag = 'th';
+				else $tag = 'td';
+
+				$rows[$i] = str_replace('|', '</' . $tag . '><' . $tag . '>', $rows[$i]);
+				$output .= ENDL . '<tr><' . $tag . '>' . $rows[$i] . '</' . $tag . '></tr>';
 			}
 			$output .= ENDL . '</table>';
 			$text = str_replace($table, $output, $text);
@@ -102,6 +105,41 @@ class Core_Text
 			$start = FALSE;
 			$start = strpos($text, '||');
 		}
+
+		//pictures - needed for NORS 3 posts
+		$content = $text;
+		$i=0;
+		$start = strpos($content, "<img");
+		while(!($start===false)){
+			$length = strpos( substr($content, $start + 1, strlen($content) - ($start + 1)) , ">");
+			$length += 2;
+			$img = trim(substr($content, $start,  $length));
+			$path = eregi_replace('^<img +src="([^"]*)".*>$',"\\1", $img);
+			$alt  = eregi_replace('^<img +src="[^"]+" +alt="([^"]+)".*>$', "\\1", $img);
+
+			$arr = explode("/", $path);
+			$filename = $arr[count($arr)-1];
+			$arr[count($arr) - 1] = 'thub';
+			$arr[] = $filename;
+			$thub_path = implode("/", $arr);
+
+			$thub = '<div class="thumbnail">
+	<a href="' . APP_URL . '/' . $path . '" class="thickbox" title="' . $alt . '">
+		<img src="' . APP_URL . '/' . $thub_path . '" alt="' . $alt . '" />
+	</a>
+	<div class="caption">
+		<a href="' . APP_URL . '/'  . $path . '" class="thickbox" title="' . $alt . '">' . $alt . '</a>
+	</div>
+</div>';
+			$text = str_replace($img, $thub, $text);
+
+			$start = strpos($content, "<img", $start + $length);
+		}
+
+		/*for($i=0;$i<count($img);$i++){
+		$picture = new Picture($img[$i]);
+		$img[$i] = $picture->show();
+		}*/
 
 		$text .= ENDL;
 
