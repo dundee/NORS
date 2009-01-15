@@ -119,6 +119,27 @@ dfn, acronym {
 	cursor: help;
 }
 
+table td,
+table th {
+	padding: 5px;
+}
+
+table th {
+	background: #ddd;
+}
+
+ul, ol {
+	margin-left: 40px;
+	margin-bottom: 0.5em;
+}
+
+ul {
+	list-style-type: square;
+}
+
+li {
+	margin-bottom: 5px;
+}
 
 /* _text
 =============================================================================*/
@@ -138,6 +159,7 @@ h3 {
 	color: #7fae3f;
 	font-size: 1em;
 	margin-left: 0.8125em;
+	margin-top: 0.5em;
 	clear: left;
 }
 
@@ -175,12 +197,14 @@ p {
 }
 
 #content p,
-#sidebar p {
+#sidebar p,
+ul, ol {
 	font-size: 0.8125em;
 }
 
 #post {
 	margin-bottom: 1em;
+	line-height: 130%;
 }
 
 .post {
@@ -346,8 +370,9 @@ code {
 	font-size: 0.75em;
 }
 
-#lang img{
+.lang img{
 	vertical-align: middle;
+	margin: 0 2px;
 }
 
 /* _comm

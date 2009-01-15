@@ -114,6 +114,11 @@ img{
   clear:both;
 }
 
+.lang img{
+	vertical-align: middle;
+	margin: 0 2px;
+}
+
 #submenu{
 	margin: 0px -10px 10px -10px;
 	padding: 0px;
