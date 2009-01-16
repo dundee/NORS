@@ -84,9 +84,11 @@ class Post extends Core_Module
 				$text = strip_tags($text);
 				$text = $text_obj->clearAmpersand($text);
 
-				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
-				$posts[$i]->text = $text;
-				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->id_cathegory . '-' . $curl));
+				$posts[$i]->url            = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
+				$posts[$i]->text           = $text;
+				$posts[$i]->cathegory_url  = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->id_cathegory . '-' . $curl));
+				$posts[$i]->name           = clearOutput($post->name);
+				$posts[$i]->cathegory_name = clearOutput($post->cathegory_name);
 			}
 		}
 
@@ -106,6 +108,7 @@ class Post extends Core_Module
 		$id_post = intval($this->request->getGet('post'));
 		$text_obj = new Core_Text();
 
+		//save comment
 		if ($this->request->getPost('send')) {
 			if ($this->request->getPost('check') != 3) $this->router->redirect('http://www.prdel.cz');
 
@@ -125,7 +128,9 @@ class Post extends Core_Module
 
 		$table = new Table_Post();
 		list($post) = $table->findById($id_post);
+
 		$post->text = $text_obj->format_html($post->text);
+		$post->name = clearOutput($post->name);
 
 		if ($post) $this->setData('post', $post, TRUE);
 		else $this->setData('post', '', TRUE);

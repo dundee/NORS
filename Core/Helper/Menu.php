@@ -38,7 +38,7 @@ class Core_Helper_Menu extends Core_Helper
 				                    array($name => $item->getID() . '-' . $text_obj->urlEncode($item->name)
 				                         )
 				                    );
-				$menu[] = array('label'    => __($item->name),
+				$menu[] = array('label'    => __(clearOutput($item->name)),
 				                'url'      => $url,
 				                'selected' => $selected,
 				                );
@@ -51,7 +51,7 @@ class Core_Helper_Menu extends Core_Helper
 	{
 		$in = '';
 		for($i=0; $i < $indention; $i++) $in .= TAB;
-		
+
 		$output = '';
 		if (iterable($menu)) {
 			$output .= $in . '<ul>' . ENDL;
