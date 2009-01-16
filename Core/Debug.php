@@ -271,7 +271,10 @@ class Core_Debug
 		$log = new Core_Log();
 		$log->log(strip_tags($text));
 
-		if ($config->debug->die_on_error) die(1);
+		if ($config->debug->die_on_error) {
+			define('KILLED', 1);
+			die(1);
+		}
 		return FALSE;
 	}
 }

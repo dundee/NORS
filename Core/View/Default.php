@@ -110,6 +110,8 @@ class Core_View_Default extends Core_View
 	* @access public
 	*/
 	public function __destruct(){
+		if (defined('KILLED')) die();
+
 		$this->module->delData();
 		if (method_exists($this->module,'beforeFooter')) $this->module->beforeFooter();
 		$data = $this->module->getData();
@@ -117,7 +119,7 @@ class Core_View_Default extends Core_View
 			${$k} = $v;
 		}
 		unset($data);
-		
+
 		if($this->module->footerTplFile && headers_sent()) require_once(APP_PATH.'/tpl/layout/'.$this->module->footerTplFile);
 	}
 }
