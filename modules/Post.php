@@ -127,6 +127,12 @@ class Post extends Core_Module
 		}
 
 		$table = new Table_Post();
+
+		//incement seen
+		list($post) = $table->findById($id_post);
+		$post->seen += 1;
+		$post->save();
+
 		list($post) = $table->findById($id_post);
 
 		$post->text = $text_obj->format_html($post->text);
