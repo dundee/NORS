@@ -190,11 +190,14 @@ abstract class Core_Table
 		$order = ($order == 'asc' ? 'asc' : 'desc');
 
 		$sql = "SELECT `id_" . $this->table . "`, `name`
-		        FROM `" . tableName($this->table) . "`
-		        " . ($name ? "WHERE `name` LIKE '"
-		        . clearInput($name) . "%'" : '') . "
-				ORDER BY " . $orderBy . " " . $order . " "
-				. ($limit ? "LIMIT " . clearInput($limit) : '');
+		        FROM `" . tableName($this->table) . "`";
+
+		if ($name) {
+			$sql .= " WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
+		}
+
+		$sql .= " ORDER BY " . $orderBy . " " . $order . " " . ($limit ? "LIMIT " . clearInput($limit) : '');
+
 		try{
 			$lines = $this->db->getRows($sql);
 		} catch (RuntimeException $ex) {
@@ -216,9 +219,12 @@ abstract class Core_Table
 	public function getCount($name = FALSE)
 	{
 		$sql = "SELECT count(*) AS count
-		        FROM `" . tableName($this->table) . "`
-		        " . ($name ? "WHERE `name` LIKE '"
-		        . clearInput($name) . "%'" : '');
+		        FROM `" . tableName($this->table) . "`";
+
+		if ($name) {
+			$sql .= " WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
+		}
+
 		try{
 			$line = $this->db->getRow($sql);
 		} catch (RuntimeException $ex) {
