@@ -123,21 +123,27 @@ class Core_Helper_Administration extends Core_Helper
 
 				$output .= $class ? ' class="' . $class . '"' : '';
 				$output .= '>' . ENDL;
+
 				$j = 0;
 				foreach ($row as $name=>$value) {
 					if (is_numeric($name)) continue;
 					if ($name == 'active') continue;
+
+					$value = clearOutput($value);
+
 					if (strlen($value) > 30) {
 						$value = substr($value, 0, 30) . '<dfn title="' . $value . '">&hellip;</dfn>';
 					}
+
 					if (!$j) {
 						$output .= TAB . '<td>' . ENDL;
 						$output .= TAB . TAB . '<input type="checkbox" name="ids" id="ids" value="' . $value . '" />' . ENDL;
-						$output .= TAB . TAB . '<a href="' . $edit_url . '">' . clearOutput($value) . '</a>' . ENDL;
+						$output .= TAB . TAB . '<a href="' . $edit_url . '">' . $value . '</a>' . ENDL;
 						$output .= TAB . '</td>' . ENDL;
-					} else $output .= TAB . '<td>' . clearOutput($value) . '</td>' . ENDL;
+					} else $output .= TAB . '<td>' . $value . '</td>' . ENDL;
 					$j++;
 				}
+
 				$output .= TAB . '<td>' . ENDL;
 				$output .= TAB . TAB . '<a href="' . $edit_url . '" title="' . __('edit') . ' ' . $rowname . '" ><img src="' . STYLE_URL . '/images/edit.gif" alt="' . __('edit') . '"/>&nbsp;' . __('edit') . '</a>' . ENDL;
 				if (isset($row['active']))
