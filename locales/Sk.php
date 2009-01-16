@@ -58,6 +58,7 @@ class Locale_Sk extends Core_Locale
 		//             Navigácia administrácie
 		'homepage'                  => 'Úvod',
 		'content'                   => 'Obsah',
+		'news'                      => 'Novinky',
 		'posts'                     => 'Články',
 		'pages'                     => 'Stránky',
 		'cathegories'               => 'Rubriky',

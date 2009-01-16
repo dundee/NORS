@@ -45,7 +45,10 @@ class Administration extends Core_Module_Auth
 	public function beforeEvent()
 	{
 		$r = $this->router;
-		$menu = array('content'      => $r->genUrl('administration',
+		$menu = array('news'         => $r->genUrl('administration',
+		                                           'news',
+		                                            FALSE),
+		              'content'      => $r->genUrl('administration',
 		                                           'content',
 		                                            FALSE,
 		                                            array('subevent' => $this->config->administration->content->default_subevent)),
@@ -73,6 +76,12 @@ class Administration extends Core_Module_Auth
 	public function __default()
 	{
 		$this->content();
+	}
+
+	public function news()
+	{
+		$this->tplFile = 'admin_news.tpl.php';
+		$this->setData('src', 'http://milde.cz/news.htm');
 	}
 
 	public function content()

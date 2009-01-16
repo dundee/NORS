@@ -57,6 +57,7 @@ class Locale_Cs extends Core_Locale
 
 		//             Navigace administrace
 		'homepage'                  => 'Úvod',
+		'news'                      => 'Novinky',
 		'content'                   => 'Obsah',
 		'posts'                     => 'Články',
 		'pages'                     => 'Stránky',
