@@ -33,6 +33,11 @@ class Core_Application
 	protected $router;
 
 	/**
+	 * @var Core_Config $config
+	 */
+	protected $config;
+
+	/**
 	 * run
 	 *
 	 * @return void
@@ -45,22 +50,29 @@ class Core_Application
 		$this->request  = Core_Request ::factory();
 		$this->response = Core_Response::factory();
 		$this->router   = Core_Router  ::factory();
+		$this->config   = Core_Config  ::singleton();
 
+		//some settings
+		date_default_timezone_set($this->config->timezone);
+		mb_internal_encoding($this->config->encoding);
+
+		//parse URL
 		$this->router->decodeUrl($this->request);
 
-		if ( !Core_Config::singleton()->enabled ) {
+		//site turned off
+		if ( !$this->config->enabled ) {
 			throw new RuntimeException('Out of order', 503);
 		}
 
-		if ( !Core_Config::singleton()->db->user
-		     && $this->request->module != 'installation') {
+		//redirect to installation
+		if ( !$this->config->db->user && $this->request->module != 'installation') {
 			$this->router->redirect('installation', '__default', 'default');
 		}
 
 		if ( $this->request->isAjax() ) {
-			$this->dispatchAjaxRequest();
+			$this->dispatchAjaxRequest(); //ajax request
 		} else {
-			$this->dispatchGetRequest();
+			$this->dispatchGetRequest(); //ordinary GET request
 		}
 	}
 

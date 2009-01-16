@@ -27,8 +27,6 @@ class Core_Debug
 		// Some settings
 		set_error_handler( array('Core_Debug', 'showError') );
 		set_exception_handler( array('Core_Debug', 'showException') );
-		error_reporting(E_ERROR | E_PARSE);//self::$config->debug->error_reporting);
-		date_default_timezone_set(self::$config->timezone);
 		ini_set('display_errors', self::$config->debug->display_errors);
 		if ( self::$config->debug->time_management ) self::startTimer();
 	}
@@ -146,7 +144,7 @@ class Core_Debug
 	                                 $code = FALSE)
 	{
 		$config = Core_Config::singleton();
-		
+
 		if (!($config->debug->error_reporting & $errno))
 			return FALSE; //errno which should not be reported (NOTICE)
 
@@ -208,7 +206,7 @@ class Core_Debug
 		echo '<head><title>' . $codes[$code]['name'] . ' - ' . $config->name . '</title>';
 		echo '<link rel="Stylesheet" type="text/css" href="' . APP_URL . '/styles/default/css/errors.css" />';
 		echo '</head><body>';
-		
+
 
 		if ( !$config->debug->enabled || $code == 503) { //production mode
 
