@@ -30,19 +30,21 @@ class Core_Text
 {
 	protected $text;
 
-	public function __construct($text = FALSE){
+	public function __construct($text = FALSE)
+	{
 		$this->text = $text;
 	}
 
-	public function getWords($words,$text = FALSE){
+	public function getWords($words, $text = FALSE)
+	{
 		$text = $text ? $text : $this->text;
-		$length = strlen($text);
+		$length = mb_strlen($text);
 		$begin = 0;
 
 		if (strpos($text," ") === FALSE) return $text;
 
-		for($i=$words;$i>0;$i--){
-			$position = strpos($text," ",++$begin);
+		for($i=$words; $i>0; $i--){
+			$position = mb_strpos($text," ", ++$begin);
 			$begin = $position;
 			//echor($begin.'-'.$i);
 			if(!$begin){
@@ -50,7 +52,7 @@ class Core_Text
 				break;
 			}
 		}
-		return substr($text,0,$position);
+		return mb_substr($text, 0, $position);
 	}
 
 	/**
@@ -184,25 +186,29 @@ class Core_Text
 	{
 		$encoding = Core_Config::singleton()->encoding;
 		$text = $text ? $text : $this->text;
-	    $link = str_replace("–", "-", $text);
-	    $link = str_replace("—", "-", $link);
+		$text = str_replace("–", "-", $text);
+		$text = str_replace("—", "-", $text);
 
-	    if (!$encoding || $encoding == 'utf-8') {
-	        $bezcs = iconv("utf-8", "iso-8859-2", $link);
-	        $cs = iconv("utf-8", "iso-8859-2", NOT_ALLOWED_ENTITIES);
-	        $bez = iconv("utf-8", "iso-8859-2", ALLOWED_ENTITIES);
-	        $link = StrTr($bezcs, $cs, $bez);
-	        $link = iconv("iso-8859-2", "utf-8", $link);
-	    } else {
-	        $link = StrTr($link, NOT_ALLOWED_ENTITIES, ALLOWED_ENTITIES);
-	    } while (strpos($link, '--')) {
-	        $link = str_replace('--', '-', $link);
-	    }
-	    $link = StrToLower($link);
-	    $link = clearOutput($link);
-	    $link = str_replace("&quot;", "", $link);
-	    $link = str_replace("'", "", $link);
-	    return $link;
+		if (!$encoding || $encoding == 'utf-8') {
+			$text        = iconv("utf-8", "iso-8859-2", $text);
+			$not_allowed = iconv("utf-8", "iso-8859-2", NOT_ALLOWED_ENTITIES);
+			$allowed     = iconv("utf-8", "iso-8859-2", ALLOWED_ENTITIES);
+
+			$link = strtr($text, $not_allowed, $allowed);
+			$link = iconv("iso-8859-2", "utf-8", $link);
+		} else {
+			$link = strtr($text, NOT_ALLOWED_ENTITIES, ALLOWED_ENTITIES);
+		}
+
+		while (strpos($link, '--')) {
+			$link = str_replace('--', '-', $link);
+		}
+
+		$link = strtolower($link);
+		$link = clearOutput($link);
+		$link = str_replace("&quot;", "", $link);
+		$link = str_replace("'", "", $link);
+		return $link;
 	}
 
 	public function crypt($text, $soil){
