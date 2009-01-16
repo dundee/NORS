@@ -61,6 +61,9 @@ class Core_DB_Mysql extends Core_DB
 		$version = substr($line['Value'], 0, 3);
 		if ($version > '4.0') @mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
 
+		//timezone
+		mysql_query("SET time_zone = '" . Core_Config::singleton()->timezone . "'");
+
 		if (!mysql_error()) return TRUE;
 		else throw new RuntimeException($this->locale->DB_connection_failed . " : " . mysql_error(), mysql_errno());
 		return false;
