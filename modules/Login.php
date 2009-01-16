@@ -19,7 +19,7 @@ class Login extends Core_Module
 {
 	public $headerTplFile = 'header_admin.tpl.php';
 	public $footerTplFile = 'footer_admin.tpl.php';
-	
+
 	public $css = array(
 		'normal' => array('admin.css', 'forms.css'),
 		'ie6'    => array(),
@@ -33,7 +33,7 @@ class Login extends Core_Module
 	public function beforeEvent()
 	{
 		$this->setData('user', '');
-		
+
 		/*$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
 
@@ -50,6 +50,7 @@ class Login extends Core_Module
 	* @return void
 	*/
 	public function __default(){
+		$this->response->setPost('send', '');
 		new Component_Login($this, 'login');
 	}
 }

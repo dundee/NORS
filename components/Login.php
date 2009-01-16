@@ -30,8 +30,7 @@ class Component_Login extends Core_Component
 	*/
 	public function init($params = FALSE){
 
-		if ($this->request->getPost('username') &&
-		    $this->request->getPost('password')){
+		if ($this->request->getPost('username')){
 
 			$userModel = new Table_User();
 			$user = new Core_User($userModel);
