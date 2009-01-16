@@ -28,6 +28,10 @@ fieldset input,fieldset select{
   margin-bottom: 8px;
 }
 
+fieldset input[type="hidden"]{
+	display: none;
+}
+
 fieldset button{
 	float: left;
 }
