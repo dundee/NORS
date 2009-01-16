@@ -38,8 +38,7 @@ class Table_Comment extends Core_Table
 
 		$sql = "SELECT `id_" . $this->table . "`, `user`, `date`
 		        FROM `" . tableName($this->table) . "`
-		        " . ($name ? "WHERE `user` LIKE '"
-		        . clearInput($name) . "%'" : '') . "
+		        " . ($name ? "WHERE `user` LIKE '" . clearInput($name) . "%'" : '') . "
 				ORDER BY " . $orderBy . " " . $order . " "
 				. ($limit ? "LIMIT " . clearInput($limit) : '');
 		try{
@@ -52,5 +51,22 @@ class Table_Comment extends Core_Table
 			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
 		return $lines;
+	}
+
+	public function getCount($name = FALSE)
+	{
+		$sql = "SELECT count(*) AS count
+		        FROM `" . tableName($this->table) . "`
+		        " . ($name ? "WHERE `user` LIKE '" . clearInput($name) . "%'" : '');
+		try{
+			$line = $this->db->getRow($sql);
+		} catch (RuntimeException $ex) {
+			if ($ex->getCode() == 1146) {
+				$this->create();
+				return FALSE;
+			}
+			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
+		}
+		return $line['count'];
 	}
 }
