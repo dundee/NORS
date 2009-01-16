@@ -145,8 +145,7 @@ class Table_Post extends Core_Table
 		               p.`active`
 		        FROM `" . tableName($this->table) . "` AS p
 				LEFT JOIN `" . tableName('comment') . "` AS c USING (`id_post`)
-		        " . ($name ? "WHERE `user` LIKE '"
-		        . clearInput($name) . "%'" : '') . "
+		        " . ($name ? "WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_post` = '" . clearInput($name) . "'" : '') . "
 				GROUP BY p.`id_post`
 				ORDER BY " . $orderBy . " " . $order . " "
 				. ($limit ? "LIMIT " . clearInput($limit) : '');
