@@ -38,9 +38,10 @@ class Core_User
 
 	public function login(Core_Table $userModel, $name, $password)
 	{
-		list($user) = $userModel->findByName($name);
+		$users = $userModel->findByName($name);
 		$text_obj = new Core_Text();
-		if (is_object($user)) {
+		if (iterable($users)) {
+			$user = $users[0];
 			if ($user->password == $text_obj->crypt($password, $name)) {
 				if ($user->active == 1) {
 					$response = Core_Response::factory();
