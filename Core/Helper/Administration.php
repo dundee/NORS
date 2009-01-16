@@ -131,8 +131,8 @@ class Core_Helper_Administration extends Core_Helper
 
 					$value = clearOutput($value);
 
-					if (strlen($value) > 30) {
-						$value = substr($value, 0, 30) . '<dfn title="' . $value . '">&hellip;</dfn>';
+					if (mb_strlen($value) > 30) {
+						$value = mb_substr($value, 0, 31) . '<dfn title="' . $value . '">&hellip;</dfn>';
 					}
 
 					if (!$j) {
