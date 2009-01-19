@@ -251,9 +251,11 @@ class Core_Request
 				$lang = $item;
 				if (file_exists(APP_PATH . '/locales/' . ucfirst($lang).'.php')) break;
 			}
+		} else {
+			$lang = FALSE;
 		}
 
-		if (!file_exists(APP_PATH . '/locales/' . ucfirst($lang) . '.php')) {
+		if (!$lang || !file_exists(APP_PATH . '/locales/' . ucfirst($lang) . '.php')) {
 			$config = Core_Config::singleton();
 			$lang = $config->locale;
 			Core_Response::factory()->setCookie('lang', $lang);
