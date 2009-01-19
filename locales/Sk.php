@@ -3,8 +3,8 @@
 /**
 * Locale_Sk
 *
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
+* @author Patrik Rosa <patrik.rosa@bigweb.sk>
+* @copyright Patrik Rosa <patrik.rosa@bigweb.sk>
 * @license http://www.opensource.org/licenses/gpl-license.php
 * @package Core
 */
@@ -12,7 +12,7 @@
 /**
 * Locale_Sk
 *
-* @author Daniel Milde <daniel@milde.cz>
+* @author Patrik Rosa <patrik.rosa@bigweb.sk>
 * @package Core
 */
 class Locale_Sk extends Core_Locale
