@@ -184,21 +184,16 @@ class Core_Text
  	 */
 	public function urlEncode($text = FALSE)
 	{
-		$encoding = Core_Config::singleton()->encoding;
 		$text = $text ? $text : $this->text;
 		$text = str_replace("–", "-", $text);
 		$text = str_replace("—", "-", $text);
 
-		if (!$encoding || $encoding == 'utf-8') {
-			$text        = iconv("utf-8", "iso-8859-2", $text);
-			$not_allowed = iconv("utf-8", "iso-8859-2", NOT_ALLOWED_ENTITIES);
-			$allowed     = iconv("utf-8", "iso-8859-2", ALLOWED_ENTITIES);
+		$text        = iconv("utf-8", "iso-8859-2", $text);
+		$not_allowed = iconv("utf-8", "iso-8859-2", NOT_ALLOWED_ENTITIES);
+		$allowed     = iconv("utf-8", "iso-8859-2", ALLOWED_ENTITIES);
 
-			$link = strtr($text, $not_allowed, $allowed);
-			$link = iconv("iso-8859-2", "utf-8", $link);
-		} else {
-			$link = strtr($text, NOT_ALLOWED_ENTITIES, ALLOWED_ENTITIES);
-		}
+		$link = strtr($text, $not_allowed, $allowed);
+		$link = iconv("iso-8859-2", "utf-8", $link);
 
 		while (strpos($link, '--')) {
 			$link = str_replace('--', '-', $link);
