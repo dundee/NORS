@@ -33,6 +33,9 @@ class Core_View_Default extends Core_View
 
 		$request  = $this->module->request;
 		$response = $this->module->response;
+
+		$request->setVar('view', 'default');
+
 		$createCache = FALSE;  //should we create cache file?
 		$cacheLifeTime = $this->module->cache;
 

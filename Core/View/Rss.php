@@ -30,9 +30,13 @@ class Core_View_Rss extends Core_View
 	*
 	*/
 	public function display(){
-		
+
 		$request  = $this->module->request;
 		$response = $this->module->response;
+
+		$request->setVar('view', 'rss');
+
+
 		$createCache = FALSE;  //should we create cache file?
 		$cacheLifeTime = $this->module->cache;
 
@@ -69,16 +73,16 @@ class Core_View_Rss extends Core_View
 		if (method_exists($this->module,'afterEvent')) $this->module->afterEvent();
 
 		$data = $this->module->getData();
-		
+
 		$response->sendHeaders('application/xml');
-		
+
 		foreach($data as $k=>$v){
 			${$k} = $v;
 		}
 		unset($data);
-		
+
 		include(APP_PATH.'/tpl/rss.tpl.php');
-		
+
 		//write cache
 		if ($createCache) {  //create cache file
 			$buffer = ob_get_contents(); //write buffer to String

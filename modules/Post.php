@@ -70,6 +70,10 @@ class Post extends Core_Module
 		$max = $this->config->front_end->posts_per_page;
 		$limit = ($this->request->getPost('page') * $max) . ',' . $max;
 
+		if ($this->request->getVar('view') == 'rss') {
+			$limit = 30;
+		}
+
 		$table = new Table_Post();
 		$posts = $table->getPosts('date', 'desc', $limit);
 		$count = $table->getCount();
