@@ -97,7 +97,7 @@ class Core_Helper_Administration extends Core_Helper
 				$edit_url      = $r->forward(array('id'=>$row[0], 'action'=>'edit'));
 				$del_url       = $r->forward(array('id'=>$row[0], 'action'=>'del'), FALSE, TRUE);
 				$activate_url  = $r->forward(array('id'=>$row[0], 'action'=>'activate'), FALSE, TRUE);
-				$rowname       = isset($row['name']) ? $row['name'] : '';
+				$rowname       = isset($row['name']) ? clearOutput($row['name']) : '';
 
 				$output .= '<tr';
 				$class = FALSE;
@@ -137,7 +137,7 @@ class Core_Helper_Administration extends Core_Helper
 
 					if (!$j) {
 						$output .= TAB . '<td>' . ENDL;
-						$output .= TAB . TAB . '<input type="checkbox" name="ids" id="ids" value="' . $value . '" />' . ENDL;
+						$output .= TAB . TAB . '<input type="checkbox" name="ids" value="' . $value . '" />' . ENDL;
 						$output .= TAB . TAB . '<a href="' . $edit_url . '">' . $value . '</a>' . ENDL;
 						$output .= TAB . '</td>' . ENDL;
 					} else $output .= TAB . '<td>' . $value . '</td>' . ENDL;
