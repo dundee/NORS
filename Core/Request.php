@@ -161,7 +161,10 @@ class Core_Request
 
 	public function getUrl()
 	{
-		return 'http://' . $this->getServer('SERVER_NAME') . $this->getServer('REQUEST_URI', TRUE);
+		$host = 'http://' . $this->getServer('SERVER_NAME');
+		$path = ltrim($this->getServer('REQUEST_URI', TRUE), $host);
+		$path = '/' . ltrim($path, '/');
+		return $host . $path;
 	}
 
 	public function isAjax()
