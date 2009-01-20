@@ -91,6 +91,7 @@ class Core_Application
 		do {
 			$moduleFile = APP_PATH . '/modules/' . ucfirst($module) . '.php';
 			if (!file_exists($moduleFile)) {
+				$this->tryRedirect($module, $event);
 				throw new UnexpectedValueException('Could not find module ' . $moduleFile . ', url: ' . $this->request->getUrl(), 404);
 			} else {
 				loadFile($moduleFile);
@@ -144,6 +145,34 @@ class Core_Application
 		} elseif ($instance->responseType == 'html') {
 			$this->response->sendHeaders();
 			if (isset($data['html'])) echo $data['html'];
+		}
+	}
+
+	/**
+	 * Tries redirect to new URL. (for old NORS 3 urls)
+	 * @param string $module
+	 * @param string $event
+	 * @return void
+	 */
+	public function tryRedirect($module, $event)
+	{
+		$text = new Core_Text();
+
+		$event = strtolower($event);
+		$event = $text->urlEncode($event);
+
+		$table = new Table_Post();
+		$posts = $table->getPosts();
+
+		foreach ($posts as $post) {
+			if ($event == $text->urlEncode($post->name)) {
+				$this->router->redirect('post',
+				                        '__default',
+				                        'post',
+				                        array('post' => $post->id_post . '-' . $text->urlEncode($post->name)),
+				                        FALSE,
+				                        TRUE);
+			}
 		}
 	}
 }
