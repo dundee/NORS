@@ -159,8 +159,16 @@ class Post extends Core_Module
 			$i = 0;
 			foreach ($comments as $comment) {
 				++$i;
-				$coms[$i]['href'] = $comment->www ? str_replace('javascript:', '', strtolower($comment->www))
-				                                  : ($comment->email ? $text->hideMail('mailto:' . $comment->email) : '');
+
+				if ($comment->www) {
+					$comment->www = strtolower($comment->www);
+					$coms[$i]['href'] = (strpos($comment->www, 'http') === 0) ? $comment->www : 'http://' . $comment->www;
+				} elseif ($comment->email) {
+					$coms[$i]['href'] = $text->hideMail('mailto:' . $comment->email);
+				} else {
+					$coms[$i]['href'] = '';
+				}
+
 				$coms[$i]['user'] = htmlspecialchars($comment->user);
 				$coms[$i]['text'] = $text->format_comment($comment->text);
 				$coms[$i]['id']   = $comment->getID();
