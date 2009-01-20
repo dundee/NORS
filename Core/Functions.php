@@ -18,7 +18,7 @@ define('TAB',"\t");
  * @return string
  */
 function norsVersion() {
-	return "4.0";
+	return "4.0.0";
 }
 
 function coreVersion(){
@@ -189,7 +189,7 @@ function dump($var){
 
 function echor($string)
 {
-	echo '<br />-' . $string . '-<br />';
+	echo '<br />-' . $string . '-<br />' . ENDL;
 }
 
 if (!function_exists('memory_get_usage')) {

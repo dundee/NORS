@@ -214,8 +214,8 @@ class Core_Debug
 			echo '<h1>' . $code . ' - ' . $codes[$code]['name'] . '</h1>';
 			echo '<p>' . __($codes[$code]['text']) . '</p>';
 			echo '<div id="footer">'
-			     . 'Powered by <a href="http://core-php.com/">Core framework'
-			     . '</a> ' . coreVersion()
+			     . 'Powered by <a href="http://norsphp.com/">NORS'
+			     . '</a> ' . norsVersion()
 			     . ' &copy; 2007-' . date("Y")
 			     . ' <a href="http://milde.cz">Daniel Milde</a> '
 			     . 'aka Dundee</div>';
