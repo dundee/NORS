@@ -127,11 +127,12 @@ class Core_Router_ModRewrite extends Core_Router
 		}
 
 		//decode URL
-		$directory = eregi_replace('http://([^/]+)','',APP_URL); //directory where is app placed
+		$directory = eregi_replace('http://([^/]+)', '', APP_URL); //directory where is app placed
 		$url = $request->getServer('REQUEST_URI');
+		$url = str_replace('http://' . $request->getServer('HTTP_HOST'), '', $url);
 
 		if (strlen($directory) > 1) { //app in subdir
-			$url = str_replace($directory.'/','',$url);
+			$url = str_replace($directory.'/', '', $url);
 		} else { //in root
 			$url = substr($url,1);
 		}
@@ -179,7 +180,7 @@ class Core_Router_ModRewrite extends Core_Router
 		$url = $request->getUrl();
 		$url = str_replace('&','&amp;',$url);
 		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url && $redirect){
-			//echo $this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url;
+			//echor($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url);
 			$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
 		}
 	}
