@@ -61,7 +61,7 @@ class Component_FileManager extends Core_Component_Auth
 			$params[$k] = $v;
 		}
 
-		$name = str_replace('_div', '', $name);
+		$name = preg_replace('/_div$/', '', $name);
 		$modelName = rtrim($params['subevent'], 's');
 		$class = 'ActiveRecord_' . ucfirst($modelName);
 		$model = new $class($params['id']);
@@ -90,7 +90,7 @@ class Component_FileManager extends Core_Component_Auth
 			$params[$k] = $v;
 		}
 
-		$name = str_replace('_div', '', $name);
+		$name = preg_replace('/_div$/', '', $name);
 		$modelName = rtrim($params['subevent'], 's');
 		$class = 'ActiveRecord_' . ucfirst($modelName);
 		$model = new $class($params['id']);

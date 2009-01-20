@@ -129,12 +129,12 @@ class Core_Router_ModRewrite extends Core_Router
 		//decode URL
 		$directory = eregi_replace('http://([^/]+)', '', APP_URL); //directory where is app placed
 		$url = $request->getServer('REQUEST_URI');
-		$url = str_replace('http://' . $request->getServer('HTTP_HOST'), '', $url);
+		$url = preg_replace('%^http://' . $request->getServer('HTTP_HOST') . '%', '', $url);
 
 		if (strlen($directory) > 1) { //app in subdir
-			$url = str_replace($directory.'/', '', $url);
+			$url = preg_replace('%^' . $directory.'/%', '', $url);
 		} else { //in root
-			$url = substr($url,1);
+			$url = substr($url, 1);
 		}
 
 		$arr = explode('?',$url);

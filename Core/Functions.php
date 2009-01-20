@@ -60,10 +60,9 @@ if (!function_exists('__autoload')) {
 	function __autoload($class)
 	{
 		//rules
-		$class = str_replace('ActiveRecord_', 'db_activeRecords_', $class);
-		$class = str_replace('Table_', 'db_tables_', $class);
-		if (strpos($class, 'Component_') === 0)
-			$class = str_replace('Component_', 'components_', $class);
+		$class = preg_replace('/^ActiveRecord_/', 'db_activeRecords_', $class);
+		$class = preg_replace('/^Table_/', 'db_tables_', $class);
+		$class = preg_replace('/^Component_/', 'components_', $class);
 
 		$file = str_replace('_', '/', $class) . '.php';
 		if (!file_exists(APP_PATH . '/' . $file)) {

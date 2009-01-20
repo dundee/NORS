@@ -56,7 +56,7 @@ abstract class Core_Component extends Core_Object
 
 		if(!$this->tplFile){
 			$file = $this->me->getName() . '.tpl.php';
-			$file = strtolower(str_replace('Component_', '', $file));
+			$file = strtolower(preg_replace('/^Component_/', '', $file));
 			$this->tplFile = $file;
 		}
 

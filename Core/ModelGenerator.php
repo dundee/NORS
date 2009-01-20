@@ -23,7 +23,7 @@ class Core_ModelGenerator
 	 */
 	static public function generate($class)
 	{
-		$class = str_replace('db_', '', $class);
+		$class = preg_replace('/^db_/', '', $class);
 		list($dir, $name) = explode('_', $class);
 		$fileName = APP_PATH . '/db/schemas/' . $name . '.yml.php';
 		if (!file_exists($fileName)) return FALSE;
