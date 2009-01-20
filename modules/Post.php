@@ -126,6 +126,11 @@ class Post extends Core_Module
 			$comment->date  = date('Y-m-d H:i:s');
 			$comment->save();
 
+			//send cookies
+			$this->response->setCookie('user', $comment->user);
+			$this->response->setCookie('email', $comment->email);
+			$this->response->setCookie('www', $comment->www);
+
 			//disable F5 to cause resending
 			$this->router->redirect('post', '__default', FALSE, FALSE, TRUE);
 		}
@@ -201,11 +206,13 @@ class Post extends Core_Module
 		}
 		$this->setData('comments', $coms, TRUE);
 
+		$r = $this->request;
+
 		$form = new Core_Helper_Form();
 		$form->form(NULL, '#', __('add') . ' ' . __('comment'), __('ok'));
-		$form->input(NULL, 'user', __('username'))->setValidation();
-		$form->input(NULL, 'www', __('www'));
-		$form->input(NULL, 'email', __('email'));
+		$form->input(NULL, 'user', __('username'))->setValidation()->setParam('value', $r->getCookie('user'));
+		$form->input(NULL, 'www', __('www'))->setParam('value', $r->getCookie('www'));
+		$form->input(NULL, 'email', __('email'))->setParam('value', $r->getCookie('email'));
 		$form->input(NULL, 'check', '1 + 2?');
 		$form->textarea(NULL, 'text', 'text');
 		$this->setData('comment_form', $form->render(1, TRUE), TRUE);
