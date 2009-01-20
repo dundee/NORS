@@ -251,7 +251,7 @@ class Core_Helper_Administration extends Core_Helper
 					$div->setContent($content);
 
 				case 'table':
-					$tbl = ltrim($name, 'id_');
+					$tbl = str_replace('id_', '', $name);
 
 					switch ($tbl) {
 						default:

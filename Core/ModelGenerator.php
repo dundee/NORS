@@ -23,11 +23,11 @@ class Core_ModelGenerator
 	 */
 	static public function generate($class)
 	{
-		$class = ltrim($class, 'db_');
+		$class = str_replace('db_', '', $class);
 		list($dir, $name) = explode('_', $class);
 		$fileName = APP_PATH . '/db/schemas/' . $name . '.yml.php';
 		if (!file_exists($fileName)) return FALSE;
-		
+
 		do {
 			$cacheFileName = APP_PATH . '/cache/' . $name . '.yml.php.cache.php';
 			if (file_exists($cacheFileName)) {
@@ -38,24 +38,24 @@ class Core_ModelGenerator
 			}
 			$data = Core_Parser_YML::read($fileName, $cacheFileName);
 		} while (FALSE);
-		
+
 		$class = $name;
 		$table = strtolower($class);
-		
+
 		foreach($data['fields'] as $type) {
 			if ($type == 'file') $files = <<<EOF
-	
+
 	public function getFiles()
 	{
 	}
-	
+
 	public function saveFiles()
 	{
 	}
 EOF;
 			else $files = '';
 		}
-		
+
 		$activeRecord_temp = <<<EOF
 <?php
 
@@ -118,7 +118,7 @@ EOF;
 			file_put_contents(APP_PATH . '/db/tables/' . $class . '.php', $table_temp);
 			chmod(APP_PATH . '/db/tables/' . $class . '.php', 0777);
 		}
-		
+
 		require_once(APP_PATH . '/db/activeRecords/' . $class . '.php');
 		require_once(APP_PATH . '/db/tables/' . $class . '.php');
 		return TRUE;

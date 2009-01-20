@@ -153,7 +153,7 @@ class Post extends Core_Module
 			$i = 0;
 			foreach ($comments as $comment) {
 				++$i;
-				$coms[$i]['href'] = $comment->www ? ltrim(strtolower($comment->www), 'javascript:')
+				$coms[$i]['href'] = $comment->www ? str_replace('javascript:', '', strtolower($comment->www))
 				                                  : ($comment->email ? $text->hideMail('mailto:' . $comment->email) : '');
 				$coms[$i]['user'] = htmlspecialchars($comment->user);
 				$coms[$i]['text'] = $text->format_comment($comment->text);

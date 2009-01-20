@@ -61,13 +61,13 @@ class Component_FileManager extends Core_Component_Auth
 			$params[$k] = $v;
 		}
 
-		$name = rtrim($name, '_div');
+		$name = str_replace('_div', '', $name);
 		$modelName = rtrim($params['subevent'], 's');
 		$class = 'ActiveRecord_' . ucfirst($modelName);
 		$model = new $class($params['id']);
 
 		$model->deleteFile($name, $file);
-		
+
 		$files = $model->getFiles();
 		include(APP_PATH . '/tpl/component/filemanager.tpl.php');
 
@@ -90,7 +90,7 @@ class Component_FileManager extends Core_Component_Auth
 			$params[$k] = $v;
 		}
 
-		$name = rtrim($name, '_div');
+		$name = str_replace('_div', '', $name);
 		$modelName = rtrim($params['subevent'], 's');
 		$class = 'ActiveRecord_' . ucfirst($modelName);
 		$model = new $class($params['id']);

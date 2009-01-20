@@ -161,8 +161,8 @@ class Core_Request
 
 	public function getUrl()
 	{
-		$host = 'http://' . $this->getServer('SERVER_NAME');
-		$path = ltrim($this->getServer('REQUEST_URI', TRUE), $host);
+		$host = 'http://' . $this->getServer('HTTP_HOST');
+		$path = str_replace($host, '', $this->getServer('REQUEST_URI', TRUE));
 		$path = '/' . ltrim($path, '/');
 		return $host . $path;
 	}
