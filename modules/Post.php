@@ -135,6 +135,8 @@ class Post extends Core_Module
 
 		list($post) = $table->findById($id_post);
 
+		$this->setData('title', $post->name);
+
 		$post->text = $text_obj->format_html($post->text);
 		$post->name = clearOutput($post->name);
 

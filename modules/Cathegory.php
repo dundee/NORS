@@ -61,6 +61,10 @@ class Cathegory extends Core_Module
 		$this->tplFile = 'posts.tpl.php';
 		$id_cathegory = intval($this->request->getGet('cathegory'));
 
+
+		$cathegory = new ActiveRecord_Cathegory($id_cathegory);
+		$this->setData('title', $cathegory->name);
+
 		$max = $this->config->front_end->posts_per_page;
 		$limit = ($this->request->getPost('page') * $max) . ',' . $max;
 
@@ -72,12 +76,13 @@ class Cathegory extends Core_Module
 
 		if (iterable($posts)) {
 			foreach ($posts as $i=>$post) {
-				$url = $text_obj->urlEncode($post->name);
+				$url  = $text_obj->urlEncode($post->name);
 				$curl = $text_obj->urlEncode($post->cathegory_name);
 				$text = $text_obj->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
 				$text = strip_tags($text);
 				$text = $text_obj->clearAmpersand($text);
 
+				$posts[$i]->name = clearOutput($post->name);
 				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
 				$posts[$i]->text = $text;
 				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->cathegory . '-' . $curl));

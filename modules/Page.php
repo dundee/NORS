@@ -30,19 +30,19 @@ class Page extends Core_Module
 	public function beforeFooter()
 	{
 		$menu_helper = new Core_Helper_Menu();
-		
+
 		$cathegory = new Table_Cathegory();
 		$cathegories = $cathegory->getAll('name', 'asc');
 		$cathegories = $menu_helper->prepare($cathegories, 'cathegory');
 		$this->setData('cathegories', $menu_helper->render($cathegories, 4), TRUE);
-		
+
 		$table = new Table_Page();
 		$pages = $table->getAll('position', 'asc');
 		$pages = $menu_helper->prepare($pages, 'page');
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
-		
+
 		$this->setData('administration', $this->router->genUrl('administration', FALSE, 'default'));
-		
+
 		$this->setData('name',        $this->config->name);
 		$this->setData('description', $this->config->description);
 	}
@@ -56,6 +56,8 @@ class Page extends Core_Module
 	{
 		$table = new Table_Page();
 		list($page) = $table->findById(intval($this->request->getGet('page')));
+
+		$this->setData('title', $page->name);
 
 		if ($page) $this->setData('text', $page->text, TRUE);
 		else $this->setData('text', '', TRUE);
