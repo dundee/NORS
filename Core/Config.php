@@ -94,6 +94,7 @@ class Core_Config
 		        : 'localhost';
 		$host = preg_replace('/^www./', '', $host);
 		$host = str_replace('.', '_', $host); //needed for advanced settings
+		$host = str_replace(':', '_', $host); //needed for advanced settings
 
 		$this->host = $host;
 
