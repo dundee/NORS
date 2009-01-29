@@ -1,0 +1,13 @@
+version 4.0.1 (01/29/2009):
+	frontend:
+	* better RSS feed
+	* variable title
+	* redirect from old post URLs (NORS 3) to new URLs
+	* save commentator's credentials to cookie
+	* bug fixes
+
+	administration:
+	* clear all HTML in items list
+
+	core:
+	* better language detection for text clients (robots)

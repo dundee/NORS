@@ -97,8 +97,7 @@ abstract class Core_Table
 
 			$sql = "SELECT *
 			        FROM `" . tableName($this->table) . "`
-			        WHERE `" . $name . "` = '" . clearInput($value)
-			        . "'";
+			        WHERE `" . $name . "` = '" . clearInput($value) . "'";
 			try {
 				$lines = $this->db->getRows($sql);
 			} catch(RuntimeException $ex) {
