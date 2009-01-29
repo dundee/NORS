@@ -193,6 +193,7 @@ class Post extends Core_Module
 			foreach ($coms as $i => $com) {
 				if (isset($reaction[$i]) && iterable($reaction[$i])) {
 					foreach($reaction[$i] as $r){
+						if (!isset($coms[$r])) continue;
 						$span = '<span class="reaction"><a href="#post' . $coms[$r]['id'] . '">#' . $r . ' ' . $coms[$r]['user'] . '</a>:</span> ';
 						$coms[$i]['text'] = str_replace("#$r#", $span, $coms[$i]['text']);
 					}
