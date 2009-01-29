@@ -5,7 +5,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 <channel>
 <atom:link href="'. Core_Request::factory()->getUrl() .'" rel="self" type="application/rss+xml" />
 ';
-echo '<title>' . $config->name . '</title>
+echo '<title>' . $config->name . (isset($title) ? ' - ' . $title : '' ) . '</title>
 	<link>' . APP_URL . '</link>
 	<description>' . $config->description . '</description>
 	<language>' . $config->locale . '</language>
@@ -16,19 +16,17 @@ echo '<title>' . $config->name . '</title>
 	<webMaster>daniel@milde.cz (Daniel Milde)</webMaster>';
 
 
-if (iterable($posts)){
+if (isset($items) && iterable($items)){
 	$text = new Core_Text();
-	foreach($posts as $post){
-		$x = $text->dateToTimeStamp($post->date);
+	foreach($items as $item){
+		$x = $text->dateToTimeStamp($item->date);
 
 		echo ENDL . ENDL . TAB . TAB . '<item>
-		<title>' . $post->name . '</title>
-		<link>' . $post->url . '</link>
-		<guid>' . $post->url . '</guid>
-		<description><![CDATA['  . $post->text . '...]]></description>
-		<comments>' . $post->url . '#comments</comments>
-		<category>' . str_replace('&amp;', '', $post->cathegory_name) .'</category>
-		<pubDate>' . date('r',$x) . '</pubDate>
+		<title>' . $item->name . '</title>
+		<link>' . $item->url . '</link>
+		<guid>' . $item->url . '</guid>
+		<description><![CDATA['  . strip_tags($item->text) . ']]></description>
+		<pubDate>' . date('r', $x) . '</pubDate>
 		</item>';
 	}
 }

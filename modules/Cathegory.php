@@ -31,6 +31,8 @@ class Cathegory extends Core_Module
 
 	public $cache = 0;
 
+	public $views = array('Default', 'Rss');
+
 	public function beforeFooter()
 	{
 		$menu_helper = new Core_Helper_Menu();
@@ -49,6 +51,7 @@ class Cathegory extends Core_Module
 
 		$this->setData('name',        $this->config->name);
 		$this->setData('description', $this->config->description);
+
 	}
 
 	public function __default()
@@ -85,11 +88,11 @@ class Cathegory extends Core_Module
 				$posts[$i]->name = clearOutput($post->name);
 				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
 				$posts[$i]->text = $text;
-				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->cathegory . '-' . $curl));
+				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->id_cathegory . '-' . $curl));
 			}
 		}
 
-		$this->setData('posts', $posts, TRUE);
+		$this->setData('items', $posts, TRUE);
 
 		$helper = new Core_Helper_AjaxPaging('cathegory');
 		$paging = $helper->paging($count, $max, TRUE);

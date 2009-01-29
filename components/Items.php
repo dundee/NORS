@@ -40,7 +40,7 @@ class Component_Items extends Core_Component
 		$module->list_items();
 		$data = $module->getData();
 
-		$posts = $data['posts'];
+		$items = $data['items'];
 		$paging = $data['paging'];
 
 		include(APP_PATH . '/tpl/posts.tpl.php');

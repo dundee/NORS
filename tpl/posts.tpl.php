@@ -1,16 +1,16 @@
 <?php
-if (iterable($posts)) {
-	foreach ($posts as $post) {
+if (iterable($items)) {
+	foreach ($items as $item) {
 ?>
 <div class="post">
-	<h1><a href="<?php echo $post->url ?>"><?php echo $post->name ?></a></h1>
+	<h1><a href="<?php echo $item->url ?>"><?php echo $item->name ?></a></h1>
 	<small>
-	<?php echo $post->date?> |
-	<a href="<?php echo $post->cathegory_url?>"><?php echo $post->cathegory_name?></a> |
-	<a href="<?php echo $post->url?>#comments"><?php echo __('comments') . ': ' . $post->num_of_comments ?></a> |
-	<?php echo $post->seen . 'x ' . __('seen')?>
+	<?php echo $item->date?> |
+	<a href="<?php echo $item->cathegory_url?>"><?php echo $item->cathegory_name?></a> |
+	<a href="<?php echo $item->url?>#comments"><?php echo __('comments') . ': ' . $item->num_of_comments ?></a> |
+	<?php echo $item->seen . 'x ' . __('seen')?>
 	</small>
-	<p><?php echo $post->text?></p>
+	<p><?php echo $item->text?></p>
 </div>
 <?php
 	}

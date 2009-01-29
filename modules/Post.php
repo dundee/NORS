@@ -71,7 +71,7 @@ class Post extends Core_Module
 		$limit = ($this->request->getPost('page') * $max) . ',' . $max;
 
 		if ($this->request->getVar('view') == 'rss') {
-			$limit = 30;
+			$limit = 20;
 		}
 
 		$table = new Table_Post();
@@ -96,7 +96,7 @@ class Post extends Core_Module
 			}
 		}
 
-		$this->setData('posts', $posts, TRUE);
+		$this->setData('items', $posts, TRUE);
 
 		$helper = new Core_Helper_AjaxPaging('post');
 		$paging = $helper->paging($count, $max, TRUE);
@@ -109,6 +109,7 @@ class Post extends Core_Module
 	*/
 	public function view_post()
 	{
+		$this->response->setGet('rss', FALSE);
 		$id_post = intval($this->request->getGet('post'));
 		$text_obj = new Core_Text();
 
@@ -165,27 +166,31 @@ class Post extends Core_Module
 			foreach ($comments as $comment) {
 				++$i;
 
+				$coms[$i] = new StdClass();
+
 				if ($comment->www) {
 					$comment->www = strtolower($comment->www);
-					$coms[$i]['href'] = (strpos($comment->www, 'http') === 0) ? $comment->www : 'http://' . $comment->www;
+					$coms[$i]->href = (strpos($comment->www, 'http') === 0) ? $comment->www : 'http://' . $comment->www;
 				} elseif ($comment->email) {
-					$coms[$i]['href'] = $text->hideMail('mailto:' . $comment->email);
+					$coms[$i]->href = $text->hideMail('mailto:' . $comment->email);
 				} else {
-					$coms[$i]['href'] = '';
+					$coms[$i]->href = '';
 				}
 
-				$coms[$i]['user'] = htmlspecialchars($comment->user);
-				$coms[$i]['text'] = $text->format_comment($comment->text);
-				$coms[$i]['id']   = $comment->getID();
-				$coms[$i]['date'] = $comment->date;
+				$coms[$i]->user = strip_tags($comment->user);
+				$coms[$i]->text = $text->format_comment($comment->text);
+				$coms[$i]->id   = $comment->getID();
+				$coms[$i]->date = $comment->date;
+				$coms[$i]->name = $coms[$i]->user;
+				$coms[$i]->url  =$this->router->genUrl('post', '__default', FALSE, FALSE, TRUE) . '#post' . $coms[$i]->id;
 
-				while(eregi("\[([[:digit:]]+)\]",$coms[$i]['text'])){
-					$j = eregi_replace(".*\[([[:digit:]]+)\].*","\\1",$coms[$i]['text']);
+				while(eregi("\[([[:digit:]]+)\]",$coms[$i]->text)){
+					$j = eregi_replace(".*\[([[:digit:]]+)\].*","\\1",$coms[$i]->text);
 					if ($i > $j) {
 						$reaction[$i][]    = $j;
 						$inspiration[$j][] = $i;
 					}
-					$coms[$i]['text'] = eregi_replace("\[($j)\]","#$j#",$coms[$i]['text']);
+					$coms[$i]->text = eregi_replace("\[($j)\]","#$j#",$coms[$i]->text);
 				}
 			}
 
@@ -194,18 +199,18 @@ class Post extends Core_Module
 				if (isset($reaction[$i]) && iterable($reaction[$i])) {
 					foreach($reaction[$i] as $r){
 						if (!isset($coms[$r])) continue;
-						$span = '<span class="reaction"><a href="#post' . $coms[$r]['id'] . '">#' . $r . ' ' . $coms[$r]['user'] . '</a>:</span> ';
-						$coms[$i]['text'] = str_replace("#$r#", $span, $coms[$i]['text']);
+						$span = '<span class="reaction"><a href="#post' . $coms[$r]->id . '">#' . $r . ' ' . $coms[$r]->user . '</a>:</span> ';
+						$coms[$i]->text = str_replace("#$r#", $span, $coms[$i]->text);
 					}
 				}
 				if (isset($inspiration[$i]) && iterable($inspiration[$i])) {
 					foreach($inspiration[$i] as $insp){
-						$coms[$i]['text'] .= '<div class="inspiration">' . __('replied_by') . ' <a href="#post'.$coms[$insp]['id'].'">[' . $insp . '] '.$coms[$insp]['user'].'</a></div>';
+						$coms[$i]->text .= '<div class="inspiration">' . __('replied_by') . ' <a href="#post' . $coms[$insp]->id . '">[' . $insp . '] ' . $coms[$insp]->user . '</a></div>';
 					}
 				}
 			}
 		}
-		$this->setData('comments', $coms, TRUE);
+		$this->setData('items', $coms, TRUE);
 
 		$r = $this->request;
 

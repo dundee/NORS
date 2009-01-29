@@ -63,6 +63,7 @@ class Core_Text
 	*/
 	public function format_comment($text = FALSE) {
 		$text = $text ? $text : $this->text;
+		$text = strip_tags($text);
 		$text = htmlspecialchars($text);
 		$text = str_replace("\r", '', $text);
 
