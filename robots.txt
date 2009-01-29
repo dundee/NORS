@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /administration/
+Sitemap: http://blog.milde.cz/sitemap/
