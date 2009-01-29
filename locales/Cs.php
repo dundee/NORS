@@ -196,7 +196,7 @@ class Locale_Cs extends Core_Locale
 	public function decodeDatetime($ymd_his)
 	{
 		$text = new Core_Text($ymd_his);
-		return date("d.m.Y v H:i:s",$text->dateToTimeStamp());
+		return date("d.m.Y v H:i:s", $text->dateToTimeStamp());
 	}
 
 	public function encodeDatetime($dmy_his)
