@@ -11,3 +11,22 @@ version 4.0.1 (01/29/2009):
 
 	core:
 	* better language detection for text clients (robots)
+
+version 4.0.0 (01/16/2009):
+	user related:
+	* new design by Petr Sobotka
+	* configuration in YML-like file
+	* caching of output
+	* better administration (AJAX)
+	* localization (cs, sk, en)
+	* access control list
+
+	technical:
+	* easy extensibility
+	* build on MVC architecture
+	* Active Record for database mapping
+	* error logging
+	* language detection
+	* generation of classes according to database schemas
+	* automatic creation of database tables
+	* easy localization
