@@ -11,3 +11,5 @@ fields:
 	date: datetime
 	karma: double
 ids: id_comment
+indexes:
+	post: id_post

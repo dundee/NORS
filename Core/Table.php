@@ -22,6 +22,8 @@
 abstract class Core_Table
 {
 	protected $fields = array();
+	protected $ids = array();
+	protected $indexes = array();
 
 	/**
 	 * $db
@@ -47,7 +49,11 @@ abstract class Core_Table
 		$this->db    = Core_DB::singleton();
 		$this->table = $table;
 
-		$this->fields = self::getFields($table);
+		$schema = self::getSchema($table);
+
+		$this->fields  = $schema['fields'];
+		$this->indexes = $schema['indexes'];
+		$this->ids  = $schema['ids'];
 
 	}
 
@@ -77,6 +83,18 @@ abstract class Core_Table
 		$sql .= " PRIMARY KEY(`id_" . $this->table . "`)"
 		      .") TYPE = MYISAM";
 		$this->db->query($sql);
+
+		foreach ($this->indexes as $name=>$items) {
+			$columns = '';
+			foreach(explode(',', $items) as $val) {
+				$columns .= ($columns ? ', ' : '') . "`" . trim($val) . "`";
+			}
+			$sql = "ALTER TABLE `".tableName($this->table)."`
+			        ADD INDEX `" . $name . "` ( " . $columns . " )";
+			$this->db->query($sql);
+		}
+
+
 	}
 
 
@@ -97,7 +115,8 @@ abstract class Core_Table
 
 			$sql = "SELECT *
 			        FROM `" . tableName($this->table) . "`
-			        WHERE `" . $name . "` = '" . clearInput($value) . "'";
+			        WHERE `" . $name . "` = '" . clearInput($value) . "'
+			        ORDER BY `id_" . $this->table . "` ASC";
 			try {
 				$lines = $this->db->getRows($sql);
 			} catch(RuntimeException $ex) {
@@ -241,7 +260,7 @@ abstract class Core_Table
 	 * @param string $table
 	 * @return mixed[]
 	 */
-	public static function getFields($table)
+	public static function getSchema($table)
 	{
 		$cacheFile = APP_PATH . '/cache/' . ucfirst($table) . '.yml.php.cache.php';
 		$i = 0;
@@ -273,6 +292,13 @@ abstract class Core_Table
 			                       'required'   => $required);
 		}
 
-		return $fields;
+		$ids = array_map('trim', explode(',', $data['ids']));
+
+		if (isset($data['indexes'])) $indexes = $data['indexes'];
+		else $indexes = array();
+
+		return array('fields'  => $fields,
+		             'ids'     => $ids,
+		             'indexes' => $indexes);
 	}
 }

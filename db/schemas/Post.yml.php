@@ -12,3 +12,5 @@ fields:
 	-seen: int
 	photo: file
 ids: id_post
+indexes:
+	active_date: active, date

@@ -57,7 +57,8 @@ abstract class Core_ActiveRecord
 		$this->db    = Core_DB::singleton();
 		$this->table = $table;
 
-		$this->fields = Core_Table::getFields($table);
+		$schema = Core_Table::getSchema($table);
+		$this->fields = $schema['fields'];
 
 		if($id) $this->load($id);
 	}
