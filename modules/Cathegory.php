@@ -81,7 +81,7 @@ class Cathegory extends Core_Module
 			foreach ($posts as $i=>$post) {
 				$url  = $text_obj->urlEncode($post->name);
 				$curl = $text_obj->urlEncode($post->cathegory_name);
-				$text = $text_obj->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
+				$text = $text_obj->getPerex(Core_Config::singleton()->front_end->perex_length, $post->text);
 				$text = strip_tags($text);
 				$text = $text_obj->clearAmpersand($text);
 
@@ -89,6 +89,7 @@ class Cathegory extends Core_Module
 				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
 				$posts[$i]->text = $text;
 				$posts[$i]->cathegory_url = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->id_cathegory . '-' . $curl));
+				$posts[$i]->date           = Core_Locale::factory()->decodeDatetime($post->date);
 			}
 		}
 
