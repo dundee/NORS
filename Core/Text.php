@@ -134,21 +134,23 @@ class Core_Text
 			$path = eregi_replace('^<img +src="([^"]*)".*>$',"\\1", $img);
 			$alt  = eregi_replace('^<img +src="[^"]+" +alt="([^"]+)".*>$', "\\1", $img);
 
-			$arr = explode("/", $path);
-			$filename = $arr[count($arr)-1];
-			$arr[count($arr) - 1] = 'thub';
-			$arr[] = $filename;
-			$thub_path = implode("/", $arr);
+			if (preg_match('%^\./%', $path)) {
+				$arr = explode("/", $path);
+				$filename = $arr[count($arr)-1];
+				$arr[count($arr) - 1] = 'thub';
+				$arr[] = $filename;
+				$thub_path = implode("/", $arr);
 
-			$thub = '<div class="thumbnail">
-	<a href="' . APP_URL . '/' . $path . '" class="thickbox" title="' . $alt . '">
-		<img src="' . APP_URL . '/' . $thub_path . '" alt="' . $alt . '" />
-	</a>
-	<div class="caption">
-		<a href="' . APP_URL . '/'  . $path . '" class="thickbox" title="' . $alt . '">' . $alt . '</a>
-	</div>
-</div>';
-			$text = str_replace($img, $thub, $text);
+				$thub = '<div class="thumbnail">
+		<a href="' . APP_URL . '/' . $path . '" class="thickbox" title="' . $alt . '">
+			<img src="' . APP_URL . '/' . $thub_path . '" alt="' . $alt . '" />
+		</a>
+		<div class="caption">
+			<a href="' . APP_URL . '/'  . $path . '" class="thickbox" title="' . $alt . '">' . $alt . '</a>
+		</div>
+	</div>';
+				$text = str_replace($img, $thub, $text);
+			}
 
 			$start = strpos($content, "<img", $start + $length);
 		}
