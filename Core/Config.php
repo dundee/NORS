@@ -94,7 +94,7 @@ class Core_Config
 		        : 'localhost';
 		$host = preg_replace('/^www./', '', $host);
 		$host = str_replace('.', '_', $host); //needed for advanced settings
-		$host = str_replace(':', '_', $host); //needed for advanced settings
+		$host = preg_replace('/:.*$/', '', $host); //cut port from end
 
 		$this->host = $host;
 
