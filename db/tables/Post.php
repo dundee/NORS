@@ -35,12 +35,14 @@ class Table_Post extends Core_Table
 
 		$sql = "SELECT p.*,
 		               c.`name` AS cathegory_name,
-		               count(`id_comment`) AS num_of_comments
+		               count(co.`id_comment`) AS num_of_comments,
+		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name
 		        FROM `" . tableName($this->table) . "` AS p
-				LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
+		        LEFT JOIN `" . tableName('user') . "` AS u USING (`id_user`)
 		        WHERE p.`active` = 1 AND
-		              p.`date` <= NOW() AND
+		              p.`date` <= '" . date("Y-m-d H:i:00") . "' AND
 		              p.`id_cathegory` = '" . intval($cathegory) . "'
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
@@ -77,11 +79,13 @@ class Table_Post extends Core_Table
 
 		$sql = "SELECT p.*,
 		               c.`name` AS cathegory_name,
-		               count(`id_comment`) AS num_of_comments
+		               count(`id_comment`) AS num_of_comments,
+		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name
 		        FROM `" . tableName($this->table) . "` AS p
 		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
-		        WHERE p.`active` = 1 AND p.`date` <= NOW()
+		        LEFT JOIN `" . tableName('user') . "` AS u USING (`id_user`)
+		        WHERE p.`active` = 1 AND p.`date` <= '" . date("Y-m-d H:i:00") . "'
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
 		        . ($limit ? " LIMIT " . clearInput($limit) : '');
@@ -91,8 +95,7 @@ class Table_Post extends Core_Table
 			if ($ex->getCode() == 1146) {
 				$this->create();
 				return FALSE;
-			}
-			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
+			} else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
 		$class = 'ActiveRecord_' . ucfirst($this->table);
 		if ( !iterable($lines) ) return NULL;
@@ -109,7 +112,7 @@ class Table_Post extends Core_Table
 		$sql = "SELECT count(*) AS count
 		        FROM `" . tableName($this->table) . "`
 		        WHERE `active` = 1 AND
-		              `date` <= NOW() AND
+		              `date` <= '" . date("Y-m-d H:00:00") . "' AND
 		              `id_cathegory` = '" . intval($cathegory) . "'";
 		try{
 			$line = $this->db->getRow($sql);
