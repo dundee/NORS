@@ -34,6 +34,13 @@ class Core_Helper_Administration extends Core_Helper
 	{
 		if (!iterable($items)) return;
 		$r = Core_Request::factory();
+		
+		$id = $r->getGet('id');
+		$table = $r->getGet('subevent');
+		if ($id && $table == 'post') {
+			$url = Core_Router::factory()->genUrl($table, '__default', $table, array('post' => $id));
+			$items['show'] = $url;
+		}
 
 		echo ENDL . '<div id="actions">' . ENDL;
 		$i = 0;
@@ -169,7 +176,7 @@ class Core_Helper_Administration extends Core_Helper
 		$class = 'ActiveRecord_' . ucfirst($table);
 		$model = new $class($id);
 		$r     = Core_Request::factory();
-
+		
 		$f = $this->form->form(NULL, $action, __($table), __('save'), array('enctype' => 'multipart/form-data'));
 		if ($id) $this->form->input(FALSE, 'id', FALSE, 'hidden', $id);
 
