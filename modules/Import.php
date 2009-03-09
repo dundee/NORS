@@ -117,7 +117,7 @@ class Import extends Core_Module
 					$post = new ActiveRecord_Post();
 					$post->id_post      = $line['id_clanek'];
 					$post->id_cathegory = $line['id_rubrika'];
-					$post->id_user      = $line['id_admin'];
+					$post->id_user      = 1;
 					$post->name         = $line['name'];
 					$post->text         = $line['text'];
 					$post->date         = $line['date'];
