@@ -35,24 +35,31 @@ class Core_Text
 		$this->text = $text;
 	}
 
-	public function getWords($words, $text = FALSE)
+	public function getPerex($maxWords = 100, $text = FALSE)
 	{
 		$text = $text ? $text : $this->text;
-		$length = mb_strlen($text);
-		$begin = 0;
 
-		if (strpos($text," ") === FALSE) return $text;
-
-		for($i=$words; $i>0; $i--){
-			$position = mb_strpos($text," ", ++$begin);
-			$begin = $position;
-			//echor($begin.'-'.$i);
-			if(!$begin){
-				$position = $length;
-				break;
-			}
+		$per = $this->getParagraphs(1, $text);
+		if (substr_count($per, " ") > $maxWords) {
+			$per = $this->getWords($maxWords, $text) . '...';
 		}
-		return mb_substr($text, 0, $position);
+		return $per;
+	}
+
+	public function getParagraphs($number, $text = FALSE)
+	{
+		$text = $text ? $text : $this->text;
+
+		$text = preg_replace("/\n\s+\n/", "\n\n", $text);
+
+		return $this->getTokens($text, $number, "\n\n");
+	}
+
+	public function getWords($number, $text = FALSE)
+	{
+		$text = $text ? $text : $this->text;
+
+		return $this->getTokens($text, $number, " ");
 	}
 
 	/**
@@ -70,6 +77,13 @@ class Core_Text
 		$text = $this->clearAmpersand($text);
 		$text = preg_replace('/(.+?)(?:\n\n|\z)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
+
+		//tags
+		$text = preg_replace('%\[url\](.+)\[/url\]%u', '<a href="$1">$1</a>', $text); //ungreedy
+		$text = preg_replace('%\[img\](.+)\[/img\]%u', '<a href="$1">' . __('image') . '</a>', $text);
+		$text = preg_replace('%\[b\](.+)\[/b\]%u', '<strong>$1</strong>', $text);
+		$text = preg_replace('%\[i\](.+)\[/i\]%u', '<em>$1</em>', $text);
+		$text = preg_replace('%\[code\](.+)\[/code\]%us', '<code>$1</code>', $text);
 
 		return $text;
 	}
@@ -224,9 +238,11 @@ class Core_Text
 			list($date,$time) = explode(" ",$ymd_his);
 			list($y,$m,$d) = explode("-",$date);
 			list($h,$i,$s) = explode(":",$time);
-		} elseif ( eregi('[0-9]{4}-[0-9]{2}-[0-9]{2}') ){
+		} elseif ( eregi('[0-9]{4}-[0-9]{2}-[0-9]{2}', $ymd_his) ){
 			list($y,$m,$d) = explode("-",$ymd_his);
 			$h = $i = $s = 0;
+		} else {
+			return time();
 		}
 		return mktime ($h, $i, $s, $m, $d, $y);
 	}
@@ -240,4 +256,24 @@ class Core_Text
 	{
 		return preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text);
 	}
+
+	private function getTokens($text, $number, $delimiter = " ")
+	{
+		$length = mb_strlen($text);
+		$begin = 0;
+
+		if (strpos($text, $delimiter) === FALSE) return $text;
+
+		for($i=$number; $i>0; $i--) {
+			$position = mb_strpos($text, $delimiter, ++$begin);
+			$begin = $position;
+			//echor($begin.'-'.$i);
+			if(!$begin){
+				$position = $length;
+				break;
+			}
+		}
+		return mb_substr($text, 0, $position);
+	}
+
 }

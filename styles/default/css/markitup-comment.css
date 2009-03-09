@@ -3,59 +3,20 @@
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
 .markItUpButton1 a {
-	background-image:url(../images/icons/h1.png); 
+	background-image:url(../images/icons/bold.png); 
 }
 .markItUpButton2 a {
-	background-image:url(../images/icons/h2.png); 
+	background-image:url(../images/icons/italic.png); 
 }
 .markItUpButton3 a {
-	background-image:url(../images/icons/h3.png); 
+	background-image:url(../images/icons/code.png); 
 }
+
 .markItUpButton4 a {
-	background-image:url(../images/icons/h4.png); 
-}
-.markItUpButton5 a {
-	background-image:url(../images/icons/h5.png); 
-}
-.markItUpButton6 a {
-	background-image:url(../images/icons/h6.png); 
-}
-.markItUpButton7 a {
-	background-image:url(../images/icons/paragraph.png); 
-}
-
-.markItUpButton8 a {
-	background-image:url(../images/icons/bold.png);
-}
-.markItUpButton9 a {
-	background-image:url(../images/icons/italic.png);
-}
-.markItUpButton10 a {
-	background-image:url(../images/icons/stroke.png);
-}
-
-.markItUpButton11 a {
-	background-image:url(../images/icons/list-bullet.png);
-}
-.markItUpButton12 a {
-	background-image:url(../images/icons/list-numeric.png);
-}
-.markItUpButton13 a {
-	background-image:url(../images/icons/list-item.png);
-}
-
-.markItUpButton14 a {
 	background-image:url(../images/icons/picture.png); 
 }
-.markItUpButton15 a {
+.markItUpButton5 a {
 	background-image:url(../images/icons/link.png);
-}
-
-.markItUpButton16 a {
-	background-image:url(../images/icons/clean.png);
-}
-.preview a {
-	background-image:url(../images/icons/preview.png);
 }
 
 
@@ -72,7 +33,7 @@
 	text-decoration:none;
 }
 .markItUp  {
-	width:700px;
+	/*width:95%;*/
 	margin:5px 0 5px 0;
 	border:5px solid #F5F5F5;	
 	clear: both;
@@ -87,7 +48,7 @@
 	font:12px 'Courier New', Courier, monospace;
 	padding:5px 5px 5px 35px;
 	border:3px solid #3C769D;
-	width:643px;
+	/*width:643px;*/
 	height:320px;
 	background: #fff url(../images/icons/bg-editor.png) no-repeat;
 	clear:both; display:block;

@@ -9,4 +9,6 @@ $(function()
 		$('#text').focus();
 		return false;
 	});
+	
+	$('#text').markItUp(myCommentSettings);
 });

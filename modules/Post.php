@@ -21,6 +21,7 @@ class Post extends Core_Module
 		'normal' => array('layout.css',
 	                      'forms.css',
 	                      'thickbox.css',
+	                      'markitup-comment.css',
 		                  ),
 		'ie6'    => array('ie6.css'),
 		'ie7'    => array('ie7.css'),
@@ -30,8 +31,10 @@ class Post extends Core_Module
 
 	public $js = array('jquery.js',
 	                   'jquery.thickbox.js',
-	                   'comment.js',
-	                   'paging.js');
+	                   'paging.js',
+	                   'jquery.markitup.js',
+	                   'set-comment.js',
+	                   'comment.js');
 
 	public $cache = 0;
 
@@ -84,7 +87,7 @@ class Post extends Core_Module
 			foreach ($posts as $i=>$post) {
 				$url = $text_obj->urlEncode($post->name);
 				$curl = $text_obj->urlEncode($post->cathegory_name);
-				$text = $text_obj->getWords(Core_Config::singleton()->front_end->perex_length, $post->text);
+				$text = $text_obj->getPerex(Core_Config::singleton()->front_end->perex_length, $post->text);
 				$text = strip_tags($text);
 				$text = $text_obj->clearAmpersand($text);
 
@@ -93,6 +96,7 @@ class Post extends Core_Module
 				$posts[$i]->cathegory_url  = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->id_cathegory . '-' . $curl));
 				$posts[$i]->name           = clearOutput($post->name);
 				$posts[$i]->cathegory_name = clearOutput($post->cathegory_name);
+				$posts[$i]->date           = Core_Locale::factory()->decodeDatetime($post->date);
 			}
 		}
 
