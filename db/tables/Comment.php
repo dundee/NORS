@@ -36,8 +36,12 @@ class Table_Comment extends Core_Table
 		}
 		$order = ($order == 'asc' ? 'asc' : 'desc');
 
-		$sql = "SELECT `id_" . $this->table . "`, `user`, `date`
-		        FROM `" . tableName($this->table) . "`
+		$sql = "SELECT c.`id_" . $this->table . "`, 
+		               c.`user`, 
+		               p.`name` AS post,
+		               c.`date`
+		        FROM `" . tableName($this->table) . "` AS c
+		        LEFT JOIN `" . tableName('post') . "` AS p USING (`id_post`)
 		        " . ($name ? "WHERE `user` LIKE '" . clearInput($name) . "%'" : '') . "
 				ORDER BY " . $orderBy . " " . $order . " "
 				. ($limit ? "LIMIT " . clearInput($limit) : '');
