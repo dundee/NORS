@@ -14,6 +14,9 @@ version 4.0.2 ():
 	core:
 	* creates indexes for higher performance
 	* jQuery MarkItUp 1.1.5
+	
+	installation:
+	* hostname bugfix
 
 version 4.0.1 (01/29/2009):
 	frontend:

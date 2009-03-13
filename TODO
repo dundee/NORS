@@ -1,18 +1,24 @@
 HIGH:
+IC.cz support
 check wampserver
 check installation into subdir
+check pictures without thumbnail
+button next picture
+better paging
 
 MEDIUM:
 karma
 gravatars
 autologin
+last modified in posts, pages -> sitemap
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
 block IP of commentor
 
 LOW:
+select homepage (page, posts)
+page hierarchy
 google analytics
 log admin access
 file manager
 page as a homepage
 tree of categories
-last modified in posts, pages -> sitemap

@@ -155,11 +155,6 @@ class Core_Text
 			$start = strpos($content, "<img", $start + $length);
 		}
 
-		/*for($i=0;$i<count($img);$i++){
-		$picture = new Picture($img[$i]);
-		$img[$i] = $picture->show();
-		}*/
-
 		$text .= ENDL;
 
 		//make space around some tags (due to paragraphs)
