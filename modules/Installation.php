@@ -79,7 +79,7 @@ class Installation extends Core_Module
 				$user_name     = $this->request->getPost('user_name');
 				$user_password = $this->request->getPost('user_password');
 
-				mysql_connect($host, $user, $pass);
+				mysql_connect($dbhost, $user, $pass);
 				if (mysql_error()) {
 					$errors .= __('wrong_db_user') . ': ' . mysql_error();
 					break;
