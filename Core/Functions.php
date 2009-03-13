@@ -333,5 +333,7 @@ function testEnvironment()
 
 function getFilePerms($file)
 {
+	if (!file_exists($file)) die('File or directory ' . $file . ' doesn\'t exist. Please create it.');
+	
 	return substr(sprintf('%o', fileperms($file)), -3);
 }
