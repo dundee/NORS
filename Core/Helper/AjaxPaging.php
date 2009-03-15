@@ -33,6 +33,8 @@ class Core_Helper_AjaxPaging extends Core_Helper
 	 */
 	public function paging($count, $itemsPerPage, $return = FALSE)
 	{
+		$limit = 5;
+		
 		if ($count < $itemsPerPage) return '';
 
 		$output = '';
@@ -45,17 +47,19 @@ class Core_Helper_AjaxPaging extends Core_Helper
 
 		if ($page) {
 			$output .= '<a href="#" title="0">&laquo;</a> ';
-			$output .= '<a href="#" title="'. ($page-1) .'">' . __('previous') . '</a> ';
+			$output .= '<a href="#" title="' . ($page - 1) . '">' . __('previous') . '</a> ';
 		}
 
-		for ($i=0; $i * $itemsPerPage < $count; $i++) {
-			if ($page != $i) $output .= '<a href="#" title="'.$i.'">' . ($i+1) . '</a> ';
-			else $output .= '<span>' . ($i+1) . '</span> ';
+		$i = $page - $limit; //supper limit
+		if ($i < 0) $i = 0; //do not display below zero
+		for ($i; $i * $itemsPerPage < $count && $i - $page <= $limit; $i++) {
+			if ($page != $i) $output .= '<a href="#" title="' . $i . '">' . ($i + 1) . '</a> ';
+			else $output .= '<span>' . ($i + 1) . '</span> ';
 		}
 
 		if ($count > ($page+1) * $itemsPerPage) {
-			$output .= '<a href="#" title="'. ($page+1) .'">' . __('next') . '</a> ';
-			$output .= '<a href="#" title="' . ($i-1) . '">&raquo;</a>';
+			$output .= '<a href="#" title="'. ($page + 1) . '">' . __('next') . '</a> ';
+			$output .= '<a href="#" title="' . ($i - 1) . '">&raquo;</a>';
 		}
 
 		if ($return) return $output;
