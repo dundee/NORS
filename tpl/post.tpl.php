@@ -6,13 +6,18 @@ if (iterable($photos)) {
 	foreach ($photos as $i => $photo) {
 ?>
 <div class="thumbnail">
-	<a href="<?php echo $photo->src?>" class="thickbox" title="<?php echo $photo->label?>"><img src="<?php echo $photo->thub?>" alt="<?php echo $photo->label?>" /></a>
+	<a href="<?php echo $photo->src?>" class="thickbox" rel="pictures" title="<?php echo $photo->label?>"><img src="<?php echo $photo->thub?>" alt="<?php echo $photo->label?>" /></a>
 	<div class="caption"><a href="<?php echo $photo->src?>"><?php echo $photo->label?></a></div>
 </div>
 <?php
 	}
 }
 ?>
+
+<h3><?php echo __('evaluation')?></h3>
+<br /><div id="eval">
+<?php echo $eval ?>
+</div>
 
 <h3 id="comments"><?php echo __('comments')?></h3>
 

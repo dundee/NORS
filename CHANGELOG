@@ -6,10 +6,14 @@ version 4.0.2 ():
 	* Name of author in post list
 	* first paragraph as perex
 	* localized format of time
+	* grouped pictures
+	* better paging
+	* post's karma
 	
 	administration:
 	* link to post preview
 	* name of post in list of comments
+	* include pictures without thumbnail
 	
 	core:
 	* creates indexes for higher performance

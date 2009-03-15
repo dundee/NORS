@@ -174,6 +174,7 @@ class Locale_Cs extends Core_Locale
 		'directory'                 => 'Složka',
 		'needs to be writable by anyone' => 'potřebuje právo zápisu pro všechny',
 		'Pleae repair errors and refresh the page' => 'Prosím opravte chyby a načtěte stránku znovu',
+		'evaluation'                => 'Hodnocení',
 
 		//import
 		'File db.php from "library" directory in NORS 3' => 'Soubor db.php ze složky "library" v NORS 3',

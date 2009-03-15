@@ -34,7 +34,7 @@ class Post extends Core_Module
 	                   'paging.js',
 	                   'jquery.markitup.js',
 	                   'set-comment.js',
-	                   'comment.js');
+	                   'post.js');
 
 	public $cache = 0;
 
@@ -70,8 +70,17 @@ class Post extends Core_Module
 	{
 		$this->tplFile = 'posts.tpl.php';
 
+		$page = $this->request->getPost('page');
+		if ($page == '') {
+			$page = $this->request->getCookie('page');
+			$this->response->setPost('page', $page);
+		}
+		
 		$max = $this->config->front_end->posts_per_page;
-		$limit = ($this->request->getPost('page') * $max) . ',' . $max;
+		$limit = ($page * $max) . ',' . $max;
+		
+		//setcookie
+		$this->response->setCookie('page', $page);
 
 		if ($this->request->getVar('view') == 'rss') {
 			$limit = 20;
@@ -159,6 +168,12 @@ class Post extends Core_Module
 
 		$files = $post->getFiles();
 		$this->setData('photos', $files);
+		
+		//karma
+		$eval = '';
+		if ($this->request->getCookie('eval')) $eval = 'Karma: ' . round($post->karma, 2);
+		else for ($i = 1; $i <= 10; $i++) $eval .= '<a href="#" title="' . $i . '">' . $i . '</a>';
+		$this->setData('eval', $eval);
 
 		$table = new Table_Comment();
 		$comments = $table->findById_Post($post->getID());

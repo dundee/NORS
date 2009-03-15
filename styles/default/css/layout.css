@@ -19,7 +19,7 @@ _bread  : Breadcrumbs & language switch
 _menu   : Main menu placed in header
 _footer : Footer box
 _news   : News box @ homepage
-_comm   : Comments
+_post   : Post
 _photo  : Photos
 ===============================================================================
 
@@ -202,50 +202,6 @@ ul, ol {
 	font-size: 0.8125em;
 }
 
-#post {
-	margin-bottom: 1em;
-	line-height: 130%;
-}
-
-.post {
-	border-bottom: 1px dotted #ccc;
-	padding-bottom: 10px;
-}
-
-.post h1 {
-	margin-bottom: 5px;
-}
-
-.post h1 a {
-	text-decoration: none;
-	font-family: Georgia, serif;
-}
-
-.post p {
-	margin-top: 10px;
-}
-
-.post small {
-	font-size: 0.7em;
-}
-
-code {
-	white-space: pre;
-	font-family: monospace;
-	display: block;
-	border: 1px dotted #000;
-	font-size: 1.1em;
-	padding: 5px;
-	line-height: 120%;
-	margin: 10px 5px;
-	overflow: auto;
-	width: 100%;
-}
-
-#paging {
-	margin-top: 0.5em;
-}
-
 /* _header
 =============================================================================*/
 
@@ -375,8 +331,67 @@ code {
 	margin: 0 2px;
 }
 
-/* _comm
+/* _post
 =============================================================================*/
+
+#post {
+	margin-bottom: 1em;
+	line-height: 130%;
+}
+
+.post {
+	border-bottom: 1px dotted #ccc;
+	padding-bottom: 10px;
+}
+
+.post h1 {
+	margin-bottom: 5px;
+}
+
+.post h1 a {
+	text-decoration: none;
+	font-family: Georgia, serif;
+}
+
+.post p {
+	margin-top: 10px;
+}
+
+.post small {
+	font-size: 0.7em;
+}
+
+code {
+	white-space: pre;
+	font-family: monospace;
+	display: block;
+	border: 1px dotted #000;
+	font-size: 1.1em;
+	padding: 5px;
+	line-height: 120%;
+	margin: 10px 5px;
+	overflow: auto;
+	width: 100%;
+}
+
+#paging {
+	margin-top: 0.5em;
+}
+
+#eval {
+	background: #ddd;
+	display: inline;
+	padding: 5px 0px 5px 5px;
+	
+}
+
+#eval a {
+	background: #fff;
+	margin-right: 5px;
+	padding: 2px 3px;
+	text-decoration: none;
+}
+
 .comment {
 	margin-top: 1em;
 	clear: left;

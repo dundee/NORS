@@ -1,13 +1,10 @@
 HIGH:
+karma
 IC.cz support
 check wampserver
 check installation into subdir
-check pictures without thumbnail
-button next picture
-better paging
 
 MEDIUM:
-karma
 gravatars
 autologin
 last modified in posts, pages -> sitemap
