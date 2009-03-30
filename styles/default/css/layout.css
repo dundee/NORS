@@ -304,6 +304,26 @@ ul, ol {
 	border: 1px dotted #333;
 }
 
+#author {
+	display: block;
+	height: 116px;
+	border: 1px solid #bbb;
+	padding: 5px;
+	color: #000;
+	background: #eee;
+
+}
+
+#author p {
+	text-align: center;
+	margin-top: 25px;
+	font-size: 0.7em;
+}
+
+#author img {
+	float: right;
+}
+
 /* _footer
 =============================================================================*/
 

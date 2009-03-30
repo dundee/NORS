@@ -45,9 +45,10 @@ class Component_Post extends Core_Component
 		$post = new ActiveRecord_Post($id);
 
 		$post_eval = base64_decode($this->request->getCookie('post_eval'));
-		$post_evals = explode(';', $post_eval);
+		if ($post_eval) $post_evals = explode(';', $post_eval);
 
-		if (!in_array($id, $post_evals)) {
+		if (!isset($post_evals) || !in_array($id, $post_evals)) {
+			$post->evaluated = $post->evaluated ? $post->evaluated : 0;
 			$karma       = $post->karma * $post->evaluated++;
 			$post->karma = ($karma + $val) / $post->evaluated;
 			$post->save();

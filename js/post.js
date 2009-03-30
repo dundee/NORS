@@ -1,8 +1,5 @@
 $(function()
 {
-	$('#check').attr('value', Math.round(2.9)).parent().hide(1);
-	$('#subject').parent().hide(1);
-
 	$('.reply a').click(function()
 	{
 		var textarea = document.getElementById('text');
@@ -54,4 +51,7 @@ $(function()
 			return false;
 		});
 	});
+
+	$('#check').attr('value', Math.round(2.9)).parent().hide();
+	$('#subject').parent().hide();
 });
