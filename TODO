@@ -1,11 +1,15 @@
 HIGH:
-karma
+check two [url] on one line
+activate fix
+karma fix
 IC.cz support
 check wampserver
 check installation into subdir
+comment spam protection - hidden field, filter, referer
 
 MEDIUM:
 gravatars
+backup
 autologin
 last modified in posts, pages -> sitemap
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
@@ -13,6 +17,7 @@ block IP of commentor
 
 LOW:
 select homepage (page, posts)
+select languages to show
 page hierarchy
 google analytics
 log admin access

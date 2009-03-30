@@ -75,10 +75,10 @@ class Post extends Core_Module
 			$page = $this->request->getCookie('page');
 			$this->response->setPost('page', $page);
 		}
-		
+
 		$max = $this->config->front_end->posts_per_page;
 		$limit = ($page * $max) . ',' . $max;
-		
+
 		//setcookie
 		$this->response->setCookie('page', $page);
 
@@ -168,12 +168,12 @@ class Post extends Core_Module
 
 		$files = $post->getFiles();
 		$this->setData('photos', $files);
-		
+
 		//karma
 		$eval = '';
 		if ($this->request->getCookie('eval')) $eval = 'Karma: ' . round($post->karma, 2);
 		else for ($i = 1; $i <= 10; $i++) $eval .= '<a href="#" title="' . $i . '">' . $i . '</a>';
-		$this->setData('eval', $eval);
+		$this->setData('eval', $eval, TRUE);
 
 		$table = new Table_Comment();
 		$comments = $table->findById_Post($post->getID());

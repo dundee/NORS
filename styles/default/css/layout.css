@@ -158,8 +158,14 @@ h2 {
 h3 {
 	color: #7fae3f;
 	font-size: 1em;
-	margin-left: 0.8125em;
+	margin-left: 0.5125em;
 	margin-top: 1em;
+	clear: left;
+}
+
+h4 {
+	margin-left: 0.8525em;
+	font-size: 0.9em;
 	clear: left;
 }
 
@@ -382,7 +388,7 @@ code {
 	background: #ddd;
 	display: inline;
 	padding: 5px 0px 5px 5px;
-	
+
 }
 
 #eval a {
