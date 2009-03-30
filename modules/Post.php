@@ -128,22 +128,29 @@ class Post extends Core_Module
 
 		//save comment
 		if ($this->request->getPost('send')) {
-			if ($this->request->getPost('check') != 3) $this->router->redirect('http://www.prdel.cz');
+			$text = $this->request->getPost('text');
 
-			$comment = new ActiveRecord_Comment();
-			$comment->user  = $this->request->getPost('user');
-			$comment->www   = $this->request->getPost('www');
-			$comment->email = $this->request->getPost('email');
-			$comment->text  = $this->request->getPost('text');
-			$comment->ip    = $this->request->getServer('REMOTE_ADDR');
-			$comment->id_post  = $id_post;
-			$comment->date  = date('Y-m-d H:i:s');
-			$comment->save();
+			do {
+				if ($this->request->getPost('check') != 3) break;
+				if ($this->request->getPost('subject') != '') break;
+				if (strpos($text, 'href') !== FALSE) break;
+				if (strpos($this->request->getServer('HTTP_REFERER'), APP_URL) !== 0) break;
 
-			//send cookies
-			$this->response->setCookie('user', $comment->user);
-			$this->response->setCookie('email', $comment->email);
-			$this->response->setCookie('www', $comment->www);
+				$comment = new ActiveRecord_Comment();
+				$comment->user  = $this->request->getPost('user');
+				$comment->www   = $this->request->getPost('www');
+				$comment->email = $this->request->getPost('email');
+				$comment->text  = $this->request->getPost('text');
+				$comment->ip    = $this->request->getServer('REMOTE_ADDR');
+				$comment->id_post  = $id_post;
+				$comment->date  = date('Y-m-d H:i:s');
+				$comment->save();
+
+				//send cookies
+				$this->response->setCookie('user', $comment->user);
+				$this->response->setCookie('email', $comment->email);
+				$this->response->setCookie('www', $comment->www);
+			} while (FALSE);
 
 			//disable F5 to cause resending
 			$this->router->redirect('post', '__default', FALSE, FALSE, TRUE);
@@ -238,6 +245,7 @@ class Post extends Core_Module
 		$form->input(NULL, 'user', __('username'))->setValidation()->setParam('value', $r->getCookie('user'));
 		$form->input(NULL, 'www', __('www'))->setParam('value', $r->getCookie('www'));
 		$form->input(NULL, 'email', __('email'))->setParam('value', $r->getCookie('email'));
+		$form->input(NULL, 'subject', __('subject'));
 		$form->input(NULL, 'check', '1 + 2?');
 		$form->textarea(NULL, 'text', 'text');
 		$this->setData('comment_form', $form->render(1, TRUE), TRUE);

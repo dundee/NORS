@@ -1,6 +1,7 @@
 $(function()
 {
 	$('#check').attr('value', Math.round(2.9)).parent().hide(1);
+	$('#subject').parent().hide(1);
 
 	$('.reply a').click(function()
 	{
@@ -9,7 +10,7 @@ $(function()
 		$('#text').focus();
 		return false;
 	});
-	
+
 	$('#text').markItUp(myCommentSettings);
 
 	//evaluate
@@ -32,9 +33,9 @@ $(function()
 			evaluation.unbind('mouseout');
 			evaluation.unbind('click');
 			$('#eval a:lt(' + (index+1) + ')').css('background', colors[index]);
-			
+
 			var url = new String(window.location);
-	
+
 			while (url.indexOf("&") != -1) {
 				url = url.replace("&",";","gi");
 			}
