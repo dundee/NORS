@@ -158,7 +158,7 @@ class Post extends Core_Module
 
 		$table = new Table_Post();
 
-		//incement seen
+		//increment seen
 		list($post) = $table->findById($id_post);
 		$post->seen += 1;
 		$post->save();
@@ -178,9 +178,12 @@ class Post extends Core_Module
 
 		//karma
 		$eval = '';
-		if ($this->request->getCookie('eval')) $eval = 'Karma: ' . round($post->karma, 2);
+		$post_eval = base64_decode($this->request->getCookie('post_eval'));
+		$post_evals = explode(';', $post_eval);
+		if (in_array($post->id_post, $post_evals)) $eval = 'Karma: ' . round($post->karma, 2);
 		else for ($i = 1; $i <= 10; $i++) $eval .= '<a href="#" title="' . $i . '">' . $i . '</a>';
 		$this->setData('eval', $eval, TRUE);
+
 
 		$table = new Table_Comment();
 		$comments = $table->findById_Post($post->getID());
