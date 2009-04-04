@@ -57,15 +57,11 @@ class Installation extends Core_Module
 		$fatal  = array();
 
 		//check permissions
-		if (getFilePerms(APP_PATH . '/config') != '777') $fatal[] = __('directory') . ' "config" '. __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/config/config.yml.php') != '777') $fatal[] = __('file') . ' "config/config.yml.php" ' . __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/cache') != '777') $fatal[] = __('directory') . ' "cache" ' . __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/upload') != '777') $fatal[] = __('directory') . ' "upload" '. __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/tpl/cache') != '777') $fatal[] = __('directory') . ' "tpl/cache" '. __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/log') != '777') $fatal[] = __('directory') . ' "log" '. __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/db/tables') != '777') $fatal[] = __('directory') . ' "db/tables" '. __('needs to be writable by anyone') . ' (777).';
-		if (getFilePerms(APP_PATH . '/db/activeRecords') != '777') $fatal[] = __('directory') . ' "db/activeRecords" '. __('needs to be writable by anyone') . ' (777).';
-
+		$files = array('config', 'config/config.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'db/tables', 'db/activeRecords');
+		foreach ($files as $file) {
+			$perms = getFilePerms(APP_PATH . '/' . $file);
+			if (substr($perms, -1) < 6) $fatal[] = ' "' . $file . '" ' . __('needs to be writable by anyone') . ' (666).';
+		}
 
 		if ($this->request->getPost('send')) {
 			do {
