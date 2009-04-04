@@ -60,7 +60,8 @@ class Installation extends Core_Module
 		$files = array('config', 'config/config.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'db/tables', 'db/activeRecords');
 		foreach ($files as $file) {
 			$perms = getFilePerms(APP_PATH . '/' . $file);
-			if (substr($perms, -1) < 6) $fatal[] = ' "' . $file . '" ' . __('needs to be writable by anyone') . ' (666).';
+			$req = is_file(APP_PATH . '/' . $file) ? 6 : 7;
+			if (substr($perms, -1) < $req) $fatal[] = ' "' . $file . '" ' . __('needs to be writable by anyone') . ' ('.$req.$req.$req.').';
 		}
 
 		if ($this->request->getPost('send')) {
