@@ -1,11 +1,6 @@
 HIGH:
-check two [url] on one line
-activate fix
-karma fix
 IC.cz support
-check wampserver
-check installation into subdir
-comment spam protection - hidden field, filter, referer
+paging
 
 MEDIUM:
 gravatars
@@ -13,6 +8,7 @@ backup
 autologin
 last modified in posts, pages -> sitemap
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
+better upload
 block IP of commentor
 
 LOW:

@@ -18,7 +18,7 @@ define('TAB',"\t");
  * @return string
  */
 function norsVersion() {
-	return "4.0.1";
+	return "4.1.0";
 }
 
 function coreVersion(){
@@ -334,6 +334,6 @@ function testEnvironment()
 function getFilePerms($file)
 {
 	if (!file_exists($file)) die('File or directory ' . $file . ' doesn\'t exist. Please create it.');
-	
+
 	return substr(sprintf('%o', fileperms($file)), -3);
 }
