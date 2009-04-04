@@ -324,7 +324,7 @@ abstract class Core_ActiveRecord
 
 	public function activate()
 	{
-		$this->active = isset($this->active) && $this->active ? 0 : 1;
+		$this->active = $this->active ? 0 : 1;
 		$this->save();
 	}
 }
