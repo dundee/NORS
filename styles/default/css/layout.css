@@ -119,6 +119,10 @@ dfn, acronym {
 	cursor: help;
 }
 
+table {
+	margin: 10px;
+}
+
 table td,
 table th {
 	padding: 5px;
