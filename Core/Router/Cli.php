@@ -17,7 +17,7 @@
  */
 class Core_Request_Cli extends Core_Request
 {
-	
+
 	/**
 	 * Constructor
 	 */
@@ -32,15 +32,15 @@ class Core_Request_Cli extends Core_Request
 		return 'http://localhost/';
 	}
 
-	public function forward($params, $event = FALSE)
+	public function forward($params, $action = FALSE)
 	{
-		return $this->genUrl(FALSE, $event, FALSE, $params, TRUE);
+		return $this->genUrl(FALSE, $action, FALSE, $params, TRUE);
 	}
 
-	public function redirect($module, $event, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE)
+	public function redirect($controller, $action, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE)
 	{
 		if($moved) header("HTTP/1.1 301 Moved Permanently");
-		header("Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE));
+		header("Location: ".$this->genUrl($controller, $action, $route, $params, $inherit_params, TRUE));
 		header("Connection: close");
 		exit(0);
 	}
@@ -52,24 +52,24 @@ class Core_Request_Cli extends Core_Request
 		$_SERVER['REQUEST_METHOD']   == 'POST';
 	}
 
-	public function genURL($module = FALSE,
-	                       $event = FALSE,
+	public function genURL($controller = FALSE,
+	                       $action = FALSE,
 	                       $route = FALSE,
 	                       $args = FALSE,
 	                       $inherit_params = FALSE,
 	                       $in_header = FALSE)
 	{
 		if (is_array($route)) throw new Exception('Wrong usage');
-		
+
 		$delimiter = '&amp;';
 		$_GET = is_array($_GET) ? $_GET : array();
 		$args = is_array($args) ? $args : array();
-		$module = $module ? $module : $_GET['module'];
-		$event  = $event ? $event : $_GET['event'];
+		$controller = $controller ? $controller : $_GET['controller'];
+		$action  = $action ? $action : $_GET['action'];
 
-		$args = array_merge( $args, array('module'=>$module,'event'=>$event) );
+		$args = array_merge( $args, array('controller'=>$controller,'action'=>$action) );
 		if ($inherit_params) $args = array_merge($_GET,$args);
-		
+
 		$url = APP_URL;
 		$url .= substr(APP_URL, strlen(APP_URL)-1, 1)=='/' ? '' : '/'; //slash on end
 
@@ -90,10 +90,10 @@ class Core_Request_Cli extends Core_Request
 	{
 		$config = Core_Config::singleton();
 		if ($_SERVER['argc'] < 2) {
-			$_GET['module'] = $config->routes->default->defaults->module;
+			$_GET['controller'] = $config->routes->default->defaults->controller;
 		} else {
-			$_GET['module'] = $_SERVER['argv'][1];
-			$_GET['event']  = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : '__default';
+			$_GET['controller'] = $_SERVER['argv'][1];
+			$_GET['action']  = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : '__default';
 		}
 	}
 

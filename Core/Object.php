@@ -11,7 +11,7 @@
  */
 
 /**
- * Base class for Module and Component classes. Adds important functionality and access to some instances.
+ * Base class for Controller and Component classes. Adds important functionality and access to some instances.
  * Features: reflection, array for data
  * Access to instances: Core_Request, Core_Response, Core_Router, Core_Config
  * @author Daniel Milde <daniel@milde.cz>

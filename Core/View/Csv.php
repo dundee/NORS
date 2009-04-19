@@ -21,8 +21,8 @@ class Core_View_Csv extends Core_View
 	* Constructor
 	* @access public
 	*/
-	public function __construct(Core_Model $model,$event){
-		parent::__construct($model,$event);
+	public function __construct(Core_Model $model,$action){
+		parent::__construct($model,$action);
 	}
 
 	/**
@@ -30,11 +30,11 @@ class Core_View_Csv extends Core_View
 	*
 	*/
 	public function display(){
-		
-		$event = $this->modelEvent;
-		$this->model->$event();
+
+		$action = $this->modelAction;
+		$this->model->$action();
 		$data = $this->model->getData();
-		
+
 		$lines = $data['output'];
 		$instance = $data['instance'];
 		if (!iterable($lines)) return FALSE;
@@ -52,8 +52,8 @@ class Core_View_Csv extends Core_View
 			}
 			$out .= "\n";
 		}
-		
-		
+
+
 		headers('application/vnd.ms-excel');
 		header("Content-Disposition: attachment; filename=\"export.csv\"");
 		echo $out;

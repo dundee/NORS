@@ -32,13 +32,13 @@ class Component_Items extends Core_Component
 
 	public function paging($params = FALSE)
 	{
-		$module  = $this->request->getPost('module');
+		$controller  = $this->request->getPost('controller');
 
-		$class = ucfirst($module);
-		require_once(APP_PATH . '/modules/' . $class . '.php');
-		$module = new $class();
-		$module->list_items();
-		$data = $module->getData();
+		$class = ucfirst($controller);
+		require_once(APP_PATH . '/controllers/' . $class . '.php');
+		$controller = new $class();
+		$controller->list_items();
+		$data = $controller->getData();
 
 		$items = $data['items'];
 		$paging = $data['paging'];

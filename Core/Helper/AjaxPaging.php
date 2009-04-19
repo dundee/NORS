@@ -18,11 +18,11 @@
 class Core_Helper_AjaxPaging extends Core_Helper
 {
 	//public $helpers = array('Form');
-	protected $module;
+	protected $controller;
 
-	public function  __construct($module = FALSE) {
+	public function  __construct($controller = FALSE) {
 		parent::__construct();
-		$this->module = $module;
+		$this->controller = $controller;
 	}
 
 	/**
@@ -34,12 +34,12 @@ class Core_Helper_AjaxPaging extends Core_Helper
 	public function paging($count, $itemsPerPage, $return = FALSE)
 	{
 		$limit = 5;
-		
+
 		if ($count < $itemsPerPage) return '';
 
 		$output = '';
 
-		if ($this->module) $output .= '<div id="paging-module" class="hidden" title="' . $this->module . '"></div>';
+		if ($this->controller) $output .= '<div id="paging-controller" class="hidden" title="' . $this->controller . '"></div>';
 
 		$r = Core_Request::factory();
 

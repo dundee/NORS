@@ -56,24 +56,24 @@ if($data['user']){
 }
 echo '</div>';
 
-$event = isset($_GET['event']) ? $_GET['event'] : '';
-if ($event == 'edit' || $event == 'del') {
-	$event = $_GET['item'];
+$action = isset($_GET['action']) ? $_GET['action'] : '';
+if ($action == 'edit' || $action == 'del') {
+	$action = $_GET['item'];
 }
-if ($event == 'category' || $event == 'category_tree') {
-	$event = 'post';
+if ($action == 'category' || $action == 'category_tree') {
+	$action = 'post';
 }
-$selected[$event] = ' class="selected" ';
+$selected[$action] = ' class="selected" ';
 
 echo '
 <ul id="menu">';
 if (iterable($data['menu'])) {
 	foreach($data['menu'] as $menu){
-		$selected[$menu['event']] = isset($selected[$menu['event']]) ? $selected[$menu['event']] : '';
+		$selected[$menu['action']] = isset($selected[$menu['action']]) ? $selected[$menu['action']] : '';
 		$args = array('model'=>'administration');
-		$menu['event'] && $args['event'] = $menu['event'];
+		$menu['action'] && $args['action'] = $menu['action'];
 		$url = gen_url($args);
-		echo '<li'.$selected[$menu['event']].'><a href="'.$url.'">'.$menu['title'].'</a></li>';
+		echo '<li'.$selected[$menu['action']].'><a href="'.$url.'">'.$menu['title'].'</a></li>';
 	}
 }
 echo '</ul>

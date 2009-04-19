@@ -27,23 +27,23 @@ class Core_Router_ModRewrite extends Core_Router
 	protected function __construct(){
 	}
 
-	public function forward($params, $event = FALSE, $csrf = FALSE){
-		return $this->genUrl(FALSE, $event, FALSE, $params, TRUE, FALSE, $csrf);
+	public function forward($params, $action = FALSE, $csrf = FALSE){
+		return $this->genUrl(FALSE, $action, FALSE, $params, TRUE, FALSE, $csrf);
 	}
 
-	public function redirect($module, $event = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE){
+	public function redirect($controller, $action = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE){
 		if ($moved) header("HTTP/1.1 301 Moved Permanently");
 
-		if (strpos($module, 'http') === 0) $l = "Location: " . $module;
-		else $l = "Location: ".$this->genUrl($module, $event, $route, $params, $inherit_params, TRUE, $csrf);
+		if (strpos($controller, 'http') === 0) $l = "Location: " . $controller;
+		else $l = "Location: ".$this->genUrl($controller, $action, $route, $params, $inherit_params, TRUE, $csrf);
 
 		header($l);
 		header("Connection: close");
 		exit(0);
 	}
 
-	public function genURL($module = FALSE,
-	                       $event = FALSE,
+	public function genURL($controller = FALSE,
+	                       $action = FALSE,
 	                       $routeName = FALSE,
 	                       $other_args = FALSE,
 	                       $inherit_params = FALSE,
@@ -58,8 +58,8 @@ class Core_Router_ModRewrite extends Core_Router
 		$delimiter = $in_header ? '&' : '&amp;';
 		$_GET = is_array($_GET) ? $_GET : array();
 		$other_args = is_array($other_args) ? $other_args : array();
-		$module = $module ? $module : $_GET['module'];
-		$event  = $event  ? $event  : $_GET['event'];
+		$controller = $controller ? $controller : $_GET['controller'];
+		$action  = $action  ? $action  : $_GET['action'];
 
 		//csrf
 		if ($csrf) {
@@ -71,14 +71,14 @@ class Core_Router_ModRewrite extends Core_Router
 		}
 
 		//prepare args
-		$args = array_merge( $other_args, array('module' => $module,
-		                                        'event'  => $event) );
+		$args = array_merge( $other_args, array('controller' => $controller,
+		                                        'action'  => $action) );
 		if ($inherit_params) $args = array_merge($_GET,$args);
 
 		if (!isset($this->routes[$routeName])) throw new Exception('Route "' .$routeName . '" is not defined.');
 
 		$route = $this->routes[$routeName];
-		$urlForm = $route['url']; //URL form of route...e.g.: ':module/:event'
+		$urlForm = $route['url']; //URL form of route...e.g.: ':controller/:action'
 
 		//create cool URL according to URL form
 		$url_parts = explode('/', $urlForm);
@@ -109,7 +109,7 @@ class Core_Router_ModRewrite extends Core_Router
 		foreach($args as $key=>$value){
 			if (
 			$key == 'browser' ||
-			$key == 'module' ||
+			$key == 'controller' ||
 			$value == '__default'
 			) continue;
 			$url2 .= ($url2 ? $delimiter : '')   . $key;
@@ -138,8 +138,8 @@ class Core_Router_ModRewrite extends Core_Router
 		}
 
 		$arr = explode('?',$url);
-		$event = $arr[0];
-		$params = explode('/',$event);
+		$action = $arr[0];
+		$params = explode('/',$action);
 
 		if (!iterable($this->routes)) throw new UnderflowException("No routes defined");
 
@@ -147,7 +147,7 @@ class Core_Router_ModRewrite extends Core_Router
 		foreach($this->routes as $name=>$route){
 			$urlForm = $route['url'];
 			$urlForm = eregi_replace(':([^/]*)','([^/]*)',$urlForm);
-			if ( eregi('^'.$urlForm.'/?$', $event) ) { //route matches
+			if ( eregi('^'.$urlForm.'/?$', $action) ) { //route matches
 				$this->currentRoute = $name;
 				break;
 			}
@@ -174,14 +174,14 @@ class Core_Router_ModRewrite extends Core_Router
 			$_GET[$k] = $v;
 		}
 
-		$_GET['event'] = isset($_GET['event']) ? $_GET['event'] : '__default';
+		$_GET['action'] = isset($_GET['action']) ? $_GET['action'] : '__default';
 
 		//canonical URL? Redirect if not
 		$url = $request->getUrl();
 		$url = str_replace('&','&amp;',$url);
-		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url && $redirect){
-			//echor($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url);
-			$this->redirect($_GET['module'], $_GET['event'], FALSE, $_GET, FALSE, TRUE);
+		if ($this->genUrl($_GET['controller'], $_GET['action'], FALSE, $_GET) != $url && $redirect){
+			//echor($this->genUrl($_GET['controller'], $_GET['action'], FALSE, $_GET).' - '.$url);
+			$this->redirect($_GET['controller'], $_GET['action'], FALSE, $_GET, FALSE, TRUE);
 		}
 	}
 }

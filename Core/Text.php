@@ -58,6 +58,8 @@ class Core_Text
 	public function getWords($number, $text = FALSE)
 	{
 		$text = $text ? $text : $this->text;
+		$text = str_replace(ENDL, " ", $text); //endlines split words as well
+		$text = preg_replace("/\s{2,}/", " ", $text); //remove multiple spaces
 
 		return $this->getTokens($text, $number, " ");
 	}
@@ -267,7 +269,7 @@ class Core_Text
 
 		if (strpos($text, $delimiter) === FALSE) return $text;
 
-		for($i=$number; $i>0; $i--) {
+		for($i = $number; $i > 0; $i--) {
 			$position = mb_strpos($text, $delimiter, ++$begin);
 			$begin = $position;
 			//echor($begin.'-'.$i);

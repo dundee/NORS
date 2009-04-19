@@ -18,26 +18,26 @@
 abstract class Core_View
 {
 	/**
-	* $module
+	* $controller
 	*
-	* @var Core_Module $module
+	* @var Core_Controller $controller
 	*/
-	protected $module;
+	protected $controller;
 
 	/**
-	* $modelEvent
+	* $action
 	*
-	* @var string $modelEvent
+	* @var string $action
 	*/
-	protected $modelEvent;
+	protected $action;
 
 	/**
 	* Constructor
 	* @access public
 	*/
-	public function __construct(Core_Module $module, $event){
-        $this->module = $module;
-        $this->moduleEvent = $event;
+	public function __construct(Core_Controller $controller, $action){
+        $this->controller = $controller;
+        $this->action     = $action;
     }
 
 	/**
@@ -48,12 +48,12 @@ abstract class Core_View
     * @return mixed Exception on erroe or a valid language instance
     * @static
     */
-    static public function factory($type, Core_Module $module, $event){
+    static public function factory($type, Core_Controller $controller, $action){
         $file = APP_PATH.'/Core/View/'.$type.'.php';
         if (loadFile($file)) {
             $class = 'Core_View_' . $type;
             if (class_exists($class)) {
-                $view = new $class($module,$event);
+                $view = new $class($controller,$action);
                 if ($view instanceof Core_View) {
                     return $view;
                 }

@@ -21,8 +21,8 @@ class Core_View_Default extends Core_View
 	* Constructor
 	* @access public
 	*/
-	public function __construct(Core_Module $module,$event){
-		parent::__construct($module,$event);
+	public function __construct(Core_Controller $controller,$action){
+		parent::__construct($controller,$action);
 	}
 
 	/**
@@ -31,13 +31,13 @@ class Core_View_Default extends Core_View
 	*/
 	public function display(){
 
-		$request  = $this->module->request;
-		$response = $this->module->response;
+		$request  = $this->controller->request;
+		$response = $this->controller->response;
 
 		$request->setVar('view', 'default');
 
 		$createCache = FALSE;  //should we create cache file?
-		$cacheLifeTime = $this->module->cache;
+		$cacheLifeTime = $this->controller->cache;
 
 		if ($cacheLifeTime > 0){ //caching allowed
 			$cacheFileName = $request . ".cache.php";
@@ -58,20 +58,20 @@ class Core_View_Default extends Core_View
 		if ($createCache) ob_start(); //start output buffer
 
 		//load helpers
-		if (iterable($this->module->helpers)) {
-			foreach ($this->module->helpers as $helper) {
+		if (iterable($this->controller->helpers)) {
+			foreach ($this->controller->helpers as $helper) {
 				$class = 'Core_Helper_' . ucfirst($helper);
-				$this->module->setData(strtolower($helper), new $class);
+				$this->controller->setData(strtolower($helper), new $class);
 			}
 		}
 
-		//execute event
-		if (method_exists($this->module,'beforeEvent')) $this->module->beforeEvent();
-		$event = $this->moduleEvent;
-		$this->module->$event();
-		if (method_exists($this->module,'afterEvent')) $this->module->afterEvent();
+		//execute action
+		if (method_exists($this->controller,'beforeAction')) $this->controller->beforeAction();
+		$action = $this->action;
+		$this->controller->$action();
+		if (method_exists($this->controller,'afterAction')) $this->controller->afterAction();
 
-		$data = $this->module->getData();
+		$data = $this->controller->getData();
 
 		$this->setDoctype($data,$request, $response);
 
@@ -80,10 +80,10 @@ class Core_View_Default extends Core_View
 		}
 		unset($data);
 
-		if ($this->module->headerTplFile){
-			include(APP_PATH.'/tpl/layout/'.$this->module->headerTplFile);
+		if ($this->controller->headerTplFile){
+			include(APP_PATH.'/tpl/layout/'.$this->controller->headerTplFile);
 		}
-		include(APP_PATH.'/tpl/'.$this->module->tplFile);
+		include(APP_PATH.'/tpl/'.$this->controller->tplFile);
 
 		//write cache
 		if ($createCache) {  //create cache file
@@ -116,15 +116,15 @@ class Core_View_Default extends Core_View
 	{
 		if (defined('KILLED')) die();
 
-		$this->module->delData();
-		if (method_exists($this->module,'beforeFooter')) $this->module->beforeFooter();
-		$data = $this->module->getData();
+		$this->controller->delData();
+		if (method_exists($this->controller,'beforeFooter')) $this->controller->beforeFooter();
+		$data = $this->controller->getData();
 		foreach($data as $k=>$v){
 			${$k} = $v;
 		}
 		unset($data);
 
-		if($this->module->footerTplFile) require_once(APP_PATH . '/tpl/layout/' . $this->module->footerTplFile);
+		if($this->controller->footerTplFile) require_once(APP_PATH . '/tpl/layout/' . $this->controller->footerTplFile);
 
 	}
 }

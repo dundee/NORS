@@ -59,17 +59,17 @@ abstract class Core_Router
 	 * Creates URL from new GET request extended from actual request. Previous GET params will be used.
 	 *
 	 * @param string[] $params GET parameters
-	 * @param string $event Controller event
+	 * @param string $action Controller action
 	 * @param boolean $csrf Adds CSRF protection
 	 * @return string URL
 	 */
-	abstract public function forward($params, $event = FALSE, $csrf = FALSE);
+	abstract public function forward($params, $action = FALSE, $csrf = FALSE);
 
 	/**
 	 * Creates URL from new GET request. Previous GET params won't be used.
 	 *
-	 * @param string $module Name of controller class or some outside URL
-	 * @param string $event Name of controller event
+	 * @param string $controller Name of controller class or some outside URL
+	 * @param string $action Name of controller action
 	 * @param string $route Name of route which should be used
 	 * @param string[] $params Other GET params
 	 * @param boolean $inherit_params Should we used previous GET params?
@@ -77,23 +77,23 @@ abstract class Core_Router
 	 * @param boolean $csrf Adds CSRF protection
 	 * @return string
 	 */
-	abstract public function redirect($module, $event = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE);
+	abstract public function redirect($controller, $action = FALSE, $route = FALSE, $params = FALSE, $inherit_params = FALSE, $moved = FALSE, $csrf = FALSE);
 
 	/**
 	 * Creates URL from new GET request.
 	 *
-	 * @param string $module Name of controller class
-	 * @param string $event Name of controller event
+	 * @param string $controller Name of controller class
+	 * @param string $action Name of controller action
 	 * @param string $routeName Name of route which should be used
 	 * @param string[] $params Other GET params
 	 * @param boolean $inherit_params Should we used previous GET params?
 	 * @param boolean $csrf Adds CSRF protection
 	 * @return string
 	 */
-	abstract public function genURL($module = FALSE, $event = FALSE, $routeName = FALSE, $other_args = FALSE, $inherit_params = FALSE, $in_header = FALSE, $csrf = FALSE);
+	abstract public function genURL($controller = FALSE, $action = FALSE, $routeName = FALSE, $other_args = FALSE, $inherit_params = FALSE, $in_header = FALSE, $csrf = FALSE);
 
 	/**
-	 * Converts URL to inner request (module+event+params)
+	 * Converts URL to inner request (controller+action+params)
 	 * @param Core_Request $request
 	 * @return void
 	 */

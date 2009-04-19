@@ -328,7 +328,7 @@ function testEnvironment()
 {
 	if (substr(phpversion(), 0, 3) < 5.2) die('Required PHP version at least 5.2');
 	if (!isset($_SERVER['REWRITE'])
-	    && !isset($_SERVER['REDIRECT_STATUS']))  die('Module "mod_rewrite" needs to be enabled.');
+	    && !isset($_SERVER['REDIRECT_STATUS']))  die('Controller "mod_rewrite" needs to be enabled.');
 }
 
 function getFilePerms($file)

@@ -22,11 +22,11 @@ abstract class Core_Component_Auth extends Core_Component
 	*/
 	protected $user;
 
-	public function __construct(Core_Module $module = NULL,
+	public function __construct(Core_Controller $controller = NULL,
 	                            $name = FALSE,
 	                            $params = FALSE)
 	{
-		parent::__construct($module, $name, $params);
+		parent::__construct($controller, $name, $params);
 		$userModel = new Table_User();
 		$this->user = new Core_User($userModel);
 	}

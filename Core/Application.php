@@ -65,7 +65,7 @@ class Core_Application
 		}
 
 		//redirect to installation
-		if ( !$this->config->db->user && $this->request->module != 'installation') {
+		if ( !$this->config->db->user && $this->request->controller != 'installation') {
 			$this->router->redirect('installation', '__default', 'default');
 		}
 
@@ -85,29 +85,29 @@ class Core_Application
 	 */
 	protected function dispatchGetRequest()
 	{
-		$module = $this->request->getGet('module');
-		$event  = $this->request->getGet('event');
+		$controller = $this->request->getGet('controller');
+		$action     = $this->request->getGet('action');
 
 		do {
-			$moduleFile = APP_PATH . '/modules/' . ucfirst($module) . '.php';
-			if (!file_exists($moduleFile)) {
-				$this->tryRedirect($module, $event);
-				throw new UnexpectedValueException('Could not find module ' . $moduleFile . ', url: ' . $this->request->getUrl(), 404);
+			$controllerFile = APP_PATH . '/controllers/' . ucfirst($controller) . '.php';
+			if (!file_exists($controllerFile)) {
+				$this->tryRedirect($controller, $action);
+				throw new UnexpectedValueException('Could not find controller ' . $controllerFile . ', url: ' . $this->request->getUrl(), 404);
 			} else {
-				loadFile($moduleFile);
-				if (!class_exists($module)) {
-					throw new RuntimeException('Module ' . $module . ' includes no module class', 500);
+				loadFile($controllerFile);
+				if (!class_exists($controller)) {
+					throw new RuntimeException('Controller ' . $controller . ' includes no controller class', 500);
 				} else {
-					$instance = new $module();
-					if (!Core_Module::isValid($instance)) {
-						throw new RuntimeException('Module ' . $module . ' is not a valid module', 500);
+					$instance = new $controller();
+					if (!Core_Controller::isValid($instance)) {
+						throw new RuntimeException('Controller ' . $controller . ' is not a valid controller', 500);
 					}
 					if (!$instance->authenticate()) {
-						if ($module != 'login') $this->response->setSession('request', $this->request->getUrl());
+						if ($controller != 'login') $this->response->setSession('request', $this->request->getUrl());
 						$this->router->redirect('login', '__default', FALSE, 'default');
 					} else {
 						$instance->authorize();
-						$view = Core_View::factory($this->request->view, $instance, $event);
+						$view = Core_View::factory($this->request->view, $instance, $action);
 						$view->display();
 					} //end if authenticated
 				} //end if class exists
@@ -125,7 +125,7 @@ class Core_Application
 	protected function dispatchAjaxRequest()
 	{
 		$command = $this->request->getGet('command');
-		list($component,$event) = explode('-', $command);
+		list($component,$action) = explode('-', $command);
 		$class = 'Component_' . ucwords($component);
 		$instance = new $class();
 
@@ -134,8 +134,8 @@ class Core_Application
 			$data = array('errors' => 'Not signed in or not enough rights.');
 		} else {
 			$instance->loadHelpers();
-			if (method_exists($instance, 'beforeEvent')) $instance->beforeEvent();
-			$instance->$event();
+			if (method_exists($instance, 'beforeAction')) $instance->beforeAction();
+			$instance->$action();
 			$data = $instance->getData();
 		}
 
@@ -150,22 +150,22 @@ class Core_Application
 
 	/**
 	 * Tries redirect to new URL. (for old NORS 3 urls)
-	 * @param string $module
-	 * @param string $event
+	 * @param string $controller
+	 * @param string $action
 	 * @return void
 	 */
-	public function tryRedirect($module, $event)
+	public function tryRedirect($controller, $action)
 	{
 		$text = new Core_Text();
 
-		$event = strtolower($event);
-		$event = $text->urlEncode($event);
+		$action = strtolower($action);
+		$action = $text->urlEncode($action);
 
 		$table = new Table_Post();
 		$posts = $table->getPosts();
 
 		foreach ($posts as $post) {
-			if ($event == $text->urlEncode($post->name)) {
+			if ($action == $text->urlEncode($post->name)) {
 				$this->router->redirect('post',
 				                        '__default',
 				                        'post',

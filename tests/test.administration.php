@@ -7,7 +7,7 @@ $_SERVER['REQUEST_URI'] = '/nors4/post/';
 $_SERVER['SCRIPT_NAME'] = '/nors4/index.php';
 $_SERVER['HTTP_HOST'] = 'localhost';
 $_SERVER['REMOTE_ADDR'] = 'unit';
-$_GET['module'] = 'post';
+$_GET['controller'] = 'post';
 
 
 define('HIGH_PERFORMANCE', 0);
@@ -67,18 +67,18 @@ $submenu = array(
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' => 'cathegory'))),
+			                                          array('event' => 'cathegory'))),
 			'post'    => array('label' => 'posts',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('subevent' => 'post'))),
+			                                          array('event' => 'post'))),
 		);
 
 $admin->submenu($submenu, 'post');
 echo ENDL . '<br />';
 
-$actions = array('add' => $r->forward(array('action'=>'add')), 'cron' => $r->forward(array('action'=>'cron')));
+$actions = array('add' => $r->forward(array('command'=>'add')), 'cron' => $r->forward(array('command'=>'cron')));
 $admin->actions($actions);
 echo ENDL . '<br />';
 

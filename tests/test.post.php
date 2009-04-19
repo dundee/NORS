@@ -4,7 +4,7 @@ $_SERVER['PHP_SELF'] = '/nors4/index.php';
 $_SERVER['REQUEST_URI'] = '/nors4/post/';
 $_SERVER['SCRIPT_NAME'] = '/nors4/index.php';
 $_SERVER['HTTP_HOST'] = 'localhost';
-$_GET['module'] = 'post';
+$_GET['controller'] = 'post';
 
 define('HIGH_PERFORMANCE', 0);
 error_reporting(E_ERROR | E_PARSE);
@@ -74,8 +74,8 @@ df
 Core_DB::singleton();
 Core_DB::_setInstance(new Core_DB_Test);
 
-require(APP_PATH . '/modules/Post.php');
+require(APP_PATH . '/controllers/Post.php');
 $instance = new Post();
-$view = Core_View::factory($request->view, $instance, $_GET['event']);
+$view = Core_View::factory($request->view, $instance, $_GET['action']);
 $view->display();
 ?>

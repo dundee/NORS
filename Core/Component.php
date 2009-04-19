@@ -24,12 +24,12 @@ abstract class Core_Component extends Core_Object
 
 	public $responseType = 'json';
 
-	public function __construct(Core_Module $module = NULL,
+	public function __construct(Core_Controller $controller = NULL,
 	                            $name = FALSE,
 	                            $params = FALSE)
 	{
 		parent::__construct();
-		if ($module && $name) $module->setData($name, $this->render( $params ), TRUE);
+		if ($controller && $name) $controller->setData($name, $this->render( $params ), TRUE);
 	}
 
 	/**

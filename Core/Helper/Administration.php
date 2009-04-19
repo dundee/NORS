@@ -34,9 +34,9 @@ class Core_Helper_Administration extends Core_Helper
 	{
 		if (!iterable($items)) return;
 		$r = Core_Request::factory();
-		
+
 		$id = $r->getGet('id');
-		$table = $r->getGet('subevent');
+		$table = $r->getGet('event');
 		if ($id && $table == 'post') {
 			$url = Core_Router::factory()->genUrl($table, '__default', $table, array('post' => $id));
 			$items['show'] = $url;
@@ -47,7 +47,7 @@ class Core_Helper_Administration extends Core_Helper
 		foreach ($items as $name => $url) {
 			if ($i) echo ' | ';
 
-			if ($r->getGet('action') == $name) $selected = 'class="selected" ';
+			if ($table == $name) $selected = 'class="selected" ';
 			else $selected = '';
 
 			echo '<a ' . $selected . 'href="' . $url . '">' . __($name) . '</a>';
@@ -101,9 +101,9 @@ class Core_Helper_Administration extends Core_Helper
 		if (iterable($rows)) {
 			$i = 0;
 			foreach ($rows as $row) {
-				$edit_url      = $r->forward(array('id'=>$row[0], 'action'=>'edit'));
-				$del_url       = $r->forward(array('id'=>$row[0], 'action'=>'del'), FALSE, TRUE);
-				$activate_url  = $r->forward(array('id'=>$row[0], 'action'=>'activate'), FALSE, TRUE);
+				$edit_url      = $r->forward(array('id'=>$row[0], 'command'=>'edit'));
+				$del_url       = $r->forward(array('id'=>$row[0], 'command'=>'del'), FALSE, TRUE);
+				$activate_url  = $r->forward(array('id'=>$row[0], 'command'=>'activate'), FALSE, TRUE);
 				$rowname       = isset($row['name']) ? clearOutput($row['name']) : '';
 
 				$output .= '<tr';
@@ -176,7 +176,7 @@ class Core_Helper_Administration extends Core_Helper
 		$class = 'ActiveRecord_' . ucfirst($table);
 		$model = new $class($id);
 		$r     = Core_Request::factory();
-		
+
 		$f = $this->form->form(NULL, $action, __($table), __('save'), array('enctype' => 'multipart/form-data'));
 		if ($id) $this->form->input(FALSE, 'id', FALSE, 'hidden', $id);
 

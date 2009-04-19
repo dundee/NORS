@@ -21,8 +21,8 @@ class Core_View_Rss extends Core_View
 	* Constructor
 	* @access public
 	*/
-	public function __construct(Core_Module $module,$event){
-		parent::__construct($module,$event);
+	public function __construct(Core_Controller $controller,$action){
+		parent::__construct($controller,$action);
 	}
 
 	/**
@@ -31,14 +31,14 @@ class Core_View_Rss extends Core_View
 	*/
 	public function display(){
 
-		$request  = $this->module->request;
-		$response = $this->module->response;
+		$request  = $this->controller->request;
+		$response = $this->controller->response;
 
 		$request->setVar('view', 'rss');
 
 
 		$createCache = FALSE;  //should we create cache file?
-		$cacheLifeTime = $this->module->cache;
+		$cacheLifeTime = $this->controller->cache;
 
 		if ($cacheLifeTime > 0){ //caching allowed
 			$cacheFileName = $request . ".cache.php";
@@ -59,20 +59,20 @@ class Core_View_Rss extends Core_View
 		if ($createCache) ob_start(); //start output buffer
 
 		//load helpers
-		if (iterable($this->module->helpers)) {
-			foreach ($this->module->helpers as $helper) {
+		if (iterable($this->controller->helpers)) {
+			foreach ($this->controller->helpers as $helper) {
 				$class = 'Core_Helper_' . ucfirst($helper);
-				$this->module->setData(strtolower($helper), new $class);
+				$this->controller->setData(strtolower($helper), new $class);
 			}
 		}
 
-		//execute event
-		if (method_exists($this->module,'beforeEvent')) $this->module->beforeEvent();
-		$event = $this->moduleEvent;
-		$this->module->$event();
-		if (method_exists($this->module,'afterEvent')) $this->module->afterEvent();
+		//execute action
+		if (method_exists($this->controller,'beforeAction')) $this->controller->beforeAction();
+		$action = $this->controllerAction;
+		$this->controller->$action();
+		if (method_exists($this->controller,'afterAction')) $this->controller->afterAction();
 
-		$data = $this->module->getData();
+		$data = $this->controller->getData();
 
 		$response->sendHeaders('application/xml');
 
