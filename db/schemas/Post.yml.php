@@ -8,8 +8,8 @@ fields:
 	text: html
 	date: datetime
 	active: bool
-	karma: double
-	evaluated: int
+	-karma: double
+	-evaluated: int
 	-seen: int
 	photo: file
 ids: id_post
