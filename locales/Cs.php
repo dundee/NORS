@@ -133,6 +133,7 @@ class Locale_Cs extends Core_Locale
 		'basic'                     => 'Základní',
 		'advanced'                  => 'Pokročilé',
 		'comment'                   => 'Komentář',
+		'id_cathegory'              => 'Rubrika',
 
 		//             Prava
 		'cathegory_list'            => 'Výpis rubrik',

@@ -1,4 +1,5 @@
 HIGH:
+news on norsphp
 IC.cz support
 paging
 
@@ -8,6 +9,7 @@ backup
 autologin
 last modified in posts, pages -> sitemap
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
+better lightbox
 better upload
 block IP of commentor
 
@@ -20,3 +22,4 @@ log admin access
 file manager
 page as a homepage
 tree of categories
+module -> action controller
