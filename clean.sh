@@ -1,8 +1,8 @@
 #!/bin/bash
 
-sudo rm ./cache/*
-sudo rm ./log/*
-sudo rm ./tpl/cache/*
-sudo rm ./upload/*
-sudo rm ./tests/output/*
-sudo rm ./tests/errors
+rm ./cache/*
+rm ./log/*
+rm ./tpl/cache/*
+rm ./upload/*
+rm ./tests/output/*
+rm ./tests/errors

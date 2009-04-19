@@ -1,0 +1,2 @@
+version 4.1.0:
+	ALTER TABLE `nors4_post` ADD `evaluated` INT UNSIGNED NOT NULL DEFAULT '0';
