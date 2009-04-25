@@ -331,6 +331,39 @@ function testEnvironment()
 	    && !isset($_SERVER['REDIRECT_STATUS']))  die('Controller "mod_rewrite" needs to be enabled.');
 }
 
+if (!function_exists('posix_getuid')) {
+	/**
+	 * For Windows users
+	 */
+	function posix_getuid()
+	{
+		return 0;
+	}
+}
+
+function checkIfWritable($file)
+{
+	if (!isWritable($file))  throw new RuntimeException('"' . $file . '" ' . __('needs to be writable'));
+}
+
+function isWritable($file)
+{
+	$perms = getFilePerms($file);
+	$owner = fileowner($file);
+	$uid   = posix_getuid();
+
+	$req = is_file($file) ? 6 : 7; //Directory needs to be 7, file 6
+
+	//echo $file . '  - ' . $perms . ' - ' . $req . '<br />';
+
+	if ($uid == $owner) {
+		if (substr($perms, 0, 1) >= $req) return TRUE;
+	} else {
+		if (substr($perms, -1) >= $req) return TRUE;
+	}
+	return FALSE;
+}
+
 function getFilePerms($file)
 {
 	if (!file_exists($file)) die('File or directory ' . $file . ' doesn\'t exist. Please create it.');

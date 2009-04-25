@@ -100,7 +100,7 @@ class Core_Parser_YML
 
 		//write data to cache file
 		$res = file_put_contents($cacheFile, $content);
-		chmod($cacheFile, 0777);
+		//chmod($cacheFile, 0777);
 		if (!$res) {
 			echo 'Directory "cache" needs to be writable by anyone (777).';
 			die();

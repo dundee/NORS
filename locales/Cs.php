@@ -173,7 +173,7 @@ class Locale_Cs extends Core_Locale
 		'wrong_db_name'             => 'Špatný název databáze',
 		'environment check'         => 'Kontrola prostředí',
 		'directory'                 => 'Složka',
-		'needs to be writable by anyone' => 'potřebuje právo zápisu pro všechny',
+		'needs to be writable'      => 'musí být zapisovatelný',
 		'Pleae repair errors and refresh the page' => 'Prosím opravte chyby a načtěte stránku znovu',
 		'evaluation'                => 'Hodnocení',
 

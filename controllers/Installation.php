@@ -59,9 +59,11 @@ class Installation extends Core_Controller
 		//check permissions
 		$files = array('config', 'config/config.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'db/tables', 'db/activeRecords');
 		foreach ($files as $file) {
-			$perms = getFilePerms(APP_PATH . '/' . $file);
-			$req = is_file(APP_PATH . '/' . $file) ? 6 : 7;
-			if (substr($perms, -1) < $req) $fatal[] = ' "' . $file . '" ' . __('needs to be writable by anyone') . ' ('.$req.$req.$req.').';
+			try {
+				checkIfWritable(APP_PATH . '/' . $file);
+			} catch (RuntimeException $e) {
+				$fatal[] = $e->getMessage();
+			}
 		}
 
 		if ($this->request->getPost('send')) {
