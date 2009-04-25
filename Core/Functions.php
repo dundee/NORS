@@ -139,7 +139,14 @@ function mtime()
 }
 
 function iterable($array){
-	return isset($array) && is_array($array) && count($array) > 0;
+	if (isset($array) && is_array($array) && count($array) > 0) return TRUE; //array
+
+	if (!is_array($array) && is_object($array)) { //Iterable object
+		$impl = class_implements($array);
+		if (isset($impl['Iterator']) && $impl['Iterator'] && $array->valid() !== FALSE) return TRUE;
+	}
+
+	return FALSE;
 }
 
 function clearInput($val, $numeric = FALSE)
