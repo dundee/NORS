@@ -23,9 +23,9 @@ class Core_ModelGenerator
 	 */
 	static public function generate($class)
 	{
-		$class = preg_replace('/^db_/', '', $class);
+		$class = preg_replace('/^models_/', '', $class);
 		list($dir, $name) = explode('_', $class);
-		$fileName = APP_PATH . '/db/schemas/' . $name . '.yml.php';
+		$fileName = APP_PATH . '/models/schemas/' . $name . '.yml.php';
 		if (!file_exists($fileName)) return FALSE;
 
 		do {
@@ -110,17 +110,17 @@ class Table_$class extends Core_Table
 	}
 }
 EOF;
-		if (!file_exists(APP_PATH . '/db/activeRecords/' . $class . '.php')) {
-			file_put_contents(APP_PATH . '/db/activeRecords/' . $class . '.php', $activeRecord_temp);
-			chmod(APP_PATH . '/db/activeRecords/' . $class . '.php', 0777);
+		if (!file_exists(APP_PATH . '/models/activeRecords/' . $class . '.php')) {
+			file_put_contents(APP_PATH . '/models/activeRecords/' . $class . '.php', $activeRecord_temp);
+			chmod(APP_PATH . '/models/activeRecords/' . $class . '.php', 0777);
 		}
-		if (!file_exists(APP_PATH . '/db/tables/' . $class . '.php')) {
-			file_put_contents(APP_PATH . '/db/tables/' . $class . '.php', $table_temp);
-			chmod(APP_PATH . '/db/tables/' . $class . '.php', 0777);
+		if (!file_exists(APP_PATH . '/models/tables/' . $class . '.php')) {
+			file_put_contents(APP_PATH . '/models/tables/' . $class . '.php', $table_temp);
+			chmod(APP_PATH . '/models/tables/' . $class . '.php', 0777);
 		}
 
-		require_once(APP_PATH . '/db/activeRecords/' . $class . '.php');
-		require_once(APP_PATH . '/db/tables/' . $class . '.php');
+		require_once(APP_PATH . '/models/activeRecords/' . $class . '.php');
+		require_once(APP_PATH . '/models/tables/' . $class . '.php');
 		return TRUE;
 	}
 }
