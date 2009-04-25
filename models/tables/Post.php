@@ -51,7 +51,10 @@ class Table_Post extends Core_Table
 			$lines = $this->db->getRows($sql);
 		} catch(RuntimeException $ex) {
 			if ($ex->getCode() == 1146) {
-				$this->create();
+				if (strpos($ex->getMessage(), "comment' doesn't exist") !== FALSE) {
+					$comment = new Table_Comment();
+					$comment->create();
+				} else $this->create();
 				return FALSE;
 			}
 			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
@@ -93,7 +96,10 @@ class Table_Post extends Core_Table
 			$lines = $this->db->getRows($sql);
 		} catch(RuntimeException $ex) {
 			if ($ex->getCode() == 1146) {
-				$this->create();
+				if (strpos($ex->getMessage(), "comment' doesn't exist") !== FALSE) {
+					$comment = new Table_Comment();
+					$comment->create();
+				} else $this->create();
 				return FALSE;
 			} else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
