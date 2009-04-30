@@ -24,6 +24,7 @@ class Locale_Cs extends Core_Locale
 		//              Odpovedi systemu
 		'DB_connection_failed'      => 'Připojení k databázi se nezdařilo',
 		'DB_query_failed'           => 'Provedení SQL dotazu se nezdařilo',
+		'DB_not_exists'             => 'Databáze neexistuje',
 		'wrong_password'            => 'Zadané heslo není správné',
 		'user_not_exists'           => 'Zadaný uživatel neexistuje',
 		'we_are_very_sorry'         => 'Omlouváme se. Vámi požadovaná stránka není k dispozici.',

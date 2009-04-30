@@ -117,7 +117,11 @@ class Core_View_Default extends Core_View
 		if (defined('KILLED')) die();
 
 		$this->controller->delData();
-		if (method_exists($this->controller,'beforeFooter')) $this->controller->beforeFooter();
+		try {
+			if (method_exists($this->controller,'beforeFooter')) $this->controller->beforeFooter();
+		} catch (Exception $ex) {
+			die('Exception:' . $ex->getMessage()); //cut second Exception from propagation
+		}
 		$data = $this->controller->getData();
 		foreach($data as $k=>$v){
 			${$k} = $v;

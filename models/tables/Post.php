@@ -36,7 +36,7 @@ class Table_Post extends Core_Table
 		$sql = "SELECT p.*,
 		               c.`name` AS cathegory_name,
 		               count(co.`id_comment`) AS num_of_comments,
-		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name
+		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name               
 		        FROM `" . tableName($this->table) . "` AS p
 		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
@@ -99,7 +99,11 @@ class Table_Post extends Core_Table
 				if (strpos($ex->getMessage(), "comment' doesn't exist") !== FALSE) {
 					$comment = new Table_Comment();
 					$comment->create();
+				} elseif (strpos($ex->getMessage(), "user' doesn't exist") !== FALSE) {
+					$comment = new Table_User();
+					$comment->create();
 				} else $this->create();
+				echo $ex->getMessage();
 				return FALSE;
 			} else throw new RuntimeException($ex->getMessage(), $ex->getCode());
 		}
