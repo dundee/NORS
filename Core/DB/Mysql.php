@@ -52,7 +52,8 @@ class Core_DB_Mysql extends Core_DB
 		                                  $this->data->user,
 		                                  $this->data->password
 		                                  );
-		mysql_select_db($this->data->database, $this->connection);
+		$res = mysql_select_db($this->data->database, $this->connection);
+		if (!$res) throw new RuntimeException(__('DB_not_exists') . ": " . $this->data->database, mysql_errno());
 		mysql_query("SET CHARACTER SET " . $this->charset, $this->connection);
 
 		//set connection encoding

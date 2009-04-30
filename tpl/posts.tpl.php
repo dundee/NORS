@@ -18,5 +18,3 @@ if (iterable($items)) {
 }
 ?>
 <div id="paging"><?php echo $paging?></div>
-
-

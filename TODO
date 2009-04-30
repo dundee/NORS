@@ -2,6 +2,7 @@ HIGH:
 news on norsphp
 IC.cz support
 paging
+code purification
 
 MEDIUM:
 gravatars
@@ -22,4 +23,5 @@ log admin access
 file manager
 page as a homepage
 tree of categories
-module -> action controller
+personalize frontend
+salt to config

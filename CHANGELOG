@@ -1,3 +1,21 @@
+version 4.2.0 ():
+	frontend:
+	* thickbox fix
+	* fixed perex limit
+
+	administration:
+	* hide karma and evaluated
+
+	core:
+	* refactoring:
+		Module   -> Controller
+		Event    -> Action
+		Subevent -> Event
+		Action   -> Command
+	* Text::getWords multiline fix
+	* better file perms check (suexec support)
+
+
 version 4.1.0 (04/04/2009):
 	frontend:
 	* RSS feeds for cathegories and comments

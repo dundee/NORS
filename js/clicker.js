@@ -22,3 +22,4 @@ function collapse()
 	$(this).parent().css('list-style-image', 'url("../../styles/default/images/plus.gif")');
 	return true;
 }
+
