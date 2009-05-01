@@ -11,8 +11,8 @@ localhost:
 	timezone: Europe/Prague
 	db:
 		connector: mysql
-		user:
-		password:
+		user: root
+		password: 1234
 		host: localhost
 		database: nors
 		table_prefix: nors4_
@@ -21,7 +21,7 @@ localhost:
 		error_reporting: 6143
 		display_errors: 1
 		time_management: 1
-		sql_queries:
+		sql_queries: 
 		included_files:
 		die_on_error: 1
 	log:
@@ -56,7 +56,7 @@ localhost:
 				controller: post
 				action: __default
 	front_end:
-		perex_length: 200
+		perex_length: 100
 		posts_per_page: 5
 	administration:
 		items_per_page: 10
