@@ -83,18 +83,18 @@ class Administration extends Core_Controller_Auth
 	public function news()
 	{
 		$this->tplFile = 'admin_news.tpl.php';
-		$this->setData('src', 'http://milde.cz/news.htm');
+		$this->setData('src', 'http://norsphp.com/news.htm');
 	}
 
 	public function content()
 	{
 		$r = $this->router;
 		$submenu = array(
-			'cathegory'    => array('label' => 'cathegories',
+			'category'    => array('label' => 'categories',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('event' => 'cathegory'))),
+			                                          array('event' => 'category'))),
 			'post'    => array('label' => 'posts',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
@@ -129,13 +129,13 @@ class Administration extends Core_Controller_Auth
 		$this->guidepost('content', $submenu);
 	}
 
-	public function event_cathegory()
+	public function event_category()
 	{
 		$r = $this->router;
 		$actions = array('add'  => $r->forward(array('command'=>'add')),
 		                 'tree' => $r->forward(array('command'=>'tree')),
 		                 );
-		$this->basic_page('cathegory', $actions);
+		$this->basic_page('category', $actions);
 	}
 
 	public function event_post()
@@ -360,14 +360,13 @@ class Administration extends Core_Controller_Auth
 		$req  = $this->request;
 		if ($req->getCookie('table') == $table) {
 			$resp->setPost('name', $req->getCookie('name'));
-			$resp->setPost('page', $req->getCookie('page'));
+			$resp->setPost('p', $req->getCookie('page'));
 			$resp->setPost('order', $req->getCookie('order'));
 			$resp->setPost('a', $req->getCookie('a'));
 		}
 
 		new Component_DumpFilter($this, 'dump_filter', array('table' => $table));
 		new Component_Dump($this, 'dump', array('table' => $table));
-
 	}
 
 	protected function add($table)

@@ -17,7 +17,7 @@ $(function()
 			type: "POST",
 			cache: false,
 			async: true,
-			data: "page="+this.paging+"&controller="+this.controller,
+			data: "p="+this.paging+"&controller="+this.controller,
 			dataType: "html",
 			url: '?command=items-paging',
 			success: function(html){

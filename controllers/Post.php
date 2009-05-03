@@ -31,7 +31,7 @@ class Post extends Core_Controller
 
 	public $js = array('jquery.js',
 	                   'jquery.thickbox.js',
-	                   'paging.js',
+	//                   'paging.js',
 	                   'jquery.markitup.js',
 	                   'set-comment.js',
 	                   'post.js');
@@ -44,9 +44,9 @@ class Post extends Core_Controller
 	{
 		$menu_helper = new Core_Helper_Menu();
 
-		$cathegory = new Table_Cathegory();
-		$cathegories = $cathegory->getAll('name', 'asc');
-		$cathegories = $menu_helper->prepare($cathegories, 'cathegory');
+		$category = new Table_Category();
+		$cathegories = $category->getAll('name', 'asc');
+		$cathegories = $menu_helper->prepare($cathegories, 'category');
 		$this->setData('cathegories', $menu_helper->render($cathegories, 4), TRUE);
 
 		$table = new Table_Page();
@@ -70,10 +70,12 @@ class Post extends Core_Controller
 	{
 		$this->tplFile = 'posts.tpl.php';
 
-		$page = $this->request->getPost('page');
+		$page = $this->request->getPost('p');
+		if ($page === FALSE) $page = $this->request->getGet('p');
+
 		if ($page == '') {
 			$page = $this->request->getCookie('page');
-			$this->response->setPost('page', $page);
+			$this->response->setPost('p', $page);
 		}
 
 		$max = $this->config->front_end->posts_per_page;
@@ -95,16 +97,16 @@ class Post extends Core_Controller
 		if (iterable($posts)) {
 			foreach ($posts as $i=>$post) {
 				$url = $text_obj->urlEncode($post->name);
-				$curl = $text_obj->urlEncode($post->cathegory_name);
+				$curl = $text_obj->urlEncode($post->category_name);
 				$text = $text_obj->getPerex(Core_Config::singleton()->front_end->perex_length, $post->text);
 				$text = strip_tags($text);
 				$text = $text_obj->clearAmpersand($text);
 
 				$posts[$i]->url            = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
 				$posts[$i]->text           = $text;
-				$posts[$i]->cathegory_url  = $this->router->genUrl('cathegory', FALSE, 'cathegory', array('cathegory' => $post->id_cathegory . '-' . $curl));
+				$posts[$i]->category_url  = $this->router->genUrl('category', FALSE, 'category', array('category' => $post->id_category . '-' . $curl));
 				$posts[$i]->name           = clearOutput($post->name);
-				$posts[$i]->cathegory_name = clearOutput($post->cathegory_name);
+				$posts[$i]->category_name = clearOutput($post->category_name);
 				$posts[$i]->date           = Core_Locale::factory()->decodeDatetime($post->date);
 			}
 		}

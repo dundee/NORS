@@ -1,20 +1,11 @@
 <?php
 
 /**
-* Core_Helper_Administration
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Helper_Administration
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Helps to automate creation of administration
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Helper_Administration extends Core_Helper
 {
 	public $helpers = array('Form', 'Html');
@@ -65,7 +56,10 @@ class Core_Helper_Administration extends Core_Helper
 		$request = Core_Request::factory();
 
 		$max = Core_Config::singleton()->administration->items_per_page;
-		$limit = ($request->getPost('page') * $max) . ',' . $max;
+		$page = $request->getPost('p');
+		if ($page === FALSE) $page = $request->getGet('p');
+
+		$limit = ($page * $max) . ',' . $max;
 
 		$rows = $model->getList($request->getPost('order'),
 		                        $request->getPost('a'),

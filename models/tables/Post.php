@@ -22,7 +22,7 @@ class Table_Post extends Core_Table
 		parent::__construct('post');
 	}
 
-	public function getByCathegory($cathegory, $orderBy = FALSE, $order = FALSE, $limit = FALSE)
+	public function getByCategory($category, $orderBy = FALSE, $order = FALSE, $limit = FALSE)
 	{
 		if ($orderBy === FALSE) {
 			$orderBy = 'id_' . $this->table;
@@ -34,16 +34,16 @@ class Table_Post extends Core_Table
 		$order = ( $order=='asc' ? 'asc' : 'desc' );
 
 		$sql = "SELECT p.*,
-		               c.`name` AS cathegory_name,
+		               c.`name` AS category_name,
 		               count(co.`id_comment`) AS num_of_comments,
-		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name               
+		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name
 		        FROM `" . tableName($this->table) . "` AS p
-		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('category') . "` AS c USING (`id_category`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
 		        LEFT JOIN `" . tableName('user') . "` AS u USING (`id_user`)
 		        WHERE p.`active` = 1 AND
 		              p.`date` <= '" . date("Y-m-d H:i:00") . "' AND
-		              p.`id_cathegory` = '" . intval($cathegory) . "'
+		              p.`id_category` = '" . intval($category) . "'
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
 		        . ($limit ? " LIMIT " . clearInput($limit) : '');
@@ -81,11 +81,11 @@ class Table_Post extends Core_Table
 		$order = ( $order=='asc' ? 'asc' : 'desc' );
 
 		$sql = "SELECT p.*,
-		               c.`name` AS cathegory_name,
+		               c.`name` AS category_name,
 		               count(`id_comment`) AS num_of_comments,
 		               IF(u.`fullname` != '', u.`fullname`, u.`name`) AS user_name
 		        FROM `" . tableName($this->table) . "` AS p
-		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('category') . "` AS c USING (`id_category`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
 		        LEFT JOIN `" . tableName('user') . "` AS u USING (`id_user`)
 		        WHERE p.`active` = 1 AND p.`date` <= '" . date("Y-m-d H:i:00") . "'
@@ -117,13 +117,13 @@ class Table_Post extends Core_Table
 		return $instances;
 	}
 
-	public function getCountByCathegory($cathegory)
+	public function getCountByCategory($category)
 	{
 		$sql = "SELECT count(*) AS count
 		        FROM `" . tableName($this->table) . "`
 		        WHERE `active` = 1 AND
 		              `date` <= '" . date("Y-m-d H:00:00") . "' AND
-		              `id_cathegory` = '" . intval($cathegory) . "'";
+		              `id_category` = '" . intval($category) . "'";
 		try{
 			$line = $this->db->getRow($sql);
 		} catch (RuntimeException $ex) {
@@ -152,12 +152,14 @@ class Table_Post extends Core_Table
 
 		$sql = "SELECT p.`id_" . $this->table . "`,
 		               p.`name`,
+		               cat.`name` AS category,
 		               COUNT(`id_comment`) AS num_of_comments,
 		               p.`seen` AS num_of_visits,
 		               p.`date`,
 		               p.`active`
 		        FROM `" . tableName($this->table) . "` AS p
-				LEFT JOIN `" . tableName('comment') . "` AS c USING (`id_post`)";
+		        LEFT JOIN `" . tableName('comment') . "` AS c USING (`id_post`)
+		        LEFT JOIN `" . tableName('category') . "` AS cat USING (`id_category`)";
 
 		if ($name) {
 			$sql .= " WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
@@ -194,10 +196,10 @@ class Table_Post extends Core_Table
 		$order = ( $order=='asc' ? 'asc' : 'desc' );
 
 		$sql = "SELECT p.*,
-		               c.`name` AS cathegory_name,
+		               c.`name` AS category_name,
 		               count(`id_comment`) AS num_of_comments
 		        FROM `" . tableName($this->table) . "` AS p
-		        LEFT JOIN `" . tableName('cathegory') . "` AS c USING (`id_cathegory`)
+		        LEFT JOIN `" . tableName('category') . "` AS c USING (`id_category`)
 		        LEFT JOIN `" . tableName('comment') . "` AS co USING (`id_post`)
 		        GROUP BY `id_post`
 		        ORDER BY `" . clearInput($orderBy) . "` " . strtoupper($order)
@@ -219,5 +221,27 @@ class Table_Post extends Core_Table
 			$instances[] = $current;
 		}
 		return $instances;
+	}
+
+	public function getCount($name = FALSE)
+	{
+		$sql = "SELECT count(*) AS count
+		        FROM `" . tableName($this->table) . "`
+		        WHERE `active` = 1";
+
+		if ($name) {
+			$sql .= " WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
+		}
+
+		try{
+			$line = $this->db->getRow($sql);
+		} catch (RuntimeException $ex) {
+			if ($ex->getCode() == 1146) {
+				$this->create();
+				return FALSE;
+			}
+			else throw new RuntimeException($ex->getMessage(), $ex->getCode());
+		}
+		return $line['count'];
 	}
 }

@@ -1,17 +1,7 @@
 <?php
 
 /**
- * Core_Router_ModRewrite
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Router_ModRewrite
- *
+ * Router which creates nice URLs (mod Rewrite needed)
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */
@@ -71,14 +61,20 @@ class Core_Router_ModRewrite extends Core_Router
 		}
 
 		//prepare args
-		$args = array_merge( $other_args, array('controller' => $controller,
+		$get_args = array_merge( $other_args, array('controller' => $controller,
 		                                        'action'  => $action) );
-		if ($inherit_params) $args = array_merge($_GET,$args);
+		if ($inherit_params) $get_args = array_merge($_GET,$get_args);
 
 		if (!isset($this->routes[$routeName])) throw new Exception('Route "' .$routeName . '" is not defined.');
 
 		$route = $this->routes[$routeName];
 		$urlForm = $route['url']; //URL form of route...e.g.: ':controller/:action'
+
+		//ignore defaults
+		foreach ($get_args as $k => $v) {
+			if (isset($route['defaults']->{$k}) &&
+			    $route['defaults']->{$k} == $v) unset($get_args[$k]);
+		}
 
 		//create cool URL according to URL form
 		$url_parts = explode('/', $urlForm);
@@ -86,10 +82,11 @@ class Core_Router_ModRewrite extends Core_Router
 		$url .= substr(APP_URL, strlen(APP_URL)-1, 1) == '/' ? '' : '/'; //slash on end
 
 		foreach ($url_parts as $part) {
-			if (substr($part, 0, 1) == ':') { //variable part
+			if (substr($part, 0, 1) == '@') { //variable part
 				$part = substr($part, 1); //remove colon
-				$part_value = $args[$part];
-				unset($args[$part]);
+				if (!isset($get_args[$part])) continue;
+				$part_value = $get_args[$part];
+				unset($get_args[$part]);
 			} else { //static part
 				$part_value = $part;
 			}
@@ -101,12 +98,12 @@ class Core_Router_ModRewrite extends Core_Router
 			    ) $part_value = $route['defaults']->{$part}; //default values
 
 			if ($part_value) $url .= $part_value . '/';
-			//echo $part . ' - ' . $args[$part] .' - '. $url.'<br />';
+			//echo $part . ' - ' . $get_args[$part] .' - '. $url.'<br />';
 		}
 
 		//after ?
 		$url2 = '';
-		foreach($args as $key=>$value){
+		foreach($get_args as $key=>$value){
 			if (
 			$key == 'browser' ||
 			$key == 'controller' ||
@@ -146,7 +143,7 @@ class Core_Router_ModRewrite extends Core_Router
 		//find matching route
 		foreach($this->routes as $name=>$route){
 			$urlForm = $route['url'];
-			$urlForm = eregi_replace(':([^/]*)','([^/]*)',$urlForm);
+			$urlForm = eregi_replace('@([^/]*)','([^/]*)',$urlForm);
 			if ( eregi('^'.$urlForm.'/?$', $action) ) { //route matches
 				$this->currentRoute = $name;
 				break;
@@ -160,7 +157,7 @@ class Core_Router_ModRewrite extends Core_Router
 		$parts = explode('/', $route['url']);
 		$i = 0;
 		foreach ($parts as $key) {
-			if (substr($key,0,1) != ':') {
+			if (substr($key,0,1) != '@') {
 				$i++;
 				continue; //static part of URL
 			}
@@ -180,8 +177,8 @@ class Core_Router_ModRewrite extends Core_Router
 		$url = $request->getUrl();
 		$url = str_replace('&','&amp;',$url);
 		if ($this->genUrl($_GET['controller'], $_GET['action'], FALSE, $_GET) != $url && $redirect){
-			//echor($this->genUrl($_GET['controller'], $_GET['action'], FALSE, $_GET).' - '.$url);
-			$this->redirect($_GET['controller'], $_GET['action'], FALSE, $_GET, FALSE, TRUE);
+			echor($this->genUrl($_GET['controller'], $_GET['action'], FALSE, $_GET).' - '.$url);
+			//$this->redirect($_GET['controller'], $_GET['action'], FALSE, $_GET, FALSE, TRUE);
 		}
 	}
 }

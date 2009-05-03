@@ -1,16 +1,7 @@
 <?php
 
 /**
- * Core_Application
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Application
+ * Front Controller class. All requests goes trought this.
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -103,8 +94,8 @@ class Core_Application
 						throw new RuntimeException('Controller ' . $controller . ' is not a valid controller', 500);
 					}
 					if (!$instance->authenticate()) {
-						if ($controller != 'login') $this->response->setSession('request', $this->request->getUrl());
-						$this->router->redirect('login', '__default', FALSE, 'default');
+						if ($controller != 'user') $this->response->setSession('request', $this->request->getUrl());
+						$this->router->redirect('user', 'login', FALSE, 'default');
 					} else {
 						$instance->authorize();
 						$view = Core_View::factory($this->request->view, $instance, $action);

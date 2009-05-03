@@ -11,8 +11,8 @@ localhost:
 	timezone: Europe/Prague
 	db:
 		connector: mysql
-		user: root
-		password: 1234
+		user:
+		password:
 		host: localhost
 		database: nors
 		table_prefix: nors4_
@@ -21,8 +21,8 @@ localhost:
 		error_reporting: 6143
 		display_errors: 1
 		time_management: 1
-		sql_queries: 
-		included_files:
+		sql_queries: 0
+		included_files: 0
 		die_on_error: 1
 	log:
 		enabled: 1
@@ -35,23 +35,25 @@ localhost:
 			defaults:
 				controller: post
 				action: __default
-		cathegory:
-			format: cathegory/:cathegory
+				p: 0
+		category:
+			format: category/@category
 			defaults:
-				controller: cathegory
+				controller: category
 				action: __default
+				p: 0
 		post:
-			format: post/:post
+			format: post/@post
 			defaults:
 				controller: post
 				action: __default
 		page:
-			format: page/:page
+			format: page/@page
 			defaults:
 				controller: page
 				action: __default
 		default:
-			format: :controller/:action
+			format: @controller/@action
 			defaults:
 				controller: post
 				action: __default
