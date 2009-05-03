@@ -1,4 +1,4 @@
-version 4.2.0 ():
+version 4.2.0 (05/04/2009):
 	frontend:
 	* thickbox fix
 	* fixed perex limit
@@ -6,7 +6,7 @@ version 4.2.0 ():
 
 	administration:
 	* hide karma and evaluated
-	* better ACL
+	* ACL fix
 
 	core:
 	* refactoring:
@@ -17,6 +17,7 @@ version 4.2.0 ():
 		Cathegory -> Category
 	* Text::getWords multiline fix
 	* better file perms check (suexec support)
+	* formating and documentation
 
 
 version 4.1.0 (04/04/2009):
