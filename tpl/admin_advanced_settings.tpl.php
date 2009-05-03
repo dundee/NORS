@@ -1,10 +1,9 @@
 <?php
 $administration->submenu($submenu, $subselected);
-
-echo '<form action="#" method="post">';
-
-$clicker->generate($settings);
-
-echo '<input name="send" type="submit" value="' . __('save') . '" />';
-echo '</form>';
 ?>
+<form action="#" method="post">
+<?php
+$clicker->generate($settings);
+?>
+<input name="send" type="submit" value="<?php echo __('save') ?>" />
+</form>

@@ -1,12 +1,4 @@
 <?php
-/**
- * Datetime
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
 
 /**
  * Datetime
@@ -21,18 +13,18 @@ class Core_Type_Datetime extends Core_Type
 		$locale = Core_Locale::factory();
 		return $locale->encodeDatetime($value);
 	}
-	
+
 	public function prepareForWeb($value)
 	{
 		$locale = Core_Locale::factory();
 		return $locale->decodeDatetime($value);
 	}
-	
+
 	public function getDefinition()
 	{
 		return 'datetime NOT NULL';
 	}
-	
+
 	public function getDefaultValue()
 	{
 		return date('Y-m-d H:i:s');

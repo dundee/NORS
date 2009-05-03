@@ -1,10 +1,7 @@
 <?php
 
-define('ENDL',"\n");
-define('TAB',"\t");
-
 /**
- * Functions
+ * Basic functions
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @copyright Daniel Milde <daniel@milde.cz>
@@ -13,16 +10,26 @@ define('TAB',"\t");
  */
 
 /**
- * Return the version of Core
+ * Endline
+ */
+define('ENDL',"\n");
+
+/**
+ * Tabulator
+ */
+define('TAB',"\t");
+
+/**
+ * Return the version of NORS
  *
  * @return string
  */
 function norsVersion() {
-	return "4.1.0";
+	return "4.2.0";
 }
 
-function coreVersion(){
-	return "1.0";
+if (!function_exists('memory_get_usage')) {
+	throw new Exception('PHP version at least 5.2 needed');
 }
 
 /**
@@ -50,10 +57,7 @@ function setUrlPath()
 
 if (!function_exists('__autoload')) {
 	/**
-	 * __autoload
-	 *
-	 * Autoload is called by PHP5 when it can't find a class.
-	 *
+	 * Loads class
 	 * @param string $class Class name
 	 * @return void
 	 */
@@ -83,7 +87,7 @@ if (!function_exists('__autoload')) {
 
 if (!function_exists('loadFile')) {
 	/**
-	 * loadFile
+	 * Loads file and counts memory and time usage
 	 *
 	 * @param string $class Class name
 	 * @return boolean
@@ -122,9 +126,11 @@ if (!function_exists('loadFile')) {
  */
 function tableName($table)
 {
-	$prefix = Core_Config::singleton()->db->table_prefix;
-	if (!defined('DB_PREFIX')) define('DB_PREFIX', $prefix);
-	return DB_PREFIX . $table;// .'s';
+	if (!defined('DB_PREFIX')) {
+		$prefix = Core_Config::singleton()->db->table_prefix;
+		define('DB_PREFIX', $prefix);
+	}
+	return DB_PREFIX . $table;
 }
 
 /**
@@ -138,6 +144,10 @@ function mtime()
 	return ($sec + $mili);
 }
 
+/**
+ * Is object/array iterable (can be used in foreach)?
+ * @return boolean
+ */
 function iterable($array){
 	if (isset($array) && is_array($array) && count($array) > 0) return TRUE; //array
 
@@ -149,12 +159,18 @@ function iterable($array){
 	return FALSE;
 }
 
+/**
+ * Clears value before inserting to DB
+ */
 function clearInput($val, $numeric = FALSE)
 {
 	if ($numeric) return intval($val);
 	return addslashes($val);
 }
 
+/**
+ * Clears value before printing to screen
+ */
 function clearOutput($val, $allowHtml = FALSE)
 {
 	if (is_array($val)) {
@@ -176,7 +192,7 @@ function clearOutput($val, $allowHtml = FALSE)
 /*----------------------- SHORTCUTS -----------------*/
 
 /**
- * __
+ * Localize string
  *
  * @param string $key
  * @return string translated term
@@ -188,37 +204,37 @@ function __($key)
 	return $locale->{$key};
 }
 
-
+/**
+ * Print object to screen
+ */
 function dump($var){
 	Core_Debug::dump($var);
 }
 
+/**
+ * Print string to screen nicely
+ */
 function echor($string)
 {
 	echo '<br />-' . $string . '-<br />' . ENDL;
 }
 
-if (!function_exists('memory_get_usage')) {
-	throw new Exception('PHP version at least 5.2 needed');
-}
-
 if (!function_exists('json_encode')) {
 
+	/**
+	 * Encode string to JSON
+	 */
 	function json_encode_string($in_str)
 	{
 		$in_str = addslashes($in_str);
 		mb_internal_encoding("UTF-8");
 		$convmap = array(0x80, 0xFFFF, 0, 0xFFFF);
 		$str = "";
-		for($i=mb_strlen($in_str)-1; $i>=0; $i--)
-		{
+		for ($i = mb_strlen($in_str)-1; $i >= 0; $i--) {
 			$mb_char = mb_substr($in_str, $i, 1);
-			if(mb_ereg("&#(\\d+);", mb_encode_numericentity($mb_char, $convmap, "UTF-8"), $match))
-			{
+			if (mb_ereg("&#(\\d+);", mb_encode_numericentity($mb_char, $convmap, "UTF-8"), $match)) {
 				$str = sprintf("\\u%04x", $match[1]) . $str;
-			}
-			else
-			{
+			} else {
 				$str = $mb_char . $str;
 			}
 		}
@@ -226,62 +242,50 @@ if (!function_exists('json_encode')) {
 		$str = str_replace("\t", '\t', $str);
 		return $str;
 	}
+
+	/**
+	 * Encode Array to JSON
+	 */
 	function json_encode($arr)
 	{
 		$json_str = "";
-		if(is_array($arr))
-		{
+		if (is_array($arr)) {
 			$pure_array = true;
 			$array_length = count($arr);
-			for($i=0;$i<$array_length;$i++)
-			{
-				if(! isset($arr[$i]))
-				{
+			for ($i = 0; $i < $array_length; $i++) {
+				if (! isset($arr[$i])) {
 					$pure_array = false;
 					break;
 				}
 			}
-			if($pure_array)
-			{
+			if ($pure_array) {
 				$json_str ="[";
 				$temp = array();
-				for($i=0;$i<$array_length;$i++)
-				{
+				for ($i = 0; $i < $array_length; $i++) {
 					$temp[] = sprintf("%s", php_json_encode($arr[$i]));
 				}
 				$json_str .= implode(",",$temp);
-				$json_str .="]";
-			}
-			else
-			{
+				$json_str .= "]";
+			} else {
 				$json_str ="{";
 				$temp = array();
-				foreach($arr as $key => $value)
-				{
+				foreach ($arr as $key => $value) {
 					$temp[] = sprintf("\"%s\":%s", $key, json_encode($value));
 				}
 				$json_str .= implode(",",$temp);
 				$json_str .="}";
 			}
-		}
-		else
-		{
-			if(is_string($arr))
-			{
+		} else {
+			if(is_string($arr)) {
 				$json_str = "\"". json_encode_string($arr) . "\"";
-			}
-			else if(is_numeric($arr))
-			{
+			} elseif (is_numeric($arr)) {
 				$json_str = $arr;
-			}
-			else
-			{
+			} else {
 				$json_str = "\"". json_encode_string($arr) . "\"";
 			}
 		}
 		return $json_str;
 	}
-
 }
 
 /**
@@ -301,7 +305,7 @@ function apply($obj, $function)
 }
 
 /**
- * convertArrayToObject
+ * converts Array to StdObject
  *
  * @param string[] $arr
  * @return StdObject
@@ -314,6 +318,12 @@ function convertArrayToObject($arr)
 	return (object) $arr;
 }
 
+/**
+ * converts StdObject to Array
+ *
+ * @param StdObject $object
+ * @return string[]
+ */
 function convertObjectToArray($object)
 {
 	$array = array();
@@ -331,6 +341,9 @@ function convertObjectToArray($object)
 	return $array;
 }
 
+/**
+ * Tests if environment covers application requirements
+ */
 function testEnvironment()
 {
 	if (substr(phpversion(), 0, 3) < 5.2) die('Required PHP version at least 5.2');
@@ -340,7 +353,7 @@ function testEnvironment()
 
 if (!function_exists('posix_getuid')) {
 	/**
-	 * For Windows users
+	 * Hack for M$ Windows users
 	 */
 	function posix_getuid()
 	{
@@ -348,11 +361,20 @@ if (!function_exists('posix_getuid')) {
 	}
 }
 
+/**
+ * Checks if file is writable
+ * @param string $file
+ */
 function checkIfWritable($file)
 {
 	if (!isWritable($file))  throw new RuntimeException('"' . $file . '" ' . __('needs to be writable'));
 }
 
+/**
+ * Is file writable?
+ * @param string $file
+ * @return boolean
+ */
 function isWritable($file)
 {
 	$perms = getFilePerms($file);
@@ -360,8 +382,6 @@ function isWritable($file)
 	$uid   = posix_getuid();
 
 	$req = is_file($file) ? 6 : 7; //Directory needs to be 7, file 6
-
-	//echo $file . '  - ' . $perms . ' - ' . $req . '<br />';
 
 	if ($uid == $owner) {
 		if (substr($perms, 0, 1) >= $req) return TRUE;
@@ -371,6 +391,9 @@ function isWritable($file)
 	return FALSE;
 }
 
+/**
+ * Gets file perms in normal format (UGO...777)
+ */
 function getFilePerms($file)
 {
 	if (!file_exists($file)) die('File or directory ' . $file . ' doesn\'t exist. Please create it.');

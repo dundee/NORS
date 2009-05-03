@@ -1,19 +1,11 @@
 <?php
-/**
-* Core_Object
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
 
 /**
-* Core_Object
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Base class for HTML components (fragments). Enables caching of user specific pages. Enables reloading of content via AJAX.
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 abstract class Core_Component extends Core_Object
 {
 	public $cache = 0;

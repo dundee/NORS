@@ -1,2 +1,11 @@
+version 4.2.0:
+	RENAME TABLE `nors`.`nors4_cathegory` TO `nors`.`nors4_category` ;
+	ALTER TABLE `nors4_category` CHANGE `id_cathegory` `id_category` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT;
+	ALTER TABLE `nors4_category` CHANGE `cathegory` `category` INT( 11 ) NULL DEFAULT NULL;
+	ALTER TABLE `nors4_group` CHANGE `cathegory_list` `category_list` TINYINT( 1 ) NOT NULL DEFAULT '0';
+	ALTER TABLE `nors4_group` CHANGE `cathegory_edit` `category_edit` TINYINT( 1 ) NOT NULL DEFAULT '0'
+	ALTER TABLE `nors4_group` CHANGE `cathegory_del` `category_del` TINYINT( 1 ) NOT NULL DEFAULT '0';
+	ALTER TABLE `nors4_post` CHANGE `id_cathegory` `id_category` INT( 11 ) NULL DEFAULT NULL;
+
 version 4.1.0:
 	ALTER TABLE `nors4_post` ADD `evaluated` INT UNSIGNED NOT NULL DEFAULT '0';

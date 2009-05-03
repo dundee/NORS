@@ -1,16 +1,7 @@
 <?php
 
 /**
- * Core_Html_Element
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Html_Element
+ * HTML element (DOM)
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -18,17 +9,17 @@
 class Core_Html_Element
 {
 	protected $childs = array();
-	
+
 	protected $parent = NULL;
-	
+
 	protected $tag;
-	
+
 	protected $params;
-	
+
 	protected $empty = FALSE;
-	
+
 	protected $mixedContent = FALSE;
-	
+
 	public function __construct(Core_Html_Element $parent = NULL, $tag = 'div', $params = NULL)
 	{
 		if ($parent != NULL) $parent->addChild($this);
@@ -99,19 +90,19 @@ class Core_Html_Element
 	{
 		return $this->parent;
 	}
-	
+
 	public function render($indention = 0, $return = FALSE, $inMixedContent = FALSE)
-	{	
+	{
 		$innerEndline   = $outerEndline   = ENDL;
 		$innerIndention = $outerIndention = $indention;
-		
-		$this->mixedContent = $this->mixedContent ? TRUE : $inMixedContent; 
-		
+
+		$this->mixedContent = $this->mixedContent ? TRUE : $inMixedContent;
+
 		if ($this->mixedContent) $innerEndline = $innerIndention = FALSE;
 		if ($inMixedContent)     $outerEndline = $outerIndention = FALSE;
-		
+
 		$output = $this->indent($outerIndention) . '<' . $this->tag . $this->renderParams();
-		
+
 		if ($this->empty) {
 			$output .= ' />' . $outerEndline ;
 		} else {
@@ -119,11 +110,11 @@ class Core_Html_Element
 			$output .= $this->renderChilds($innerIndention);
 			$output .= $this->indent($innerIndention) . '</' . $this->tag . '>' . $outerEndline;
 		}
-		
+
 		if ($return) return $output;
 		echo $output;
 	}
-	
+
 	protected function renderParams()
 	{
 		if (!iterable($this->params)) return FALSE;
@@ -131,7 +122,7 @@ class Core_Html_Element
 		foreach ($this->params as $k=>$v) if($v) $output .= ' ' . htmlspecialchars($k) . '="' . htmlspecialchars($v) . '"';
 		return $output;
 	}
-	
+
 	protected function indent($indention)
 	{
 		$output = '';
@@ -140,11 +131,11 @@ class Core_Html_Element
 		}
 		return $output;
 	}
-	
+
 	protected function renderChilds($indention)
 	{
 		if (!iterable($this->childs)) return FALSE;
-		
+
 		$output = '';
 		$indention++;
 		foreach ($this->childs as $child) {

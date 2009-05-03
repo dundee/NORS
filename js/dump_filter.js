@@ -45,7 +45,7 @@ $(function()
    			type: "POST",
    			cache: false,
    			async: true,
-   			data: "name="+this.name+"&table="+this.table+"&order="+this.order+"&a="+this.a+"&page="+this.paging,
+   			data: "name="+this.name+"&table="+this.table+"&order="+this.order+"&a="+this.a+"&p="+this.paging,
 			dataType: "json",
    			url: this.action,
    			success: function(obj){

@@ -1,16 +1,7 @@
 <?php
 
 /**
-* Core_Helper_Menu
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Helper_Menu
+* Simplifies menu creation
 *
 * @author Daniel Milde <daniel@milde.cz>
 * @package Core

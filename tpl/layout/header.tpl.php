@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo Core_Config::singleton()->encoding ?>" />
 <meta name="Description" content="<?php echo $site['description'] ?>" />
 <meta name="Keywords" content="<?php echo $site['keywords'] ?>" />
-<meta name="Generator" content="Core framework <?php echo coreVersion() ?>" />
+<meta name="Generator" content="NORS <?php echo norsVersion() ?>" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
 <meta http-equiv="Expires" content="" />
@@ -20,7 +20,6 @@ if (isset($site['js'])) {
 	foreach ($site['js'] as $js)
 		echo '<script type="text/javascript" src="' . $js['src'] . '"></script>' . ENDL;
 }
-
 
 if (isset($site['rss'])) {
 	foreach ($site['rss'] as $rss)

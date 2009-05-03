@@ -1,20 +1,11 @@
 <?php
 
 /**
-* Core_Config
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Config
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Provides object access to configuration.
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Config
 {
 	public $host;

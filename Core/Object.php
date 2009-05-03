@@ -1,16 +1,6 @@
 <?php
 
 /**
- * Core_Object
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- *
- */
-
-/**
  * Base class for Controller and Component classes. Adds important functionality and access to some instances.
  * Features: reflection, array for data
  * Access to instances: Core_Request, Core_Response, Core_Router, Core_Config

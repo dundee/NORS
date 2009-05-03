@@ -2,16 +2,19 @@ version 4.2.0 ():
 	frontend:
 	* thickbox fix
 	* fixed perex limit
+	* better paging
 
 	administration:
 	* hide karma and evaluated
+	* better ACL
 
 	core:
 	* refactoring:
-		Module   -> Controller
-		Event    -> Action
-		Subevent -> Event
-		Action   -> Command
+		Module    -> Controller
+		Event     -> Action
+		Subevent  -> Event
+		Action    -> Command
+		Cathegory -> Category
 	* Text::getWords multiline fix
 	* better file perms check (suexec support)
 

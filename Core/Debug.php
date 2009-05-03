@@ -1,20 +1,11 @@
 <?php
 
 /**
-* Core_Debug
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Debug
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Class for easy debugging. Exception and error handling, time metering.
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Debug
 {
 	protected static $start_time;
@@ -32,19 +23,19 @@ class Core_Debug
 	}
 
 	/**
- 	* startTimer
- 	*
- 	* @return
- 	*/
+ 	 * starts timing
+ 	 *
+ 	 * @return void
+ 	 */
 	public static function startTimer(){
 		self::$start_time = mtime();;
 	}
 
 	/**
-	* endTimer
-	*
-	* @return
-	*/
+	 * end timing and prints results
+	 *
+	 * @return void
+	 */
 	public static function endTimer(){
 		self::$end_time = mtime();;
 
@@ -71,6 +62,11 @@ class Core_Debug
 			echo '<br />' . __('stop_ie');
 	}
 
+	/**
+	 * Prints object on screen redable for humans
+	 * @param mixed $array Object to be printed
+	 * @param boolean $return Should I print result to screen or return it?
+	 */
 	public static function dump($array, $return = FALSE){
 		$output = '<div style="width: 100%;'
 		        . 'text-align: left; background: #fff; color: #000;">';
@@ -82,6 +78,9 @@ class Core_Debug
 		echo $output;
 	}
 
+	/**
+	 * Prints SQL queries with timing
+	 */
 	public static function sqlQueries(){
 		$db = Core_DB::singleton();
 		$request = Core_Request::factory();
@@ -101,6 +100,9 @@ class Core_Debug
 		echo '</table>';
 	}
 
+	/**
+	 * Prints included files with timing and memory used
+	 */
 	public static function includedFiles()
 	{
 		global $includes;
@@ -118,6 +120,9 @@ class Core_Debug
 		echo '</table>';
 	}
 
+	/**
+	 * Shows debugging info (included files, SQL queries, timer, memory...) according to configuration
+	 */
 	public static function showInfo(){
 		if (!self::$config->debug->enabled) return;
 
@@ -126,6 +131,9 @@ class Core_Debug
 		if (self::$config->debug->time_management) self::endTimer();
 	}
 
+	/**
+	 * Exception handler
+	 */
 	public static function showException(Exception $ex){
 		Core_Debug::showError(E_ERROR,
 		                      $ex->getMessage(),
@@ -136,6 +144,9 @@ class Core_Debug
 		return FALSE;
 	}
 
+	/**
+	 * Error handler
+	 */
 	public static function showError($errno,
 	                                 $errstr ,
 	                                 $errfile ,
@@ -241,8 +252,8 @@ class Core_Debug
 			echo '</code>';
 			echo '<div id="footer">';
 			self::endTimer();
-			echo '<br />Powered by <a href="http://core-php.com/">'
-			     . 'Core framework</a> ' . coreVersion()
+			echo '<br />Powered by <a href="http://norsphp.com/">'
+			     . 'NORS</a> ' . norsVersion()
 			     . ' &copy; 2007-' .
 			     date("Y")
 			     . ' <a href="http://milde.cz">Daniel Milde</a>'
@@ -257,8 +268,8 @@ class Core_Debug
 			echo '<p>' . __($codes[$code]['text']) . '</p>';
 			echo '<p>Message: ' . $errstr . '</p>';
 			echo '<div id="footer">'
-			     . 'Powered by <a href="http://core-php.com/">Core framework'
-			     . '</a> ' . coreVersion()
+			     . 'Powered by <a href="http://norsphp.com/">NORS'
+			     . '</a> ' . norsVersion()
 			     . ' &copy; 2007-' . date("Y")
 			     . ' <a href="http://milde.cz">Daniel Milde</a> '
 			     . 'aka Dundee</div>';

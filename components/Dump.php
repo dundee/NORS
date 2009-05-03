@@ -68,8 +68,3 @@ class Component_Dump extends Core_Component_Auth
 		$this->setData('paging', $paging, TRUE);
 	}
 }
-
-
-
-
-?>

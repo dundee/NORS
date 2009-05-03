@@ -1,24 +1,15 @@
 <?php
 
 /**
-* Core_Helper
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Helper
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Base class for HTML (and other) helpers
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Helper
 {
 	protected $helpers = array();
-	
+
 	public function __construct()
 	{
 		if (iterable($this->helpers)) {
@@ -28,7 +19,12 @@ class Core_Helper
 			}
 		}
 	}
-	
+
+	/**
+	 * Creates indention
+	 * @param int $indention Deep of indention
+	 * @return string
+	 */
 	protected function indent($indention)
 	{
 		$output = '';

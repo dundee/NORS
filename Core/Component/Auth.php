@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Core_Component_Auth
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
  * Adds authentication and authorization to Component class
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core

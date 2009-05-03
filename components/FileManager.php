@@ -80,7 +80,7 @@ class Component_FileManager extends Core_Component_Auth
 		$url       = $this->request->getPost('url');
 		$file      = $this->request->getPost('file');
 		$label     = $this->request->getPost('label');
-		$cathegory = $this->request->getPost('cathegory');
+		$category = $this->request->getPost('category');
 
 		list($x, $url) = explode('?', $url);
 		$arr = explode(';', $url);
@@ -95,7 +95,7 @@ class Component_FileManager extends Core_Component_Auth
 		$class = 'ActiveRecord_' . ucfirst($modelName);
 		$model = new $class($params['id']);
 
-		$model->updateFile($name, $file, array('label'=>$label, 'cathegory'=>$cathegory));
+		$model->updateFile($name, $file, array('label'=>$label, 'category'=>$category));
 	}
 
 }

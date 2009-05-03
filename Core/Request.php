@@ -1,16 +1,7 @@
 <?php
 
 /**
- * Core_Request
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Request
+ * Request wrapper (GET, POST, Session, Cookie, Server)
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -159,6 +150,10 @@ class Core_Request
 		return $this->vars;
 	}
 
+	/**
+	 * Return whole URL
+	 * @return string URL
+	 */
 	public function getUrl()
 	{
 		$host = 'http://' . $this->getServer('HTTP_HOST');
@@ -167,15 +162,18 @@ class Core_Request
 		return $host . $path;
 	}
 
+	/**
+	 * Is request AJAX?
+	 * @return boolean
+	 */
 	public function isAjax()
 	{
 		return ($_SERVER['REQUEST_METHOD'] == 'POST' &&  //have to be a POST request
-		           ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-				     $_SERVER['HTTP_X_REQUESTED_WITH']
-					 ) == 'XMLHttpRequest'  || //text data sent by ajax
-			           (isset($_GET['command']) && isset($_FILES)) //or files sent by hidden textarea
-				    )
-			    );
+		        (
+		          (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')  //text data sent by ajax
+		          || (isset($_GET['command']) && isset($_FILES)) //or files sent by hidden textarea
+		        )
+		);
 	}
 
 	/**
@@ -228,13 +226,6 @@ class Core_Request
 		if (get_magic_quotes_gpc()) {
 			$output = apply($source[$key], 'stripslashes');
 		} else $output = $source[$key];
-
-		/*
-		//clear HTML
-		if ($acceptHTML == FALSE) {
-			$output = apply($output, 'htmlspecialchars');
-		}
-		*/
 
 		return apply($output, 'trim');
 	}

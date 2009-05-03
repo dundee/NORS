@@ -1,15 +1,7 @@
 <?php
-/**
- * Administration
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Nors4
- */
 
 /**
- * Administration
+ * Generates ActiveRecord and Table classes from DB schema
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Nors4

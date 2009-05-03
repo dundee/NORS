@@ -1,21 +1,9 @@
 <?php
 
 /**
- * Core_ActiveRecord
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_ActiveRecord
- *
- * Base model class. Allows user to easily define table structure and create,
- * modify, select and delete DB rows.
- * Implements Iterator, ArrayAccess, Countable and magic setters/getters,
- * so data can be accessed via $obj->key, $obj['key'] and foreach.
+ * Base model class. Allows user to easily load, modify and delete DB rows.
+ * Implements magic setters/getters,
+ * so data can be accessed via $obj->key.
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
  */

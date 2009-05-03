@@ -2,30 +2,19 @@
 
 
 /**
-* NOT_ALLOWED_ENTITIES
-*
-* Letters that can't be used in URL.
-*
-* @global string NOT_ALLOWED_ENTITIES Not allowed letters
-*/
+ * Letters that can't be used in URL.
+ *
+ * @global string NOT_ALLOWED_ENTITIES Not allowed letters
+ */
 define('NOT_ALLOWED_ENTITIES', "ĚŠČŘŽÝÁÄÍÉŮÚÜÓÖŐŇŤĎĽľěščřžýáäíéůúüóöňťď. '`´;:=?!@#$%^&*+/|,<>{}()[]~\"¨§");
 define('ALLOWED_ENTITIES',     "ESCRZYAAIEUUUOOONTDLlescrzyaaieuuuoontd----------------------------------");
 
 /**
-* Classes_Text
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Classes_Text
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Text manipulation class
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Text
 {
 	protected $text;
@@ -35,6 +24,12 @@ class Core_Text
 		$this->text = $text;
 	}
 
+	/**
+	 * Gets perex from text
+	 * @param int $maxWords Maximum number of words in perex
+	 * @param string $text
+	 * @return string
+	 */
 	public function getPerex($maxWords = 100, $text = FALSE)
 	{
 		$text = $text ? $text : $this->text;
@@ -46,6 +41,12 @@ class Core_Text
 		return $per;
 	}
 
+	/**
+	 * Gets paragraphs from text
+	 * @param int $number Number of paragraphs
+	 * @param string $text
+	 * @return string
+	 */
 	public function getParagraphs($number, $text = FALSE)
 	{
 		$text = $text ? $text : $this->text;
@@ -55,6 +56,12 @@ class Core_Text
 		return $this->getTokens($text, $number, "\n\n");
 	}
 
+	/**
+	 * Gets words from text
+	 * @param int $number Number of words
+	 * @param string $text
+	 * @return string
+	 */
 	public function getWords($number, $text = FALSE)
 	{
 		$text = $text ? $text : $this->text;
@@ -65,11 +72,11 @@ class Core_Text
 	}
 
 	/**
-	* Formats plain text into valid html.
-	*
-	* @param string $text
-	* @return string forrmated html
-	*/
+	 * Formats plain text into valid html.
+	 *
+	 * @param string $text
+	 * @return string forrmated html
+	 */
 	public function format_comment($text = FALSE) {
 		$text = $text ? $text : $this->text;
 		$text = strip_tags($text);
@@ -184,6 +191,11 @@ class Core_Text
 		return $text;
 	}
 
+	/**
+	 * Hides mail away from bots
+	 * @param string $text
+	 * @return string
+	 */
 	public function hideMail($text = FALSE) {
 		$text = $text ? $text : $this->text;
 		$return = '';
@@ -226,13 +238,18 @@ class Core_Text
 		return $link;
 	}
 
+	/**
+	 * MD5 crypt with soil
+	 * @param string $text Text to be crypted
+	 * @param string $soil
+	 * @return string
+	 */
 	public function crypt($text, $soil){
 		$pass = $soil.'+dfgyuI9'.$text;
 		return md5($pass);
 	}
+
 	/**
-	 * dateToTimeStamp
-	 *
 	 * Creates a timestamp from date string in format "yyyy-mm-dd hh:ii:ss" or "yyyy-mm-dd"
 	 * @param String $ymd_his Date string
 	 * @return int Unix timestamp
@@ -262,6 +279,13 @@ class Core_Text
 		return preg_replace('/&([^#])(?![a-z]{1,8};)/', '&amp;$1', $text);
 	}
 
+	/**
+	 * Gets tokens from text
+	 * @param string $text
+	 * @param int $number Number of paragraphs
+	 * @param string $delimiter
+	 * @return string
+	 */
 	private function getTokens($text, $number, $delimiter = " ")
 	{
 		$length = mb_strlen($text);

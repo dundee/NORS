@@ -1,24 +1,15 @@
 <?php
 
 /**
-* Core_Helper_Clicker
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Helper_Clicker
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Provides clicable editor of YAML-like configuration
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Helper_Clicker extends Core_Helper
 {
 	public $helpers = array('Form', 'Html');
-	
+
 	public function generate($data, $return = FALSE, $path = FALSE)
 	{
 		$path = $path ? $path . '__' : '';
@@ -38,7 +29,7 @@ class Core_Helper_Clicker extends Core_Helper
 		if ($return) return $output;
 		echo $output;
 	}
-	
+
 	public function generateItem($name, $value, $path)
 	{
 		$output = '<label for="' . $path . '">' . $name . '</label>';

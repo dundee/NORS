@@ -1,34 +1,21 @@
 <?
 
 /**
-* Core_View_Rss
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_View_Rss
+* Provides RSS output
 *
 * @author Daniel Milde <daniel@milde.cz>
 * @package Core
 */
 class Core_View_Rss extends Core_View
 {
-	/**
-	* Constructor
-	* @access public
-	*/
 	public function __construct(Core_Controller $controller,$action){
 		parent::__construct($controller,$action);
 	}
 
 	/**
-	* display
-	*
-	*/
+	 * display
+	 *
+	 */
 	public function display(){
 
 		$request  = $this->controller->request;
@@ -93,13 +80,7 @@ class Core_View_Rss extends Core_View
 		}
 	}
 
-	/**
-	* Destructor
-	* @access public
-	*/
 	public function __destruct(){
 
 	}
 }
-
-?>

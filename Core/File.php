@@ -1,27 +1,18 @@
 <?php
 
 /**
-* Core_File
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_File
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Class for file operations: uploading, thumbnail creation
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_File
 {
 	/**
-	* $fileName
-	*
-	* @var string $fileName
-	*/
+	 * $fileName
+	 *
+	 * @var string $fileName
+	 */
 	public $fileName;
 
 	/**
@@ -31,9 +22,6 @@ class Core_File
 	 */
 	 public $dir;
 
-	/**
-	* Constructor
-	*/
 	public function __construct($name = FALSE, $dir = FALSE)
 	{
 		if (!$name) return;
@@ -89,9 +77,14 @@ class Core_File
 			$ret = new Core_File($fileName . '.' . $sufix, $dir);
 		}
 
-        return $ret;
-  }
+	return $ret;
+	}
 
+	/**
+	 * Creates thumbnail
+	 * @param int $x Width of thumbnail
+	 * @param int $y Height of thumbnail
+	 */
 	public function thubnail($x = 100, $y = 0){
 		if (!$this->fileName || strpos($this->fileName, '.') <= 0) return FALSE;
 
@@ -103,10 +96,10 @@ class Core_File
     }
 
 	/**
-	* getSufix
-	*
-	* @return String sufix of the file name (jpg, pdf, exe, etc.)
-	*/
+	 * Returns suffix of file
+	 * @param string $name Filename
+	 * @return string sufix of the file name (jpg, pdf, exe, etc.)
+	 */
 	public function getSufix($name = FALSE){
 		if (!$name) $name = $this->name;
 		$arr = explode(".",$name);
@@ -114,10 +107,10 @@ class Core_File
 	}
 
 	/**
-	* getType
-	*
-	* @return String type of file
-	*/
+	 * Returns type of file (document, image, executable, unknown)
+	 * @param string $name Filename
+	 * @return string type of file
+	 */
 	public function getType($name = FALSE){
 		if (!$name) $name = $this->fileName;
 

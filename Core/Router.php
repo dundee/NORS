@@ -1,16 +1,7 @@
 <?php
 
 /**
- * Core_Router
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Router
+ * Converts HTTP request to inner request (class and method name, params) and back
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core

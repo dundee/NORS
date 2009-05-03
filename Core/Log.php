@@ -1,60 +1,51 @@
 <?php
 
 /**
-* Core_Log
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Log
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Logs events to file
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_Log
 {
 	/**
-	* $file
-	*
-	* @var string $file
-	*/
+	 * $file
+	 *
+	 * @var string $file
+	 */
 	private $file;
 
 	/**
-	* $pg
-	*
-	* @var string $pg
-	*/
+	 * $pg
+	 *
+	 * @var string $pg
+	 */
 	private $pg;
 
 	/**
-	* $status
-	*
-	* @var string $status
-	*/
+	 * $status
+	 *
+	 * @var string $status
+	 */
 	private $status = 'closed';
 
 
 
 
 	/**
-	* Constructor
-	* @access public
-	*/
+	 * Constructor
+	 * @access public
+	 */
 	public function __construct(){
 		$this->file = APP_PATH.'/log/'.Core_Config::singleton()->log->file;
 		$this->open();
 	}
 
 	/**
-	* open
-	*
-	* @return void
-	*/
+	 * open
+	 *
+	 * @return void
+	 */
 	public function open(){
 		if ( !Core_Config::singleton()->log->enabled ) return;
 		$this->pg = @fopen($this->file,'a');
@@ -62,11 +53,11 @@ class Core_Log
 	}
 
 	/**
-	* log
-	*
-	* @param String text
-	* @return boolean
-	*/
+	 * log
+	 *
+	 * @param String text
+	 * @return boolean
+	 */
 	public function log($text){
 		if ( !Core_Config::singleton()->log->enabled ) return;
 		$log = date("[Y-m-d G:i:s]").' '.$text."\n";
@@ -74,10 +65,10 @@ class Core_Log
 	}
 
 	/**
-	* close
-	*
-	* @return void
-	*/
+	 * close
+	 *
+	 * @return void
+	 */
 	public function close(){
 		if ($this->status == 'opened') @fclose($this->pg);
 		$this->status = 'closed';
@@ -85,10 +76,9 @@ class Core_Log
 	}
 
 	/**
-	* Destructor
-	* @access public
-	*/
+	 * Destructor
+	 * @access public
+	 */
 	public function __destruct(){
 	}
 }
-?>

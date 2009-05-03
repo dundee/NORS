@@ -1,16 +1,7 @@
 <?php
 
 /**
-* Core_Parser_YML
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_Parser_YML
+* Reads configuration from YAML-like file and converts it into PHP array.
 *
 * @author Daniel Milde <daniel@milde.cz>
 * @package Core
@@ -79,7 +70,7 @@ class Core_Parser_YML
 
 			for($i=0; $i < $deep; $i++) $content .= TAB;
 
-			if ($value) {
+			if ($value != '') {
 				$content .= '"' . $key . '" => "' . $value . '",';
 				$content .= ENDL;
 			} else $empty = TRUE;

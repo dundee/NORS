@@ -1,34 +1,22 @@
 <?php
 
 /**
-* Core_View_Default
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_View_Default
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Default View. Provides caching.
+ *
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 class Core_View_Default extends Core_View
 {
-	/**
-	* Constructor
-	* @access public
-	*/
+
 	public function __construct(Core_Controller $controller,$action){
 		parent::__construct($controller,$action);
 	}
 
 	/**
-	* display
-	*
-	*/
+	 * display
+	 *
+	 */
 	public function display(){
 
 		$request  = $this->controller->request;
@@ -108,13 +96,9 @@ class Core_View_Default extends Core_View
 		}
 	}
 
-	/**
-	* Destructor
-	* @access public
-	*/
 	public function __destruct()
 	{
-		if (defined('KILLED')) die();
+		if (defined('KILLED') || !headers_sent()) return; //Exception thrown
 
 		$this->controller->delData();
 		try {
@@ -122,13 +106,14 @@ class Core_View_Default extends Core_View
 		} catch (Exception $ex) {
 			die('Exception:' . $ex->getMessage()); //cut second Exception from propagation
 		}
+
 		$data = $this->controller->getData();
 		foreach($data as $k=>$v){
 			${$k} = $v;
 		}
+		$this->controller->delData();
 		unset($data);
 
 		if($this->controller->footerTplFile) require_once(APP_PATH . '/tpl/layout/' . $this->controller->footerTplFile);
-
 	}
 }

@@ -1,16 +1,7 @@
 <?php
 
 /**
- * Core_Helper_Form
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Helper_Form
+ * Simplifies creation of forms and its validation
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -77,7 +68,7 @@ class Core_Helper_Form extends Core_Helper
 		if (isset($params['title']) && $params['title']) {
 			$this->html->a($div, '#', array('class'=>'help', 'title'=>$params['title']))->setContent('?');
 		}
-		
+
 		return $input;
 	}
 

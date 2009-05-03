@@ -1,6 +1,6 @@
 <?php
 $f = $form->form(NULL,
-                 $router->genUrl(FALSE, FALSE, FALSE, array('subaction'=>$request->getGet('event'),
+                 $router->genUrl(FALSE, FALSE, FALSE, array('event'=>$request->getGet('event'),
                                                             'command'=>'dump-filter'), FALSE, TRUE),
                  __('filter'),
                  FALSE

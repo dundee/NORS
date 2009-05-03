@@ -1,43 +1,32 @@
 <?php
 
 /**
-* Core_DB
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Core_DB
-*
-* Integration tier class with connecting to database only when needed.
-* Singleton pattern
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
-*/
+ * Database wrapper with connecting to database only when needed.
+ * Singleton pattern
+ * @author Daniel Milde <daniel@milde.cz>
+ * @package Core
+ */
 abstract class Core_DB
 {
 	/**
-	* $instance
-	*
-	* @var Core_DB $instance
-	*/
+	 * $instance
+	 *
+	 * @var Core_DB $instance
+	 */
 	protected static $instance;
 
 	/**
-	* $connection
-	*
-	* @var string $connection
-	*/
+	 * $connection
+	 *
+	 * @var string $connection
+	 */
 	protected $connection;
 
 	/**
-	* $data
-	*
-	* @var array $data
-	*/
+	 * $data
+	 *
+	 * @var array $data
+	 */
 	protected $data = array('host'=>'',
 	                        'user'=>'',
 	                        'password'=>'',
@@ -45,42 +34,42 @@ abstract class Core_DB
 	                      );
 
 	/**
-	* $charset
-	*
-	* @var string $charset
-	*/
+	 * $charset
+	 *
+	 * @var string $charset
+	 */
 	protected $charset;
 
 	/**
-	* $result
-	*
-	* @var string $result
-	*/
+	 * $result
+	 *
+	 * @var string $result
+	 */
 	protected $result;
 
 	/**
-	* $query
-	*
-	* Last query
-	*
-	* @var string $query
-	*/
+	 * $query
+	 *
+	 * Last query
+	 *
+	 * @var string $query
+	 */
 	public $query;
 
 	/**
-	* $counter
-	*
-	* @var int $counter
-	*/
+	 * $counter
+	 *
+	 * @var int $counter
+	 */
 	public $counter;
 
 	public $queries = array();
 
 	/**
-	* singleton
-	*
-	* @return Core_DB instance
-	*/
+	 * singleton
+	 *
+	 * @return Core_DB instance
+	 */
 	public static final function singleton(){
 		if (!isset(self::$instance)) {
 			$config = Core_Config::singleton();
@@ -94,60 +83,60 @@ abstract class Core_DB
 	}
 
 	/**
-	* connect
-	*
-	* @return String connection
-	*/
+	 * connect
+	 *
+	 * @return String connection
+	 */
 	protected abstract function connect();
 
 	/**
-	* sql_query
-	*
-	* Inner function - abstraction of mysql_query
-	*
-	* @param String $query
-	* @return String MySQL result
-	*/
+	 * sql_query
+	 *
+	 * Inner function - abstraction of mysql_query
+	 *
+	 * @param String $query
+	 * @return String MySQL result
+	 */
 	protected abstract function sql_query($query);
 
 	/**
-	* query
-	*
-	* @param String $query
-	* @return String result
-	*/
+	 * query
+	 *
+	 * @param String $query
+	 * @return String result
+	 */
 	public abstract function query($query);
 
 	/**
-	* getRow
-	*
-	* @param String $query
-	* @return String[][] result
-	*/
+	 * getRow
+	 *
+	 * @param String $query
+	 * @return String[][] result
+	 */
 	public abstract function getRow($query = false);
 
 	/**
-	* getRows
-	*
-	* @param String $query
-	* @return String[][] result
-	*/
+	 * getRows
+	 *
+	 * @param String $query
+	 * @return String[][] result
+	 */
 	public abstract function getRows($query = false);
 
 	/**
-	* num
-	*
-	* @param String $query
-	* @return int
-	*/
+	 * num
+	 *
+	 * @param String $query
+	 * @return int
+	 */
 	public abstract function num($query = false);
 
 	/**
-	* id
-	*
-	* @param String $query
-	* @return int
-	*/
+	 * id
+	 *
+	 * @param String $query
+	 * @return int
+	 */
 	public abstract function id($query = false);
 
 	/**
@@ -161,8 +150,8 @@ abstract class Core_DB
 	}
 
 	/**
-	* Destructor
-	* @access public
-	*/
+	 * Destructor
+	 * @access public
+	 */
 	public abstract function __destruct();
 }

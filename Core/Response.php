@@ -1,16 +1,7 @@
 <?php
 
 /**
- * Core_Response
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Core_Response
+ * Response wrapper (HTTP geaders, GET, POST, Session, Cookie, Server)
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core

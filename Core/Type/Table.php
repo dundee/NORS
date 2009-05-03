@@ -1,12 +1,4 @@
 <?php
-/**
- * Table
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
 
 /**
  * Table
@@ -20,12 +12,12 @@ class Core_Type_Table extends Core_Type
 	{
 		return intval($value);
 	}
-	
+
 	public function prepareForWeb($value)
 	{
 		return intval($value);
 	}
-	
+
 	public function getDefinition()
 	{
 		return 'int NULL';
