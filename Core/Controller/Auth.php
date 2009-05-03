@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Core_Controller_Auth
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
  * Adds authentication and authorization to Controller class
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -17,9 +8,9 @@
 abstract class Core_Controller_Auth extends Core_Controller
 {
 	/**
-	* Current user
-	* @var Core_User $user
-	*/
+	 * Current user
+	 * @var Core_User $user
+	 */
 	protected $user;
 
 	public function __construct(){
@@ -29,31 +20,34 @@ abstract class Core_Controller_Auth extends Core_Controller
 	}
 
 	/**
-	* authenticate the user
-	*
-	* @return boolean
-	*/
+	 * authenticate the user
+	 *
+	 * @return boolean
+	 */
 	public function authenticate(){
 		return ($this->user->logged());
 	}
 
 	/**
-	* authorize the user
-	*
-	* @return boolean
-	*/
+	 * authorize the user
+	 *
+	 * @return boolean
+	 */
 	public function authorize(){
+
+		if (!$this->user->group) return TRUE; //ACL not set
+
 		$group = new ActiveRecord_Group($this->user->group);
 
-		if (!isset($_GET['subaction'])) {
+		if (!isset($_GET['event'])) {
 			if ($group->{$_GET['action'].'_list'} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
 			else return TRUE;
 		}
 
-		if ($group->{$_GET['subaction'].'_list'} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
+		if ($group->{$_GET['event'].'_list'} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
 
-		if (!isset($_GET['action'])) return TRUE;
+		if (!isset($_GET['command'])) return TRUE;
 
-		if ($group->{$_GET['subaction'].'_'.$_GET['action']} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
+		if ($group->{$_GET['event'].'_'.$_GET['command']} === '0') throw new RuntimeException("You have not enough rights for this action.", 401);
 		}
 }

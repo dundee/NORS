@@ -1,17 +1,7 @@
 <?php
 
 /**
- * Core_User
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- *
- */
-
-/**
- * Core_User
+ * User class provides login funkcionality
  *
  * @author Daniel Milde <daniel@milde.cz>
  * @package Core
@@ -30,12 +20,19 @@ class Core_User
 			list($user) = $userModel->findById($id);
 			if (!$user instanceof Core_ActiveRecord) return;
 			$this->id_user  = $user->id_user;
-			$this->group = $user->group;
+			$this->group    = $user->id_group;
 			$this->userName = $user->name;
 			$this->password = $user->password;
 		}
 	}
 
+	/**
+	 * Logs user in or throw Exception
+	 * @param Core_Table $userModel
+	 * @param string $name Username
+	 * @param string $password
+	 * @return boolean
+	 */
 	public function login(Core_Table $userModel, $name, $password)
 	{
 		$users = $userModel->findByName($name);
@@ -53,11 +50,18 @@ class Core_User
 		} else throw new RuntimeException( __('user_not_exists') );
 	}
 
+	/**
+	 * Is user logged?
+	 * @return boolean
+	 */
 	public function logged()
 	{
 		return Core_Request::factory()->getSession('id_user') ? TRUE : FALSE;
 	}
 
+	/**
+	 * Log out the user
+	 */
 	public function logout()
 	{
 		Core_Response::factory()->setSession('id_user', 0);
