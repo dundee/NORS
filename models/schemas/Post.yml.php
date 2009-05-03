@@ -4,7 +4,7 @@ fields:
 	-id_post: int
 	+name: string
 	-id_user: table
-	id_cathegory: table
+	id_category: table
 	text: html
 	date: datetime
 	active: bool
@@ -15,4 +15,4 @@ fields:
 ids: id_post
 indexes:
 	active_date: active, date
-	cathegory: id_cathegory
+	category: id_category

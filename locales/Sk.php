@@ -98,7 +98,7 @@ class Locale_Sk extends Core_Locale
 		'post'                      => 'Článok',
 		'page'                      => 'Stránka',
 		'pub_date'                  => 'Publikované dňa',
-		'cathegory'                 => 'Rubrika',
+		'category'                 => 'Rubrika',
 		'perex'                     => 'Úvodná časť',
 		'date'                      => 'Dátum',
 		'active'                    => 'Aktívny',
@@ -133,9 +133,9 @@ class Locale_Sk extends Core_Locale
 		'comment'                   => 'Komentár',
 
 		//             Práva
-		'cathegory_list'            => 'Výpis rubrík',
-		'cathegory_edit'            => 'Editácia rubrík',
-		'cathegory_del'             => 'Vymazanie rubrík',
+		'category_list'            => 'Výpis rubrík',
+		'category_edit'            => 'Editácia rubrík',
+		'category_del'             => 'Vymazanie rubrík',
 		'post_list'                 => 'Výpis článkov',
 		'post_edit'                 => 'Editácia článkov',
 		'post_del'                  => 'Vymazanie článkov',

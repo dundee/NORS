@@ -34,7 +34,7 @@ class Sitemap extends Core_Controller
 
 		$text_obj = new Core_Text();
 
-		$parts = array('cathegory' => 0.6,
+		$parts = array('category' => 0.6,
 		               'post'      => 1.0,
 		               'page'      => 0.5
 		);

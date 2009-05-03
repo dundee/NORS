@@ -31,9 +31,9 @@ class Page extends Core_Controller
 	{
 		$menu_helper = new Core_Helper_Menu();
 
-		$cathegory = new Table_Cathegory();
-		$cathegories = $cathegory->getAll('name', 'asc');
-		$cathegories = $menu_helper->prepare($cathegories, 'cathegory');
+		$category = new Table_Category();
+		$cathegories = $category->getAll('name', 'asc');
+		$cathegories = $menu_helper->prepare($cathegories, 'category');
 		$this->setData('cathegories', $menu_helper->render($cathegories, 4), TRUE);
 
 		$table = new Table_Page();

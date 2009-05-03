@@ -3,9 +3,9 @@ table: group
 fields:
 	-id_group: int
 	+name: string
-	cathegory_list: bool
-	cathegory_edit: bool
-	cathegory_del: bool
+	category_list: bool
+	category_edit: bool
+	category_del: bool
 	post_list: bool
 	post_edit: bool
 	post_del: bool

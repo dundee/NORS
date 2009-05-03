@@ -51,7 +51,7 @@ class Import extends Core_Controller
 		$errors = '';
 		if ($this->request->getPost('send')) {
 			do {
-				$table = new Table_Cathegory();
+				$table = new Table_Category();
 				$table2 = new Table_Post();
 				$table3 = new Table_Comment();
 				if (iterable($table->getAll())
@@ -99,8 +99,8 @@ class Import extends Core_Controller
 				$result = mysql_query($sql, $c);
 				while ($line = mysql_fetch_array($result)) {
 					//dump($line);
-					$cat = new ActiveRecord_Cathegory();
-					$cat->id_cathegory  = $line['id_rubrika'];
+					$cat = new ActiveRecord_Category();
+					$cat->id_category  = $line['id_rubrika'];
 					$cat->name          = $line['name'];
 					$cat->insert();
 				}
@@ -116,7 +116,7 @@ class Import extends Core_Controller
 					//dump($line);
 					$post = new ActiveRecord_Post();
 					$post->id_post      = $line['id_clanek'];
-					$post->id_cathegory = $line['id_rubrika'];
+					$post->id_category = $line['id_rubrika'];
 					$post->id_user      = 1;
 					$post->name         = $line['name'];
 					$post->text         = $line['text'];

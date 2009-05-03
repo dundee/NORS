@@ -110,7 +110,7 @@ class Installation extends Core_Controller
 				$this->config->read(APP_PATH . '/config/config.yml.php', TRUE);
 
 				//create tables
-				$tables = array('User', 'Group', 'Cathegory', 'Post', 'Comment', 'Page');
+				$tables = array('User', 'Group', 'Category', 'Post', 'Comment', 'Page');
 				foreach ($tables as $table) {
 					$class = 'Table_' . $table;
 					$user = new $class();
