@@ -5,8 +5,8 @@
 
 		<div id="sidebar">
 			<div id="menu">
-				<h2><?php echo __('cathegories') ?></h2>
-<?php echo $cathegories ?>
+				<h2><?php echo __('categories') ?></h2>
+<?php echo $categories ?>
 				<h2><?php echo __('pages') ?></h2>
 <?php echo $pages ?>
 				<h2><?php echo __('other') ?></h2>

@@ -61,7 +61,7 @@ class Locale_Sk extends Core_Locale
 		'news'                      => 'Novinky',
 		'posts'                     => 'Články',
 		'pages'                     => 'Stránky',
-		'cathegories'               => 'Rubriky',
+		'categories'               => 'Rubriky',
 		'galleries'                 => 'Galérie',
 		'anquettes'                 => 'Ankety',
 		'citates'                   => 'Citáty',
