@@ -41,10 +41,10 @@ class Core_DB_Test extends Core_DB
 	public function __destruct(){}
 	public function getRows($query = false){
 		return array(0 => Array('id_post' => 1,
-		                        'id_cathegory' => 1,
+		                        'id_category' => 1,
 		                        'id_page' => 1,
 		                        'name' => 'jhfsd',
-		                        'cathegory' => 4,
+		                        'category' => 4,
 		                        'text' => 'dfd
 df
 sdf \"dfdsf
@@ -55,10 +55,10 @@ sdf \"dfdsf
 		                        'karma' => 0,
 		                        'seen' => 0),
 		             1 => Array('id_post' => 2,
-		                        'id_cathegory' => 2,
+		                        'id_category' => 2,
 		                        'id_page' => 2,
 		                        'name' => 'název \" dsdsd \' sffs',
-		                        'cathegory' => 4,
+		                        'category' => 4,
 		                        'text' => 'fsjdfh \"f sdf \'
 d
 

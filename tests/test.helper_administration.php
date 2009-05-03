@@ -48,9 +48,9 @@ class Core_DB_Test extends Core_DB
 			);
 		} else {
 			return array(
-				array('id_cathegory' => 1,
+				array('id_category' => 1,
 				      'name' => 'test',
-				      'cathegory' => 0)
+				      'category' => 0)
 			);
 		}
 	}
@@ -63,11 +63,11 @@ $admin = new Core_Helper_Administration();
 
 $r = $router;
 $submenu = array(
-			'cathegory'    => array('label' => 'cathegories',
+			'category'    => array('label' => 'categories',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
 			                                          FALSE,
-			                                          array('event' => 'cathegory'))),
+			                                          array('event' => 'category'))),
 			'post'    => array('label' => 'posts',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
@@ -85,7 +85,7 @@ echo ENDL . '<br />';
 $admin->dump('user');
 
 echo ENDL . '<br />';
-$admin->form('#', 'cathegory');
+$admin->form('#', 'category');
 
 echo ENDL;
 ?>
