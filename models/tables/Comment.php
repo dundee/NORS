@@ -4,16 +4,7 @@
  * Table_Comment
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Table_Comment
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @package Core
+ * @package Nors
  */
 class Table_Comment extends Core_Table
 {
@@ -36,8 +27,8 @@ class Table_Comment extends Core_Table
 		}
 		$order = ($order == 'asc' ? 'asc' : 'desc');
 
-		$sql = "SELECT c.`id_" . $this->table . "`, 
-		               c.`user`, 
+		$sql = "SELECT c.`id_" . $this->table . "`,
+		               c.`user`,
 		               p.`name` AS post,
 		               c.`date`
 		        FROM `" . tableName($this->table) . "` AS c

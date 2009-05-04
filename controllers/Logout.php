@@ -6,12 +6,8 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @copyright Daniel Milde <daniel@milde.cz>
 * @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
+* @package Nors
 */
-
-
-
-
 class Logout extends Core_Controller_Auth
 {
 	public $css = array(

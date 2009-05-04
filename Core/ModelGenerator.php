@@ -4,7 +4,7 @@
  * Generates ActiveRecord and Table classes from DB schema
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @package Nors4
+ * @package Core
  */
 class Core_ModelGenerator
 {
@@ -55,16 +55,7 @@ EOF;
  * ActiveRecord_$class
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * ActiveRecord_$class
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @package Core
+ * @package Nors
  */
 class ActiveRecord_$class extends Core_ActiveRecord
 {
@@ -83,16 +74,7 @@ EOF;
  * Table_$class
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * Table_$class
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @package Core
+ * @package Nors
  */
 class Table_$class extends Core_Table
 {

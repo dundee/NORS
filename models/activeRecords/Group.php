@@ -4,16 +4,7 @@
 * ActiveRecord_Group
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* ActiveRecord_Group
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
+* @package Nors
 */
 class ActiveRecord_Group extends Core_ActiveRecord
 {

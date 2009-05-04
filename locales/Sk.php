@@ -4,16 +4,7 @@
 * Locale_Sk
 *
 * @author Patrik Rosa <patrik.rosa@bigweb.sk>
-* @copyright Patrik Rosa <patrik.rosa@bigweb.sk>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Locale_Sk
-*
-* @author Patrik Rosa <patrik.rosa@bigweb.sk>
-* @package Core
+* @package Nors
 */
 class Locale_Sk extends Core_Locale
 {

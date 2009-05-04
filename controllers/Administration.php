@@ -4,16 +4,7 @@
 * Administration
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Nors4
-*/
-
-/**
-* Administration
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Nors4
+* @package Nors
 */
 class Administration extends Core_Controller_Auth
 {

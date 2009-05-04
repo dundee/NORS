@@ -4,16 +4,7 @@
 * Locale_En
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Locale_En
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
+* @package Nors
 */
 class Locale_En extends Core_Locale
 {

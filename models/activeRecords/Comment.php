@@ -4,16 +4,7 @@
  * ActiveRecord_Comment
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * ActiveRecord_Comment
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @package Core
+ * @package Nors
  */
 class ActiveRecord_Comment extends Core_ActiveRecord
 {
@@ -21,5 +12,5 @@ class ActiveRecord_Comment extends Core_ActiveRecord
 	{
 		parent::__construct('comment',$id_user);
 	}
-	
+
 }

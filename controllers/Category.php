@@ -4,15 +4,6 @@
 * Category
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Nors
-*/
-
-/**
-* Category
-*
-* @author Daniel Milde <daniel@milde.cz>
 * @package Nors
 */
 class Category extends Core_Controller

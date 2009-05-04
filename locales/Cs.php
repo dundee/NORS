@@ -4,16 +4,7 @@
 * Locale_Cs
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Locale_Cs
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
+* @package Nors
 */
 class Locale_Cs extends Core_Locale
 {

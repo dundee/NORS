@@ -4,16 +4,7 @@
  * ActiveRecord_File
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * ActiveRecord_File
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @package Core
+ * @package Nors
  */
 class ActiveRecord_File extends Core_ActiveRecord
 {
@@ -21,5 +12,5 @@ class ActiveRecord_File extends Core_ActiveRecord
 	{
 		parent::__construct('file',$id_user);
 	}
-	
+
 }

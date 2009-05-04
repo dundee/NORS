@@ -4,16 +4,7 @@
 * Page
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Page
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
+* @package Nors
 */
 class Page extends Core_Controller
 {

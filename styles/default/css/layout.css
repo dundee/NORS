@@ -341,7 +341,7 @@ ul, ol {
 }
 
 #footer-main {
-	background: url("../images/footer-left-corner.gif") no-repeat 0% 0%;
+	/* background: url("../images/footer-left-corner.gif") no-repeat 0% 0%; */
 	margin: 0 auto;
 	text-align: center;
 	padding: 0.5em;
@@ -349,7 +349,7 @@ ul, ol {
 }
 
 #footer-side {
-	background: url("../images/footer-right-corner.gif") no-repeat 100% 0%;
+	/* background: url("../images/footer-right-corner.gif") no-repeat 100% 0%; */
 	float: right;
 	padding: 1em;
 	text-align: right;

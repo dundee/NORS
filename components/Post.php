@@ -4,16 +4,7 @@
 * Component_Post
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Core
-*/
-
-/**
-* Component_Post
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Core
+* @package Nors
 */
 class Component_Post extends Core_Component
 {

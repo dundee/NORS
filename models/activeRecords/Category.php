@@ -4,16 +4,7 @@
  * ActiveRecord_Category
  *
  * @author Daniel Milde <daniel@milde.cz>
- * @copyright Daniel Milde <daniel@milde.cz>
- * @license http://www.opensource.org/licenses/gpl-license.php
- * @package Core
- */
-
-/**
- * ActiveRecord_Category
- *
- * @author Daniel Milde <daniel@milde.cz>
- * @package Core
+ * @package Nors
  */
 class ActiveRecord_Category extends Core_ActiveRecord
 {

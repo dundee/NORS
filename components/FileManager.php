@@ -4,16 +4,7 @@
 * Component_FileManager
 *
 * @author Daniel Milde <daniel@milde.cz>
-* @copyright Daniel Milde <daniel@milde.cz>
-* @license http://www.opensource.org/licenses/gpl-license.php
-* @package Nors4
-*/
-
-/**
-* Component_FileManager
-*
-* @author Daniel Milde <daniel@milde.cz>
-* @package Nors4
+* @package Nors
 */
 class Component_FileManager extends Core_Component_Auth
 {
