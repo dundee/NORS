@@ -16,8 +16,10 @@ class Core_Debug
 		self::$config = Core_Config::singleton();
 
 		// Some settings
-		set_error_handler( array('Core_Debug', 'showError') );
-		set_exception_handler( array('Core_Debug', 'showException') );
+		set_error_handler(array('Core_Debug', 'showError'));
+		set_exception_handler(array('Core_Debug', 'showException'));
+		register_shutdown_function(array('Core_Debug', 'showFatal'));
+
 		ini_set('display_errors', self::$config->debug->display_errors);
 		if ( self::$config->debug->time_management ) self::startTimer();
 	}
@@ -134,7 +136,8 @@ class Core_Debug
 	/**
 	 * Exception handler
 	 */
-	public static function showException(Exception $ex){
+	public static function showException(Exception $ex)
+	{
 		Core_Debug::showError(E_ERROR,
 		                      $ex->getMessage(),
 		                      $ex->getFile(),
@@ -142,6 +145,14 @@ class Core_Debug
 		                      NULL,
 		                      $ex->getCode());
 		return FALSE;
+	}
+
+	public static function showFatal()
+	{
+		$err = error_get_last();
+		if ($err['type'] & (E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE)) {
+			Core_Debug::showError($err['type'], $err['message'], $err['file'], $err['line'], FALSE);
+		}
 	}
 
 	/**
