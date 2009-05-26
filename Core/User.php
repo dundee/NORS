@@ -44,6 +44,11 @@ class Core_User
 					$response = Core_Response::factory();
 					$response->setSession('id_user', $user->id_user);
 					$response->setSession('password', $user->password);
+
+					//session fixation protection
+					$session = Core_Session::singleton();
+					$session->renewId();
+
 					return TRUE;
 				} else throw new RuntimeException( __('account_not_active') );
 			} else throw new RuntimeException( __('wrong_password') );

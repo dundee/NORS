@@ -76,6 +76,15 @@ class Core_Session
 	}
 
 	/**
+	 * Protection against session fixation
+	 */
+	public function renewId()
+	{
+		session_regenerate_id();
+		$this->sessionID = session_id();
+	}
+
+	/**
 	 * __destruct()
 	 *
 	 * @return void
