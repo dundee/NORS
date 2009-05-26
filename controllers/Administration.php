@@ -476,9 +476,11 @@ class Administration extends Core_Controller_Auth
 
 	protected function checkCSRF()
 	{
-		$key = $this->request->getPost('random_key');
+		$token = $this->request->getPost('token');
+		$hash_part = substr($token, 0, 32);
+		$key       = substr($token, 32);
 		$hash = md5($this->request->getSession('password') . $key . $this->request->sessionID());
-		if ($hash !== $this->request->getPost('hashed_key'))
+		if ($hash !== $hash_part)
 			throw new Exception('Cross site request forgery attact from IP: ' . $this->request->getServer('REMOTE_ADDR'), 401);
 	}
 }

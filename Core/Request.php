@@ -189,9 +189,11 @@ class Core_Request
 
 	public function checkCSRF()
 	{
-		$key = $_GET['random_key'];
+		$token = $_GET['token'];
+		$hash_part = substr($token, 0, 32);
+		$key       = substr($token, 32);
 		$hash = md5($_SESSION['password'] . $key . $this->sessionID());
-		if ($hash !== $_GET['hashed_key']) {
+		if ($hash !== $hash_part) {
 			throw new Exception('Cross site request forgery attact from IP: ' . $_SERVER['REMOTE_ADDR'], 401);
 		}
 	}
