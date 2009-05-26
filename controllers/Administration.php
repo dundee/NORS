@@ -58,7 +58,7 @@ class Administration extends Core_Controller_Auth
 		$this->setData('selected', $selected);
 		$this->setData('menu', $menu);
 		$this->setData('user', $this->user->userName);
-		$this->setData('logout_url', $r->genUrl('administration','logout','default'));
+		$this->setData('logout_url', $r->genUrl('administration','logout','default', FALSE, FALSE, FALSE, TRUE));
 	}
 
 	/**
@@ -307,6 +307,7 @@ class Administration extends Core_Controller_Auth
 
 	public function logout()
 	{
+		$this->request->checkCSRF();
 		$this->user->logout();
 		$this->router->redirect('administration', '__default');
 	}
