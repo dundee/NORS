@@ -45,8 +45,20 @@ class Page extends Core_Controller
 	*/
 	public function __default()
 	{
+		$text_obj = new Core_Text();
 		$table = new Table_Page();
-		list($page) = $table->findById(intval($this->request->getGet('page')));
+		$pages = $table->findById(intval($this->request->getGet('page')));
+		if (!iterable($pages)) throw new Exception('Page not found', 404);
+		$page = $pages[0];
+
+		//is URL canonical?
+		$url = $this->request->getUrl();
+		$url = str_replace('&','&amp;',$url);
+		$url_name = $text_obj->urlEncode($page->name);
+		$can_url = $this->router->genUrl('page', FALSE, 'page', array('page' => $page->id_page . '-' . $url_name));
+		if ($can_url != $url) {
+			$this->router->redirect($can_url, FALSE, FALSE, FALSE, FALSE, TRUE);
+		}
 
 		$this->setData('title', $page->name);
 

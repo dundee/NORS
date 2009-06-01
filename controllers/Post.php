@@ -151,12 +151,25 @@ class Post extends Core_Controller
 
 		$table = new Table_Post();
 
+		$posts = $table->findById($id_post);
+		if (!iterable($posts)) throw new Exception('Post not found', 404);
+		$post = $posts[0];
+
+		//is URL canonical?
+		$url = $this->request->getUrl();
+		$url = str_replace('&','&amp;',$url);
+		$url_name = $text_obj->urlEncode($post->name);
+		$can_url = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url_name));
+		if ($can_url != $url) {
+			$this->router->redirect($can_url, FALSE, FALSE, FALSE, FALSE, TRUE);
+		}
+
 		//increment seen
-		list($post) = $table->findById($id_post);
 		$post->seen += 1;
 		$post->save();
 
 		list($post) = $table->findById($id_post);
+
 
 		$this->setData('title', $post->name);
 

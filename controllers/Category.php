@@ -53,11 +53,23 @@ class Category extends Core_Controller
 
 	public function list_items()
 	{
+		$text_obj = new Core_Text();
 		$this->tplFile = 'posts.tpl.php';
 		$id_category = intval($this->request->getGet('category'));
 
 
 		$category = new ActiveRecord_Category($id_category);
+		if (!$category->id_category) throw new Exception('Cathegory not found', 404);
+
+		//is URL canonical?
+		$url = $this->request->getUrl();
+		$url = str_replace('&','&amp;',$url);
+		$url_name = $text_obj->urlEncode($category->name);
+		$can_url = $this->router->genUrl('category', FALSE, 'category', array('category' => $category->id_category . '-' . $url_name));
+		if ($can_url != $url) {
+			$this->router->redirect($can_url, FALSE, FALSE, FALSE, FALSE, TRUE);
+		}
+
 		$this->setData('title', $category->name);
 
 		$page = $this->request->getPost('p');
