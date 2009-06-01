@@ -55,7 +55,7 @@ class Core_View_Rss extends Core_View
 
 		//execute action
 		if (method_exists($this->controller,'beforeAction')) $this->controller->beforeAction();
-		$action = $this->controllerAction;
+		$action = $this->action;
 		$this->controller->$action();
 		if (method_exists($this->controller,'afterAction')) $this->controller->afterAction();
 
