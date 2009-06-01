@@ -71,7 +71,7 @@ if (!function_exists('__autoload')) {
 		$file = str_replace('_', '/', $class) . '.php';
 		if (!file_exists(APP_PATH . '/' . $file)) {
 			do {
-				if (substr($class, 0, 3) == 'db_') {
+				if (substr($class, 0, 7) == 'models_') {
 					$res = Core_ModelGenerator::generate($class);
 					if ($res) break;
 				}
