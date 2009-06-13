@@ -1,6 +1,7 @@
 HIGH:
 IC.cz support
 code purification
+slashing - mysql_real_escape_string
 
 MEDIUM:
 gravatars
