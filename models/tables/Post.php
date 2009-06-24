@@ -153,7 +153,7 @@ class Table_Post extends Core_Table
 		        LEFT JOIN `" . tableName('category') . "` AS cat USING (`id_category`)";
 
 		if ($name) {
-			$sql .= " WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
+			$sql .= " WHERE p.`name` LIKE '%" . clearInput($name) . "%' OR p.`id_" . $this->table . "` = '" . clearInput($name) . "'";
 		}
 
 		$sql .= " GROUP BY p.`id_post`
@@ -221,7 +221,7 @@ class Table_Post extends Core_Table
 		        WHERE `active` = 1";
 
 		if ($name) {
-			$sql .= " WHERE `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
+			$sql .= " AND `name` LIKE '%" . clearInput($name) . "%' OR `id_" . $this->table . "` = '" . clearInput($name) . "'";
 		}
 
 		try{
