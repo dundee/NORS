@@ -61,19 +61,19 @@ class Category extends Core_Controller
 		$category = new ActiveRecord_Category($id_category);
 		if (!$category->id_category) throw new Exception('Cathegory not found', 404);
 
+		$page = $this->request->getPost('p');
+		if ($page === FALSE) $page = $this->request->getGet('p');
+
 		//is URL canonical?
 		$url = $this->request->getUrl();
 		$url = str_replace('&','&amp;',$url);
 		$url_name = $text_obj->urlEncode($category->name);
-		$can_url = $this->router->genUrl('category', FALSE, 'category', array('category' => $category->id_category . '-' . $url_name));
+		$can_url = $this->router->genUrl('category', FALSE, 'category', array('category' => $category->id_category . '-' . $url_name, 'p'=>$page));
 		if ($can_url != $url) {
 			$this->router->redirect($can_url, FALSE, FALSE, FALSE, FALSE, TRUE);
 		}
 
 		$this->setData('title', $category->name);
-
-		$page = $this->request->getPost('p');
-		if ($page === FALSE) $page = $this->request->getGet('p');
 
 		if ($page == '') {
 			$page = $this->request->getCookie('page');
