@@ -260,12 +260,11 @@ class Administration extends Core_Controller_Auth
 		$form->input(NULL, 'description', __('description')) ->setParam('value', $c->description);
 		$form->input(NULL, 'keywords', __('keywords'))       ->setParam('value', $c->keywords);
 
-		//XSRF protection
+		//CSRF protection
 		if ($r->getServer('REMOTE_ADDR') == 'unit') $key = 1; //unit tests
 		else $key = rand(0, 100);
 		$hash = md5($r->getSession('password') . $key . $r->sessionID());
-		$form->input(FALSE, 'random_key', FALSE, 'hidden', $key);
-		$form->input(FALSE, 'hashed_key', FALSE, 'hidden', $hash);
+		$form->input(FALSE, 'token', FALSE, 'hidden', $hash . $key);
 
 		$this->setData('form', $form);
 
