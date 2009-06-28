@@ -121,11 +121,13 @@ dfn, acronym {
 
 table {
 	margin: 10px;
+	border-collapse: collapse;
 }
 
 table td,
 table th {
 	padding: 5px;
+	border: 1px solid #666;
 }
 
 table th {

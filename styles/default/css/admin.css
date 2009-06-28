@@ -10,7 +10,7 @@ body{
    background:#C8C8C8;
    margin:0px;
    padding:0px;
-   min-height:825px;
+   min-height:815px;
    position:relative;
 }
 
@@ -44,6 +44,15 @@ li{
 
 img{
   border:none;
+}
+
+table{
+	border-collapse: collapse;
+	margin: 10px auto;
+}
+
+td, th{
+	padding: 3px;
 }
 
 #menu li{
@@ -174,6 +183,10 @@ img{
 
 #paging a, #paging span{
 	margin-left: 10px;
+}
+
+#debug_queries td, #debug_queries th{
+	border: 1px solid #bbb;
 }
 
 .dump{
