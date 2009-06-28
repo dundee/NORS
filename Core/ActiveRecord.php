@@ -249,6 +249,7 @@ abstract class Core_ActiveRecord
 	{
 		$request = Core_Request::factory();
 		$id = $this->getID() ? $this->getID() : $request->getGet('id');
+		if (!$id) return array();
 
 		$table = new Table_File();
 		$method = 'findById_' . $this->table;
