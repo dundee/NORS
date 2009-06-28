@@ -28,7 +28,7 @@ class Component_Dump extends Core_Component_Auth
 		$class = 'Table_' . ucfirst($params['table']);
 		$model = new $class;
 
-		$count = $model->getCount();
+		$count = $model->getCount($this->request->getPost('name'));
 		$this->setData('count', $count);
 	}
 
