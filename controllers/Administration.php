@@ -59,6 +59,7 @@ class Administration extends Core_Controller_Auth
 		$this->setData('menu', $menu);
 		$this->setData('user', $this->user->userName);
 		$this->setData('logout_url', $r->genUrl('administration','logout','default', FALSE, FALSE, FALSE, TRUE));
+		$this->setData('title', 'Administration');
 	}
 
 	/**
@@ -471,7 +472,12 @@ class Administration extends Core_Controller_Auth
 		$model = new $class($this->request->getGet('id'));
 		$model->delete();
 
-		$this->dump($table);
+		//$this->dump($table);
+		$this->router->redirect('administration',
+		                        $this->request->getGet('action'),
+		                        FALSE,
+		                        array('event' => $this->request->getGet('event'))
+		                        );
 	}
 
 	protected function checkCSRF()
