@@ -48,6 +48,7 @@ class Core_Helper_Administration extends Core_Helper
  		echo ENDL . '</div>' . ENDL;
 	}
 
+
 	public function dump($table, $return = FALSE, $just_content = FALSE)
 	{
 		$class = 'Table_' . ucfirst($table);
@@ -68,29 +69,7 @@ class Core_Helper_Administration extends Core_Helper
 		$output = '';
 
 		if (!$just_content) {
-			$output .= '<h2>' . __($table) . '</h2>';
-			$order = $request->getPost('order');
-			$a     = $request->getPost('a');
-
-			if (iterable($rows)) {
-				$output .= ENDL . '<table border="1" class="dump">' . ENDL;
-				$output .= '<thead><tr>';
-
-				foreach ($rows[0] as $th => $v) {
-					$class = '';
-					if (is_numeric($th)) continue;
-					if ($th == 'active') continue;
-					if ($th == $order) {
-						$class = 'class="'.$a.'" ';
-					}
-					$output .= '<th>';
-					$output .= '<a href="#" ' . $class . 'title="' . $th . '">' . __($th) . '</a></th>';
-				}
-
-				$output .= '<th>' . __('actions') . '</th></tr></thead>';
-
-				$output .= '<tbody>';
-			}
+			$output .= $this->dumpTableHead($table, $rows);
 		}
 		if (iterable($rows)) {
 			$i = 0;
@@ -346,5 +325,36 @@ class Core_Helper_Administration extends Core_Helper
 			}
 		}
 		echo '</ul>';
+	}
+
+	protected function dumpTableHead($table, $rows)
+	{
+		$r = Core_Router::factory();
+		$request = Core_Request::factory();
+
+		$output = '<h2>' . __($table) . '</h2>';
+		$order = $request->getPost('order');
+		$a     = $request->getPost('a');
+
+		if (iterable($rows)) {
+			$output .= ENDL . '<table border="1" class="dump">' . ENDL;
+			$output .= '<thead><tr>';
+
+			foreach ($rows[0] as $th => $v) {
+				$class = '';
+				if (is_numeric($th)) continue;
+				if ($th == 'active') continue;
+				if ($th == $order) {
+					$class = 'class="'.$a.'" ';
+				}
+				$output .= '<th>';
+				$output .= '<a href="#" ' . $class . 'title="' . $th . '">' . __($th) . '</a></th>';
+			}
+
+			$output .= '<th>' . __('actions') . '</th></tr></thead>';
+
+			$output .= '<tbody>';
+		}
+		return $output;
 	}
 }

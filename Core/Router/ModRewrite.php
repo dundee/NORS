@@ -27,6 +27,7 @@ class Core_Router_ModRewrite extends Core_Router
 		if (strpos($controller, 'http') === 0) $l = "Location: " . $controller;
 		else $l = "Location: ".$this->genUrl($controller, $action, $route, $params, $inherit_params, TRUE, $csrf);
 
+		//echo $l;
 		header($l);
 		header("Connection: close");
 		exit(0);
