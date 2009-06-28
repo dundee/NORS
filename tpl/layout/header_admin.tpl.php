@@ -50,7 +50,7 @@ if (isset($site['css']['ie7'])) {
 	echo '<![endif]-->'.ENDL;
 }
 ?>
-<title><?php echo $site['title'] ?></title>
+<title><?php if (isset($title)) echo $title . ' - '; echo $site['title'] ?></title>
 </head>
 <body>
 <h1>NORS <?php echo norsVersion() ?></h1>
