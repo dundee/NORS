@@ -59,9 +59,10 @@ class Core_Helper_AjaxPaging extends Core_Helper
 			else $output .= '<span>' . ($i + 1) . '</span> ';
 		}
 
+		$last = ceil($count / $itemsPerPage);
 		if ($count > ($page+1) * $itemsPerPage) {
 			$output .= '<a href="'.page($page+1).'" title="'. ($page + 1) . '">' . __('next') . '</a> ';
-			$output .= '<a href="'.page($i-1).'" title="' . ($i - 1) . '">&raquo;</a>';
+			$output .= '<a href="'.page($last-1).'" title="' . ($last - 1) . '">&raquo;</a>';
 		}
 
 		if ($return) return $output;
