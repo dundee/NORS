@@ -237,22 +237,21 @@ class Administration extends Core_Controller_Auth
 	{
 		$r = $this->request;
 		$c = $this->config;
-		$host = $c->host;
 
 		$this->tplFile = 'admin_basic.tpl.php';
 
 		if ($r->getPost('send')) {
 			$this->checkCSRF();
 
-			include(APP_PATH . '/cache/config.yml.php.cache.php');
+			include(APP_PATH . '/cache/' . $c->host . '.yml.php.cache.php');
 			$config = $data;
 
-			$config[$host]['name']        = $r->getPost('name');
-			$config[$host]['description'] = $r->getPost('description');
-			$config[$host]['keywords']    = $r->getPost('keywords');
+			$config['name']        = $r->getPost('name');
+			$config['description'] = $r->getPost('description');
+			$config['keywords']    = $r->getPost('keywords');
 
-			Core_Parser_YML::write($config, APP_PATH . '/config/config.yml.php');
-			$c->read(APP_PATH . '/config/config.yml.php', TRUE);
+			Core_Parser_YML::write($config, APP_PATH . '/config/' . $c->host . '.yml.php');
+			$c->read(APP_PATH . '/config/' . $c->host . '.yml.php', TRUE);
 		}
 
 		$form = new Core_Helper_Form();
@@ -276,8 +275,9 @@ class Administration extends Core_Controller_Auth
 	public function event_advanced()
 	{
 		$this->tplFile = 'admin_advanced_settings.tpl.php';
+		$c = $this->config;
 
-		include(APP_PATH . '/cache/config.yml.php.cache.php');
+		include(APP_PATH . '/cache/' . $c->host . '.yml.php.cache.php');
 
 		if ($this->request->getPost('send')) {
 			$config = convertArrayToObject($data);
@@ -296,7 +296,7 @@ class Administration extends Core_Controller_Auth
 
 			$config = convertObjectToArray($config);
 
-			Core_Parser_YML::write($config, APP_PATH . '/config/config.yml.php');
+			Core_Parser_YML::write($config, APP_PATH . '/config/' . $c->host . '.yml.php');
 
 			$this->router->redirect('administration', FALSE, FALSE, FALSE, TRUE);
 		}

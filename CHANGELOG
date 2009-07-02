@@ -1,3 +1,15 @@
+version 4.3.0 ():
+	* separated configuration file for each domain
+
+version 4.2.1 (06/01/2009):
+	* handle fatal errors
+	* session fixation protection
+	* better CSRF protection
+	* always redirect to canonical URL
+	* administration refactoring
+	* paging fix
+	* thickbox fix
+
 version 4.2.0 (05/04/2009):
 	frontend:
 	* thickbox fix
@@ -18,7 +30,6 @@ version 4.2.0 (05/04/2009):
 	* Text::getWords multiline fix
 	* better file perms check (suexec support)
 	* formating and documentation
-
 
 version 4.1.0 (04/04/2009):
 	frontend:

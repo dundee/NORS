@@ -21,12 +21,27 @@ class Core_Config
 	 *
 	 * @return Core_Config
 	 */
-	public static function singleton(){
+	public static function singleton()
+	{
 		if (!self::$instance){
 			$class = __CLASS__;
 			self::$instance = new $class;
 		}
 		return self::$instance;
+	}
+	
+	public function init()
+	{
+		$host = isset($_SERVER['HTTP_HOST'])
+		        ? $_SERVER['HTTP_HOST']
+		        : 'localhost';
+		$host = preg_replace('/^www./', '', $host);
+		$host = str_replace('.', '_', $host); //needed for advanced settings
+		$host = preg_replace('/:.*$/', '', $host); //cut port from end
+
+		$this->host = $host;
+		
+		$this->read(APP_PATH . '/config/' . $host . '.yml.php');
 	}
 
 	/**
@@ -35,7 +50,8 @@ class Core_Config
 	 * @param $key string
 	 * @return string
 	 */
-	public function __get($key){
+	public function __get($key)
+	{
 		if (!isset($this->data->{$key})) return FALSE;
 		return $this->data->{$key};
 	}
@@ -80,24 +96,7 @@ class Core_Config
 	private function prepareData()
 	{
 		$array = $this->data;
-		$host = isset($_SERVER['HTTP_HOST'])
-		        ? $_SERVER['HTTP_HOST']
-		        : 'localhost';
-		$host = preg_replace('/^www./', '', $host);
-		$host = str_replace('.', '_', $host); //needed for advanced settings
-		$host = preg_replace('/:.*$/', '', $host); //cut port from end
-
-		$this->host = $host;
-
-		//no configuration for this host, copy default
-		if (!isset($array[$host])) {
-			$array[$host] = $array['localhost'];
-			Core_Parser_YML::write($array, APP_PATH . '/config/config.yml.php');
-		}
-
-		$array = $array[$host];
-		$array['host'] = $host;
-
+		$array['host'] = $this->host;
 		$data = convertArrayToObject($array);
 		$this->data = $data;
 	}

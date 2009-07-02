@@ -25,7 +25,7 @@ testEnvironment();
 
 setUrlPath();
 
-Core_Config::singleton()->read(APP_PATH . '/config/config.yml.php');
+Core_Config::singleton()->init();
 
 define('STYLE_URL', APP_URL . '/styles/' . Core_Config::singleton()->style);
 

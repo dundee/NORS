@@ -25,6 +25,8 @@ class Core_Parser_YML
 	 */
 	public static function read($file, $cacheFile)
 	{
+		if (!file_exists($file)) copy(APP_PATH . '/config/localhost.yml.php', $file);
+		
 		self::$lines = file($file);
 		self::$file = $file;
 
@@ -118,7 +120,7 @@ class Core_Parser_YML
 				$content .= $name . ': ' . ENDL;
 				$content .= self::writeArray($value, $indentionDeep + 1, $indention);
 			} else {
-				$content .= $name . ': ' . $value;
+				$content .= $name . ': ' . $value . ENDL;
 			}
 		}
 
@@ -151,10 +153,11 @@ class Core_Parser_YML
 				$i++;
 				continue;
 			}
-		} while ($i < 10);
+		} while ($i < count(self::$lines));
 
 		if (!isset($indentionLength)) {
-			throw new UnexpectedValueException("Wrong indention in config file " . self::$file);
+			$indentionLength = 1;
+			//throw new UnexpectedValueException("Wrong indention in config file " . self::$file);
 		}
 
 		return $indentionLength;
@@ -170,7 +173,7 @@ class Core_Parser_YML
 				$content .= $name . ': ' . ENDL;
 				$content .= self::writeArray($value, $indentionDeep + 1, $indention);
 			} else {
-				$content .= $name . ': ' . $value. ENDL;
+				$content .= $name . ': ' . $value . ENDL;
 			}
 		}
 		return $content;

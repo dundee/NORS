@@ -155,14 +155,16 @@ class Core_Application
 		$table = new Table_Post();
 		$posts = $table->getPosts();
 
-		foreach ($posts as $post) {
-			if ($action == $text->urlEncode($post->name)) {
-				$this->router->redirect('post',
-				                        '__default',
-				                        'post',
-				                        array('post' => $post->id_post . '-' . $text->urlEncode($post->name)),
-				                        FALSE,
-				                        TRUE);
+		if (iterable($posts)) {
+			foreach ($posts as $post) {
+				if ($action == $text->urlEncode($post->name)) {
+					$this->router->redirect('post',
+					                        '__default',
+					                        'post',
+					                        array('post' => $post->id_post . '-' . $text->urlEncode($post->name)),
+					                        FALSE,
+					                        TRUE);
+				}
 			}
 		}
 	}
