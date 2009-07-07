@@ -13,7 +13,7 @@ abstract class Core_DB
 	 *
 	 * @var Core_DB $instance
 	 */
-	protected static $instance;
+	protected static $instance = NULL;
 
 	/**
 	 * $connection
@@ -71,7 +71,7 @@ abstract class Core_DB
 	 * @return Core_DB instance
 	 */
 	public static final function singleton(){
-		if (!isset(self::$instance)) {
+		if (self::$instance == NULL) {
 			$config = Core_Config::singleton();
 			$class = 'Core_DB_' . ucfirst($config->db->connector);
 			$instance = new $class($config);

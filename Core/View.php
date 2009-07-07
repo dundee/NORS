@@ -39,7 +39,8 @@ abstract class Core_View
 	 * @return mixed Exception on erroe or a valid language instance
 	 * @static
 	 */
-	static public function factory($type, Core_Controller $controller, $action){
+	static public function factory($type, Core_Controller $controller, $action)
+	{
 		$file = APP_PATH.'/Core/View/'.$type.'.php';
 		if (loadFile($file)) {
 			$class = 'Core_View_' . $type;
@@ -53,7 +54,7 @@ abstract class Core_View
 			throw new RuntimeException('View class not found: '.$type);
 		}
 		throw new UnexpectedValueException('View file not found: '.$type);
-		}
+	}
 
 	abstract public function display();
 }

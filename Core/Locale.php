@@ -15,7 +15,7 @@ abstract class Core_Locale
 	 */
 	protected $data = array();
 
-	private static $instance;
+	private static $instance = NULL;
 
 	/**
 	 * Creates appropriate locale
@@ -24,7 +24,7 @@ abstract class Core_Locale
 	 * @return mixed language instance
 	 */
 	static public function factory($locale = FALSE){
-		if (isset(self::$instance)) return self::$instance;
+		if (self::$instance != NULL) return self::$instance;
 
 		if(!$locale) $locale = Core_Config::singleton()->locale;
 		$file = APP_PATH.'/locales/'.$locale.'.php';

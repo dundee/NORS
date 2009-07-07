@@ -13,7 +13,7 @@ class Core_Request
 	 *
 	 * @var Core_Request $instance
 	 */
-	static private $instance;
+	static private $instance = NULL;
 
 	/**
 	 * $session
@@ -50,12 +50,10 @@ class Core_Request
 	 */
 	static public function factory($class = FALSE)
 	{
-		if (isset(self::$instance)) {
-			return self::$instance;
+		if (self::$instance == NULL) {
+			$class = __CLASS__;
+			self::$instance = new $class;
 		}
-
-		$class = 'Core_Request';
-		self::$instance = new $class;
 		return self::$instance;
 	}
 

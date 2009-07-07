@@ -13,7 +13,7 @@ abstract class Core_Router
 	 *
 	 * @var Core_Request $instance
 	 */
-	static private $instance;
+	static private $instance = NULL;
 
 	/**
 	 * factory
@@ -22,27 +22,24 @@ abstract class Core_Router
 	 */
 	static public function factory($class = FALSE)
 	{
-		if (isset(self::$instance)) {
-			return self::$instance;
-		}
-
-		$config = Core_Config::singleton();
-		if (!$class) {
-			if (!$config->request_class) {
-				if (isset($_SERVER['HTTP_HOST'])) {
-					$class = 'ModRewrite';
-				} elseif(isset($_SERVER['argc'])) {
-					$class = 'Cli';
+		if (self::$instance == NULL) {
+			$config = Core_Config::singleton();
+			if (!$class) {
+				if (!$config->request_class) {
+					if (isset($_SERVER['HTTP_HOST'])) {
+						$class = 'ModRewrite';
+					} elseif(isset($_SERVER['argc'])) {
+						$class = 'Cli';
+					} else {
+						throw new RuntimeException("Not a valid Request");
+					}
 				} else {
-					throw new RuntimeException("Not a valid Request");
+					$class = $config->request_class;
 				}
-			} else {
-				$class = $config->request_class;
 			}
+			$class = 'Core_Router_' . $class;
+			self::$instance = new $class;
 		}
-
-		$class = 'Core_Router_' . $class;
-		self::$instance = new $class;
 		return self::$instance;
 	}
 

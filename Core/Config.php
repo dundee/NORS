@@ -10,7 +10,7 @@ class Core_Config
 {
 	public $host;
 	protected $data;
-	protected static $instance;
+	protected static $instance = NULL;
 
 	protected function __construct()
 	{
@@ -23,7 +23,7 @@ class Core_Config
 	 */
 	public static function singleton()
 	{
-		if (!self::$instance){
+		if (self::$instance == NULL){
 			$class = __CLASS__;
 			self::$instance = new $class;
 		}

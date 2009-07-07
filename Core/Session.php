@@ -10,7 +10,7 @@ class Core_Session
 	/**
 	 * @var Core_Session $instance
 	 */
-	private static $instance;
+	private static $instance = NULL;
 
 	/**
 	 * @var string $sessionID
@@ -31,11 +31,10 @@ class Core_Session
 	 */
 	public static function singleton()
 	{
-		if (!isset(self::$instance)) {
-			$className = __CLASS__;
-			self::$instance = new $className;
+		if (self::$instance == NULL) {
+			$class = __CLASS__;
+			self::$instance = new $class;
 		}
-
 		return self::$instance;
 	}
 
