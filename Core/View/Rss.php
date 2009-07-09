@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Provides RSS output
@@ -23,11 +23,10 @@ class Core_View_Rss extends Core_View
 
 		$request->setVar('view', 'rss');
 
-
 		$createCache = FALSE;  //should we create cache file?
 		$cacheLifeTime = $this->controller->cache;
 
-		if ($cacheLifeTime > 0){ //caching allowed
+		if ($cacheLifeTime > 0 && !ini_get('short_open_tag')){ //caching allowed
 			$cacheFileName = $request . ".cache.php";
 			$cacheFilePath = APP_PATH.'/tpl/cache/'.$cacheFileName;
 			if (file_exists($cacheFilePath)){
@@ -35,7 +34,7 @@ class Core_View_Rss extends Core_View
 				$request->setVar('cacheTime', $time);
 				$age = time() - $time;
 				if($age < $cacheLifeTime){ //cache not expired
-					$this->setDoctype($data,$request, $response);
+					$response->sendHeaders('application/xml');
 					include($cacheFilePath); //display cache
 					return TRUE;
 				} else $createCache = TRUE; //cache expired
