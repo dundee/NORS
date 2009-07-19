@@ -19,14 +19,12 @@ echo '<title>' . $config->name . (isset($title) ? ' - ' . $title : '' ) . '</tit
 if (isset($items) && iterable($items)){
 	$text = new Core_Text();
 	foreach($items as $item){
-		$x = $text->dateToTimeStamp($item->date);
-
 		echo ENDL . ENDL . TAB . TAB . '<item>
 		<title>' . $item->name . '</title>
 		<link>' . $item->url . '</link>
 		<guid>' . $item->url . '</guid>
 		<description><![CDATA['  . strip_tags($item->text) . ']]></description>
-		<pubDate>' . date('r', $x) . '</pubDate>
+		<pubDate>' . date('r', $item->timestamp) . '</pubDate>
 		</item>';
 	}
 }

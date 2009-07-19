@@ -95,9 +95,10 @@ class Post extends Core_Controller
 
 				$posts[$i]->url            = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
 				$posts[$i]->text           = $text;
-				$posts[$i]->category_url  = $this->router->genUrl('category', FALSE, 'category', array('category' => $post->id_category . '-' . $curl));
+				$posts[$i]->category_url   = $this->router->genUrl('category', FALSE, 'category', array('category' => $post->id_category . '-' . $curl));
 				$posts[$i]->name           = clearOutput($post->name);
-				$posts[$i]->category_name = clearOutput($post->category_name);
+				$posts[$i]->category_name  = clearOutput($post->category_name);
+				$posts[$i]->timestamp      = $text_obj->dateToTimeStamp($post->date);
 				$posts[$i]->date           = Core_Locale::factory()->decodeDatetime($post->date);
 			}
 		}
