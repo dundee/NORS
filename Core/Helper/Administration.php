@@ -117,7 +117,7 @@ class Core_Helper_Administration extends Core_Helper
 
 					if (!$j) {
 						$output .= TAB . '<td>' . ENDL;
-						$output .= TAB . TAB . '<input type="checkbox" name="ids" value="' . $value . '" />' . ENDL;
+						//$output .= TAB . TAB . '<input type="checkbox" name="ids" value="' . $value . '" />' . ENDL;
 						$output .= TAB . TAB . '<a href="' . $edit_url . '">' . $value . '</a>' . ENDL;
 						$output .= TAB . '</td>' . ENDL;
 					} else $output .= TAB . '<td>' . $value . '</td>' . ENDL;
