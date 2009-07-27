@@ -13,6 +13,8 @@ class Post extends Core_Controller
 	                      'forms.css',
 	                      'thickbox.css',
 	                      'markitup-comment.css',
+	                      'shCore.css',
+	                      'shThemeDefault.css',
 		                  ),
 		'ie6'    => array('ie6.css'),
 		'ie7'    => array('ie7.css'),
@@ -22,10 +24,11 @@ class Post extends Core_Controller
 
 	public $js = array('jquery.js',
 	                   'jquery.thickbox.js',
-	//                   'paging.js',
 	                   'jquery.markitup.js',
 	                   'set-comment.js',
-	                   'post.js');
+	                   'shCore.js',
+	                   'shBrushPhp.js',
+	                   'post.js',);
 
 	public $cache = 0;
 

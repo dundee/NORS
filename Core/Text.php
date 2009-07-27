@@ -92,7 +92,7 @@ class Core_Text
 		$text = preg_replace('%\[img\](.+)\[/img\]%U', '<a href="$1">' . __('image') . '</a>', $text);
 		$text = preg_replace('%\[b\](.+)\[/b\]%U', '<strong>$1</strong>', $text);
 		$text = preg_replace('%\[i\](.+)\[/i\]%U', '<em>$1</em>', $text);
-		$text = preg_replace('%\[code\](.+)\[/code\]%Us', '<code>$1</code>', $text);
+		$text = preg_replace('%\[code\](.+)\[/code\]%Us', '<pre class="brush: php">$1</pre>', $text);
 
 		return $text;
 	}
@@ -183,10 +183,9 @@ class Core_Text
 		$text = preg_replace('!<p>\s*(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
 		$text = preg_replace('!(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*</p>|</div>"!', "$1", $text);
 
-		/*//source code
-		while (preg_match('/<code>(.*)<br \/>(.*)<\/code>/s', $text)) {
-			$text = preg_replace('/<code>(.*)<br \/>(.*)<\/code>/s', '<code>$1$2</code>', $text);
-		}*/
+		//syntax highlighting
+		$text = str_replace('<code>', '<pre class="brush: php">', $text);
+		$text = str_replace('</code>', '</pre>', $text);
 
 		return $text;
 	}
