@@ -176,8 +176,8 @@ function clearInput($val, $numeric = FALSE)
 function clearOutput($val, $allowHtml = FALSE)
 {
 	if (is_array($val)) {
-		foreach ($val as $k=>$v) {
-			$val[$k] = clearOutput($v, $allowHtml);
+		foreach ($val as &$v) {
+			$v = clearOutput($v, $allowHtml);
 		}
 		return $val;
 	} elseif (is_string($val)) {
@@ -300,7 +300,7 @@ if (!function_exists('json_encode')) {
 function apply($obj, $function)
 {
 	if (is_array($obj)) {
-		foreach ($obj as $k=>$v) $obj[$k] = $function($v);
+		foreach ($obj as &$v) $v = $function($v);
 	} else $obj = $function($obj);
 
 	return $obj;
@@ -314,8 +314,8 @@ function apply($obj, $function)
  */
 function convertArrayToObject($arr)
 {
-	foreach($arr as $k => $v){
-		if (is_array($v)) $arr[$k] = convertArrayToObject($v);
+	foreach($arr as &$v){
+		if (is_array($v)) $v = convertArrayToObject($v);
 	}
 	return (object) $arr;
 }

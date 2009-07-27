@@ -69,6 +69,9 @@ class Category extends Core_Controller
 		$url = str_replace('&','&amp;',$url);
 		$url_name = $text_obj->urlEncode($category->name);
 		$can_url = $this->router->genUrl('category', FALSE, 'category', array('category' => $category->id_category . '-' . $url_name, 'p'=>$page));
+		if ($this->request->view != 'Default') {
+			$can_url .= '?' . strtolower($this->request->view);
+		}
 		if ($can_url != $url) {
 			$this->router->redirect($can_url, FALSE, FALSE, FALSE, FALSE, TRUE);
 		}
@@ -90,18 +93,18 @@ class Category extends Core_Controller
 		$text_obj = new Core_Text();
 
 		if (iterable($posts)) {
-			foreach ($posts as $i=>$post) {
+			foreach ($posts as &$post) {
 				$url  = $text_obj->urlEncode($post->name);
 				$curl = $text_obj->urlEncode($post->category_name);
 				$text = $text_obj->getPerex(Core_Config::singleton()->front_end->perex_length, $post->text);
 				$text = strip_tags($text);
 				$text = $text_obj->clearAmpersand($text);
 
-				$posts[$i]->name = clearOutput($post->name);
-				$posts[$i]->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
-				$posts[$i]->text = $text;
-				$posts[$i]->category_url = $this->router->genUrl('category', FALSE, 'category', array('category' => $post->id_category . '-' . $curl));
-				$posts[$i]->date           = Core_Locale::factory()->decodeDatetime($post->date);
+				$post->name = clearOutput($post->name);
+				$post->url  = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url));
+				$post->text = $text;
+				$post->category_url = $this->router->genUrl('category', FALSE, 'category', array('category' => $post->id_category . '-' . $curl));
+				$post->date         = Core_Locale::factory()->decodeDatetime($post->date);
 			}
 		}
 

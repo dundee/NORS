@@ -1,12 +1,10 @@
 HIGH:
 code purification
-slashing - mysql_real_escape_string
 
 MEDIUM:
 gravatars
 backup
 autologin
-last modified in posts, pages -> sitemap
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
 better lightbox
 better upload

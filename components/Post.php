@@ -27,9 +27,10 @@ class Component_Post extends Core_Component
 		$url = $this->request->getPost('url');
 
 		$arr = explode('/', $url);
-		foreach ($arr as $i=>$item) {
+		foreach ($arr as $i => $item) {
 			if ($item == 'post') {
-				$id = intval($arr[$i + 1]);
+				$id = intval($arr[$i]);
+				break;
 			}
 		}
 
