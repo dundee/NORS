@@ -38,7 +38,7 @@ class Installation extends Core_Controller
 	public function __default()
 	{
 		$this->tplFile = 'admin_installation.tpl.php';
-		if ($this->config->db->user) throw new RuntimeException('Allready installed', 401);
+		if ($this->config->db->user) $this->router->redirect('post', '__default', 'default');
 
 		$host = $user = $pass = $db = $prefix = $user_name = $user_password = FALSE;
 		$host = 'localhost';
