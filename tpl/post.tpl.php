@@ -22,6 +22,7 @@ if (iterable($photos)) {
 <h3 id="comments"><?php echo __('comments')?></h3>
 
 <?php
+$allow = $post->comments_allowed;
 if (iterable($items)) {
 	foreach ($items as $i => $item) {
 ?>
@@ -36,11 +37,12 @@ if (iterable($items)) {
 	</div>
 	<div class="date"><?php echo $item->date?></div>
 	<div class="text"><?php echo $item->text?></div>
-	<div class="reply"><a href="#" title="<?php echo $i?>"><?php echo __('reply')?></a></div>
+	<?php if ($allow) { ?><div class="reply"><a href="#" title="<?php echo $i?>"><?php echo __('reply')?></a></div><?php } ?>
 </div>
 <?php
 	}
 }
 
-echo $comment_form
+if ($allow) echo $comment_form;
+else echo '<strong>' . __('comments_closed') . '</strong>';
 ?>

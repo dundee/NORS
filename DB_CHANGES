@@ -1,3 +1,5 @@
+version 4.3.0:
+	ALTER TABLE `nors4_post` ADD `comments_allowed` TINYINT( 1 ) NOT NULL AFTER `active` ;
 version 4.2.0:
 	RENAME TABLE `nors`.`nors4_cathegory` TO `nors`.`nors4_category` ;
 	ALTER TABLE `nors4_category` CHANGE `id_cathegory` `id_category` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT;

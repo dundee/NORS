@@ -126,6 +126,8 @@ class Locale_Cs extends Core_Locale
 		'advanced'                  => 'Pokročilé',
 		'comment'                   => 'Komentář',
 		'id_category'               => 'Rubrika',
+		'comments_allowed'          => 'Povolit komentáře',
+		'comments_closed'           => 'Komentáře již nelze přidávat',
 
 		//             Prava
 		'category_list'             => 'Výpis rubrik',

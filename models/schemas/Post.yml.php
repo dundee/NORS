@@ -8,6 +8,7 @@ fields:
 	text: html
 	date: datetime
 	active: bool
+	comments_allowed: bool
 	-karma: double
 	-evaluated: int
 	-seen: int
