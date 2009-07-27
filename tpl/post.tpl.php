@@ -6,7 +6,7 @@ if (iterable($photos)) {
 	foreach ($photos as $photo) {
 ?>
 <div class="thumbnail">
-	<a href="<?php echo $photo->src?>" class="thickbox" title="<?php echo $photo->label?>"><img src="<?php echo $photo->thub?>" alt="<?php echo $photo->label?>" /></a>
+	<a href="<?php echo $photo->src?>" class="lightbox" title="<?php echo $photo->label?>"><img src="<?php echo $photo->thub?>" alt="<?php echo $photo->label?>" /></a>
 	<div class="caption"><a href="<?php echo $photo->src?>"><?php echo $photo->label?></a></div>
 </div>
 <?php

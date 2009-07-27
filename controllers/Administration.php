@@ -11,13 +11,13 @@ class Administration extends Core_Controller_Auth
 
 	public $css = array('normal' => array('admin.css',
 	                                      'markitup.css',
-	                                      'thickbox.css'),
+	                                      'jquery.lightbox-0.5.css'),
 	                   );
 	public $js = array('jquery.js',
 	                   'dump_filter.js',
 	                   'jquery.markitup.js',
 	                   'set.js',
-	                   'jquery.thickbox.js',
+	                   'jquery.lightbox-0.5.min.js',
 	                   'jquery.blockUI.js',
 	                   'jquery.datetimepicker.js',
 	                   'admin_form.js',

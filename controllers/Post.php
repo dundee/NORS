@@ -176,7 +176,7 @@ class Post extends Core_Controller
 		$post->seen += 1;
 		$post->save();
 
-		list($post) = $table->findById($id_post);
+		list($post) = $table->findById($id_post); //reload
 
 
 		$this->setData('title', $post->name);

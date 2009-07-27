@@ -13,6 +13,14 @@ $(function() {
 	}
 
 	window.setInterval("pingServer()", 300000);
+
+	$('.lightbox').lightBox({
+		imageLoading:  '../../styles/default/images/lightbox-ico-loading.gif',
+		imageBtnClose: '../../styles/default/images/lightbox-btn-close.gif',
+		imageBtnPrev:  '../../styles/default/images/lightbox-btn-prev.gif',
+		imageBtnNext:  '../../styles/default/images/lightbox-btn-next.gif',
+		imageBlank:    '../../styles/default/images/lightbox-blank.gif'
+	});
 });
 
 function new_file()

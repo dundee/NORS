@@ -59,7 +59,7 @@ $(function()
 	SyntaxHighlighter.defaults['wrap-lines'] = true;
 	SyntaxHighlighter.all();
 
-	$('.thumbnail > a').lightBox({
+	$('.lightbox').lightBox({
 		imageLoading:  '../../styles/default/images/lightbox-ico-loading.gif',
 		imageBtnClose: '../../styles/default/images/lightbox-btn-close.gif',
 		imageBtnPrev:  '../../styles/default/images/lightbox-btn-prev.gif',
