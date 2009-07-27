@@ -15,7 +15,7 @@ require_once('../Core/Functions.php');
 
 setUrlPath();
 
-Core_Config::singleton()->read(APP_PATH . '/config/config.yml.php');
+Core_Config::singleton()->init();
 
 define('STYLE_URL', APP_URL . '/styles/' . Core_Config::singleton()->style);
 
@@ -32,6 +32,7 @@ class Core_DB_Test extends Core_DB
 	protected function connect(){}
 	protected function sql_query($query){}
 	public function query($query){}
+	public function silentQuery($query){}
 	public function getRow($query = false)
 	{
 		return array('count' => 25);

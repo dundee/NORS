@@ -14,26 +14,24 @@
 <table border="1" class="dump">
 <thead><tr><th><a href="#" title="id_user">id user</a></th><th><a href="#" title="name">Název</a></th><th>Akce</th></tr></thead><tbody><tr>
 	<td>
-		<input type="checkbox" name="ids" value="1" />
 		<a href="http://localhost/nors4/post/?id=&amp;command=edit">1</a>
 	</td>
 	<td>dundee</td>
 	<td>
 		<a href="http://localhost/nors4/post/?id=&amp;command=edit" title="Změnit dundee" ><img src="STYLE_URL/images/edit.gif" alt="Změnit"/>&nbsp;Změnit</a>
-		<a href="http://localhost/nors4/post/?id=&amp;command=del&amp;random_key=1&amp;hashed_key=5ef08dfb058053f8ab41c497d6ff94ea" onclick="javascript:return confirm('Opravdu smazat dundee?');" title="Smazat dundee">
+		<a href="http://localhost/nors4/post/?id=&amp;command=del&amp;token=5ef08dfb058053f8ab41c497d6ff94ea1" onclick="javascript:return confirm('Opravdu smazat dundee?');" title="Smazat dundee">
 			<img src="STYLE_URL/images/delete.gif" alt="Smazat"/>&nbsp;Smazat
 		</a>
 	</td>
 </tr>
 <tr>
 	<td>
-		<input type="checkbox" name="ids" value="2" />
 		<a href="http://localhost/nors4/post/?id=&amp;command=edit">2</a>
 	</td>
 	<td>test</td>
 	<td>
 		<a href="http://localhost/nors4/post/?id=&amp;command=edit" title="Změnit test" ><img src="STYLE_URL/images/edit.gif" alt="Změnit"/>&nbsp;Změnit</a>
-		<a href="http://localhost/nors4/post/?id=&amp;command=del&amp;random_key=1&amp;hashed_key=5ef08dfb058053f8ab41c497d6ff94ea" onclick="javascript:return confirm('Opravdu smazat test?');" title="Smazat test">
+		<a href="http://localhost/nors4/post/?id=&amp;command=del&amp;token=5ef08dfb058053f8ab41c497d6ff94ea1" onclick="javascript:return confirm('Opravdu smazat test?');" title="Smazat test">
 			<img src="STYLE_URL/images/delete.gif" alt="Smazat"/>&nbsp;Smazat
 		</a>
 	</td>
@@ -60,10 +58,7 @@ function validate(form){
 	<fieldset>
 		<legend>Rubrika</legend>
 		<div>
-			<input type="hidden" value="1" name="random_key" id="random_key" />
-		</div>
-		<div>
-			<input type="hidden" value="5ef08dfb058053f8ab41c497d6ff94ea" name="hashed_key" id="hashed_key" />
+			<input type="hidden" value="5ef08dfb058053f8ab41c497d6ff94ea1" name="token" id="token" />
 		</div>
 		<div>
 			<label for="name">Název</label>

@@ -14,7 +14,7 @@ require_once('../Core/Functions.php');
 
 setUrlPath();
 
-Core_Config::singleton()->read(APP_PATH . '/config/config.yml.php');
+Core_Config::singleton()->init();
 
 
 $router   = Core_Router::factory();
