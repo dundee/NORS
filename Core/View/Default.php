@@ -98,7 +98,7 @@ class Core_View_Default extends Core_View
 
 	public function __destruct()
 	{
-		if (defined('KILLED') || !headers_sent()) return; //Exception thrown
+		if (defined('KILLED') /*|| !headers_sent()*/) return; //Exception thrown
 
 		$this->controller->delData();
 		try {
