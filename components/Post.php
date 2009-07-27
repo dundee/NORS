@@ -29,7 +29,7 @@ class Component_Post extends Core_Component
 		$arr = explode('/', $url);
 		foreach ($arr as $i => $item) {
 			if ($item == 'post') {
-				$id = intval($arr[$i]);
+				$id = intval($arr[$i + 1]);
 				break;
 			}
 		}
