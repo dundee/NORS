@@ -62,6 +62,8 @@ class Page extends Core_Controller
 
 		$this->setData('title', $page->name);
 
+		$page->text = $text_obj->format_html($page->text);
+
 		if ($page) $this->setData('text', $page->text, TRUE);
 		else $this->setData('text', '', TRUE);
 	}
