@@ -192,20 +192,3 @@
 	color:#FFF;
 	background-color:#3C769D;
 }
-/***************************************************************************************/
-.html .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-html.png);
-}
-.markdown .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-markdown.png);
-}
-.textile .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-textile.png);
-}
-.bbcode .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-bbcode.png);
-}
-.wiki .markItUpEditor,
-.dotclear .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-wiki.png);
-}

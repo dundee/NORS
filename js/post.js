@@ -58,4 +58,12 @@ $(function()
 	SyntaxHighlighter.defaults['toolbar'] = false;
 	SyntaxHighlighter.defaults['wrap-lines'] = true;
 	SyntaxHighlighter.all();
+
+	$('.thumbnail > a').lightBox({
+		imageLoading:  '../../styles/default/images/lightbox-ico-loading.gif',
+		imageBtnClose: '../../styles/default/images/lightbox-btn-close.gif',
+		imageBtnPrev:  '../../styles/default/images/lightbox-btn-prev.gif',
+		imageBtnNext:  '../../styles/default/images/lightbox-btn-next.gif',
+		imageBlank:    '../../styles/default/images/lightbox-blank.gif'
+	});
 });

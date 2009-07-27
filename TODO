@@ -1,12 +1,10 @@
 HIGH:
-code purification
 
 MEDIUM:
 gravatars
 backup
 autologin
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
-better lightbox
 better upload
 block IP of commentor
 

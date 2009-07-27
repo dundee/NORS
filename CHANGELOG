@@ -1,6 +1,7 @@
 version 4.3.0 ():
 	frontend:
 	* JS SyntaxHighlighter
+	* better lightBox
 
 	core:
 	* separated configuration file for each domain
@@ -8,7 +9,7 @@ version 4.3.0 ():
 	* generate .htaccess
 	* automatic database upgrades
 	* care well magic quotes
-	* slash with mysql_real_escape_string
+	* slash by mysql_real_escape_string
 
 version 4.2.1 (06/01/2009):
 	* handle fatal errors

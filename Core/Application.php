@@ -61,7 +61,9 @@ class Core_Application
 		}
 
 		//redirect to DB upgrade
-		if ( $this->config->db->version != norsVersion() && $this->request->controller != 'upgrade') {
+		if ( (!isset($this->config->db->version) || $this->config->db->version != norsVersion())
+		     && $this->request->controller != 'upgrade'
+		     && $this->request->controller != 'installation') {
 			$this->router->redirect('upgrade', '__default', 'default');
 		}
 

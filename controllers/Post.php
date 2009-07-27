@@ -11,7 +11,7 @@ class Post extends Core_Controller
 	public $css = array(
 		'normal' => array('layout.css',
 	                      'forms.css',
-	                      'thickbox.css',
+	                      'jquery.lightbox-0.5.css',
 	                      'markitup-comment.css',
 	                      'shCore.css',
 	                      'shThemeDefault.css',
@@ -23,7 +23,7 @@ class Post extends Core_Controller
 	public $helpers = array('Menu');
 
 	public $js = array('jquery.js',
-	                   'jquery.thickbox.js',
+	                   'jquery.lightbox-0.5.min.js',
 	                   'jquery.markitup.js',
 	                   'set-comment.js',
 	                   'shCore.js',

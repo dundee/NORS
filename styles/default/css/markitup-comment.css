@@ -3,17 +3,17 @@
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
 .markItUpButton1 a {
-	background-image:url(../images/icons/bold.png); 
+	background-image:url(../images/icons/bold.png);
 }
 .markItUpButton2 a {
-	background-image:url(../images/icons/italic.png); 
+	background-image:url(../images/icons/italic.png);
 }
 .markItUpButton3 a {
-	background-image:url(../images/icons/code.png); 
+	background-image:url(../images/icons/code.png);
 }
 
 .markItUpButton4 a {
-	background-image:url(../images/icons/picture.png); 
+	background-image:url(../images/icons/picture.png);
 }
 .markItUpButton5 a {
 	background-image:url(../images/icons/link.png);
@@ -35,11 +35,11 @@
 .markItUp  {
 	/*width:95%;*/
 	margin:5px 0 5px 0;
-	border:5px solid #F5F5F5;	
+	border:5px solid #F5F5F5;
 	clear: both;
 }
 .markItUpContainer  {
-	border:1px solid #3C769D;	
+	border:1px solid #3C769D;
 	background:#FFF url(../images/icons/bg-container.png) repeat-x top left;
 	padding:5px 5px 2px 5px;
 	font:11px Verdana, Arial, Helvetica, sans-serif;
@@ -109,7 +109,7 @@
 .markItUpHeader ul ul {
 	display:none;
 	position:absolute;
-	top:18px; left:0px;	
+	top:18px; left:0px;
 	background:#F5F5F5;
 	border:1px solid #3C769D;
 	height:inherit;
@@ -141,7 +141,7 @@
 	display:block;
 	padding-left:0px;
 	text-indent:0;
-	width:120px; 
+	width:120px;
 	padding:5px 5px 5px 25px;
 	background-position:2px 50%;
 }
@@ -149,20 +149,4 @@
 	color:#FFF;
 	background-color:#3C769D;
 }
-/***************************************************************************************/
-.html .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-html.png);
-}
-.markdown .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-markdown.png);
-}
-.textile .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-textile.png);
-}
-.bbcode .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-bbcode.png);
-}
-.wiki .markItUpEditor,
-.dotclear .markItUpEditor {
-	background-image:url(../images/icons/bg-editor-wiki.png);
-}
+
