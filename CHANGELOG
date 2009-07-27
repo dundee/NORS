@@ -10,6 +10,7 @@ version 4.3.0 ():
 	* automatic database upgrades
 	* care well magic quotes
 	* slash by mysql_real_escape_string
+	* better import from NORS 3
 
 version 4.2.1 (06/01/2009):
 	* handle fatal errors

@@ -49,7 +49,7 @@ class Import extends Core_Controller
 					|| iterable($table2->getAll())
 				    || iterable($table3->getAll())) {
 					$errors .= 'Target tables are not empty';
-					break;
+					//break;
 				}
 
 				require_once($_FILES['db']['tmp_name']);
@@ -91,8 +91,8 @@ class Import extends Core_Controller
 				while ($line = mysql_fetch_array($result)) {
 					//dump($line);
 					$cat = new ActiveRecord_Category();
-					$cat->id_category  = $line['id_rubrika'];
-					$cat->name          = $line['name'];
+					$cat->id_category   = clearInput($line['id_rubrika'], 1);
+					$cat->name          = clearInput($line['name']);
 					$cat->insert();
 				}
 
@@ -106,13 +106,13 @@ class Import extends Core_Controller
 				while ($line = mysql_fetch_array($result)) {
 					//dump($line);
 					$post = new ActiveRecord_Post();
-					$post->id_post      = $line['id_clanek'];
-					$post->id_category = $line['id_rubrika'];
+					$post->id_post      = clearInput($line['id_clanek'], 1);
+					$post->id_category  = clearInput($line['id_rubrika'], 1);
 					$post->id_user      = 1;
-					$post->name         = $line['name'];
-					$post->text         = $line['text'];
-					$post->date         = $line['date'];
-					$post->seen         = $line['counter'];
+					$post->name         = clearInput($line['name']);
+					$post->text         = clearInput($line['text']);
+					$post->date         = clearInput($line['date']);
+					$post->seen         = clearInput($line['counter'], 1);
 					$post->active       = 1;
 					$post->insert();
 				}
@@ -127,14 +127,14 @@ class Import extends Core_Controller
 				while ($line = mysql_fetch_array($result)) {
 					//dump($line);
 					$com = new ActiveRecord_Comment();
-					$com->id_comment    = $line['id_komentar'];
-					$com->id_post       = $line['id_clanek'];
-					$com->user          = $line['user'];
-					$com->email         = $line['mail'];
-					$com->www           = $line['web'];
-					$com->ip            = $line['ip'];
-					$com->text          = $line['text'];
-					$com->date          = $line['date'];
+					$com->id_comment    = clearInput($line['id_komentar'], 1);
+					$com->id_post       = clearInput($line['id_clanek'], 1);
+					$com->user          = clearInput($line['user']);
+					$com->email         = clearInput($line['mail']);
+					$com->www           = clearInput($line['web']);
+					$com->ip            = clearInput($line['ip']);
+					$com->text          = clearInput($line['text']);
+					$com->date          = clearInput($line['date']);
 					$com->insert();
 				}
 
@@ -148,9 +148,9 @@ class Import extends Core_Controller
 				while ($line = mysql_fetch_array($result)) {
 					//dump($line);
 					$page = new ActiveRecord_Page();
-					$page->id_page      = $line['id_sablona'];
-					$page->name         = $line['name'];
-					$page->text         = $line['text'];
+					$page->id_page      = clearInput($line['id_sablona'], 1);
+					$page->name         = clearInput($line['name']);
+					$page->text         = clearInput($line['text']);
 					$page->active       = 1;
 					$page->insert();
 				}
