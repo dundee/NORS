@@ -1,6 +1,8 @@
 version 4.3.0 ():
 	* separated configuration file for each domain
 	* disable comments by post
+	* generate .htaccess
+	* automatic database upgrades
 
 version 4.2.1 (06/01/2009):
 	* handle fatal errors

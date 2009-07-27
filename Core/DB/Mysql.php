@@ -74,9 +74,10 @@ class Core_DB_Mysql extends Core_DB
 	 * Wrapper for mysql_query function with additional features.
 	 *
 	 * @param string $query SQL query
+	 * @param boolean $silent silent execution
 	 * @return string MySQL result
 	 */
-	protected function sql_query($query)
+	protected function sql_query($query, $silent = FALSE)
 	{
 		$this->counter++;
 
@@ -96,7 +97,7 @@ class Core_DB_Mysql extends Core_DB
 									 );
 		}
 
-		if (mysql_error()) {
+		if (mysql_error() && !$silent) {
 			$msg = __('DB_query_failed') . " : " . mysql_error() . ' - ' . $query;
 			throw new RuntimeException($msg, mysql_errno());
 		}
@@ -112,6 +113,18 @@ class Core_DB_Mysql extends Core_DB
 	public function query($query)
 	{
 		$this->result = $this->sql_query($query);
+		return $this;
+	}
+
+	/**
+	 * Silent version of query method.
+	 *
+	 * @param string $query SQL query
+	 * @return Core_DB
+	 */
+	public function silentQuery($query)
+	{
+		$this->result = $this->sql_query($query, TRUE);
 		return $this;
 	}
 

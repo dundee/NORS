@@ -108,6 +108,14 @@ abstract class Core_DB
 	public abstract function query($query);
 
 	/**
+	 * Execute query without showing errors
+	 *
+	 * @param String $query
+	 * @return String result
+	 */
+	public abstract function silentQuery($query);
+
+	/**
 	 * getRow
 	 *
 	 * @param String $query

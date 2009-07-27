@@ -3,19 +3,20 @@ enabled: 1
 encoding: utf-8
 locale: Cs
 name: Nors
-description: 
-keywords: 
+description:
+keywords:
 style: default
 upload_dir: upload
 timezone: Europe/Prague
-db: 
+db:
 	connector: mysql
 	user:
 	password:
 	host: localhost
 	database: nors
 	table_prefix: nors4_
-debug: 
+	version: 4.3.0
+debug:
 	enabled: 1
 	error_reporting: 6143
 	display_errors: 1
@@ -23,47 +24,47 @@ debug:
 	sql_queries: 0
 	included_files: 0
 	die_on_error: 1
-log: 
+log:
 	enabled: 1
 	file: nors.log
-cookie: 
+cookie:
 	expiration: 2592000
-routes: 
-	home: 
-		format: 
-		defaults: 
+routes:
+	home:
+		format:
+		defaults:
 			controller: post
 			action: __default
 			p: 0
-	category: 
+	category:
 		format: category/@category
-		defaults: 
+		defaults:
 			controller: category
 			action: __default
 			p: 0
-	post: 
+	post:
 		format: post/@post
-		defaults: 
+		defaults:
 			controller: post
 			action: __default
-	page: 
+	page:
 		format: page/@page
-		defaults: 
+		defaults:
 			controller: page
 			action: __default
-	default: 
+	default:
 		format: @controller/@action
-		defaults: 
+		defaults:
 			controller: post
 			action: __default
-front_end: 
+front_end:
 	perex_length: 100
 	posts_per_page: 5
-administration: 
+administration:
 	items_per_page: 10
-	content: 
+	content:
 		default_event: post
-	users: 
+	users:
 		default_event: user
-	settings: 
+	settings:
 		default_event: basic

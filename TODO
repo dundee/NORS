@@ -1,5 +1,4 @@
 HIGH:
-DB upgrade script
 code purification
 slashing - mysql_real_escape_string
 JS SyntaxHighlighter

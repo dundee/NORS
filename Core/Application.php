@@ -60,6 +60,11 @@ class Core_Application
 			$this->router->redirect('installation', '__default', 'default');
 		}
 
+		//redirect to DB upgrade
+		if ( $this->config->db->version != norsVersion() && $this->request->controller != 'upgrade') {
+			$this->router->redirect('upgrade', '__default', 'default');
+		}
+
 		if ( $this->request->isAjax() ) {
 			$this->dispatchAjaxRequest(); //ajax request
 		} else {

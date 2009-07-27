@@ -170,6 +170,7 @@ class Locale_Cs extends Core_Locale
 		'needs to be writable'      => 'musí být zapisovatelný',
 		'Pleae repair errors and refresh the page' => 'Prosím opravte chyby a načtěte stránku znovu',
 		'evaluation'                => 'Hodnocení',
+		'Database_is_higher_version_than_the_application' => 'Databáze je ve vyšší verzi než aplikace',
 
 		//import
 		'File db.php from "library" directory in NORS 3' => 'Soubor db.php ze složky "library" v NORS 3',
