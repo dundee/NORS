@@ -48,7 +48,7 @@ class Installation extends Core_Controller
 		$fatal  = array();
 
 		//check permissions
-		$files = array('config', 'config/localhost.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'models/tables', 'models/activeRecords');
+		$files = array('.htaccess', 'config', 'config/localhost.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'models/tables', 'models/activeRecords');
 		foreach ($files as $file) {
 			try {
 				checkIfWritable(APP_PATH . '/' . $file);
@@ -88,7 +88,7 @@ class Installation extends Core_Controller
 				//save new configuration
 				include(APP_PATH . '/cache/' . $this->config->host . '.yml.php.cache.php');
 				$config = $data;
-				//$host = $this->config->host;
+
 
 				$config['db']['user']         = $user;
 				$config['db']['password']     = $pass;
@@ -97,7 +97,6 @@ class Installation extends Core_Controller
 				$config['db']['table_prefix'] = $prefix;
 
 				Core_Parser_YML::write($config, APP_PATH . '/config/' . $this->config->host . '.yml.php');
-				//chmod(APP_PATH . '/config/config.yml.php', 0777);
 				$this->config->read(APP_PATH . '/config/' . $this->config->host . '.yml.php', TRUE);
 
 				//create tables
@@ -114,6 +113,17 @@ class Installation extends Core_Controller
 				$user->active = 1;
 				$user->save();
 
+				//save .htaccess
+				$dir = dirname($_SERVER['PHP_SELF']) . '/';
+				if ($dir == '//') $dir = '';
+				$text = '<IfModule rewrite_module>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.*)$ ' . $dir . 'index.php [L]
+	SetEnv REWRITE 1
+</IfModule>';
+				file_put_contents(APP_PATH . '/.htaccess', $text);
 				$this->router->redirect('post', '__default', 'default');
 			} while (FALSE);
 
