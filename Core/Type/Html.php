@@ -10,12 +10,13 @@ class Core_Type_Html extends Core_Type
 {
 	public function prepareForDB($value)
 	{
-		return addslashes($value);
+		return clearInput($value);
 	}
 
 	public function prepareForWeb($value)
 	{
-		return stripslashes($value);
+		//return stripslashes($value);
+		return $value;
 	}
 
 	public function getDefinition()

@@ -107,12 +107,12 @@ class Core_Debug
 	 */
 	public static function includedFiles()
 	{
-		global $includes;
+		global $included_files;
 		if (HIGH_PERFORMANCE) return;
 		echo '<table style="margin: 10px auto;">';
 		echo '<tr><th>' . __('file') . '</th><th>'
 		     . __('time') . '</th><th>' . __('memory') . '</th></tr>';
-		foreach($includes as $include){
+		foreach($included_files as $include){
 			echo '<tr>';
 			echo '<td>' . $include['name'] . '</td>';
 			echo '<td>' . $include['time'] . ' s</td>';

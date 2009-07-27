@@ -10,12 +10,13 @@ class Core_Type
 {
 	public function prepareForDB($value)
 	{
-		return addslashes($value);
+		return clearInput($value);
 	}
 
 	public function prepareForWeb($value)
 	{
-		return htmlspecialchars(stripslashes($value));
+		//return htmlspecialchars(stripslashes($value));
+		return htmlspecialchars($value);
 	}
 
 	public function getDefinition()

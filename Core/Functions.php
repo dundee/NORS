@@ -94,7 +94,7 @@ if (!function_exists('loadFile')) {
 	 */
 	function loadFile($file)
 	{
-		global $includes;
+		global $included_files;
 
 		if (!HIGH_PERFORMANCE) {
 			$start_time   = mtime();
@@ -109,7 +109,7 @@ if (!function_exists('loadFile')) {
 			$end_time   = mtime();
 			$end_memory = memory_get_usage();
 
-			$includes[] = array('name'   => $file,
+			$included_files[] = array('name'   => $file,
 								'time'   => round($end_time-$start_time, 4),
 								'memory' => round(($end_memory-$start_memory) / 1024)
 								);
@@ -164,12 +164,14 @@ function iterable($array){
  */
 function clearInput($val, $numeric = FALSE)
 {
+	global $db_object;
 	if ($numeric) return intval($val);
-	return addslashes($val);
+	if (!$db_object) $db_object = Core_DB::singleton();
+	return $db_object->escape($val);
 }
 
 /**
- * Clears value before printing to screen
+ * Clears value before sending to client
  */
 function clearOutput($val, $allowHtml = FALSE)
 {
@@ -179,7 +181,7 @@ function clearOutput($val, $allowHtml = FALSE)
 		}
 		return $val;
 	} elseif (is_string($val)) {
-		$val = stripslashes($val);
+		$val = stripslashes($val); //for backward-compatibility reasons (magic quotes)
 		if (!$allowHtml) return htmlspecialchars($val);
 		return $val;
 	} elseif ($val instanceof Core_ActiveRecord) {

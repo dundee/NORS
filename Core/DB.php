@@ -83,21 +83,15 @@ abstract class Core_DB
 	}
 
 	/**
-	 * connect
+	 * Escapes special characters in a string
 	 *
-	 * @return String connection
+	 * @param string $val
+	 * @return string
 	 */
-	protected abstract function connect();
-
-	/**
-	 * sql_query
-	 *
-	 * Inner function - abstraction of mysql_query
-	 *
-	 * @param String $query
-	 * @return String MySQL result
-	 */
-	protected abstract function sql_query($query);
+	public function escape($val)
+	{
+		return mysql_real_escape_string($val);
+	}
 
 	/**
 	 * query
@@ -162,4 +156,21 @@ abstract class Core_DB
 	 * @access public
 	 */
 	public abstract function __destruct();
+
+	/**
+	 * connect
+	 *
+	 * @return String connection
+	 */
+	protected abstract function connect();
+
+	/**
+	 * sql_query
+	 *
+	 * Inner function - abstraction of mysql_query
+	 *
+	 * @param String $query
+	 * @return String MySQL result
+	 */
+	protected abstract function sql_query($query);
 }

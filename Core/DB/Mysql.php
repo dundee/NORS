@@ -18,90 +18,17 @@
  */
 class Core_DB_Mysql extends Core_DB
 {
-
-	protected function __construct(Core_Config $config)
-	{
-		$this->data = $config->db;
-		$encoding = strtolower($config->encoding);
-		switch($encoding){
-			case 'utf-8':
-				$this->charset = 'UTF8';
-				break;
-			case 'iso-8859-2':
-				$this->charset = 'LATIN2';
-				break;
-			case 'iso-8859-1':
-				$this->charset = 'LATIN1';
-				break;
-			case 'windows-1250':
-				$this->charset = 'CP1250';
-				break;
-			default:
-				$this->charset = 'UTF8';
-		}
-	}
-
 	/**
-	 * Creates a connection to DB. Can't be called directly.
+	 * Escapes special characters in a string
 	 *
-	 * @return boolean
+	 * @param string $val
+	 * @return string
 	 */
-	protected function connect()
+	public function escape($val)
 	{
-		$this->connection = mysql_connect($this->data->host,
-		                                  $this->data->user,
-		                                  $this->data->password
-		                                  );
-		$res = mysql_select_db($this->data->database, $this->connection);
-		if (!$res) throw new RuntimeException(__('DB_not_exists') . ": " . $this->data->database, mysql_errno());
-		mysql_query("SET CHARACTER SET " . $this->charset, $this->connection);
-
-		//set connection encoding
-		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
-		$line = mysql_fetch_array($res);
-		$version = substr($line['Value'], 0, 3);
-		if ($version > '4.0') @mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
-
-		if (mysql_error()) throw new RuntimeException(__('DB_connection_failed') . " : " . mysql_error(), mysql_errno());
-
-		//timezone
-		@mysql_query("SET time_zone = '" . Core_Config::singleton()->timezone . "'");
-
-		return TRUE;
-	}
-
-	/**
-	 * Wrapper for mysql_query function with additional features.
-	 *
-	 * @param string $query SQL query
-	 * @param boolean $silent silent execution
-	 * @return string MySQL result
-	 */
-	protected function sql_query($query, $silent = FALSE)
-	{
-		$this->counter++;
-
-		$this->query = $query;
 		if(!$this->connection) $this->connect();
-
-		$start_time = mtime();
-
-		$this->result = mysql_query($query, $this->connection);
-
-		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
-			$end_time = mtime();
-
-			$this->queries[] = array('query' => $query,
-									 'time'  => round($end_time-$start_time, 4),
-									 'rows'  => mysql_affected_rows()
-									 );
-		}
-
-		if (mysql_error() && !$silent) {
-			$msg = __('DB_query_failed') . " : " . mysql_error() . ' - ' . $query;
-			throw new RuntimeException($msg, mysql_errno());
-		}
-		return $this->result;
+		if (get_magic_quotes_gpc()) $val = stripslashes($val);
+		return mysql_real_escape_string($val, $this->connection);
 	}
 
 	/**
@@ -198,5 +125,90 @@ class Core_DB_Mysql extends Core_DB
 	public function __destruct()
 	{
 		if($this->connection) mysql_close($this->connection);
+	}
+
+	protected function __construct(Core_Config $config)
+	{
+		$this->data = $config->db;
+		$encoding = strtolower($config->encoding);
+		switch($encoding){
+			case 'utf-8':
+				$this->charset = 'UTF8';
+				break;
+			case 'iso-8859-2':
+				$this->charset = 'LATIN2';
+				break;
+			case 'iso-8859-1':
+				$this->charset = 'LATIN1';
+				break;
+			case 'windows-1250':
+				$this->charset = 'CP1250';
+				break;
+			default:
+				$this->charset = 'UTF8';
+		}
+	}
+
+	/**
+	 * Creates a connection to DB. Can't be called directly.
+	 *
+	 * @return boolean
+	 */
+	protected function connect()
+	{
+		$this->connection = mysql_connect($this->data->host,
+		                                  $this->data->user,
+		                                  $this->data->password
+		                                  );
+		$res = mysql_select_db($this->data->database, $this->connection);
+		if (!$res) throw new RuntimeException(__('DB_not_exists') . ": " . $this->data->database, mysql_errno());
+		mysql_query("SET CHARACTER SET " . $this->charset, $this->connection);
+
+		//set connection encoding
+		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
+		$line = mysql_fetch_array($res);
+		$version = substr($line['Value'], 0, 3);
+		if ($version > '4.0') @mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
+
+		if (mysql_error()) throw new RuntimeException(__('DB_connection_failed') . " : " . mysql_error(), mysql_errno());
+
+		//timezone
+		@mysql_query("SET time_zone = '" . Core_Config::singleton()->timezone . "'");
+
+		return TRUE;
+	}
+
+	/**
+	 * Wrapper for mysql_query function with additional features.
+	 *
+	 * @param string $query SQL query
+	 * @param boolean $silent silent execution
+	 * @return string MySQL result
+	 */
+	protected function sql_query($query, $silent = FALSE)
+	{
+		$this->counter++;
+
+		$this->query = $query;
+		if(!$this->connection) $this->connect();
+
+		$start_time = mtime();
+
+		$this->result = mysql_query($query, $this->connection);
+
+		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
+			$end_time = mtime();
+
+			$this->queries[] = array('query' => $query,
+									 'time'  => round($end_time-$start_time, 4),
+									 'rows'  => mysql_affected_rows()
+									 );
+		}
+
+		if (mysql_error() && !$silent) {
+			$msg = __('DB_query_failed') . " : " . mysql_error() . ' - ' . $query;
+			throw new RuntimeException($msg, mysql_errno());
+		}
+		return $this->result;
 	}
 }
