@@ -43,6 +43,7 @@ class Upgrade extends Core_Controller
 		$version    = norsVersion();
 
 		if ($db_version > $version) throw new Exception(__('Database_is_higher_version_than_the_application'));
+		if ($db_version == $version) $this->router->redirect('post', '__default', 'default');
 
 		$db = $this->config->db->database;
 		$con = Core_DB::singleton();
@@ -72,6 +73,8 @@ class Upgrade extends Core_Controller
 			case '4.2.1':
 				$sql = "ALTER TABLE `" . tableName('post') . "` ADD `comments_allowed` TINYINT( 1 ) NOT NULL AFTER `active` ;";
 				$con->silentQuery($sql);
+			case '4.3.0':
+			case '4.3.1':
 		}
 
 		//save config file
