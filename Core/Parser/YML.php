@@ -25,8 +25,14 @@ class Core_Parser_YML
 	 */
 	public static function read($file, $cacheFile)
 	{
-		if (!file_exists($file)) copy(APP_PATH . '/config/localhost.yml.php', $file);
-		
+		if (!file_exists($file)) {
+			$res = copy(APP_PATH . '/config/localhost.yml.php', $file);
+			if (!$res) {
+				echo 'Directory "config" needs to be writable by anyone (777).';
+				die();
+			}
+		}
+
 		self::$lines = file($file);
 		self::$file = $file;
 
