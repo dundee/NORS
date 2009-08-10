@@ -54,6 +54,8 @@ class Upgrade extends Core_Controller
 			case '4.1.0':
 				$sql = "RENAME TABLE `$db`.`" . tableName('cathegory') . "` TO `$db`.`" . tableName('category') . "` ;";
 				$con->silentQuery($sql);
+				$sql = "ALTER TABLE `" . tableName('post') . "` CHANGE `id_cathegory` `id_category` INT( 11 ) NULL DEFAULT NULL;";
+				$con->silentQuery($sql);
 				$sql = "ALTER TABLE `" . tableName('category') . "` CHANGE `id_cathegory` `id_category` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT;";
 				$con->silentQuery($sql);
 				$sql = "ALTER TABLE `" . tableName('category') . "` CHANGE `cathegory` `category` INT( 11 ) NULL DEFAULT NULL;";
