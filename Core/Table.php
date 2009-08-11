@@ -67,7 +67,7 @@ abstract class Core_Table
 		}
 
 		$sql .= " PRIMARY KEY(`id_" . $this->table . "`)"
-		      .") TYPE = MYISAM";
+		      .") DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_czech_ci' TYPE = MYISAM";
 		$this->db->query($sql);
 
 		foreach ($this->indexes as $name=>$items) {

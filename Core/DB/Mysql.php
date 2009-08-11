@@ -133,7 +133,7 @@ class Core_DB_Mysql extends Core_DB
 		$encoding = strtolower($config->encoding);
 		switch($encoding){
 			case 'utf-8':
-				$this->charset = 'UTF8';
+				$this->charset = 'utf8';
 				break;
 			case 'iso-8859-2':
 				$this->charset = 'LATIN2';
@@ -145,7 +145,7 @@ class Core_DB_Mysql extends Core_DB
 				$this->charset = 'CP1250';
 				break;
 			default:
-				$this->charset = 'UTF8';
+				$this->charset = 'utf8';
 		}
 	}
 
@@ -168,7 +168,10 @@ class Core_DB_Mysql extends Core_DB
 		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
 		$line = mysql_fetch_array($res);
 		$version = substr($line['Value'], 0, 3);
-		if ($version > '4.0') @mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
+		if ($version < '4.1') {
+			throw new Exception('MySQL version 4.1 or higher is required');
+		}
+		@mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
 
 		if (mysql_error()) throw new RuntimeException(__('DB_connection_failed') . " : " . mysql_error(), mysql_errno());
 
