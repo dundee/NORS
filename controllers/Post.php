@@ -24,7 +24,7 @@ class Post extends Core_Controller
 
 	public $js = array('jquery.js',
 	                   'jquery.lightbox-0.5.min.js',
-	                   'jquery.markitup.js',
+	                   'jquery.markitup.pack.js',
 	                   'set-comment.js',
 	                   'shCore.js',
 	                   'shBrushPhp.js',
@@ -188,6 +188,19 @@ class Post extends Core_Controller
 		else $this->setData('post', '', TRUE);
 
 		$files = $post->getFiles();
+		$i = 1;
+		foreach ($files as &$file) {
+			if (preg_match('/\[IMG '.$i.'\]/', $post->text)) {
+				$img = '<a href="' . $file->src . '" class="lightbox" title="'. $file->label . '">
+				<img src="' . $file->thub . '" alt="' . $file->label . '" /></a>
+	<div class="caption"><a href="' . $file->src . '">' . $file->label . '</a></div>';
+				$post->text = preg_replace('/\[IMG '.$i.'\]/', $img, $post->text);
+				unset($files[$i-1]);
+			}
+			$i++;
+		}
+
+
 		$this->setData('photos', $files);
 
 		//karma
