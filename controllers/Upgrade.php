@@ -75,6 +75,21 @@ class Upgrade extends Core_Controller
 				$con->silentQuery($sql);
 			case '4.3.0':
 			case '4.3.1':
+				$sql = "ALTER TABLE `" . tableName('group') . "`
+				              DROP `gallery_list`,
+				              DROP `gallery_edit`,
+				              DROP `gallery_del`,
+				              DROP `anquette_list`,
+				              DROP `anquette_edit`,
+				              DROP `anquette_del`,
+				              DROP `citation_list`,
+				              DROP `citation_edit`,
+				              DROP `citation_del`;";
+				$con->silentQuery($sql);
+				$sql = "ALTER TABLE `" . tableName('group') . "` ADD `comment_list` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `page_del` ,
+				                                                 ADD `comment_edit` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `comment_list` ,
+				                                                 ADD `comment_del` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `comment_edit`";
+				$con->silentQuery($sql);
 		}
 
 		//save config file

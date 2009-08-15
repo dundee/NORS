@@ -9,18 +9,12 @@ fields:
 	post_list: bool
 	post_edit: bool
 	post_del: bool
-	-gallery_list: bool
-	-gallery_edit: bool
-	-gallery_del: bool
 	page_list: bool
 	page_edit: bool
 	page_del: bool
-	-anquette_list: bool
-	-anquette_edit: bool
-	-anquette_del: bool
-	-citation_list: bool
-	-citation_edit: bool
-	-citation_del: bool
+	comment_list: bool
+	comment_edit: bool
+	comment_del: bool
 	user_list: bool
 	user_edit: bool
 	user_del: bool
