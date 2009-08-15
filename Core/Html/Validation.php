@@ -35,7 +35,7 @@ class Core_Html_Validation
 		$output = '';
 		
 		$output .= $this->indent($indention)   . 'if ($(\'#'.$this->id.'\').val()'.$condition.') {'.ENDL;
-		$output .= $this->indent($indention+1) . 'errors += \''.$this->message.'\\\n\';'.ENDL;
+		$output .= $this->indent($indention+1) . 'errors += \''.$this->message.'\\n\';'.ENDL;
 		$output .= $this->indent($indention+1) . '$(\'#'.$this->id.'\').focus();'.ENDL;
 		$output .= $this->indent($indention+1) . '$(\'#'.$this->id.'\').addClass(\'focused\');'.ENDL;
 		$output .= $this->indent($indention)   . '}'.ENDL;

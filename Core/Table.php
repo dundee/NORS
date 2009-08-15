@@ -77,7 +77,7 @@ abstract class Core_Table
 			}
 			$sql = "ALTER TABLE `".tableName($this->table)."`
 			        ADD INDEX `" . $name . "` ( " . $columns . " )";
-			$this->db->query($sql);
+			$this->db->silentQuery($sql);
 		}
 
 

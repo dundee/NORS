@@ -25,7 +25,7 @@ $html->elem($fieldset, 'legend')->setContent(__('new_user'));
 $form->input($fieldset, 'user_name',     __('name'),         'text', 'admin',     array('title' => __('name_of_new_nors_user')))->setValidation()->setParam('value', $user_name);
 $form->input($fieldset, 'user_password', __('password'),     'password', FALSE,   array('title' => __('password_of_new_nors_user')))->setValidation()->setParam('value', $user_password);
 $form->input($fieldset ,'send', FALSE, 'submit')
-    ->setParam('value', __('save'))
+    ->setParam('value', __('send_form'))
     ->setParam('class', 'submit');
 $form->root->getParent()->addChild($fieldset);
 
