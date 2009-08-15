@@ -30,11 +30,33 @@ mySettings = {
 		{name:'Ol', openWith:'<ol>\n', closeWith:'</ol>\n' },
 		{name:'Li', openWith:'<li>', closeWith:'</li>' },
 		{separator:'---------------' },
-		{name:'Picture', key:'P', replaceWith:'<img src="[![Source:!:http://]!]" alt="[![Alternative text]!]" />' },
+		{name:'Picture', key:'P', call:'select_picture' },
 		{name:'Link', key:'L', openWith:'<a href="[![Link:!:http://]!]"(!( title="[![Title]!]")!)>', closeWith:'</a>', placeHolder:'Your text to link...' },
 		{name:'Code', key:'D', openWith:'<code>', closeWith:'</code>'  },
 		{separator:'---------------' },
 		{name:'Clean', replaceWith:function(h) { return h.selection.replace(/<(.*?)>/g, "") } },
 		{name:'Preview', call:'preview', className:'preview' }
 	]
-}
+};
+
+var select_picture = function()
+{
+	$.ui.dialog.defaults.bgiframe = true;
+	$('#files').dialog({
+		bgiframe: true,
+		resizable: false,
+		modal: true,
+		overlay: {
+			backgroundColor: '#000',
+			opacity: 0.5
+		}
+	});
+	$('#files').dialog('open');
+	return false;
+};
+
+var insert_img = function(i)
+{
+	$('#files').dialog('close');
+	$.markItUp({ replaceWith:'[IMG '+i+']' } );
+};

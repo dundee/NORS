@@ -184,6 +184,14 @@ fieldset .thubnails{
 	color: #a60000;
 }
 
+/*.file_upload{
+	border: 1px  solid #bbb;
+}*/	
+
+.file_label{
+	float: left;
+}
+
 .file{
 	width: 100px;
 	padding: 5px;
