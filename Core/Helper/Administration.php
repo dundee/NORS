@@ -189,10 +189,15 @@ class Core_Helper_Administration extends Core_Helper
 					$i = $this->form->textarea(FALSE, $name, __($name), htmlspecialchars($model->$name));
 					break;
 				case 'file':
-					$params = array('class' => 'file_upload', 'id' => $name . '_div');
-					$i = $this->form->input(FALSE, $name, __($name), 'file');
+					$params = array('id' => $name . '_div');
 					$title_name = str_replace('[]', '', $name) . '_title[]';
-					$i2 = $this->html->input($i->getParent(), $title_name, array('style'=>'width: 70px;'));
+					$i   = $this->form->input(FALSE, $name, __($name), 'file');
+					$root_div = $i->getParent()->setParam('class', 'file_upload');
+					
+					$div = $this->html->div($root_div, array('class' => 'file_label'));
+					$l  = $this->html->elem($div, 'label', array('for' => $title_name))->setContent(__('label'));
+					$i2 = $this->html->input($div, $title_name, array('style'=>'width: 70px;'));
+					
 					if (substr($name, -2) == '[]') {
 						$this->html->button($i->getParent(),
 						                    'next_file' . $next_file_c,
@@ -200,34 +205,13 @@ class Core_Helper_Administration extends Core_Helper
 						                    array('class' => 'next_file'));
 						$next_file_c++;
 					}
-					$div = $this->html->div($this->form->root, $params);
+					$div = $this->html->div($i->getParent(), $params);
 					$component = new Component_FileManager(NULL, NULL);
 					$content = $component->render(array('name' => $name, 'model' => $model));
 					$div->setContent($content);
+					
+					$this->html->div($root_div, array('class'=>'cleaner'));
 					break;
-				case 'popup':
-					if ($model->$name) $value = $model->$name;
-					$i = $this->form->input(FALSE, $name, __($name), 'text', $value);
-					$div = $i->getParent();
-					$div->setContent(
-						'<input alt="#TB_inline?height=500&width=200&inlineId=popup" title="'.__('services').'" class="thickbox" type="button" value="'.__('select').'" />'
-					);
-
-					$content =  '<div id="popup"><p>';
-
-					$instance = new ActiveRecord_NabizeneSluzby();
-					$sluzby = $instance->getAll('legenda', 'asc');
-					foreach ($sluzby as $sluzba) {
-						$input_id = 'service' . $sluzba['sluzba_sluzby_id'];
-						$content .= '<input id="'.$input_id.'" name="'.$input_id.'" type="checkbox" value="'.$sluzba['legenda'].'" />';
-						$content .= '<label for="'.$input_id.'">'.$sluzba['nazev_sluzby_sluzby_cz'].'</label><br />';
-					}
-
-					$content .= '<input id="select_services" type="button" value="OK" />';
-
-					$content .= '</p></div>';
-
-					$div->setContent($content);
 
 				case 'table':
 					$tbl = preg_replace('/^id_/', '', $name);
