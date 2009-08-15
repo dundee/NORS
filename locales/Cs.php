@@ -84,6 +84,7 @@ class Locale_Cs extends Core_Locale
 		'next'                      => 'další',
 		'previous'                  => 'předchozí',
 		'image'                     => 'obrázek',
+		'update_label'              => 'Aktualizovat popisek',
 
 
 		//                Formulare
@@ -126,6 +127,12 @@ class Locale_Cs extends Core_Locale
 		'advanced'                  => 'Pokročilé',
 		'comment'                   => 'Komentář',
 		'id_category'               => 'Rubrika',
+		'id_post'                   => 'Článek',
+		'id_page'                   => 'Stránka',
+		'id_comment'                => 'Komentář',
+		'id_user'                   => 'Uživatel',
+		'id_group'                  => 'Role',
+		'ip'                        => 'IP adresa',
 		'comments_allowed'          => 'Povolit komentáře',
 		'comments_closed'           => 'Komentáře již nelze přidávat',
 
@@ -139,6 +146,9 @@ class Locale_Cs extends Core_Locale
 		'page_list'                 => 'Výpis stránek',
 		'page_edit'                 => 'Editace stránek',
 		'page_del'                  => 'Mazání stránek',
+		'comment_list'              => 'Výpis komentářů',
+		'comment_edit'              => 'Editace komentářů',
+		'comment_del'               => 'Mazání komentářů',
 		'user_list'                 => 'Výpis uživatelů',
 		'user_edit'                 => 'Editace uživatelů',
 		'user_del'                  => 'Mazání uživatelů',
@@ -160,9 +170,9 @@ class Locale_Cs extends Core_Locale
 		'name_of_database_user'     => 'Jméno uživatele databáze',
 		'password_of_database_user' => 'Heslo uživatele databáze',
 		'name_of_database'          => 'Název databáze',
-		'prefix_of_nors_tables'     => 'Prefix tabulek NORSu',
-		'name_of_new_nors_user'     => 'Jméno nového uživatele',
-		'password_of_new_nors_user' => 'Heslo nového uživatele',
+		'prefix_of_nors_tables'     => 'Předpona tabulek NORSu (nutné měnit jen pokud provozujete více instancí NORSu v jedné databázi)',
+		'name_of_new_nors_user'     => 'Jméno nového uživatele NORSu',
+		'password_of_new_nors_user' => 'Heslo nového uživatele NORSu',
 		'wrong_db_user'             => 'Špatný název uživatele nebo heslo',
 		'wrong_db_name'             => 'Špatný název databáze',
 		'environment check'         => 'Kontrola prostředí',
