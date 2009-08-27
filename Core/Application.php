@@ -160,7 +160,7 @@ class Core_Application
 		$action = $text->urlEncode($action);
 
 		$table = new Table_Post();
-		$posts = $table->getPosts();
+		$posts = $table->getActive();
 
 		if (iterable($posts)) {
 			foreach ($posts as $post) {

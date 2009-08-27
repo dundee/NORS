@@ -35,7 +35,7 @@ class Category extends Core_Controller
 		$this->setData('categories', $menu_helper->render($categories, 4), TRUE);
 
 		$table = new Table_Page();
-		$pages = $table->getPages('position', 'asc');
+		$pages = $table->getActive('position', 'asc');
 		$pages = $menu_helper->prepare($pages, 'page');
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
 

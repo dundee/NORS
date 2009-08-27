@@ -44,7 +44,7 @@ class Post extends Core_Controller
 		$this->setData('categories', $menu_helper->render($categories, 4), TRUE);
 
 		$table = new Table_Page();
-		$pages = $table->getPages('position', 'asc');
+		$pages = $table->getActive('position', 'asc');
 		$pages = $menu_helper->prepare($pages, 'page');
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
 
@@ -83,7 +83,7 @@ class Post extends Core_Controller
 		}
 
 		$table = new Table_Post();
-		$posts = $table->getPosts('date', 'desc', $limit);
+		$posts = $table->getActive('date', 'desc', $limit);
 		$count = $table->getCount();
 
 		$text_obj = new Core_Text();

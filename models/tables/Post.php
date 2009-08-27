@@ -60,7 +60,7 @@ class Table_Post extends Core_Table
 		return $instances;
 	}
 
-	public function getPosts($orderBy=FALSE, $order=FALSE, $limit = FALSE)
+	public function getActive($orderBy=FALSE, $order=FALSE, $limit = FALSE)
 	{
 		if ($orderBy==FALSE) {
 			$orderBy = 'id_' . $this->table;

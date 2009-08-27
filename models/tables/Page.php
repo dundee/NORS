@@ -13,7 +13,7 @@ class Table_Page extends Core_Table
 		parent::__construct('page');
 	}
 
-	public function getPages($orderBy=FALSE, $order=FALSE, $limit = FALSE)
+	public function getActive($orderBy=FALSE, $order=FALSE, $limit = FALSE)
 	{
 		if ($orderBy==FALSE) {
 			$orderBy = 'id_' . $this->table;

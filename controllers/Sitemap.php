@@ -25,7 +25,7 @@ class Sitemap extends Core_Controller
 
 		$text_obj = new Core_Text();
 
-		$parts = array('category' => 0.6,
+		$parts = array('category'  => 0.6,
 		               'post'      => 1.0,
 		               'page'      => 0.5
 		);
@@ -34,7 +34,7 @@ class Sitemap extends Core_Controller
 		foreach ($parts as $part => $priority) {
 			$class = 'Table_' . ucfirst($part);
 			$table = new $class();
-			$items = $table->getAll();
+			$items = $table->getActive();
 			if (iterable($items)) {
 				foreach ($items as &$item) {
 					$item->url = $this->router->genUrl($part, FALSE, $part, array($part => $item->getID() . '-' . $text_obj->urlEncode($item->name)));
@@ -44,9 +44,8 @@ class Sitemap extends Core_Controller
 					}
 					$item->priority = sprintf("%.2f", $priority);
 				}
+				$all = array_merge($all, $items);
 			}
-
-			$all = array_merge($all, $items);
 		}
 		$this->setData('items', $all);
 	}

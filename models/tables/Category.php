@@ -12,4 +12,10 @@ class Table_Category extends Core_Table
 	{
 		parent::__construct('category');
 	}
+
+	public function getActive($orderBy=FALSE, $order=FALSE, $limit = FALSE)
+	{
+		$inst = parent::getAll($orderBy, $order, $limit);
+		return $inst;
+	}
 }
