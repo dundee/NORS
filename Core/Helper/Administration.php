@@ -193,11 +193,11 @@ class Core_Helper_Administration extends Core_Helper
 					$title_name = str_replace('[]', '', $name) . '_title[]';
 					$i   = $this->form->input(FALSE, $name, __($name), 'file');
 					$root_div = $i->getParent()->setParam('class', 'file_upload');
-					
+
 					$div = $this->html->div($root_div, array('class' => 'file_label'));
 					$l  = $this->html->elem($div, 'label', array('for' => $title_name))->setContent(__('label'));
 					$i2 = $this->html->input($div, $title_name, array('style'=>'width: 70px;'));
-					
+
 					if (substr($name, -2) == '[]') {
 						$this->html->button($i->getParent(),
 						                    'next_file' . $next_file_c,
@@ -209,7 +209,7 @@ class Core_Helper_Administration extends Core_Helper
 					$component = new Component_FileManager(NULL, NULL);
 					$content = $component->render(array('name' => $name, 'model' => $model));
 					$div->setContent($content);
-					
+
 					$this->html->div($root_div, array('class'=>'cleaner'));
 					break;
 
@@ -301,11 +301,13 @@ class Core_Helper_Administration extends Core_Helper
 	protected function renderChilds($id, $all, $parent)
 	{
 		echo '<ul>';
-		foreach ($all as $key => $value) {
-			if ($value->$parent == $id) {
-				echo '<li>' . $value->name . '</li>';
-				unset($all[$key]);
-				$this->renderChilds($value->getID(), $all, $parent);
+		if (iterable($all)) {
+			foreach ($all as $key => $value) {
+				if ($value->$parent == $id) {
+					echo '<li>' . $value->name . '</li>';
+					unset($all[$key]);
+					$this->renderChilds($value->getID(), $all, $parent);
+				}
 			}
 		}
 		echo '</ul>';
