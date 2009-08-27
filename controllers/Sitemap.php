@@ -35,14 +35,15 @@ class Sitemap extends Core_Controller
 			$class = 'Table_' . ucfirst($part);
 			$table = new $class();
 			$items = $table->getAll();
-			foreach ($items as &$item) {
-				$item->url = $this->router->genUrl($part, FALSE, $part, array($part => $item->getID() . '-' . $text_obj->urlEncode($item->name)));
-				if (!$item->date) $item->date = $date;
-				else {
-					$item->date = date("Y-m-d\TH:i:s+00:00", $text_obj->dateToTimeStamp($item->date));
+			if (iterable($items)) {
+				foreach ($items as &$item) {
+					$item->url = $this->router->genUrl($part, FALSE, $part, array($part => $item->getID() . '-' . $text_obj->urlEncode($item->name)));
+					if (!$item->date) $item->date = $date;
+					else {
+						$item->date = date("Y-m-d\TH:i:s+00:00", $text_obj->dateToTimeStamp($item->date));
+					}
+					$item->priority = sprintf("%.2f", $priority);
 				}
-				$item->priority = sprintf("%.2f", $priority);
-
 			}
 
 			$all = array_merge($all, $items);
