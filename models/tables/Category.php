@@ -15,7 +15,6 @@ class Table_Category extends Core_Table
 
 	public function getActive($orderBy=FALSE, $order=FALSE, $limit = FALSE)
 	{
-		$inst = parent::getAll($orderBy, $order, $limit);
-		return $inst;
+		return parent::getAll($orderBy, $order, $limit);
 	}
 }

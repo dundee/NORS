@@ -410,11 +410,14 @@ code {
 	margin-top: 0.5em;
 }
 
+#evaluation {
+	clear: both;
+}
+
 #eval {
 	background: #ddd;
 	display: inline;
 	padding: 5px 0px 5px 5px;
-
 }
 
 #eval a {
@@ -422,6 +425,10 @@ code {
 	margin-right: 5px;
 	padding: 2px 3px;
 	text-decoration: none;
+}
+
+#comments {
+	clear: both;
 }
 
 .comment {
@@ -485,6 +492,15 @@ code {
 	padding: 7px;
 	border: 1px solid #ddd;
 	float: left;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
+.in-text-thumbnail {
+	padding: 7px;
+	border: 1px solid #ddd;
+	float: right;
+	clear: right;
 	margin-right: 10px;
 	margin-bottom: 15px;
 }
