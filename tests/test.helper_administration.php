@@ -76,6 +76,14 @@ $submenu = array(
 			                                          array('event' => 'post'))),
 		);
 
+Core_Response::factory()->sendHeaders();
+
+echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . ENDL;
+echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head><title>Unit test</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+</head><body>';
+
 $admin->submenu($submenu, 'post');
 echo ENDL . '<br />';
 
@@ -86,7 +94,9 @@ echo ENDL . '<br />';
 $admin->dump('user');
 
 echo ENDL . '<br />';
-$admin->form('#', 'category');
+$output = $admin->form('#', 'category', 0, TRUE);
+echo clearOutput($output, TRUE);
 
 echo ENDL;
 ?>
+</body></html>

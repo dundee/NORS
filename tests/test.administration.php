@@ -3,7 +3,7 @@ session_start();
 session_id('c1e9187c23aa854024fa2147741f6a38');
 $_SERVER = array();
 $_SERVER['PHP_SELF'] = '/nors4/index.php';
-$_SERVER['REQUEST_URI'] = '/nors4/post/';
+$_SERVER['REQUEST_URI'] = '/nors4/administration/';
 $_SERVER['SCRIPT_NAME'] = '/nors4/index.php';
 $_SERVER['HTTP_HOST'] = 'localhost';
 $_SERVER['REMOTE_ADDR'] = 'unit';
@@ -16,10 +16,11 @@ ini_set('display_errors', 1);
 
 define('APP_PATH', dirname(__FILE__) . '/..');
 require_once('../Core/Functions.php');
+require_once('../controllers/Administration.php');
 
 setUrlPath();
 
-Core_Config::singleton()->read(APP_PATH . '/config/config.yml.php');
+Core_Config::singleton()->init();
 
 
 $router   = Core_Router::factory();
@@ -33,6 +34,7 @@ class Core_DB_Test extends Core_DB
 	protected function connect(){}
 	protected function sql_query($query){}
 	public function query($query){}
+	public function silentQuery($query){}
 	public function getRow($query = false){}
 	public function num($query = false){}
 	public function id($query = false){}
@@ -48,9 +50,9 @@ class Core_DB_Test extends Core_DB
 			);
 		} else {
 			return array(
-				array('id_cathegory' => 1,
+				array('id_category' => 1,
 				      'name' => 'test',
-				      'cathegory' => 0)
+				      'category' => 0)
 			);
 		}
 	}
@@ -59,33 +61,22 @@ class Core_DB_Test extends Core_DB
 Core_DB::singleton();
 Core_DB::_setInstance(new Core_DB_Test);
 
-$admin = new Core_Helper_Administration();
+$_GET['command'] = 'add';
+$admin = new Administration();
 
-$r = $router;
-$submenu = array(
-			'cathegory'    => array('label' => 'cathegories',
-			                    'link'  => $r->genUrl('administration',
-			                                          'content',
-			                                          FALSE,
-			                                          array('event' => 'cathegory'))),
-			'post'    => array('label' => 'posts',
-			                    'link'  => $r->genUrl('administration',
-			                                          'content',
-			                                          FALSE,
-			                                          array('event' => 'post'))),
-		);
+$admin->beforeAction();
+$admin->content();
 
-$admin->submenu($submenu, 'post');
-echo ENDL . '<br />';
+$data = $admin->getData();
 
-$actions = array('add' => $r->forward(array('command'=>'add')), 'cron' => $r->forward(array('command'=>'cron')));
-$admin->actions($actions);
-echo ENDL . '<br />';
+foreach($data as $k=>$v){
+	${$k} = $v;
+}
+unset($data);
 
-$admin->dump('user');
+$administration = new Core_Helper_Administration();
 
-echo ENDL . '<br />';
-$admin->form('#', 'cathegory');
+include('../tpl/' . $admin->tplFile);
 
 echo ENDL;
 ?>
