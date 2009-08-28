@@ -90,6 +90,11 @@ class Upgrade extends Core_Controller
 				                                                 ADD `comment_edit` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `comment_list` ,
 				                                                 ADD `comment_del` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `comment_edit`";
 				$con->silentQuery($sql);
+				$sql = "UPDATE `" . tableName('group') . "` SET `comment_list` = '1',
+				                                                `comment_edit` = '1',
+				                                                `comment_del` = '1'
+				        WHERE `id_group` =1 LIMIT 1 ;";
+				$con->silentQuery($sql);
 		}
 
 		//save config file
