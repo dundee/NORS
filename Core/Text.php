@@ -87,12 +87,21 @@ class Core_Text
 		$text = preg_replace('/(.+?)(?:\n\n|\z)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
+		while (preg_match('%\[code\](.*)</?p>(.*)\[/code\]%s', $text)) {
+			$text = preg_replace('%\[code\](.*)<p>(.*)\[/code\]%s', "[code]$1$2[/code]", $text);
+			$text = preg_replace('%\[code\](.*)</p>(.*)\[/code\]%s', "[code]$1\n$2[/code]", $text);
+		}
+
+		while (preg_match('%\[code\].*<br />.*\[/code\]%s', $text)) {
+			$text = preg_replace('%\[code\](.*)<br />(.*)\[/code\]%s', "[code]$1$2[/code]", $text);
+		}
+
 		//tags
 		$text = preg_replace('%\[url\](.+)\[/url\]%U', '<a href="$1">$1</a>', $text); //ungreedy
 		$text = preg_replace('%\[img\](.+)\[/img\]%U', '<a href="$1">' . __('image') . '</a>', $text);
 		$text = preg_replace('%\[b\](.+)\[/b\]%U', '<strong>$1</strong>', $text);
 		$text = preg_replace('%\[i\](.+)\[/i\]%U', '<em>$1</em>', $text);
-		$text = preg_replace('%\[code\](.+)\[/code\]%Us', '<pre class="brush: php">$1</pre>', $text);
+		$text = preg_replace('%\[code\](.*)\[/code\]%Us', '<pre class="brush: php">$1</pre>', $text);
 
 		return $text;
 	}
