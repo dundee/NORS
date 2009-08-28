@@ -61,6 +61,7 @@ class Core_DB_Test extends Core_DB
 Core_DB::singleton();
 Core_DB::_setInstance(new Core_DB_Test);
 
+$_GET['event']   = 'category';
 $_GET['command'] = 'add';
 $admin = new Administration();
 

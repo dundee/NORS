@@ -1,4 +1,8 @@
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head><title>Unit test</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+</head><body>
 <ul id="submenu">
 <li><a href="http://localhost/nors4/post/?event=category&amp;action=content">Rubriky</a></li>
 <li><a href="http://localhost/nors4/post/?event=post&amp;action=content" class="selected">Články</a></li>
@@ -42,7 +46,7 @@
 function validate(form){
 	var errors = '';
 	if ($('#name').val() == '') {
-		errors += 'item Název required\\n';
+		errors += 'item Název required\n';
 		$('#name').focus();
 		$('#name').addClass('focused');
 	}
@@ -80,3 +84,4 @@ function validate(form){
 	</fieldset>
 </form>
 
+</body></html>
