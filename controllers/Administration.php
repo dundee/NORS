@@ -94,11 +94,6 @@ class Administration extends Core_Controller_Auth
 			                                          'content',
 			                                          FALSE,
 			                                          array('event' => 'post'))),
-			/*'gallery'    => array('label' => 'galleries',
-			                    'link'  => $r->genUrl('administration',
-			                                          'content',
-			                                          FALSE,
-			                                          array('event' => 'gallery'))),*/
 			'page'    => array('label' => 'pages',
 			                    'link'  => $r->genUrl('administration',
 			                                          'content',
@@ -109,16 +104,6 @@ class Administration extends Core_Controller_Auth
 			                                          'content',
 			                                          FALSE,
 			                                          array('event' => 'comment'))),
-			/*'anquette'    => array('label' => 'anquettes',
-			                    'link'  => $r->genUrl('administration',
-			                                          'content',
-			                                          FALSE,
-			                                          array('event' => 'anquette'))),
-			'citate'    => array('label' => 'citates',
-			                    'link'  => $r->genUrl('administration',
-			                                          'content',
-			                                          FALSE,
-			                                          array('event' => 'citate'))),*/
 		);
 		$this->guidepost('content', $submenu);
 	}
@@ -126,7 +111,7 @@ class Administration extends Core_Controller_Auth
 	public function event_category()
 	{
 		$r = $this->router;
-		$actions = array('add'  => $r->forward(array('command'=>'add')),
+		$actions = array('add'  => $r->forward(array('command'=>'add', 'id'=>0)),
 		                 'tree' => $r->forward(array('command'=>'tree')),
 		                 );
 		$this->basic_page('category', $actions);
@@ -135,43 +120,22 @@ class Administration extends Core_Controller_Auth
 	public function event_post()
 	{
 		$r = $this->router;
-		$actions = array('add' => $r->forward(array('command'=>'add')));
+		$actions = array('add' => $r->forward(array('command'=>'add', 'id'=>0)));
 		$this->basic_page('post', $actions);
-	}
-
-	public function event_gallery()
-	{
-		$r = $this->router;
-		$actions = array('add' => $r->forward(array('command'=>'add')));
-		$this->basic_page('gallery', $actions);
 	}
 
 	public function event_page()
 	{
 		$r = $this->router;
-		$actions = array('add' => $r->forward(array('command'=>'add')));
+		$actions = array('add' => $r->forward(array('command'=>'add', 'id'=>0)));
 		$this->basic_page('page', $actions);
 	}
 
 	public function event_comment()
 	{
 		$r = $this->router;
-		$actions = array('add' => $r->forward(array('command'=>'add')));
+		$actions = array('add' => $r->forward(array('command'=>'add', 'id'=>0)));
 		$this->basic_page('comment', $actions);
-	}
-
-	public function event_anquette()
-	{
-		$r = $this->router;
-		$actions = array('add' => $r->forward(array('command'=>'add')));
-		$this->basic_page('anquette', $actions);
-	}
-
-	public function event_citate()
-	{
-		$r = $this->router;
-		$actions = array('add' => $r->forward(array('command'=>'add')));
-		$this->basic_page('citate', $actions);
 	}
 
 	public function users()
@@ -224,13 +188,6 @@ class Administration extends Core_Controller_Auth
 			                                          FALSE,
 			                                          array('event' => 'advanced'))),
 		);
-		/*if (!($subselected = $this->request->getGet('event')))
-			$subselected = $this->config->administration->settings->default_event;
-
-		$this->setData('subselected', $subselected);
-		$this->setData('submenu', $submenu);
-
-		$this->{$subselected}();*/
 
 		$this->guidepost('settings', $submenu);
 	}
