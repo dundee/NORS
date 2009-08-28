@@ -27,23 +27,23 @@ class Core_Html_Validation
 		$this->cond    = $cond;
 		$this->message = $message ? $message : __('item') . ' ' . __($id) . ' ' . __('required');
 	}
-	
+
 	public function render($indention = 0, $return = NULL)
-	{ 
+	{
 		$condition = $this->renderCondition();
-		
+
 		$output = '';
-		
+
 		$output .= $this->indent($indention)   . 'if ($(\'#'.$this->id.'\').val()'.$condition.') {'.ENDL;
-		$output .= $this->indent($indention+1) . 'errors += \''.$this->message.'\\n\';'.ENDL;
+		$output .= $this->indent($indention+1) . 'errors += \''.$this->message.'\\\n\';'.ENDL;
 		$output .= $this->indent($indention+1) . '$(\'#'.$this->id.'\').focus();'.ENDL;
 		$output .= $this->indent($indention+1) . '$(\'#'.$this->id.'\').addClass(\'focused\');'.ENDL;
 		$output .= $this->indent($indention)   . '}'.ENDL;
-		
+
 		if ($return) return $output;
 		echo $output ;
 	}
-	
+
 	protected function indent($indention)
 	{
 		$output = '';
@@ -52,12 +52,12 @@ class Core_Html_Validation
 		}
 		return $output;
 	}
-	
+
 	protected function renderCondition()
 	{
 		$output = ' ';
 		switch ($this->cond) {
-		
+
 			default:
 				$output .= '== \'\'';
 		}

@@ -30,4 +30,4 @@ $form->input($fieldset ,'send', FALSE, 'submit')
 $form->root->getParent()->addChild($fieldset);
 
 
-$form->render();
+echo clearOutput($form->render(0, 1), TRUE);
