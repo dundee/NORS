@@ -46,10 +46,10 @@ class Import extends Core_Controller
 				$table2 = new Table_Post();
 				$table3 = new Table_Comment();
 				if (iterable($table->getAll())
-					|| iterable($table2->getAll())
+				    || iterable($table2->getAll())
 				    || iterable($table3->getAll())) {
 					$errors .= 'Target tables are not empty';
-					//break;
+					break;
 				}
 
 				require_once($_FILES['db']['tmp_name']);
