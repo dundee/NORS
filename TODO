@@ -1,11 +1,14 @@
 HIGH:
-dokumentace - nastaveni, publikace (stavy clanku, tabulky)
+localize configuration
+set better configuration level
+documentation - settings, publication (post statuses, tables)
 configuration help
 
 MEDIUM:
 search
 gravatars
 disable/enable comments by config
+use gettext
 enable work without mod_rewrite
 backup
 autologin

@@ -1,4 +1,4 @@
-version 4.3.2 ():
+version 4.3.2 (08/30/2009):
 	core:
 	* do not rely on DB encoding
 	* better czech localization
@@ -10,6 +10,10 @@ version 4.3.2 ():
 	administration:
 	* better file upload
 	* insert images into text
+	* fixed endlines in validation script
+
+	frontend:
+	* handle well endlines inside code tag in comments
 
 
 version 4.3.1 (08/10/2009):
