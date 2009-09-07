@@ -158,6 +158,37 @@ class Locale_Cs extends Core_Locale
 		'basic_list'                => 'Základní nastavení',
 		'advanced_list'             => 'Pokročilé nastavení',
 
+		//         Nastaveni
+		'enabled'                   => 'Povoleno',
+		'encoding'                  => 'Kódování',
+		'locale'                    => 'Jazyk',
+		'style'                     => 'Styl',
+		'upload_dir'                => 'Adresář pro upload',
+		'timezone'                  => 'Časové pásmo',
+		'db'                        => 'DB',
+		'connector'                 => 'Konektor',
+		'version'                   => 'Verze',
+		'debug'                     => 'Ladění',
+		'error_reporting'           => 'Chybová hlášení',
+		'display_errors'            => 'Zobrazovat chyby',
+		'time_management'           => 'Počítat čas',
+		'die_on_error'              => 'Ukončit při chybě',
+		'log'                       => 'Log',
+		'cookie'                    => 'Cookie',
+		'expiration'                => 'Platnost',
+		'routes'                    => 'Routy',
+		'format'                    => 'Formát',
+		'defaults'                  => 'Výchozí hodnoty',
+		'controller'                => 'Controller',
+		'p'                         => 'Stránka',
+		'default'                   => 'Výchozí',
+		'front_end'                 => 'Uživatelská část',
+		'perex_length'              => 'Délka perexu',
+		'posts_per_page'            => 'Článků na stránku',
+		'items_per_page'            => 'Položek na stránku',
+		'default_event'             => 'Výchozí akce',
+
+
 		/* ============ front-end ============ */
 
 		//instalation
