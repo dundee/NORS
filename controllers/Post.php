@@ -189,9 +189,10 @@ class Post extends Core_Controller
 
 		$files = $post->getFiles();
 		$i = 1;
-		foreach ($files as &$file) {
-			if (preg_match('/\[IMG '.$i.'\]/', $post->text)) {
-				$img = '
+		if (iterable($files)) {
+			foreach ($files as &$file) {
+				if (preg_match('/\[IMG '.$i.'\]/', $post->text)) {
+					$img = '
 <div class="in-text-thumbnail">
 	<a href="' . $file->src . '" class="lightbox" title="'. $file->label . '">
 		<img src="' . $file->thub . '" alt="' . $file->label . '" />
@@ -200,12 +201,12 @@ class Post extends Core_Controller
 		<a href="' . $file->src . '">' . $file->label . '</a>
 	</div>
 </div>';
-				$post->text = preg_replace('/\[IMG '.$i.'\]/', $img, $post->text);
-				unset($files[$i-1]);
+					$post->text = preg_replace('/\[IMG '.$i.'\]/', $img, $post->text);
+					unset($files[$i-1]);
+				}
+				$i++;
 			}
-			$i++;
 		}
-
 
 		$this->setData('photos', $files);
 
