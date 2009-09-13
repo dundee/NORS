@@ -17,8 +17,8 @@ db:
 	table_prefix: nors4_
 	version: 4.3.2
 debug:
-	enabled: 1
-	error_reporting: 6143
+	enabled: 0
+	error_reporting: 6141
 	display_errors: 1
 	time_management: 1
 	sql_queries: 0
