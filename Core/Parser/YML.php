@@ -138,7 +138,7 @@ class Core_Parser_YML
 	 * Returns number of columns of indention
 	 * @return int
 	 */
-	private function getIndentionLength()
+	private static function getIndentionLength()
 	{
 		$i = 1;
 		do {
