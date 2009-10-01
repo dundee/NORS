@@ -1,12 +1,9 @@
 HIGH:
-localize configuration
-set better configuration level
 documentation - settings, publication (post statuses, tables)
-configuration help
 
 MEDIUM:
 search
-gravatars
+dynamic description
 disable/enable comments by config
 use gettext
 enable work without mod_rewrite

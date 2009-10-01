@@ -66,4 +66,10 @@ $(function()
 		imageBtnNext:  '../../styles/default/images/lightbox-btn-next.gif',
 		imageBlank:    '../../styles/default/images/lightbox-blank.gif'
 	});
+
+	$('.gravatar').each(function(index, item)
+	{
+		el = $(item);
+		el.replaceWith($('<img />').attr('src', el.attr('title')).attr('class', 'gravatar'));
+	});
 });

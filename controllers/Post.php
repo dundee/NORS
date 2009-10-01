@@ -240,6 +240,14 @@ class Post extends Core_Controller
 					$coms[$i]->href = '';
 				}
 
+				//gravatar
+				if ($comment->email) {
+					$grav_url  = 'http://www.gravatar.com/avatar/';
+					$grav_url .= md5(strtolower($comment->email));
+					$grav_url .= '?s=50';
+					$coms[$i]->gravatar = $grav_url;
+				} else $coms[$i]->gravatar = '';
+
 				$coms[$i]->user      = strip_tags($comment->user);
 				$coms[$i]->text      = $text->format_comment($comment->text);
 				$coms[$i]->id        = $comment->getID();

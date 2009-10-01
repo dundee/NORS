@@ -460,6 +460,10 @@ code {
 	background: #eee;
 }
 
+.comment .gravatar {
+	float: right;
+}
+
 .comment .date,
 .comment .inspiration {
 	font-size: 0.8125em;

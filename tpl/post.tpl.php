@@ -36,7 +36,10 @@ if (iterable($items)) {
 <?php } ?>
 	</div>
 	<div class="date"><?php echo $item->date?></div>
-	<div class="text"><?php echo $item->text?></div>
+	<div class="text">
+		<?php if ($item->gravatar) { ?><div class="gravatar" title="<?php echo $item->gravatar ?>"></div><?php } ?>
+		<?php echo $item->text?>
+	</div>
 	<?php if ($allow) { ?><div class="reply"><a href="#" title="<?php echo $i?>"><?php echo __('reply')?></a></div><?php } ?>
 </div>
 <?php
