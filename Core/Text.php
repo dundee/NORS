@@ -160,11 +160,11 @@ class Core_Text
 				$thub_path = implode("/", $arr);
 
 				$thub = '<div class="thumbnail">
-		<a href="' . APP_URL . '/' . $path . '" class="thickbox" title="' . $alt . '">
+		<a href="' . APP_URL . '/' . $path . '" class="lightbox" title="' . $alt . '">
 			<img src="' . APP_URL . '/' . $thub_path . '" alt="' . $alt . '" />
 		</a>
 		<div class="caption">
-			<a href="' . APP_URL . '/'  . $path . '" class="thickbox" title="' . $alt . '">' . $alt . '</a>
+			<a href="' . APP_URL . '/'  . $path . '" class="lightbox" title="' . $alt . '">' . $alt . '</a>
 		</div>
 	</div>';
 				$text = str_replace($img, $thub, $text);
@@ -182,11 +182,10 @@ class Core_Text
 		$text = preg_replace('/(.+?)(?:\n\n\s*|\z\s*)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		//$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
-		while (preg_match('%<code>(.*)</?p>(.*)</code>%s', $text)) {
-			$text = preg_replace('%<code>(.*)<p>(.*)</code>%s', "<code>$1$2</code>", $text);
-			$text = preg_replace('%<code>(.*)</p>(.*)</code>%s', "<code>$1\n$2</code>", $text);
+		while (preg_match('%<code>([^<]*)</?p>(.*)</code>%Us', $text)) {
+			$text = preg_replace('%<code>([^<]*)</p>(.*)</code>%Us', "<code>$1$2</code>", $text);
+			$text = preg_replace('%<code>([^<]*)<p>([^<]*)</code>%Us', "<code>$1\n$2</code>", $text);
 		}
-
 
 		//remove <p> around tags
 		$text = preg_replace('!<p>\s*(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
