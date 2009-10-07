@@ -318,6 +318,7 @@ ul, ol {
 	color: #000;
 	background: #eee;
 	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 #author p {
@@ -369,6 +370,14 @@ ul, ol {
 #post {
 	margin-bottom: 1em;
 	line-height: 130%;
+}
+
+#post p small {
+	font-size: 0.8125em;
+}
+
+#post > small {
+	font-size: 0.7em;
 }
 
 .post {
