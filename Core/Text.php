@@ -182,7 +182,7 @@ class Core_Text
 		$text = preg_replace('/(.+?)(?:\n\n\s*|\z\s*)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		//$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
-		while (preg_match('%<code>([^<]*)</?p>(.*)</code>%Us', $text)) {
+		while (preg_match('%<code>([^<]*)</p>(.*)</code>%Us', $text)) {
 			$text = preg_replace('%<code>([^<]*)</p>(.*)</code>%Us', "<code>$1$2</code>", $text);
 			$text = preg_replace('%<code>([^<]*)<p>([^<]*)</code>%Us', "<code>$1\n$2</code>", $text);
 		}
