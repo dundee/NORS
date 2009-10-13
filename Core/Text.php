@@ -141,6 +141,20 @@ class Core_Text
 			$start = strpos($text, '||');
 		}
 
+		//code
+		$start = strpos($text, '<code>');
+		$i = 0;
+		while (!($start === false)) {
+			$length = strpos( substr($text, $start + 1, strlen($text) - ($start+1)) , '</code>');
+			$length += 3;
+			$code[$i] = trim(substr($text, $start, $length));
+			$text = str_replace($code, "#CODE$i#", $text);
+
+			$start = FALSE;
+			$start = strpos($text, '<code>');
+			$i++;
+		}
+
 		//pictures - needed for NORS 3 posts
 		$content = $text;
 		$i=0;
@@ -182,14 +196,13 @@ class Core_Text
 		$text = preg_replace('/(.+?)(?:\n\n\s*|\z\s*)/s', '<p>$1</p>' . ENDL, $text); //paragraphs
 		//$text = preg_replace('%(?<!</p>)\s*\n%', '<br />' . ENDL, $text); //newline into break but not after </p>
 
-		while (preg_match('%<code>([^<]*)</p>(.*)</code>%Us', $text)) {
-			$text = preg_replace('%<code>([^<]*)</p>(.*)</code>%Us', "<code>$1$2</code>", $text);
-			$text = preg_replace('%<code>([^<]*)<p>([^<]*)</code>%Us', "<code>$1\n$2</code>", $text);
-		}
-
 		//remove <p> around tags
 		$text = preg_replace('!<p>\s*(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
 		$text = preg_replace('!(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*</p>|</div>"!', "$1", $text);
+
+		foreach ($code as $i=>$v) {
+			$text = str_replace("#CODE$i#", $v, $text);
+		}
 
 		//syntax highlighting
 		$text = str_replace('<code>', '<pre class="brush: php">', $text);
