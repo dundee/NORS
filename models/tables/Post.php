@@ -146,7 +146,7 @@ class Table_Post extends Core_Table
 		               cat.`name` AS category,
 		               COUNT(`id_comment`) AS num_of_comments,
 		               p.`seen` AS num_of_visits,
-		               p.`karma`,
+		               CONCAT(p.`karma`,'/', p.`evaluated`) AS karma,
 		               p.`date`,
 		               p.`active`
 		        FROM `" . tableName($this->table) . "` AS p
