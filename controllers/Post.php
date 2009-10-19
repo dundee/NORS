@@ -197,9 +197,6 @@ class Post extends Core_Controller
 	<a href="' . $file->src . '" class="lightbox" title="'. $file->label . '">
 		<img src="' . $file->thub . '" alt="' . $file->label . '" />
 	</a>
-	<div class="caption">
-		<a href="' . $file->src . '">' . $file->label . '</a>
-	</div>
 </div>';
 					$post->text = preg_replace('/\[IMG '.$i.'\]/', $img, $post->text);
 					unset($files[$i-1]);
