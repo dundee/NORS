@@ -95,6 +95,7 @@ class Upgrade extends Core_Controller
 				                                                `comment_del` = '1'
 				        WHERE `id_group` =1 LIMIT 1 ;";
 				$con->silentQuery($sql);
+			case '4.3.2':
 		}
 
 		//save config file
