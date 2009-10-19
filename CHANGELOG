@@ -1,13 +1,15 @@
-version 4.3.3 ():
+version 4.3.3 (10/19/2009):
 	core:
 	* better configuration
 	* minor bug fixes
+	* proper <code> handling
 
 	administration:
 	* localized settings
 
 	frontend:
 	* gravatars
+	* new thumbnail layout
 
 version 4.3.2 (08/30/2009):
 	core:

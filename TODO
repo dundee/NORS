@@ -1,5 +1,8 @@
 HIGH:
+use functions end(), reset()...
 documentation - settings, publication (post statuses, tables)
+show progress and finished status when saving new picture label
+show comment (#) after commenting
 
 MEDIUM:
 search
