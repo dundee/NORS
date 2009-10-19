@@ -510,6 +510,15 @@ code {
 	width: 100px;
 }
 
+.thumbnail-old {
+	padding: 7px;
+	border: 1px solid #ddd;
+	float: left;
+	clear: left;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
 .in-text-thumbnail {
 	padding: 7px;
 	border: 1px solid #ddd;

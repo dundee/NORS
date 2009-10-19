@@ -174,13 +174,10 @@ class Core_Text
 				$arr[] = $filename;
 				$thub_path = implode("/", $arr);
 
-				$thub = '<div class="thumbnail">
+				$thub = '<div class="thumbnail-old">
 		<a href="' . APP_URL . '/' . $path . '" class="lightbox" title="' . $alt . '">
 			<img src="' . APP_URL . '/' . $thub_path . '" alt="' . $alt . '" />
 		</a>
-		<div class="caption">
-			<a href="' . APP_URL . '/'  . $path . '" class="lightbox" title="' . $alt . '">' . $alt . '</a>
-		</div>
 	</div>';
 				$text = str_replace($img, $thub, $text);
 			}
