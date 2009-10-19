@@ -142,6 +142,7 @@ class Core_Text
 		}
 
 		//code
+		$code = array();
 		$start = strpos($text, '<code>');
 		$i = 0;
 		while (!($start === false)) {
@@ -200,8 +201,10 @@ class Core_Text
 		$text = preg_replace('!<p>\s*(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)!', "$1", $text);
 		$text = preg_replace('!(</?(?:code|table|tr|td|th|div|ul|ol|li|pre|select|form|blockquote|p|h[1-6])[^>]*>)\s*</p>|</div>"!', "$1", $text);
 
-		foreach ($code as $i=>$v) {
-			$text = str_replace("#CODE$i#", $v, $text);
+		if (iterable ($code)) {
+			foreach ($code as $i=>$v) {
+				$text = str_replace("#CODE$i#", $v, $text);
+			}
 		}
 
 		//syntax highlighting
