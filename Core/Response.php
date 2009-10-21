@@ -121,12 +121,13 @@ class Core_Response
 			$modified = time() - $expires_in;
 		}
 
-		header('Expires: ' . date("r", $expires));
+		header("Expires: " . date("r", $expires));
 		header("Cache-Control: no-cache, must-revalidate, max-age=" . $expires_in);
-		header ("Last-Modified: " . date("r", $modified));
+		header("Last-Modified: " . date("r", $modified));
 		if ($expires_in == 0) header ("Pragma: no-cache");
 		header("Content-type: " . $content_type . "; charset=" . Core_Config::singleton()->encoding);
-		header("X-Powered-By: Core Framework");
+		header("X-Powered-By: NORS " . norsVersion());
+		header("X-Frame-Options: deny");
 	}
 
 	/**
