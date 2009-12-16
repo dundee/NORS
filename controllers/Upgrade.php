@@ -71,7 +71,7 @@ class Upgrade extends Core_Controller
 				$con->silentQuery($sql);
 			case '4.2.0':
 			case '4.2.1':
-				$sql = "ALTER TABLE `" . tableName('post') . "` ADD `comments_allowed` TINYINT( 1 ) NOT NULL AFTER `active` ;";
+				$sql = "ALTER TABLE `" . tableName('post') . "` ADD `comments_allowed` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `active` ;";
 				$con->silentQuery($sql);
 			case '4.3.0':
 			case '4.3.1':
