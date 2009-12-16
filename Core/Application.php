@@ -102,7 +102,7 @@ class Core_Application
 					}
 					if (!$instance->authenticate()) {
 						if ($controller != 'user') $this->response->setSession('request', $this->request->getUrl());
-						$this->router->redirect('user', 'login', FALSE, 'default');
+						$this->router->redirect('user', 'login', 'default');
 					} else {
 						$instance->authorize();
 						$view = Core_View::factory($this->request->view, $instance, $action);
