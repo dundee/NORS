@@ -294,7 +294,6 @@ class Core_Debug
 		$log->log(strip_tags($text));
 
 		if ($config->debug->die_on_error) {
-			define('KILLED', 1);
 			die(1);
 		}
 		return FALSE;

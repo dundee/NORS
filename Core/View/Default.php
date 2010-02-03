@@ -56,7 +56,15 @@ class Core_View_Default extends Core_View
 		//execute action
 		if (method_exists($this->controller,'beforeAction')) $this->controller->beforeAction();
 		$action = $this->action;
-		$this->controller->$action();
+		if (!method_exists($this->controller, $action)) throw new UnexpectedValueException('Could not find action ' . $action . ', url: ' . $this->request->getUrl(), 404);
+		
+		try {
+			$this->controller->$action();
+		} catch (Exception $ex) {
+			define('KILLED', 1);
+			throw $ex;
+		}
+		
 		if (method_exists($this->controller,'afterAction')) $this->controller->afterAction();
 
 		$data = $this->controller->getData();

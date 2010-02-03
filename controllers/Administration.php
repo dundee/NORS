@@ -286,6 +286,7 @@ class Administration extends Core_Controller_Auth
 		$this->setData('subselected', $subselected);
 		$this->setData('submenu', $submenu);
 
+		if (!method_exists($this, 'event_' . $subselected)) throw new UnexpectedValueException('Could not find event ' . $subselected . ', url: ' . $this->request->getUrl(), 404);
 		$this->{'event_' . $subselected}();
 	}
 
@@ -301,6 +302,7 @@ class Administration extends Core_Controller_Auth
 			$command = 'dump';
 		}
 
+		if (!method_exists($this, $command)) throw new UnexpectedValueException('Could not find command ' . $command . ', url: ' . $this->request->getUrl(), 404);
 		$this->{$command}($event);
 	}
 
