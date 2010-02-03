@@ -95,6 +95,18 @@ class Core_Text
 		while (preg_match('%\[code\].*<br />.*\[/code\]%s', $text)) {
 			$text = preg_replace('%\[code\](.*)<br />(.*)\[/code\]%s', "[code]$1$2[/code]", $text);
 		}
+		
+		//XSS in url and img
+		if (preg_match('%\[url\].+\[/url\]%U', $text)) {
+			if (!preg_match('%\[url\]http://.+\[/url\]%U', $text)) {
+				$text = preg_replace('%\[url\](.+)\[/url\]%U', '', $text);
+			}
+		}
+		if (preg_match('%\[img\].+\[/img\]%U', $text)) {
+			if (!preg_match('%\[img\]http://.+\[/img\]%U', $text)) {
+				$text = preg_replace('%\[img\](.+)\[/img\]%U', '', $text);
+			}
+		}
 
 		//tags
 		$text = preg_replace('%\[url\](.+)\[/url\]%U', '<a href="$1">$1</a>', $text); //ungreedy
