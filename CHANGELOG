@@ -1,3 +1,12 @@
+version 4.3.4 (02/08/2010):
+	core:
+	* clickjacking protection
+	* XSS protection in comments
+	* bug fixes
+
+	frontend:
+	* HTML code in comments
+
 version 4.3.3 (10/19/2009):
 	core:
 	* better configuration

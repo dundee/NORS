@@ -1,8 +1,11 @@
 HIGH:
+bug reports for non-technical users
+comment preview
 use functions end(), reset()...
 documentation - settings, publication (post statuses, tables)
 show progress and finished status when saving new picture label
 show comment (#) after commenting
+replace links in plain text with anchor
 
 MEDIUM:
 search
@@ -10,6 +13,7 @@ dynamic description
 disable/enable comments by config
 use gettext
 enable work without mod_rewrite
+replace categories by tags
 backup
 autologin
 fckeditor (STEditor, RTE jQuery, jwysiwyg)
