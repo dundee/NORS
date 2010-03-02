@@ -124,7 +124,7 @@ class Core_Router_ModRewrite extends Core_Router
 		}
 
 		//decode URL
-		$directory = eregi_replace('http://([^/]+)', '', APP_URL); //directory where is app placed
+		$directory = preg_replace('%http://([^/]+)%', '', APP_URL); //directory where is app placed
 		$url = $request->getServer('REQUEST_URI');
 		$url = preg_replace('%^http://' . $request->getServer('HTTP_HOST') . '%', '', $url);
 
@@ -143,8 +143,8 @@ class Core_Router_ModRewrite extends Core_Router
 		//find matching route
 		foreach($this->routes as $name=>$route){
 			$urlForm = $route['url'];
-			$urlForm = eregi_replace('@([^/]*)','([^/]*)',$urlForm);
-			if ( eregi('^'.$urlForm.'/?$', $action) ) { //route matches
+			$urlForm = preg_replace('%@([^/]*)','([^/]*)%',$urlForm);
+			if ( preg_match('%^'.$urlForm.'/?$%', $action) ) { //route matches
 				$this->currentRoute = $name;
 				break;
 			}
