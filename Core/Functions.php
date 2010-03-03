@@ -60,8 +60,8 @@ if (!function_exists('__autoload')) {
 	function __autoload($class)
 	{
 		//rules
-		$class = preg_replace('/^ActiveRecord_/', 'db_activeRecords_', $class);
-		$class = preg_replace('/^Table_/', 'db_tables_', $class);
+		$class = preg_replace('/^ActiveRecord_/', 'models_activeRecords_', $class);
+		$class = preg_replace('/^Table_/', 'models_tables_', $class);
 		$class = preg_replace('/^Component_/', 'components_', $class);
 
 		$file = str_replace('_', '/', $class) . '.php';

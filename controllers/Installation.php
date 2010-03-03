@@ -57,7 +57,7 @@ class Installation extends Core_Controller
 		$fatal  = array();
 
 		//check permissions
-		$files = array('config', 'config/config.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'db/tables', 'db/activeRecords');
+		$files = array('config', 'config/config.yml.php', 'cache', 'upload', 'tpl/cache', 'log', 'models/tables', 'models/activeRecords');
 		foreach ($files as $file) {
 			try {
 				checkIfWritable(APP_PATH . '/' . $file);

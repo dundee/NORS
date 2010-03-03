@@ -267,7 +267,7 @@ abstract class Core_Table
 		while ($i < 2) {
 			if (file_exists($cacheFile)) {
 				include($cacheFile);
-				if (/*rand(0, 10) < 8 ||*/ $time >= filemtime(APP_PATH . '/db/schemas/' . ucfirst($table) . '.yml.php')) { //cache valid
+				if (/*rand(0, 10) < 8 ||*/ $time >= filemtime(APP_PATH . '/models/schemas/' . ucfirst($table) . '.yml.php')) { //cache valid
 					break;
 				}
 			}
