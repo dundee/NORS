@@ -1,0 +1,5 @@
+*.log
+*.cache.php
+nbproject
+*.bak
+*.sh
