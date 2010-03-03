@@ -15,7 +15,7 @@ db:
 	host: localhost
 	database: nors
 	table_prefix: nors4_
-	version: 4.3.3
+	version: 4.3.4
 debug:
 	enabled: 0
 	error_reporting: 6141
