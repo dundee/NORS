@@ -3,3 +3,6 @@
 nbproject
 *.bak
 *.sh
+*.*~
+tests/output
+tests/errors
