@@ -17,8 +17,8 @@
  */
 class ActiveRecord_Post extends Core_ActiveRecord
 {
-	public function __construct($id_user=false)
+	public function __construct($id = false)
 	{
-		parent::__construct('post',$id_user);
+		parent::__construct('post', $id);
 	}
 }

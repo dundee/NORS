@@ -1,3 +1,20 @@
+version 4.0.2 ():
+	frontend:
+	* RSS feeds of cathegories and comments
+	* Google Sitemap
+	* Tags in comments
+	* Name of author in post list
+	* first paragraph as perex
+	* localized format of time
+	
+	administration:
+	* link to post preview
+	* name of post in list of comments
+	
+	core:
+	* creates indexes for higher performance
+	* jQuery MarkItUp 1.1.5
+
 version 4.0.1 (01/29/2009):
 	frontend:
 	* better RSS feed

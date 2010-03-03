@@ -73,6 +73,7 @@ class Locale_Cs extends Core_Locale
 		//                Vypisy
 		'filter'                    => 'Filtrovat',
 		'add'                       => 'Přidat',
+		'show'                      => 'Ukázat',
 		'tree'                      => 'Strom',
 		'dump'                      => 'Export',
 		'action'                    => 'Akce',
@@ -90,6 +91,7 @@ class Locale_Cs extends Core_Locale
 		'actions'                   => 'Akce',
 		'next'                      => 'další',
 		'previous'                  => 'předchozí',
+		'image'                     => 'obrázek',
 
 
 		//                Formulare

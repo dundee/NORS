@@ -1,17 +1,18 @@
-URGENT:
-sitemaps
-link to preview
-html tags for comments
-show fullname in post
-RSS of cathegories, posts
-perex as first paragraph
-localize datetime
-name of post in comments list
+HIGH:
+check wampserver
+check installation into subdir
 
+MEDIUM:
+karma
+gravatars
+autologin
+fckeditor (STEditor, RTE jQuery, jwysiwyg)
+block IP of commentor
+
+LOW:
 google analytics
-log access
-fckeditor (STEditor)
+log admin access
 file manager
 page as a homepage
 tree of categories
-
+last modified in posts, pages -> sitemap

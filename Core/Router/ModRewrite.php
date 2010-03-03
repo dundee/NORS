@@ -157,7 +157,7 @@ class Core_Router_ModRewrite extends Core_Router
 		$route = $this->routes[$this->currentRoute];
 		if (!iterable($route)) throw new UnderflowException("Route ".$this->currentRoute." empty");
 
-		$parts = explode('/',$route['url']);
+		$parts = explode('/', $route['url']);
 		$i = 0;
 		foreach ($parts as $key) {
 			if (substr($key,0,1) != ':') {
@@ -181,7 +181,7 @@ class Core_Router_ModRewrite extends Core_Router
 		$url = str_replace('&','&amp;',$url);
 		if ($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET) != $url && $redirect){
 			//echor($this->genUrl($_GET['module'], $_GET['event'], FALSE, $_GET).' - '.$url);
-			$this->redirect($_GET['module'], $_GET['event'], FALSE,$_GET,FALSE,TRUE);
+			$this->redirect($_GET['module'], $_GET['event'], FALSE, $_GET, FALSE, TRUE);
 		}
 	}
 }

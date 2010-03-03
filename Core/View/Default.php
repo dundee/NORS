@@ -112,7 +112,8 @@ class Core_View_Default extends Core_View
 	* Destructor
 	* @access public
 	*/
-	public function __destruct(){
+	public function __destruct()
+	{
 		if (defined('KILLED')) die();
 
 		$this->module->delData();
@@ -124,5 +125,6 @@ class Core_View_Default extends Core_View
 		unset($data);
 
 		if($this->module->footerTplFile && headers_sent()) require_once(APP_PATH.'/tpl/layout/'.$this->module->footerTplFile);
+		
 	}
 }

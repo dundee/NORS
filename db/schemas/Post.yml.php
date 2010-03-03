@@ -14,3 +14,4 @@ fields:
 ids: id_post
 indexes:
 	active_date: active, date
+	cathegory: id_cathegory
