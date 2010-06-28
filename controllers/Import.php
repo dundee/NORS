@@ -52,7 +52,9 @@ class Import extends Core_Controller
 					break;
 				}
 
-				require_once($_FILES['db']['tmp_name']);
+				move_uploaded_file($_FILES['db']['tmp_name'], APP_PATH . '/upload/db.php');
+				require_once(APP_PATH . '/upload/db.php');
+				unlink(APP_PATH . '/upload/db.php');
 				$host = $DB['host'];
 				$user = $DB['user'];
 				$pass = $DB['pass'];
