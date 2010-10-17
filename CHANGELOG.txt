@@ -1,3 +1,13 @@
+version 4.3.5 (10/17/2010):
+	core:
+	* use preg functions instead of ereg
+	
+	import:
+	* fixed for users with open_basedir
+	
+	frontend:
+	* don't convert URLs in comments to lower case
+
 version 4.3.4 (02/08/2010):
 	core:
 	* clickjacking protection

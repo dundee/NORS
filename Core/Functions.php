@@ -25,7 +25,7 @@ define('TAB',"\t");
  * @return string
  */
 function norsVersion() {
-	return "4.3.4";
+	return "4.3.5";
 }
 
 if (!function_exists('memory_get_usage')) {
