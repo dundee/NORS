@@ -229,7 +229,7 @@ class Post extends Core_Controller
 				$coms[$i] = new StdClass();
 
 				if ($comment->www) {
-					$comment->www = strtolower(htmlspecialchars($comment->www));
+					$comment->www = htmlspecialchars($comment->www);
 					$coms[$i]->href = (strpos($comment->www, 'http') === 0) ? $comment->www : 'http://' . $comment->www;
 				} elseif ($comment->email) {
 					$coms[$i]->href = $text->hideMail('mailto:' . htmlspecialchars($comment->email));
