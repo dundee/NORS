@@ -143,7 +143,7 @@ class Core_Router_ModRewrite extends Core_Router
 		//find matching route
 		foreach($this->routes as $name=>$route){
 			$urlForm = $route['url'];
-			$urlForm = preg_replace('%@([^/]*)','([^/]*)%',$urlForm);
+			$urlForm = preg_replace('%@([^/]*)%','([^/]*)',$urlForm);
 			if ( preg_match('%^'.$urlForm.'/?$%', $action) ) { //route matches
 				$this->currentRoute = $name;
 				break;
