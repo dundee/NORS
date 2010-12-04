@@ -186,6 +186,8 @@ class Post extends Core_Controller
 
 		if ($post) $this->setData('post', $post, TRUE);
 		else $this->setData('post', '', TRUE);
+		
+		$this->setData('url', urlencode($this->request->getUrl()));
 
 		$files = $post->getFiles();
 		$i = 1;
