@@ -1,3 +1,7 @@
+version 4.3.6 (12/04/2010):
+	frontend:
+	* added facebook "like button" under posts
+
 version 4.3.5 (10/17/2010):
 	core:
 	* use preg functions instead of ereg
