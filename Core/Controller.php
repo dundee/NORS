@@ -181,6 +181,13 @@ abstract class Core_Controller extends Core_Object
 		$this->setData('site', $site_data);
 	}
 
+	public function addError($msg)
+	{
+		$errors = $this->request->getSession('errors');
+		$errors[] = $msg;
+		$this->response->setSession('errors', $errors);
+	}
+
 /* ==================== Controller methods ===================== */
 
 	/**
