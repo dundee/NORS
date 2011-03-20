@@ -57,6 +57,9 @@ class Administration extends Core_Controller_Auth
 		$selected = $this->request->getGet('action');
 		if ($selected == '__default') $selected = 'content';
 
+		$this->setData('errors', $this->request->getSession('errors'));
+		$this->response->setSession('errors', FALSE);
+
 		$this->setData('selected', $selected);
 		$this->setData('menu', $menu);
 		$this->setData('user', $this->user->userName);
@@ -373,8 +376,7 @@ class Administration extends Core_Controller_Auth
 			$id = $model->save($id);
 			if (count($_FILES) > 0) $model->saveFiles();
 		} catch (Exception $ex) {
-			echo $ex->getMessage();
-			$this->setData('errors', $ex->getMessage());
+			$this->addError($ex->getMessage());
 		}
 
 		$this->response->setPost('name', '');
