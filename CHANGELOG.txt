@@ -1,3 +1,10 @@
+version 4.3.7 (03/20/2011):
+	core:
+	* allow only images and documents to be uploaded
+
+	administration:
+	* flash error messages
+
 version 4.3.6 (12/04/2010):
 	frontend:
 	* added facebook "like button" under posts
@@ -5,10 +12,10 @@ version 4.3.6 (12/04/2010):
 version 4.3.5 (10/17/2010):
 	core:
 	* use preg functions instead of ereg
-	
+
 	import:
 	* fixed for users with open_basedir
-	
+
 	frontend:
 	* don't convert URLs in comments to lower case
 
