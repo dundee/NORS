@@ -15,7 +15,7 @@ if (isset($actions)) $administration->actions($actions);
 
 if (isset($dump_filter)) echo $dump_filter;
 
-if (isset($errors)) {
+if (isset($errors) && iterable($errors)) {
 	foreach ($errors as $error) {
 		echo '<span class="important">' . $error . '</span>';
 	}
