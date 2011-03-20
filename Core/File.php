@@ -56,27 +56,29 @@ class Core_File
 		/*$log = new Core_Log();
 		$log->log("dump:" . print_r($_FILES, TRUE));*/
 
-		if (is_array($_FILES[$name]["name"])) {
-			for ($i=0; $i < count($_FILES[$name]["name"]); $i++) {
-				$fileName = date("YmdHis").sprintf("%02d",rand(0,99));
-				$arr = explode('.', $_FILES[$name]["name"][$i]);
-				$sufix = $arr[count($arr)-1];
-				$path = APP_PATH . '/' . $dir . '/' . $fileName . '.' . $sufix;
-				$res = move_uploaded_file($_FILES[$name]["tmp_name"][$i], $path);
-				chmod($path, 0644);
-				if (!$res) throw new Exception("Upload of " . $name . " failed");
-				$ret[] = new Core_File($fileName . '.' . $sufix, $dir);
-			}
-		} else {
-			$arr = explode('.', $_FILES[$name]["name"]);
-			$sufix = $arr[count($arr)-1];
-			$path = APP_PATH . '/' . $dir . '/' . $fileName . '.' . $sufix;
-			$res = move_uploaded_file($_FILES[$name]["tmp_name"], $path);
-			chmod($path, 0644);
-			if (!$res) throw new Exception("Upload of " . $name . " failed");
-			$ret = new Core_File($fileName . '.' . $sufix, $dir);
+
+		if (!is_array($_FILES[$name]["name"])) {
+			$_FILES[$name]["name"] = array($_FILES[$name]["name"]);
+			$_FILES[$name]["tmp_name"] = array($_FILES[$name]["tmp_name"]);
 		}
 
+		for ($i = 0; $i < count($_FILES[$name]["name"]); $i++) {
+			$type = $this->getType($_FILES[$name]["name"][$i]);
+			if ($type != 'image' && $type != 'document') {
+				throw new Exception("Only upload of images and documents is allowed");
+			}
+
+			$fileName = date("YmdHis").sprintf("%02d",rand(0,99));
+			$arr = explode('.', $_FILES[$name]["name"][$i]);
+			$sufix = $arr[count($arr)-1];
+			$path = APP_PATH . '/' . $dir . '/' . $fileName . '.' . $sufix;
+
+			$res = move_uploaded_file($_FILES[$name]["tmp_name"][$i], $path);
+
+			chmod($path, 0644);
+			if (!$res) throw new Exception("Upload of " . $name . " failed");
+			$ret[] = new Core_File($fileName . '.' . $sufix, $dir);
+		}
 	return $ret;
 	}
 
