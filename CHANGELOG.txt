@@ -1,3 +1,7 @@
+version 4.3.9 (05/21/2011):
+	core:
+	* support for MySQL 5.5
+
 version 4.3.8 (03/20/2011):
 	administration:
 	* fixed flash error messages
