@@ -51,7 +51,7 @@ abstract class Core_Table
 	 */
 	public function create()
 	{
-		$sql = "CREATE TABLE IF NOT EXISTS `".tableName($this->table)."` (";
+		$sql = "CREATE TABLE IF NOT EXISTS `".tableName($this->table)."` (\n";
 
 		foreach ($this->fields as $name=>$type) {
 			$class = 'Core_Type_' . ucfirst($type['type']);
@@ -60,14 +60,22 @@ abstract class Core_Table
 			if (!$definition) continue;
 			if ($name == 'id_' . $this->table) {
 				$sql .= "`" . $name
-				      . "` int(11) unsigned NOT NULL AUTO_INCREMENT, ";
+				      . "` int(11) unsigned NOT NULL AUTO_INCREMENT, \n";
 			} else {
-				$sql .= "`" . $name . "` " . $definition . ", ";
+				$sql .= "`" . $name . "` " . $definition . ", \n";
 			}
 		}
 
-		$sql .= " PRIMARY KEY(`id_" . $this->table . "`)"
-		      .") DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_czech_ci' TYPE = MYISAM";
+		$sql .= "PRIMARY KEY(`id_" . $this->table . "`)\n"
+		      .")\n";
+		$sql .= "DEFAULT CHARACTER SET 'utf8'\n";
+		$sql .= "COLLATE 'utf8_czech_ci'\n";
+
+		if ($this->db->getVersion() > '5.1') {
+			$sql .= "ENGINE = MYISAM";
+		} else {
+			$sql .= "TYPE = MYISAM";
+		}
 		$this->db->query($sql);
 
 		foreach ($this->indexes as $name=>$items) {
