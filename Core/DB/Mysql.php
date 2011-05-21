@@ -18,6 +18,19 @@
  */
 class Core_DB_Mysql extends Core_DB
 {
+	/** @var string Version of Mysql DB */
+	private $mysqlVersion;
+
+	/**
+	 * Returns version of current Mysql DB
+	 *
+	 * @return string
+	 */
+	public function getVersion()
+	{
+		return $this->mysqlVersion;
+	}
+
 	/**
 	 * Escapes special characters in a string
 	 *
@@ -167,8 +180,8 @@ class Core_DB_Mysql extends Core_DB
 		//set connection encoding
 		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
 		$line = mysql_fetch_array($res);
-		$version = substr($line['Value'], 0, 3);
-		if ($version < '4.1') {
+		$this->mysqlVersion = substr($line['Value'], 0, 3);
+		if ($this->mysqlVersion < '4.1') {
 			throw new Exception('MySQL version 4.1 or higher is required');
 		}
 		@mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);

@@ -94,6 +94,13 @@ abstract class Core_DB
 	}
 
 	/**
+	 * Return version of current DB
+	 *
+	 * @return string
+	 */
+	public abstract function getVersion();
+
+	/**
 	 * query
 	 *
 	 * @param String $query
