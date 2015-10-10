@@ -52,7 +52,7 @@ $(function()
 		});
 	});
 
-	$('#check').attr('value', Math.round(2.9)).parent().hide();
+	$('#check').attr('value', Math.round(9.9)).parent().hide();
 	$('#subject').parent().hide();
 
 	SyntaxHighlighter.defaults['toolbar'] = false;

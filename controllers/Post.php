@@ -128,7 +128,7 @@ class Post extends Core_Controller
 			$text = $this->request->getPost('text');
 
 			do {
-				if ($this->request->getPost('check') != 3) break;
+				if ($this->request->getPost('check') != 10) break;
 				if ($this->request->getPost('subject') != '') break;
 				if (strpos($text, 'href') !== FALSE) break;
 				if (strpos($this->request->getServer('HTTP_REFERER'), APP_URL) !== 0) break;
@@ -291,7 +291,7 @@ class Post extends Core_Controller
 		$form->input(NULL, 'www', __('www'))->setParam('value', $r->getCookie('www'));
 		$form->input(NULL, 'email', __('email'))->setParam('value', $r->getCookie('email'));
 		$form->input(NULL, 'subject', __('subject'));
-		$form->input(NULL, 'check', '1 + 2?');
+		$form->input(NULL, 'check', '2 * 5?');
 		$form->textarea(NULL, 'text', 'text');
 		$this->setData('comment_form', $form->render(1, TRUE), TRUE);
 	}
