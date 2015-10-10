@@ -4,5 +4,8 @@ nbproject
 *.bak
 *.sh
 *.*~
+upload
+files
+config
 tests/output
 tests/errors
