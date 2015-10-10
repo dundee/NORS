@@ -9,8 +9,8 @@
 class Post extends Core_Controller
 {
 	public $css = array(
-		'normal' => array('layout.css',
-	                      'forms.css',
+		'normal' => array('forms.css', 
+	                      'layout.css',
 	                      'jquery.lightbox-0.5.css',
 	                      'markitup-comment.css',
 	                      'shCore.css',
