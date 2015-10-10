@@ -25,8 +25,3 @@ Instalace
 2) Zkopírujte souboru do DocumentRoot (nebo podadresář) Vašeho Apache serveru.
 3) Otevřete umístění ve webovém prohlížeči.
 4) Následujte instalační instrukce zobrazené aplikací.
-
-Dokumentace
------------
-
-Dokumentace NORS 4 je dostupná na domovské stránce: http://norsphp.com

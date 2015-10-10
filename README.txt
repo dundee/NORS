@@ -26,7 +26,3 @@ Installation
 3) Open location in your web browser.
 4) Follow installation guidelines presented by NORS.
 
-Documentation
--------------
-
-NORS 4 documentation is available on the homepage: http://norsphp.com
