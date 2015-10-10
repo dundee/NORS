@@ -18,7 +18,7 @@ if (iterable($photos)) {
 </div>
 
 <h3 id="evaluation"><?php echo __('evaluation')?></h3>
-<br /><div id="eval">
+<div id="eval">
 <?php echo $eval ?>
 </div>
 

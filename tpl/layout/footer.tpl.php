@@ -7,12 +7,6 @@
 			<div id="menu">
 				<h2><?php echo __('categories') ?></h2>
 <?php echo $categories ?>
-				<h2><?php echo __('pages') ?></h2>
-<?php echo $pages ?>
-				<h2><?php echo __('other') ?></h2>
-				<ul>
-					<li><a href="<?php echo $administration ?>"><?php echo __('administration')?></a></li>
-				</ul>
 			</div>
 		</div><!-- /sidebar -->
 	</div><!-- /main -->
@@ -32,7 +26,7 @@
 	<div id="footer" class="cleared">
 		<div id="footer-main">
 			<?php Core_Debug::showInfo(); ?>
-			<p>Powered by <a href="http://norsphp.com/">NORS <?php echo norsVersion() ?></a> &copy;2007-<?php echo date("Y") ?> <a href="http://milde.cz">Daniel Milde</a> aka Dundee |
+			<p>Powered by NORS <?php echo norsVersion() ?>&copy;2007-2015 <a href="http://milde.cz">Daniel Milde</a> aka Dundee |
 			<?php
 			$langs = array('En', 'Cs', 'Sk');
 			foreach ($langs as $lang) {

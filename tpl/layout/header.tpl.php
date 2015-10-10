@@ -13,7 +13,7 @@
 <meta http-equiv="Window-Target" content="_blank" />
 <meta name="robots" content="all, follow" />
 <meta name="googlebot" content="index,follow,snippet,archive" />
-<meta name="author" content="design and code: Petr Sobotka, www.czechline.cz" />
+<meta name="author" content="design and code: Petr Sobotka, Daniel Milde" />
 <link rel="shortcut icon" href="<?php echo APP_URL?>/styles/<?php echo Core_Config::singleton()->style ?>/images/favicon.ico" />
 <?php
 if (isset($site['js'])) {
@@ -50,6 +50,7 @@ if (isset($site['css']['ie7'])) {
 	echo '<![endif]-->' . ENDL;
 }
 ?>
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400&subset=latin,latin-ext"/>
 <title><?php if (isset($title)) echo $title . ' - '; echo $site['title'] ?></title>
 </head>
 <body>
