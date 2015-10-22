@@ -98,12 +98,12 @@ class Core_Text
 		
 		//XSS in url and img
 		if (preg_match('%\[url\].+\[/url\]%U', $text)) {
-			if (!preg_match('%\[url\]http://.+\[/url\]%U', $text)) {
+			if (!preg_match('%\[url\]https?://.+\[/url\]%U', $text)) {
 				$text = preg_replace('%\[url\](.+)\[/url\]%U', '', $text);
 			}
 		}
 		if (preg_match('%\[img\].+\[/img\]%U', $text)) {
-			if (!preg_match('%\[img\]http://.+\[/img\]%U', $text)) {
+			if (!preg_match('%\[img\]https?://.+\[/img\]%U', $text)) {
 				$text = preg_replace('%\[img\](.+)\[/img\]%U', '', $text);
 			}
 		}
