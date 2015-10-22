@@ -113,7 +113,7 @@ class Core_Text
 		$text = preg_replace('%\[img\](.+)\[/img\]%U', '<a href="$1">' . __('image') . '</a>', $text);
 		$text = preg_replace('%\[b\](.+)\[/b\]%U', '<strong>$1</strong>', $text);
 		$text = preg_replace('%\[i\](.+)\[/i\]%U', '<em>$1</em>', $text);
-		$text = preg_replace('%\[code\](.*)\[/code\]%Us', '<pre class="brush: php">$1</pre>', $text);
+		$text = preg_replace('%\[code\](.*)\[/code\]%Us', '<pre>$1</pre>', $text);
 
 		return $text;
 	}
@@ -217,7 +217,7 @@ class Core_Text
 		}
 
 		//syntax highlighting
-		$text = str_replace('<code>', '<pre class="brush: php">', $text);
+		$text = str_replace('<code>', '<pre>', $text);
 		$text = str_replace('</code>', '</pre>', $text);
 
 		return $text;
