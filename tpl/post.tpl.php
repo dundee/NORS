@@ -52,3 +52,8 @@ if (iterable($items)) {
 if ($allow) echo $comment_form;
 else echo '<strong>' . __('comments_closed') . '</strong>';
 ?>
+<script>
+$('pre').each(function(i, block) {
+  hljs.highlightBlock(block);
+});
+</script>

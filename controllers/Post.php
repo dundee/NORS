@@ -13,8 +13,8 @@ class Post extends Core_Controller
 	                      'layout.css',
 	                      'jquery.lightbox-0.5.css',
 	                      'markitup-comment.css',
-	                      'shCore.css',
-	                      'shThemeDefault.css',
+	                      'hljs.min.css',
+	                      'hljs.darkula.css',
 		                  ),
 		'ie6'    => array('ie6.css'),
 		'ie7'    => array('ie7.css'),
@@ -26,8 +26,7 @@ class Post extends Core_Controller
 	                   'jquery.lightbox-0.5.min.js',
 	                   'jquery.markitup.pack.js',
 	                   'set-comment.js',
-	                   'shCore.js',
-	                   'shBrushPhp.js',
+	                   'highlight.min.js',
 	                   'post.js',);
 
 	public $cache = 0;

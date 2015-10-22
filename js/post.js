@@ -55,10 +55,6 @@ $(function()
 	$('#check').attr('value', Math.round(9.9)).parent().hide();
 	$('#subject').parent().hide();
 
-	SyntaxHighlighter.defaults['toolbar'] = false;
-	SyntaxHighlighter.defaults['wrap-lines'] = true;
-	SyntaxHighlighter.all();
-
 	$('.lightbox').lightBox({
 		imageLoading:  '../../styles/default/images/lightbox-ico-loading.gif',
 		imageBtnClose: '../../styles/default/images/lightbox-btn-close.gif',
