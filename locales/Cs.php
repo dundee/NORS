@@ -46,6 +46,7 @@ class Locale_Cs extends Core_Locale
 		'included_files'            => 'vložených souborů',
 		'sql_queries'               => 'dotazů na databázi',
 		'stop_ie'                   => 'Používáte nevyhovující prohlížeč. Doporučujeme <a href="http://www.opera.com/download/">Operu</a> nebo <a href="http://www.mozilla-europe.org/cs/products/firefox/">Firefox</a>',
+		'We use cookies. You agree by using this website.' => 'Využíváme soubory cookie. Používáním webu vyjadřujete souhlas.',
 
 		//             Navigace administrace
 		'homepage'                  => 'Úvod',

@@ -34,7 +34,9 @@
 				$lang = strtolower($lang);
 				echo '<a class="lang" href="?lang=' . $lang . '" title="' . $lang . '"><img src="' . STYLE_URL . '/images/' . $lang . '.gif" alt="' . $lang . '" /></a> |';
 			}
-			?></p>
+			?>
+			<br /><?php echo __('We use cookies. You agree by using this website.') ?>
+			</p>
 		</div><!-- /footer-main -->
 	</div><!-- /footer -->
 
