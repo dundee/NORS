@@ -221,7 +221,7 @@ class Core_Debug
 		if ( !$code || !array_key_exists($code, $codes) ) $code = 500;
 
 		if (!headers_sent()) {
-			header('HTTP/1.1 '.$code.' '.$codes[$code], TRUE, $code);
+			header('HTTP/1.1 '.$code.' '.$codes[$code]['name'], TRUE, $code);
 			Core_Response::factory()->sendHeaders();
 		}
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . ENDL;
