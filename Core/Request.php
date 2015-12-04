@@ -154,7 +154,12 @@ class Core_Request
 	 */
 	public function getUrl()
 	{
-		$host = 'http://' . $this->getServer('HTTP_HOST');
+		if ($this->getServer('HTTPS') == 'on') {
+			$protocol = 'https';
+		} else {
+			$protocol = 'http';
+		}
+		$host = $protocol . '://' . $this->getServer('HTTP_HOST');
 		$path = preg_replace('%^' . $host . '%', '', $this->getServer('REQUEST_URI', TRUE));
 		$path = '/' . ltrim($path, '/');
 		return $host . $path;

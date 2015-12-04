@@ -41,7 +41,13 @@ function setUrlPath()
 {
 	//running HTTP server
 	if (isset($_SERVER['HTTP_HOST'])) {
-		$url = 'http://' . $_SERVER['HTTP_HOST'];
+		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+			$protocol = 'https';
+		} else {
+			$protocol = 'http';
+		}
+
+		$url = $protocol . '://' . $_SERVER['HTTP_HOST'];
 
 		//index not redirected to subdirectory
 		if (strpos($_SERVER['REQUEST_URI'], dirname($_SERVER['PHP_SELF'])) !== FALSE) {
