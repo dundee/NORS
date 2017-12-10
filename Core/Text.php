@@ -186,8 +186,9 @@ class Core_Text
 				$arr[] = $filename;
 				$thub_path = implode("/", $arr);
 
+                $path = ltrim($path, './');
 				$thub = '<div class="thumbnail-old">
-		<a href="' . APP_URL . '/' . $path . '" class="lightbox" title="' . $alt . '">
+		<a href="' . APP_URL . '/' . $path . '" class="lightbox2" data-lightbox="lightbox" title="' . $alt . '">
 			<img src="' . APP_URL . '/' . $thub_path . '" alt="' . $alt . '" />
 		</a>
 	</div>';

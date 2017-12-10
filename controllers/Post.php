@@ -195,7 +195,7 @@ class Post extends Core_Controller
 				if (preg_match('/\[IMG '.$i.'\]/', $post->text)) {
 					$img = '
 <div class="in-text-thumbnail">
-	<a href="' . $file->src . '" class="lightbox" title="'. $file->label . '">
+	<a href="' . $file->src . '" class="lightbox2" data-lightbox="lightbox" title="'. $file->label . '">
 		<img src="' . $file->thub . '" alt="' . $file->label . '" />
 	</a>
 </div>';
