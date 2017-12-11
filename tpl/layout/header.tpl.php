@@ -16,6 +16,10 @@
 <meta name="author" content="design and code: Petr Sobotka, Daniel Milde" />
 <link rel="shortcut icon" href="<?php echo APP_URL?>/styles/<?php echo Core_Config::singleton()->style ?>/images/favicon.ico" />
 <?php
+if (isset($ampUrl)) {
+    echo '<link rel="amphtml" href="' . $ampUrl . '">' . ENDL;
+}
+
 if (isset($site['js'])) {
 	foreach ($site['js'] as $js)
 		echo '<script type="text/javascript" src="' . $js['src'] . '"></script>' . ENDL;

@@ -47,6 +47,11 @@ routes:
 		defaults:
 			controller: post
 			action: __default
+	amp:
+		format: amp/@post
+		defaults:
+			controller: amp
+			action: __default
 	page:
 		format: page/@page
 		defaults:

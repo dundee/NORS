@@ -6,28 +6,15 @@
 * @author Daniel Milde <daniel@milde.cz>
 * @package Nors
 */
-class Post extends Core_Controller
+class Amp extends Core_Controller
 {
+    public $headerTplFile = 'header_amp.tpl.php';
+    public $footerTplFile = 'footer_amp.tpl.php';
 	public $css = array(
-		'normal' => array('forms.css', 
-	                      'layout.css',
-	                      'jquery.lightbox-0.5.css',
-	                      'markitup-comment.css',
-	                      'hljs.min.css',
-	                      'hljs.darkula.css',
-		                  ),
-		'ie6'    => array('ie6.css'),
-		'ie7'    => array('ie7.css'),
-		'print'  => array('print.css'),
 	);
 	public $helpers = array('Menu');
 
-	public $js = array('jquery.js',
-	                   'jquery.lightbox-0.5.min.js',
-	                   'jquery.markitup.pack.js',
-	                   'set-comment.js',
-	                   'highlight.min.js',
-	                   'post.js',);
+	public $js = array();
 
 	public $cache = 0;
 
@@ -48,9 +35,6 @@ class Post extends Core_Controller
 		$this->setData('pages', $menu_helper->render($pages, 4), TRUE);
 
 		$this->setData('administration', $this->router->genUrl('administration', FALSE, 'default'));
-
-		$this->setData('name',        $this->config->name);
-		$this->setData('description', $this->config->description);
 	}
 
 	public function __default()
@@ -122,36 +106,6 @@ class Post extends Core_Controller
 		$id_post = intval($this->request->getGet('post'));
 		$text_obj = new Core_Text();
 
-		//save comment
-		if ($this->request->getPost('send')) {
-			$text = $this->request->getPost('text');
-
-			do {
-				if ($this->request->getPost('check') != 10) break;
-				if ($this->request->getPost('subject') != '') break;
-				if (strpos($text, 'href') !== FALSE) break;
-				if (strpos($this->request->getServer('HTTP_REFERER'), APP_URL) !== 0) break;
-
-				$comment = new ActiveRecord_Comment();
-				$comment->user  = $this->request->getPost('user');
-				$comment->www   = $this->request->getPost('www');
-				$comment->email = $this->request->getPost('email');
-				$comment->text  = $this->request->getPost('text');
-				$comment->ip    = $this->request->getServer('REMOTE_ADDR');
-				$comment->id_post  = $id_post;
-				$comment->date  = date('Y-m-d H:i:s');
-				$comment->save();
-
-				//send cookies
-				$this->response->setCookie('user', $comment->user);
-				$this->response->setCookie('email', $comment->email);
-				$this->response->setCookie('www', $comment->www);
-			} while (FALSE);
-
-			//disable F5 to cause resending
-			$this->router->redirect('post', '__default', FALSE, FALSE, TRUE);
-		}
-
 		$table = new Table_Post();
 
 		$posts = $table->findById($id_post);
@@ -162,7 +116,7 @@ class Post extends Core_Controller
 		$url = $this->request->getUrl();
 		$url = str_replace('&','&amp;',$url);
 		$url_name = $text_obj->urlEncode($post->name);
-		$can_url = $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url_name));
+		$can_url = $this->router->genUrl('amp', FALSE, 'amp', array('post' => $post->id_post . '-' . $url_name));
 		if ($this->request->view != 'Default') {
 			$can_url .= '?' . strtolower($this->request->view);
 		}
@@ -177,9 +131,10 @@ class Post extends Core_Controller
 
 		list($post) = $table->findById($id_post); //reload
 
-
 		$this->setData('title', $post->name);
-		$this->setData('ampUrl', $this->router->genUrl('amp', FALSE, 'amp', array('post' => $post->id_post . '-' . $url_name)));
+
+		$url = $text_obj->urlEncode($post->name);
+        $this->setData('postUrl', $this->router->genUrl('post', FALSE, 'post', array('post' => $post->id_post . '-' . $url)));
 
 		$post->text = $text_obj->format_html($post->text);
 		$post->name = clearOutput($post->name);
@@ -197,7 +152,7 @@ class Post extends Core_Controller
 					$img = '
 <div class="in-text-thumbnail">
 	<a href="' . $file->src . '" class="lightbox2" data-lightbox="lightbox" title="'. $file->label . '">
-		<img src="' . $file->thub . '" alt="' . $file->label . '" />
+		<amp-img src="' . $file->thub . '" alt="' . $file->label . '" />
 	</a>
 </div>';
 					$post->text = preg_replace('/\[IMG '.$i.'\]/', $img, $post->text);
@@ -207,6 +162,7 @@ class Post extends Core_Controller
 			}
 		}
 
+        $post->text = preg_replace('/<img/', '<amp-img', $post->text);
 		$this->setData('photos', $files);
 
 		//karma
@@ -294,5 +250,6 @@ class Post extends Core_Controller
 		$form->input(NULL, 'check', '2 * 5?');
 		$form->textarea(NULL, 'text', 'text');
 		$this->setData('comment_form', $form->render(1, TRUE), TRUE);
+        $this->setData('name',        $this->config->name);
 	}
 }
