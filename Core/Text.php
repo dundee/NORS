@@ -176,8 +176,8 @@ class Core_Text
 			$length = strpos( substr($content, $start + 1, strlen($content) - ($start + 1)) , ">");
 			$length += 2;
 			$img = trim(substr($content, $start,  $length));
-			$path = eregi_replace('^<img +src="([^"]*)".*>$',"\\1", $img);
-			$alt  = eregi_replace('^<img +src="[^"]+" +alt="([^"]+)".*>$', "\\1", $img);
+			$path = preg_replace('/^<img +src="([^"]*)".*>$/',"\\1", $img);
+			$alt  = preg_replace('/^<img +src="[^"]+" +alt="([^"]+)".*>$/', "\\1", $img);
 
 			if (preg_match('%^\./%', $path)) {
 				$arr = explode("/", $path);
@@ -289,11 +289,11 @@ class Core_Text
 	 */
 	public function dateToTimeStamp($ymd_his = FALSE){
 		$ymd_his = $ymd_his ? $ymd_his : $this->text;
-		if ( eregi('[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}', $ymd_his)) {
+		if ( preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/', $ymd_his)) {
 			list($date,$time) = explode(" ",$ymd_his);
 			list($y,$m,$d) = explode("-",$date);
 			list($h,$i,$s) = explode(":",$time);
-		} elseif ( eregi('[0-9]{4}-[0-9]{2}-[0-9]{2}', $ymd_his) ){
+		} elseif ( preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2}/', $ymd_his) ){
 			list($y,$m,$d) = explode("-",$ymd_his);
 			$h = $i = $s = 0;
 		} else {

@@ -41,7 +41,7 @@ class Core_DB_Mysql extends Core_DB
 	{
 		if(!$this->connection) $this->connect();
 		if (get_magic_quotes_gpc()) $val = stripslashes($val);
-		return mysql_real_escape_string($val, $this->connection);
+		return $this->connection->real_escape_string($val);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Core_DB_Mysql extends Core_DB
 		} else {
 			$result_link = $this->result;
 		}
-		return mysql_fetch_array($result_link);
+		return $result_link->fetch_array();
 	}
 
 	/**
@@ -98,7 +98,7 @@ class Core_DB_Mysql extends Core_DB
 			$result_link = $this->result;
 		}
 
-		while ($row = mysql_fetch_array($result_link)) {
+		while ($row = $result_link->fetch_array()) {
 			$return[] = $row;
 		}
 		return isset($return) ? $return : FALSE;
@@ -118,7 +118,7 @@ class Core_DB_Mysql extends Core_DB
 			$result_link = $this->result;
 		}
 
-		return mysql_num_rows($result_link);
+		return $result_link->num_rows();
 	}
 
 	/**
@@ -132,12 +132,12 @@ class Core_DB_Mysql extends Core_DB
 		if ($query) {
 			$this->sql_query($query);
 		}
-		return mysql_insert_id($this->connection);
+		return $this->connection->insert_id();
 	}
 
 	public function __destruct()
 	{
-		if($this->connection) mysql_close($this->connection);
+		if($this->connection) $this->connection->close();
 	}
 
 	protected function __construct(Core_Config $config)
@@ -169,27 +169,27 @@ class Core_DB_Mysql extends Core_DB
 	 */
 	protected function connect()
 	{
-		$this->connection = mysql_connect($this->data->host,
+		$this->connection = mysqli_connect($this->data->host,
 		                                  $this->data->user,
 		                                  $this->data->password
 		                                  );
-		$res = mysql_select_db($this->data->database, $this->connection);
-		if (!$res) throw new RuntimeException(__('DB_not_exists') . ": " . $this->data->database, mysql_errno());
-		mysql_query("SET CHARACTER SET " . $this->charset, $this->connection);
+		$res = $this->connection->select_db($this->data->database);
+		if (!$res) throw new RuntimeException(__('DB_not_exists') . ": " . $this->data->database, $this->connection->errno());
+		$this->connection->query("SET CHARACTER SET " . $this->charset);
 
 		//set connection encoding
-		$res = mysql_query("SHOW VARIABLES LIKE 'version'", $this->connection);
-		$line = mysql_fetch_array($res);
+		$res = $this->connection->query("SHOW VARIABLES LIKE 'version'");
+		$line = $res->fetch_array();
 		$this->mysqlVersion = substr($line['Value'], 0, 3);
 		if ($this->mysqlVersion < '4.1') {
 			throw new Exception('MySQL version 4.1 or higher is required');
 		}
-		@mysql_query("SET NAMES '" . $this->charset . "'", $this->connection);
+		@$this->connection->query("SET NAMES '" . $this->charset . "'");
 
-		if (mysql_error()) throw new RuntimeException(__('DB_connection_failed') . " : " . mysql_error(), mysql_errno());
+		if ($this->connection->error) throw new RuntimeException(__('DB_connection_failed') . " : " . $this->connection->error, $this->connection->errno);
 
 		//timezone
-		@mysql_query("SET time_zone = '" . Core_Config::singleton()->timezone . "'");
+		@$this->connection->query("SET time_zone = '" . Core_Config::singleton()->timezone . "'");
 
 		return TRUE;
 	}
@@ -210,20 +210,20 @@ class Core_DB_Mysql extends Core_DB
 
 		$start_time = mtime();
 
-		$this->result = mysql_query($query, $this->connection);
+		$this->result = mysqli_query($this->connection, $query);
 
 		if (!HIGH_PERFORMANCE && Core_Config::singleton()->debug->enabled) {
 			$end_time = mtime();
 
 			$this->queries[] = array('query' => $query,
 									 'time'  => round($end_time-$start_time, 4),
-									 'rows'  => mysql_affected_rows()
+									 'rows'  => mysqli_affected_rows($this->connection)
 									 );
 		}
 
-		if (mysql_error() && !$silent) {
-			$msg = __('DB_query_failed') . " : " . mysql_error() . ' - ' . $query;
-			throw new RuntimeException($msg, mysql_errno());
+		if (mysqli_error($this->connection) && !$silent) {
+			$msg = __('DB_query_failed') . " : " . mysqli_error($this->connection) . ' - ' . $query;
+			throw new RuntimeException($msg, mysqli_errno($this->connection));
 		}
 		return $this->result;
 	}

@@ -108,7 +108,7 @@ abstract class Core_Controller extends Core_Object
 	public function __construct(){
 		parent::__construct();
 		$this->controllerName = $this->me->getName();
--		$this->tplFile = strtolower($this->controllerName) . '.tpl.php';
+		$this->tplFile = strtolower($this->controllerName) . '.tpl.php';
 		$this->style = $this->config->style;
 		$this->setSiteData();
 

@@ -255,13 +255,13 @@ class Post extends Core_Controller
 				$coms[$i]->url       =$this->router->genUrl('post', '__default', FALSE, FALSE, TRUE) . '#post' . $coms[$i]->id;
 				$coms[$i]->timestamp = $text->dateToTimeStamp($comment->date);
 
-				while(eregi("\[([[:digit:]]+)\]",$coms[$i]->text)){
-					$j = eregi_replace(".*\[([[:digit:]]+)\].*","\\1",$coms[$i]->text);
+				while(preg_match("/\[([[:digit:]]+)\]/",$coms[$i]->text)){
+					$j = trim(preg_replace("/.*\[([[:digit:]]+)\].*/","\\1",$coms[$i]->text));
 					if ($i > $j) {
 						$reaction[$i][]    = $j;
 						$inspiration[$j][] = $i;
 					}
-					$coms[$i]->text = eregi_replace("\[($j)\]","#$j#",$coms[$i]->text);
+					$coms[$i]->text = preg_replace("/\[($j)\]/","#$j#",$coms[$i]->text);
 				}
 			}
 

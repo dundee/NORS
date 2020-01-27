@@ -136,7 +136,7 @@ class Core_Debug
 	/**
 	 * Exception handler
 	 */
-	public static function showException(Exception $ex)
+	public static function showException($ex)
 	{
 		Core_Debug::showError(E_ERROR,
 		                      $ex->getMessage(),

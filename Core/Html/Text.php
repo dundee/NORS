@@ -33,7 +33,7 @@ class Core_Html_Text extends Core_Html_Element
 		throw new BadMethodCallException;
 	}
 	
-	public function render($indention = 0, $return = NULL)
+	public function render($indention = 0, $return = false, $inMixedContent = false)
 	{
 		$output = $this->content;
 		
