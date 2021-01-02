@@ -512,6 +512,16 @@ code {
 
 	fieldset input {
 		height: 30px;
+		margin-left: 10px;
+		width: 90%;
+	}
+
+	fieldset input.submit {
+		margin-left: 10px;
+	}
+
+	fieldset textarea {
+		width: 80%;
 	}
 
 	#sidebar {
@@ -531,13 +541,17 @@ code {
 	}
 
 	#eval {
-		padding: 20px 0px 20px 5px;
+		padding: 7px 0px 7px 5px;
 	}
 
 	#eval a {
-		padding: 15px 15px;
+		padding: 5px 5px;
 		font-weight: bold;
 	}
+
+	.banner {
+		display: none;
+	}	
 
 }
 

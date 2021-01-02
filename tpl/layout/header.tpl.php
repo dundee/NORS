@@ -2,6 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo Core_Config::singleton()->encoding ?>" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#c52d2d"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="#c52d2d"/>
 <meta name="Description" content="<?php echo $site['description'] ?>" />
 <meta name="Keywords" content="<?php echo $site['keywords'] ?>" />
 <meta name="Generator" content="NORS <?php echo norsVersion() ?>" />
