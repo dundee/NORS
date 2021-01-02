@@ -132,7 +132,7 @@ class Core_DB_Mysql extends Core_DB
 		if ($query) {
 			$this->sql_query($query);
 		}
-		return $this->connection->insert_id();
+		return $this->connection->insert_id;
 	}
 
 	public function __destruct()
